@@ -13,6 +13,9 @@ collections:
   - name: epfl_si.rhel
     version: 1.0.0
 
+roles
+  - name: gantsign.oh-my-zsh
+    version: 2.3.0
 ```
 
 Then run:
