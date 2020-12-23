@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Laurent Indermühle
+  description: Secures SSHD by prohibiting root and connections
+    using password. Enables connection auditing since several users log
+    in to the same account (sysadm, appadm, ...)
+  company: École Polytechnique Fédérale de Lausanne (EPFL)
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: RHEL
+      versions: 8
+
+  galaxy_tags: []
+
+dependencies: []

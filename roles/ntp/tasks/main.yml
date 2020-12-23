@@ -1,0 +1,25 @@
+---
+# tasks file for ntp
+
+- name: Ensure chrony is installed
+  become: true
+  package:
+    name: chrony
+    state: present
+
+- name: Ensure chronyd is running
+  become: true
+  service:
+    name: chronyd.service
+    state: started
+    enabled: true
+
+- name: Configure chronyd and restart service if changed
+  become: true
+  template:
+    src: templates/chrony.conf.j2
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart chronyd service

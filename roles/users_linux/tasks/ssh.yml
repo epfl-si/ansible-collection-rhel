@@ -1,0 +1,15 @@
+---
+
+- name: Add SSH key of EPFL administrator
+  become: true
+  block:
+
+    - name: Authorized VPSI administrators SSH keys
+      authorized_key:
+        user: '{{ user_linux.name }}'
+        state: '{{ item.state }}'
+        manage_dir: true
+        key: '{{ item.key }}'
+        comment: '{{ item.email }}'
+      loop: '{{ user_linux.admins_list }}'
+      when: not ansible_check_mode

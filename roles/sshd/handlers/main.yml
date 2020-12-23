@@ -1,0 +1,7 @@
+---
+
+- name: restart sshd
+  become: true
+  service:
+    name: sshd.service
+    state: restarted

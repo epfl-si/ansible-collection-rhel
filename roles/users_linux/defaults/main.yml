@@ -1,0 +1,11 @@
+---
+appadm_user: 'appadm'
+
+sysadm_id: '1015'
+appadm_id: '1016'
+
+sysadm_shell: '/bin/zsh'
+appadm_shell: '/bin/zsh'
+
+sysadm_home: '/home/sysadm'
+appadm_home: '/home/appadm'

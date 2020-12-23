@@ -1,0 +1,51 @@
+---
+
+# Role to create sysadm and "appadm_user" users and add sudoers
+# rules for them
+
+- name: Manage sysadm and appadm users accounts
+  vars:
+    users_linux:
+      - name: sysadm
+        user_id: "{{ sysadm_id }}"
+        user_shell: "{{ sysadm_shell }}"
+        user_home: "{{ sysadm_home }}"
+        admins_list: "{{ sysadm_authorized_keys }}"
+      - name: "{{ appadm_user }}"
+        user_id: "{{ appadm_id }}"
+        user_shell: "{{ appadm_shell }}"
+        user_home: "{{ appadm_home }}"
+        admins_list: "{{ appadm_authorized_keys }}"
+
+  block:
+
+    - name: Ensure ZSH is present
+      become: true
+      package:
+        name: zsh
+        state: present
+
+    - name: Create users
+      include_tasks: user_add.yml
+      loop: "{{ users_linux }}"
+      loop_control:
+        loop_var: user_linux
+
+    - name: Add SSH key of EPFL administrator
+      include_tasks: ssh.yml
+      loop: "{{ users_linux }}"
+      loop_control:
+        loop_var: user_linux
+
+    # To add root to this tasks, we can't use users_linux list
+    - name: oh_my_zsh
+      include_tasks: oh_my_zsh.yml
+      loop:
+        - root
+        - sysadm
+        - "{{ appadm_user }}"
+      loop_control:
+        loop_var: user_linux
+
+    - name: Add sudoers for sysadm
+      include_tasks: sudoers.yml

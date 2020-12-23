@@ -1,0 +1,8 @@
+---
+
+- name: Add sudoers for sysadm
+  become: true
+  copy:
+    content: "sysadm ALL=(ALL) NOPASSWD: ALL"
+    dest: /etc/sudoers.d/10-sysadm
+    validate: /usr/sbin/visudo -csf %s
