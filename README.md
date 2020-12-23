@@ -11,7 +11,7 @@ In your playbook repository, add this to the *collections/requirements.yml* file
 ---
 collections:
   - name: epfl_si.rhel
-    version: 1.0.0
+    version: 1.0.1
 
 roles
   - name: gantsign.oh-my-zsh
