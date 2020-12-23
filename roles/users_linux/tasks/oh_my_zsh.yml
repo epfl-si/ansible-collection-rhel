@@ -4,12 +4,6 @@
 
 - name: Install Oh_my_zsh
   become: true
-  vars:
-    custom_theme_repo: "http://raw.githubusercontent.com/Honiix\
-      /oh-my-zsh/master/themes/mh-hostname.zsh-theme"
-    custom_theme_name: mh-hostname
-    zsh_syntax_highlight_repo: "https://github.com/zsh-users\
-      /zsh-syntax-highlighting.git"
   block:
 
     # This role will do nothing if the folder ~/.oh-my-zsh
@@ -22,7 +16,7 @@
         users:
           - username: "{{ user_linux }}"
             oh_my_zsh:
-              theme: "{{ custom_theme_name }}"
+              theme: mh-hostname
               plugins:
                 - git
                 - z
@@ -40,15 +34,17 @@
       become: true
       become_user: "{{ user_linux }}"
       git:
-        repo: "{{ zsh_syntax_highlight_repo }}"
-        dest: "{{ user_vars.home}}/.oh-my-zsh/custom/plugins\
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: "{{ user_vars.home }}/.oh-my-zsh/custom/plugins\
           /zsh-syntax-highlighting"
+        version: 0.7.1
       when: not ansible_check_mode
 
     - name: "Download theme mh-hostname for {{ user_linux }}"
       get_url:
-        url: "{{ custom_theme_repo }}"
-        dest: "{{ user_vars.home}}/.oh-my-zsh/custom/themes"
+        url: "http://raw.githubusercontent.com/Honiix\
+          /oh-my-zsh/master/themes/mh-hostname.zsh-theme"
+        dest: "{{ user_vars.home }}/.oh-my-zsh/custom/themes"
         owner: "{{ user_linux }}"
         group: "{{ user_linux }}"
         mode: '0755'
@@ -57,7 +53,7 @@
     - name: 'Create empty .z file to prevent warnings'
       copy:
         content: ''
-        dest: '{{ user_vars.home}}/.z'
+        dest: '{{ user_vars.home }}/.z'
         owner: '{{ user_linux }}'
         group: '{{ user_linux }}'
         mode: '0644'
