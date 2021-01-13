@@ -1,0 +1,20 @@
+---
+# defaults file for firewalld
+
+firewalld_external_target: default
+firewalld_external_services:
+  - mysql
+firewalld_external_ports: []
+firewalld_external_sources: []
+
+firewalld_internal_target: default
+firewalld_internal_services:
+  - ssh
+  - mysql
+firewalld_internal_ports: []
+firewalld_internal_sources: []
+
+firewalld_public_interfaces:
+  - ens192
+
+firewalld_instances: []

@@ -1,0 +1,23 @@
+---
+
+- name: Update services facts
+  service_facts:
+
+- name: Uninstall iptables
+  when: ansible_facts.services['iptables.service'].status == 'running'
+  become: true
+  block:
+
+    - name: Backup iptables rules
+      copy:
+        remote_src: true
+        src: /etc/sysconfig/iptables
+        dest: /root/backup-iptables-rules
+        owner: root
+        group: root
+        mode: '0600'
+
+    - name: Uninstall iptables-services
+      yum:
+        name: iptables-services
+        state: absent

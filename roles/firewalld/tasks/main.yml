@@ -1,0 +1,8 @@
+---
+# tasks file for firewalld
+
+- name: Disable others firwalld
+  include_tasks: disable_other_firewall.yml
+
+- name: Setup firewalld
+  include_tasks: setup_firewalld.yml

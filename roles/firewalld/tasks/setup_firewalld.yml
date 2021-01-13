@@ -1,0 +1,25 @@
+---
+# When we were using Iptable, firewall unit file was mask. We must
+# ensure it is unmaked
+
+- name: Install firewalld
+  yum:
+    name: firewalld
+    state: present
+
+- name: Install python-firewall for Ansible
+  yum:
+    name: python-firewall
+  when: ansible_python_version is version('3', '<')
+
+- name: Install python3-firewall for Ansible
+  yum:
+    name: python3-firewall
+  when: ansible_python_version is version('3', '>=')
+
+- name: Start and enable firewalld
+  systemd:
+    name: firewalld.service
+    state: started
+    enabled: true
+    masked: false
