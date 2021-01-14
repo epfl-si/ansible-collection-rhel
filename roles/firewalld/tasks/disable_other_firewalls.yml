@@ -4,7 +4,9 @@
   service_facts:
 
 - name: Uninstall iptables
-  when: ansible_facts.services['iptables.service'].status == 'running'
+  when:
+    - ansible_facts.services['iptables.service'].status is defined
+    - ansible_facts.services['iptables.service'].status == 'enabled'
   become: true
   block:
 
