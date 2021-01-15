@@ -1,0 +1,77 @@
+---
+dependency:
+  name: galaxy
+  options:
+    ignore-certs: true
+    ignore-errors: true
+    role-file: roles/requirements.yml
+    requirements-file: collections/requirements.yml
+  enabled: false
+
+driver:
+  name: podman
+
+# To access DBUS we must disable selinux labels
+# NET_ADMIN capability is required to attach an IP and admin of firewall
+# pre_build_image: means that the container already has Ansible inside
+platforms:
+
+  - name: node1
+    image: localhost/ubi8-init-molecule:1.0.0
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+      - NET_ADMIN
+    command: "/usr/sbin/init"
+    pre_build_image: true
+    security_opts:
+      - label=disable
+
+  - name: node2
+    image: localhost/ubi8-init-molecule:1.0.0
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+      - NET_ADMIN
+    command: "/usr/sbin/init"
+    pre_build_image: true
+    security_opts:
+      - label=disable
+
+provisioner:
+  name: ansible
+  log: false
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer
+      stdout_callback: yaml
+      # vault_password_file: ~/.ansible-vault-mysql
+    ssh_connection:
+      forks: 4
+      pipelining: false
+  # inventory:
+  #   links:
+  #     hosts: ../../inventories/molecule/static.yml
+  #     group_vars: ../../inventories/molecule/group_vars
+      # host_vars: ../../inventories/molecule/host_vars
+  # ansible_args:
+    # - --limit=mysql_dedicated,orchestrator
+  # env:
+    # ANSIBLE_ROLES_PATH: ../../roles
+    # ANSIBLE_COLLECTIONS_PATH:
+
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
