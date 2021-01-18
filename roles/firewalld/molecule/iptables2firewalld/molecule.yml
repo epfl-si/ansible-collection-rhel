@@ -11,7 +11,7 @@ driver:
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  - name: node1
+  - name: iptables2firewalld1
     image: localhost/ubi8-init-molecule:1.0.0
     tmpfs:
       - /run

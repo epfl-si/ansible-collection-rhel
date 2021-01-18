@@ -1,7 +1,7 @@
 ---
 
 - name: Prepare
-  hosts: all
+  hosts: iptables
   tasks:
 
     - name: Install Iptable package
