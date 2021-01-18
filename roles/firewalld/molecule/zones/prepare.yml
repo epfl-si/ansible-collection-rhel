@@ -1,0 +1,17 @@
+---
+
+- name: Prepare
+  hosts: zones
+  tasks:
+
+    - name: Get IP
+      connection: local
+      local_action: >
+        shell podman inspect
+        -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}" {{ ansible_fqdn }}
+      register: node_ip
+      changed_when: false
+
+    - name: Set Fact
+      set_fact:
+        node_ip: "{{ node_ip.stdout }}"
