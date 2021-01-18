@@ -1,12 +1,7 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    ignore-certs: true
-    ignore-errors: true
-    role-file: roles/requirements.yml
-    requirements-file: collections/requirements.yml
-  enabled: false
+
+scenario:
+  name: iptables2firewalld
 
 driver:
   name: podman
@@ -30,6 +25,8 @@ platforms:
     pre_build_image: true
     security_opts:
       - label=disable
+    groups:
+      - iptables
 
   - name: node2
     image: localhost/ubi8-init-molecule:1.0.0
@@ -45,6 +42,8 @@ platforms:
     pre_build_image: true
     security_opts:
       - label=disable
+    groups:
+      - iptables
 
 provisioner:
   name: ansible
@@ -54,23 +53,15 @@ provisioner:
       interpreter_python: auto_silent
       callback_whitelist: profile_tasks, timer
       stdout_callback: yaml
-      # vault_password_file: ~/.ansible-vault-mysql
     ssh_connection:
       forks: 4
       pipelining: false
-  # inventory:
-  #   links:
-  #     hosts: ../../inventories/molecule/static.yml
-  #     group_vars: ../../inventories/molecule/group_vars
-      # host_vars: ../../inventories/molecule/host_vars
-  # ansible_args:
-    # - --limit=mysql_dedicated,orchestrator
-  # env:
-    # ANSIBLE_ROLES_PATH: ../../roles
-    # ANSIBLE_COLLECTIONS_PATH:
+  env:
+    ANSIBLE_ROLES_PATH: ../..
 
 verifier:
   name: ansible
+
 lint: |
   set -e
   yamllint .
