@@ -1,6 +1,31 @@
 ---
 
-# TODO :
+- name: Prepare
+  hosts: all
+  tasks:
 
-# Get nodes IP addresses
-# Populate inventory with the IP
+    - name: Install Iptable package
+      become: true
+      yum:
+        name: iptables-services
+        state: present
+
+    - name: Enable iptables
+      become: true
+      systemd:
+        name: iptables.service
+        daemon_reload: true
+        enabled: true
+        state: started
+
+    - name: Get IP
+      connection: local
+      local_action: >
+        shell podman inspect
+        -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}" {{ ansible_fqdn }}
+      register: node_ip
+      changed_when: false
+
+    - name: Set Fact
+      set_fact:
+        node_ip: "{{ node_ip.stdout }}"
