@@ -19,7 +19,13 @@
         group: root
         mode: '0600'
 
-    - name: Uninstall iptables-services
-      yum:
+    - name: Disable iptables service
+      service:
+        name: iptables.service
+        enabled: false
+        state: stopped
+
+    - name: Uninstall iptables-services package
+      package:
         name: iptables-services
         state: absent
