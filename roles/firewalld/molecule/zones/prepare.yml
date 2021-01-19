@@ -1,17 +1,46 @@
 ---
 
+# We must store the containers dynamically assigned IP addresses.
+# This is pseudo dynamic inventory. There is no podman inventory
+# plugins yet (Jan 2021).
+
 - name: Prepare
   hosts: zones
+  vars:
+    inv_path: "./inventory/host_vars/{{ ansible_fqdn }}"
   tasks:
 
     - name: Get IP
       connection: local
-      local_action: >
-        shell podman inspect
-        -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}" {{ ansible_fqdn }}
+      delegate_to: localhost
+      shell:
+        cmd: >
+          podman inspect
+          -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}"
+          {{ ansible_fqdn }}
       register: node_ip
       changed_when: false
 
-    - name: Set Fact
-      set_fact:
-        node_ip: "{{ node_ip.stdout }}"
+    - name: Create node folder in host_vars
+      connection: local
+      delegate_to: localhost
+      file:
+        name: "{{ inv_path }}"
+        state: directory
+
+    - name: Ensure vars file is absent
+      connection: local
+      delegate_to: localhost
+      file:
+        name: "{{ inv_path }}/vars"
+        state: absent
+
+    - name: Create vars file for node host_vars
+      connection: local
+      delegate_to: localhost
+      copy:
+        dest: "{{ inv_path }}/vars"
+        content: |
+          ---
+          node_ip: "{{ node_ip.stdout }}"
+        force: true

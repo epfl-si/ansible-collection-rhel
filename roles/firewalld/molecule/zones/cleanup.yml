@@ -1,0 +1,12 @@
+---
+
+- name: Cleanup
+  hosts: zones
+  tasks:
+
+    - name: Remove node folder in host_vars
+      connection: local
+      delegate_to: localhost
+      file:
+        name: "./inventory/host_vars/{{ ansible_fqdn }}"
+        state: absent

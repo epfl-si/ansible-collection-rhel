@@ -2,6 +2,11 @@
 
 - name: Converge
   hosts: zones
+  vars:
+    firewalld_zone_sources:
+      external:
+        source:
+          - "{{ hostvars['zone3']['node_ip'] }}"
   roles:
 
     - firewalld

@@ -73,6 +73,11 @@ provisioner:
     ssh_connection:
       forks: 4
       pipelining: false
+  inventory:
+    links:
+      host_vars: inventory/host_vars
+      # group_vars: inventory/group_vars
+      # hosts: inventory/static.yml
   env:
     ANSIBLE_ROLES_PATH: ../..
 
