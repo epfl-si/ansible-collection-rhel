@@ -75,6 +75,9 @@ provisioner:
     ssh_connection:
       forks: 4
       pipelining: false
+  inventory:
+    link:
+      host_vars: ./host_vars
   env:
     ANSIBLE_ROLES_PATH: ../..
 
