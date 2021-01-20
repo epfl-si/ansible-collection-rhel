@@ -15,3 +15,4 @@
   loop: "{{ firewalld_zone_sources | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_source
+  when: firewalld_zone_sources is defined
