@@ -6,7 +6,7 @@
     firewalld_zone_sources:
       external:
         source:
-          - "{{ hostvars['zone3']['node_ip'] }}"
+          - "{{ hostvars['zone3']['ansible_local']['molecule']['podman_network']['node_ip'] }}"
   roles:
 
     - firewalld

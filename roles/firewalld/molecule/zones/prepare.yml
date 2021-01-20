@@ -1,13 +1,11 @@
 ---
 
-# We must store the containers dynamically assigned IP addresses.
-# This is pseudo dynamic inventory. There is no podman inventory
-# plugins yet (Jan 2021).
+# We must store the containers dynamically assigned IP addresses to allow
+# us to use it in our firewall tests scenario
 
 - name: Prepare
   hosts: zones
-  vars:
-    inv_path: "./inventory/host_vars/{{ ansible_fqdn }}"
+  gather_facts: false
   tasks:
 
     - name: Get IP
@@ -17,30 +15,17 @@
         cmd: >
           podman inspect
           -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}"
-          {{ ansible_fqdn }}
-      register: node_ip
+          {{ inventory_hostname }}
+      register: container_ip
       changed_when: false
 
-    - name: Create node folder in host_vars
-      connection: local
-      delegate_to: localhost
+    - name: Create custom fact folder
       file:
-        name: "{{ inv_path }}"
+        path: /etc/ansible/facts.d
         state: directory
+        recurse: true
 
-    - name: Ensure vars file is absent
-      connection: local
-      delegate_to: localhost
-      file:
-        name: "{{ inv_path }}/vars"
-        state: absent
-
-    - name: Create vars file for node host_vars
-      connection: local
-      delegate_to: localhost
-      copy:
-        dest: "{{ inv_path }}/vars"
-        content: |
-          ---
-          node_ip: "{{ node_ip.stdout }}"
-        force: true
+    - name: Create custom fact to store IP address
+      template:
+        src: ./custom_facts.j2
+        dest: /etc/ansible/facts.d/molecule.fact

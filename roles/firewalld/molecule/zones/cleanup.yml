@@ -2,11 +2,13 @@
 
 - name: Cleanup
   hosts: zones
+  gather_facts: false
   tasks:
 
-    - name: Remove node folder in host_vars
+    - name: Remove facts cache
       connection: local
       delegate_to: localhost
       file:
-        name: "./inventory/host_vars/{{ ansible_fqdn }}"
+        name: ${MOLECULE_SCENARIO_DIRECTORY}/fact_cache
         state: absent
+      run_once: true
