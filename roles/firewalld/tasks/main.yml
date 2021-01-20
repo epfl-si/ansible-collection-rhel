@@ -6,3 +6,6 @@
 
 - name: Setup firewalld
   include_tasks: setup_firewalld.yml
+
+- name: Setup Ansible dependencies to manage firewalld
+  include_tasks: setup_ansible_dependencies.yml
