@@ -19,6 +19,20 @@
       register: container_ip
       changed_when: false
 
+    # iproute provides commands: ip, route, ss, ...
+    # iputils provides commands: ping, arping, tracepath, ...
+    - name: Install ip packages for debugging
+      yum:
+        name:
+          - iproute
+          - iputils
+        state: present
+
+    - name: Get default interface name
+      shell:
+        cmd: ip -0 -4 route show default | awk '{ print $5 }'
+      register: container_interface
+
     - name: Create custom fact folder
       file:
         path: /etc/ansible/facts.d

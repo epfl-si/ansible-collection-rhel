@@ -21,17 +21,34 @@ If you wants to empty a zone's sources, first set all sources to disabled, run t
 Be aware that if you change permanent and immediate to false, the rules will be lost on reboot. Currently this role doesn't manage these cases.
 
 ```yaml
-firewalld_zone_sources:
+firewalld_zone:
   external:
     source:
       - ip: 10.80.10.10/32
         state: enabled/disabled Optionnal(Default=enabled)
         permanent: true/false Optionnal(Default=true)
         immediate: true/false Optionnal(Default=true)
-      - 10.80.10.11/32
+      - ip: 10.80.10.11/32
+  public:
+    [...]
+```
+
+
+### Add interfaces to a zone
+
+This is similar to adding a source.
+
+```yaml
+firewalld_zone:
+  external:
+    source:
+      - ip: 10.80.10.10/32
+    interface:
+      - name: eth0
         state: enabled/disabled Optionnal(Default=enabled)
         permanent: true/false Optionnal(Default=true)
         immediate: true/false Optionnal(Default=true)
+      - name: eth1
   public:
     [...]
 ```

@@ -1,17 +1,10 @@
 ---
 
-firewalld_zone_sources:
+firewalld_zones:
   external:
     source:
       - ip: "{{ hostvars['zone2']['ansible_local']['molecule']['podman_network']['node_ip'] }}/32"
-        state: enabled
       - ip: "{{ hostvars['zone3']['ansible_local']['molecule']['podman_network']['node_ip'] }}/32"
-        state: enabled
-      - ip: 1.1.1.1/32
-        state: disabled
-      - ip: 2.2.2.2/32
-        state: disabled
-      - ip: 3.3.3.3/32
-        state: disabled
-      - ip: 4.4.4.4/32
-        state: disabled
+  public:
+    interface:
+      - name: "{{ hostvars[inventory_hostname]['ansible_local']['molecule']['podman_network']['node_interface'] }}"

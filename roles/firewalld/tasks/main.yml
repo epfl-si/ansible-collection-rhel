@@ -19,3 +19,15 @@
   when:
     - firewalld_zones is defined
     - firewalld_zone_sources.value.source is defined
+
+- name: Set zone interfaces
+  include_tasks: set_zone_interfaces.yml
+  loop: "{{ firewalld_zones | dict2items }}"
+  loop_control:
+    loop_var: firewalld_zone_interfaces
+    label:
+      - "{{ firewalld_zone_interfaces.key }}"
+      - "{{ firewalld_zone_interfaces.value }}"
+  when:
+    - firewalld_zones is defined
+    - firewalld_zone_interfaces.value.interface is defined
