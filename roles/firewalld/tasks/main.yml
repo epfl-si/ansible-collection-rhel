@@ -10,9 +10,12 @@
 - name: Setup Ansible dependencies to manage firewalld
   include_tasks: setup_ansible_dependencies.yml
 
-- name: Set zone source
-  include_tasks: set_zone_source.yml
-  loop: "{{ firewalld_zone_sources | dict2items }}"
+- name: Set zone sources
+  include_tasks: set_zone_sources.yml
+  loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
-    loop_var: firewalld_zone_source
-  when: firewalld_zone_sources is defined
+    loop_var: firewalld_zone_sources
+    label: "{{ firewalld_zone_sources.key }}"
+  when:
+    - firewalld_zones is defined
+    - firewalld_zone_sources.value.source is defined
