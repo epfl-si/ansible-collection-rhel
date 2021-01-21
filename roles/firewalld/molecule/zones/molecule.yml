@@ -64,7 +64,7 @@ platforms:
 
 provisioner:
   name: ansible
-  log: false
+  log: true
   config_options:
     defaults:
       interpreter_python: auto_silent
