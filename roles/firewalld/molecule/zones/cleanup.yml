@@ -1,14 +1,11 @@
 ---
 
 - name: Cleanup
-  hosts: zones
-  gather_facts: false
+  hosts: localhost
+  connection: local
   tasks:
 
     - name: Remove facts cache
-      connection: local
-      delegate_to: localhost
       file:
         name: ${MOLECULE_SCENARIO_DIRECTORY}/fact_cache
         state: absent
-      run_once: true
