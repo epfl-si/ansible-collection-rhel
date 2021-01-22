@@ -1,7 +1,9 @@
 Role Firewalld
 ==============
 
-A role to manage firewalld
+A role to manage firewalld. It allow to create new zone and adding sources, ports, services and interfaces to zones.
+
+All resources can be deleted using a `state: disabled` argument. The only exception is the zones created by this role.
 
 
 Requirements
@@ -94,6 +96,11 @@ firewalld_zone:
   public:
     [...]
 ```
+
+
+### Create a new zone
+
+If you add a zone to the list of zones in your inventory that is not present in firewalld, it will be created and the service reloaded. This role doesn't handle zone deletions.
 
 
 

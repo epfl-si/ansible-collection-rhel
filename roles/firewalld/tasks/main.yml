@@ -10,6 +10,9 @@
 - name: Setup Ansible dependencies to manage firewalld
   include_tasks: setup_ansible_dependencies.yml
 
+- name: Create new zones
+  include_tasks: create_new_zones.yml
+
 - name: Set zone sources
   include_tasks: set_zone_sources.yml
   loop: "{{ firewalld_zones | dict2items }}"

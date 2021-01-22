@@ -20,3 +20,14 @@ firewalld_zones:
     port:
       - name: "9999/tcp"
       - name: "42000-42099/tcp"
+  mysqld1:
+    port:
+      - name: "33001/tcp"
+    source:
+      - ip: 10.90.1.12/32
+  mysqld2:
+    port:
+      - name: "33002/tcp"
+    source:
+      - ip: "10.12.15.15/32"
+      - ip: "10.12.15.16/32"
