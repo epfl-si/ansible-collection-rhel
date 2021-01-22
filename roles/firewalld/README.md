@@ -36,7 +36,7 @@ firewalld_zone:
 
 ### Add interfaces to a zone
 
-This is similar to adding a source.
+This is similar to adding a source. Only add an interface to a single zone. If you add it many times, the last zone listed will win.
 
 ```yaml
 firewalld_zone:
@@ -49,9 +49,53 @@ firewalld_zone:
         permanent: true/false Optionnal(Default=true)
         immediate: true/false Optionnal(Default=true)
       - name: eth1
+      - {name: eth2, state: disabled}
   public:
     [...]
 ```
+
+
+### Add a service to a zone
+
+This is similar to adding a source except you must provide a name instead of a ip key:
+
+```yaml
+firewalld_zone:
+  external:
+    source:
+      - ip: 10.80.10.10/32
+    service:
+      - name: ssh
+        state: enabled/disabled Optionnal(Default=enabled)
+        permanent: true/false Optionnal(Default=true)
+        immediate: true/false Optionnal(Default=true)
+      - {name: cockpit, state: disabled}
+  public:
+    [...]
+```
+
+
+### Add a port or range to a zone
+
+Exactly the same as adding a service. Here's an example:
+
+```yaml
+firewalld_zone:
+  external:
+    source:
+      - ip: 10.80.10.10/32
+    port:
+      - name: "8888/tcp"
+        state: enabled/disabled Optionnal(Default=enabled)
+        permanent: true/false Optionnal(Default=true)
+        immediate: true/false Optionnal(Default=true)
+      - name: "12000-12099/tcp"
+      - {name: "443/tcp", state: disabled}
+  public:
+    [...]
+```
+
+
 
 Dependencies
 ------------

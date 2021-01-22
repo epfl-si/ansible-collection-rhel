@@ -1,0 +1,14 @@
+---
+
+- name: "Set the services of the {{ firewalld_zone_services.key }} zone"
+  become: true
+  ansible.posix.firewalld:
+    zone: "{{ firewalld_zone_services.key }}"
+    permanent: "{{ firewalld_zone_service_item.permanent | default('true') }}"
+    immediate: "{{ firewalld_zone_service_item.immediate | default('true') }}"
+    state: "{{ firewalld_zone_service_item.state | default('enabled') }}"
+    service: "{{ firewalld_zone_service_item.name }}"
+  loop: "{{ firewalld_zone_services.value.service }}"
+  loop_control:
+    loop_var: firewalld_zone_service_item
+    label: "{{ firewalld_zone_services.key }}: {{ firewalld_zone_service_item.name }}"

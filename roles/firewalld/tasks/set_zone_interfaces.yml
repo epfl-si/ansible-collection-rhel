@@ -1,6 +1,6 @@
 ---
 
-- name: Set Firewalld zone interfaces
+- name: "Set the interface of the {{ firewalld_zone_interfaces.key }} zone"
   become: true
   ansible.posix.firewalld:
     zone: "{{ firewalld_zone_interfaces.key }}"
@@ -11,4 +11,4 @@
   loop: "{{ firewalld_zone_interfaces.value.interface }}"
   loop_control:
     loop_var: firewalld_zone_interface_item
-    label: "{{ firewalld_zone_interface_item.name }}"
+    label: "{{ firewalld_zone_interfaces.key }}: {{ firewalld_zone_interface_item.name }}"

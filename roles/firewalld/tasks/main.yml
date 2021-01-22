@@ -25,9 +25,27 @@
   loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_interfaces
-    label:
-      - "{{ firewalld_zone_interfaces.key }}"
-      - "{{ firewalld_zone_interfaces.value }}"
+    label: "{{ firewalld_zone_interfaces.key }}"
   when:
     - firewalld_zones is defined
     - firewalld_zone_interfaces.value.interface is defined
+
+- name: Set zone services
+  include_tasks: set_zone_services.yml
+  loop: "{{ firewalld_zones | dict2items }}"
+  loop_control:
+    loop_var: firewalld_zone_services
+    label: "{{ firewalld_zone_services.key }}"
+  when:
+    - firewalld_zones is defined
+    - firewalld_zone_services.value.service is defined
+
+- name: Set zone ports
+  include_tasks: set_zone_ports.yml
+  loop: "{{ firewalld_zones | dict2items }}"
+  loop_control:
+    loop_var: firewalld_zone_ports
+    label: "{{ firewalld_zone_ports.key }}"
+  when:
+    - firewalld_zones is defined
+    - firewalld_zone_ports.value.port is defined
