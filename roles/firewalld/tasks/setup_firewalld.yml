@@ -3,11 +3,13 @@
 # ensure it is unmaked
 
 - name: Install firewalld
+  become: true
   yum:
     name: firewalld
     state: present
 
 - name: Start and enable firewalld
+  become: true
   systemd:
     name: firewalld.service
     state: started
