@@ -11,4 +11,6 @@
   loop: "{{ firewalld_zone_services.value.service }}"
   loop_control:
     loop_var: firewalld_zone_service_item
-    label: "{{ firewalld_zone_services.key }}: {{ firewalld_zone_service_item.name }}"
+    label: >
+      "{{ firewalld_zone_services.key }}:
+      {{ firewalld_zone_service_item.name }}"

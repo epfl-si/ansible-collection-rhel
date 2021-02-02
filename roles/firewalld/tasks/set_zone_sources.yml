@@ -17,4 +17,6 @@
   loop: "{{ firewalld_zone_sources.value.source }}"
   loop_control:
     loop_var: firewalld_zone_source_item
-    label: "{{ firewalld_zone_sources.key }}: {{ firewalld_zone_source_item.ip }}"
+    label: >
+      "{{ firewalld_zone_sources.key }}:
+      {{ firewalld_zone_source_item.ip }}"
