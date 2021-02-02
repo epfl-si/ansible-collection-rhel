@@ -68,3 +68,87 @@
       template:
         src: ./custom_facts.j2
         dest: /etc/ansible/facts.d/molecule.fact
+
+    - name: Ensure .ssh folder exists on zone2
+      file:
+        path: /root/.ssh
+        state: directory
+        owner: root
+        group: root
+        mode: '0700'
+      when: inventory_hostname == "zone2"
+
+    - name: Install Openssh to provide ssh-keygen command
+      yum:
+        name: openssh
+        state: present
+      when: inventory_hostname == "zone2"
+
+    - name: Create ssh keys pair on "zone2"
+      openssh_keypair:
+        type: ed25519
+        path: /root/.ssh/id_ed25519
+        owner: root
+        comment: root@zone2
+      when: inventory_hostname == "zone2"
+
+    - name: Get root@zone2 public key
+      slurp:
+        src: /root/.ssh/id_ed25519.pub
+      register: zone2_pub_key
+      when: inventory_hostname == "zone2"
+
+    - name: Paste zone2's public key in authorized_key file of zone1
+      authorized_key:
+        user: root
+        state: present
+        manage_dir: true
+        key: "{{ hostvars['zone2'].zone2_pub_key['content'] | b64decode }}"
+      when: inventory_hostname == "zone1"
+
+    - name: Ensure SSHD server is installed on zone1
+      yum:
+        name: openssh-server
+        state: present
+      when: inventory_hostname == "zone1"
+
+    - name: Ensure SSHD server service is running on zone1
+      service:
+        daemon_reload: true
+        enabled: true
+        name: sshd.service
+        state: started
+      when: inventory_hostname == "zone1"
+
+    - name: Install xinetd to simulate mysqld on port 3306
+      yum:
+        name: xinetd
+        state: present
+      when: inventory_hostname == "zone1"
+
+    - name: Create xinetd configuration file
+      copy:
+        content: |
+          service mysqld
+          {
+            id          = fake-mysqld
+            type        = UNLISTED
+            wait        = no
+            socket_type = stream
+            protocol    = tcp
+            port        = 3306
+            user        = root
+            server      = /usr/sbin/sshd
+          }
+        dest: /etc/xinetd.d/mysqld
+        owner: root
+        group: root
+        mode: '0644'
+      when: inventory_hostname == "zone1"
+
+    - name: Enable xinetd
+      systemd:
+        name: xinetd
+        state: restarted
+        enabled: true
+      when: inventory_hostname == "zone1"
