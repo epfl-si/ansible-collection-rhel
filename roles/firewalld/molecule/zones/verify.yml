@@ -2,6 +2,9 @@
 
 - name: Verify
   hosts: zones
+  module_defaults:
+    wait_for:
+      timeout: 2
   vars:
     ip_zone1:
       "{{ hostvars['zone1']['ansible_local']
@@ -10,53 +13,44 @@
 
     - name: Ping from zone2 to zone1
       command:
-        cmd: "ping -W 2 -c 1 \
-          {{ hostvars['zone1']['ansible_local']\
-          ['molecule']['podman_network']['node_ip'] }}"
+        cmd: "ping -W 2 -c 1 {{ ip_zone1 }}"
+
       register: ping_zone2_to_zone1
       failed_when: false
       changed_when: false
       when: inventory_hostname == "zone2"
 
-    - name: Assert that ping works from zone2 to zone1
+    - name: Assert that zone2 can ping zone1
       assert:
         that: ping_zone2_to_zone1.rc == 0
         fail_msg: Ping from zone2 to zone1 failed
         success_msg: Ping from zone2 to zone1 successful
       when: inventory_hostname == "zone2"
 
-    - name: Assert that if zone1's port 22 is accessible from zone2
+    - name: Assert that zone2 is allowed on port 22
       wait_for:
-        host: "{{ hostvars['zone1']['ansible_local']\
-          ['molecule']['podman_network']['node_ip'] }}"
+        host: "{{ ip_zone1 }}"
         port: 22
-        timeout: 2
       when: inventory_hostname == "zone2"
 
-    - name: Assert that zone1's port 22 is closed to zone3
+    - name: Assert that zone3 is blocked on port 22
       wait_for:
-        host: "{{ hostvars['zone1']['ansible_local']\
-          ['molecule']['podman_network']['node_ip'] }}"
+        host: "{{ ip_zone1 }}"
         port: 22
-        timeout: 2
-      register: zone3_to_zone1_port_22
-      failed_when: zone3_to_zone1_port_22 is succeeded
+      register: zone3_to_port_22
+      failed_when: zone3_to_port_22 is succeeded
       when: inventory_hostname == "zone3"
 
-    - name: Assert that zone1's mysql port is open to zone2
+    - name: Assert that zone2 is allowed on port 3306
       wait_for:
-        host: "{{ hostvars['zone1']['ansible_local']\
-          ['molecule']['podman_network']['node_ip'] }}"
+        host: "{{ ip_zone1 }}"
         port: 3306
-        timeout: 2
       when: inventory_hostname == "zone2"
 
-    - name: Assert that zone1's mysql port is open to zone3
+    - name: Assert that zone3 is allowed on port 3306
       wait_for:
-        host: "{{ hostvars['zone1']['ansible_local']\
-          ['molecule']['podman_network']['node_ip'] }}"
+        host: "{{ ip_zone1 }}"
         port: 3306
-        timeout: 2
       when: inventory_hostname == "zone3"
 
     - name: Assert that zone4 is allowed on port 33001
