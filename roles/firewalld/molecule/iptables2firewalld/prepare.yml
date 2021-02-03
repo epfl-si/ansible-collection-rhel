@@ -17,3 +17,12 @@
         daemon_reload: true
         enabled: true
         state: started
+
+    # This simulates when our servers were downgraded from
+    # firewalld to iptables.
+    - name: Mask firewalld service
+      become: true
+      systemd:
+        name: firewalld.service
+        daemon_reload: true
+        masked: true
