@@ -13,4 +13,5 @@
     loop_var: firewalld_zone_interface_item
     label: >
       "{{ firewalld_zone_interfaces.key }}:
-      {{ firewalld_zone_interface_item.name }}"
+      {{ firewalld_zone_interface_item.name }}
+      {{ firewalld_zone_interface_item.state | default('enabled') }}"

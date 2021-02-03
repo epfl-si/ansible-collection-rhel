@@ -11,4 +11,7 @@
   loop: "{{ firewalld_zone_ports.value.port }}"
   loop_control:
     loop_var: firewalld_zone_port_item
-    label: "{{ firewalld_zone_ports.key }}: {{ firewalld_zone_port_item.name }}"
+    label:
+      "{{ firewalld_zone_ports.key }}:
+      {{ firewalld_zone_port_item.name }}
+      {{ firewalld_zone_port_item.state | default('enabled') }}"
