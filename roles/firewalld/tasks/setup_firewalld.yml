@@ -8,6 +8,17 @@
     name: firewalld
     state: present
 
+- name: Configure firewalld
+  become: true
+  template:
+    src: templates/firewalld.conf.j2
+    dest: /etc/firewalld/firewalld.conf
+    backup: true
+    owner: root
+    group: root
+    mode: '0644'
+    validate: /usr/bin/firewall-offline-cmd --system-config %s --check-config
+
 - name: Start and enable firewalld
   become: true
   systemd:
