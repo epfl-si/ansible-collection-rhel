@@ -12,6 +12,7 @@
     firewalld_new_zones: >
       {{ firewalld_zones | from_yaml | list
       | difference(firewalld_available_zones.stdout.split()) }}
+  when: firewalld_zones is defined
 
 - name: Create zone
   become: true
@@ -22,7 +23,9 @@
   loop: "{{ firewalld_new_zones }}"
   loop_control:
     loop_var: firewalld_new_zone_item
-  when: firewalld_new_zones | length > 0
+  when:
+    - firewalld_new_zones is defined
+    - firewalld_new_zones | length > 0
   notify: Reload firewalld
 
 - name: Flush handlers
