@@ -1,22 +1,38 @@
 ---
 
+ip_zone2:
+  "{{ hostvars['zone2']['ansible_local']['molecule']
+  ['podman_network']['node_ip'] }}/32"
+ip_zone3:
+  "{{ hostvars['zone3']['ansible_local']['molecule']
+  ['podman_network']['node_ip'] }}/32"
+ip_zone4:
+  "{{ hostvars['zone4']['ansible_local']['molecule']
+  ['podman_network']['node_ip'] }}/32"
+ip_zone5:
+  "{{ hostvars['zone5']['ansible_local']['molecule']
+  ['podman_network']['node_ip'] }}/32"
+my_interface:
+  "{{ hostvars[inventory_hostname]['ansible_local']['molecule']
+  ['podman_network']['node_interface'] }}"
+
 firewalld_zones:
   external:
     source:
-      - ip: "{{ hostvars['zone3']['ansible_local']['molecule']['podman_network']['node_ip'] }}/32"
+      - ip: "{{ ip_zone3 }}"
     service:
       - {name: ssh, state: disabled}
       - name: mysql
   public:
     interface:
-      - name: "{{ hostvars[inventory_hostname]['ansible_local']['molecule']['podman_network']['node_interface'] }}"
+      - name: "{{ my_interface }}"
     service:
       - {name: cockpit, state: disabled}
       - {name: dhcpv6-client, state: disabled}
       - {name: ssh, state: disabled}
   internal:
     source:
-      - ip: "{{ hostvars['zone2']['ansible_local']['molecule']['podman_network']['node_ip'] }}/32"
+      - ip: "{{ ip_zone2 }}"
     service:
       - name: ssh
       - name: mysql
@@ -28,13 +44,12 @@ firewalld_zones:
       - name: "9999/tcp"
       - name: "42000-42099/tcp"
   mysqld1:
+    source:
+      - ip: "{{ ip_zone4 }}"
     port:
       - name: "33001/tcp"
-    source:
-      - ip: 10.90.1.12/32
   mysqld2:
+    source:
+      - ip: "{{ ip_zone5 }}"
     port:
       - name: "33002/tcp"
-    source:
-      - ip: "10.12.15.15/32"
-      - ip: "10.12.15.16/32"

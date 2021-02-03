@@ -62,6 +62,40 @@ platforms:
     groups:
       - zones
 
+  - name: zone4
+    image: localhost/ubi8-init-molecule:1.0.0
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+      - NET_ADMIN
+    command: "/usr/sbin/init"
+    pre_build_image: true
+    security_opts:
+      - label=disable
+    groups:
+      - zones
+
+  - name: zone5
+    image: localhost/ubi8-init-molecule:1.0.0
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+      - NET_ADMIN
+    command: "/usr/sbin/init"
+    pre_build_image: true
+    security_opts:
+      - label=disable
+    groups:
+      - zones
+
 provisioner:
   name: ansible
   log: true

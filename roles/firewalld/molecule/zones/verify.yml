@@ -2,6 +2,10 @@
 
 - name: Verify
   hosts: zones
+  vars:
+    ip_zone1:
+      "{{ hostvars['zone1']['ansible_local']
+      ['molecule']['podman_network']['node_ip'] }}"
   tasks:
 
     - name: Ping from zone2 to zone1
@@ -54,3 +58,31 @@
         port: 3306
         timeout: 2
       when: inventory_hostname == "zone3"
+
+    - name: Assert that zone4 is allowed on port 33001
+      wait_for:
+        host: "{{ ip_zone1 }}"
+        port: 33001
+      when: inventory_hostname == "zone4"
+
+    - name: Assert that zone5 is allowed on port 33002
+      wait_for:
+        host: "{{ ip_zone1 }}"
+        port: 33002
+      when: inventory_hostname == "zone5"
+
+    - name: Assert that zone4 is blocked on port 33002
+      wait_for:
+        host: "{{ ip_zone1 }}"
+        port: 33002
+      register: zone4_to_port_33002
+      failed_when: zone4_to_port_33002 is succeeded
+      when: inventory_hostname == "zone4"
+
+    - name: Assert that zone5 is blocked on port 33001
+      wait_for:
+        host: "{{ ip_zone1 }}"
+        port: 33001
+      register: zone5_to_port_33001
+      failed_when: zone5_to_port_33001 is succeeded
+      when: inventory_hostname == "zone5"
