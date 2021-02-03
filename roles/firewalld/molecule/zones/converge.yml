@@ -4,4 +4,5 @@
   hosts: zones
   roles:
 
-    - firewalld
+    - role: firewalld
+      when: inventory_hostname == "zone1"
