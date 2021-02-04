@@ -1,0 +1,28 @@
+---
+
+- name: Verify
+  hosts: sshd1
+  tasks:
+
+    - name: Update services facts
+      service_facts:
+
+    - name: Assert that sshd is running
+      assert:
+        that:
+          - ansible_facts.services['sshd.service'].status is defined
+          - ansible_facts.services['sshd.service'].status == 'enabled'
+
+    - name: Grab the effective configuration of sshd
+      command:
+        cmd: sshd -T
+      register: sshd_config
+      changed_when: false
+
+    - name: Assert that ssh connection to root are disabled
+      assert:
+        that: "'permitrootlogin no' in sshd_config.stdout"
+
+    - name: Assert that connection with password are disabled
+      assert:
+        that: "'passwordauthentication no' in sshd_config.stdout"
