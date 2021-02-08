@@ -1,0 +1,7 @@
+---
+
+- name: Converge
+  hosts: sshd1
+  roles:
+
+    - role: sshd

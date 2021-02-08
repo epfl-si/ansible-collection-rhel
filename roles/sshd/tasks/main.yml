@@ -10,7 +10,7 @@
         state: present
 
     - name: Ensure SSHD server service is running
-      service:
+      systemd:
         daemon_reload: true
         enabled: true
         name: sshd.service
