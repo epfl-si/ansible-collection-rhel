@@ -13,4 +13,6 @@ galaxy_info:
 
   galaxy_tags: []
 
-dependencies: []
+dependencies:
+  - role: gantsign.oh-my-zsh
+    version: 2.3.0

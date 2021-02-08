@@ -1,0 +1,13 @@
+---
+
+- name: Verify
+  hosts: user_linux1
+  tasks:
+
+    - name: Assert that {{ sysadm_user }} as been created
+      become: true
+      become_user: "{{ sysadm_user }}"
+
+    - name: Assert that {{ appadm_user }} as been created
+      become: true
+      become_user: "{{ appadm_user }}"
