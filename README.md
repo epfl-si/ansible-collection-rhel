@@ -69,3 +69,11 @@ molecule converge -s <scenario>
 podman ps -a
 podman exec -it <container-name> bash
 ```
+
+## Publishing
+
+Atm, no automation, everything is done from your computer:
+
+1. Bump the version in `galaxy.yml`
+1. `ansible-galaxy collection build`
+1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --tocken=<token>
