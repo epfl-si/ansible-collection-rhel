@@ -1,0 +1,15 @@
+---
+
+- name: Verify
+  hosts: user_linux1
+  tasks:
+
+    - name: Assert that sysadm user as been created
+      become: true
+      become_user: sysadm
+      ping:
+
+    - name: Assert that appadm user as been created
+      become: true
+      become_user: appadm
+      ping:
