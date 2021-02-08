@@ -42,14 +42,14 @@
         version: "{{ zsh_plugins_repos.version }}"
       loop:
         - repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-          dest: zsh-syntax-highlighting"
+          dest: zsh-syntax-highlighting
           version: 0.7.1
         - repo: https://github.com/zsh-users/zsh-completions.git
           dest: zsh-completions
           version: 0.31.0
         - repo: https://github.com/zsh-users/zsh-autosuggestions.git
           dest: zsh-autosuggestions
-          version: 0.6.4
+          version: v0.6.4
       loop_control:
         loop_var: zsh_plugins_repos
       when: not ansible_check_mode
