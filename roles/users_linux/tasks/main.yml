@@ -30,6 +30,7 @@
     - "{{ appadm_user }}"
   loop_control:
     loop_var: user_linux
+  when: user_linux != "mysql"
 
 - name: Add sudoers for sysadm
   include_tasks: sudoers.yml
