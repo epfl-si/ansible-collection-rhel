@@ -12,7 +12,9 @@ driver:
 platforms:
 
   - name: sshd1
-    image: localhost/ubi8-init-molecule:1.0.0
+    registry: {url: registry.access.redhat.com}
+    image: ubi8/ubi-init
+    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs:
       - /run
       - /tmp

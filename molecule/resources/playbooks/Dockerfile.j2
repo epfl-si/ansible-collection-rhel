@@ -1,0 +1,35 @@
+# Molecule managed
+
+{% if item.registry is defined %}
+FROM {{ item.registry.url }}/{{ item.image }}
+{% else %}
+FROM {{ item.image }}
+{% endif %}
+
+{% if item.env is defined %}
+{% for var, value in item.env.items() %}
+{% if value %}
+ENV {{ var }} {{ value }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+RUN \
+  if [ $(rpm --query 'redhat-release-8*') ]; then \
+    dnf makecache \
+    && dnf --assumeyes install bash iproute iputils sudo python3 initscripts \
+    && dnf clean all \
+    && alternatives --set python /usr/bin/python3; \
+  elif [ $(rpm --query 'redhat-release-7*') ]; then \
+    yum makecache fast \
+    && yum install --assumeyes bash iproute iputils sudo rh-python38 initscripts \
+    && yum clean all; \
+  elif [ $(rpm --query 'centos-release-7*') ]; then \
+    yum makecache fast \
+    && yum install --assumeyes bash iproute iputils sudo python3 initscripts \
+    && yum clean all; \
+  elif [ $(rpm --eval %{centos_ver}) == 8 ]; then \
+    dnf makecache \
+    && dnf install --assumeyes bash iproute iputils sudo python3 initscripts \
+    && dnf clean all; \
+  fi
