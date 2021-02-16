@@ -25,7 +25,6 @@ platforms:
     capabilities: ['SYS_ADMIN', 'NET_ADMIN']
     command: "/usr/sbin/init"
     security_opts: ['label=disable']
-    groups: ['setup_users']
 
 provisioner:
   name: ansible
