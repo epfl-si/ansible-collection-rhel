@@ -3,6 +3,11 @@
 scenario:
   name: zones
 
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
+
 driver:
   name: podman
 
@@ -12,89 +17,55 @@ driver:
 platforms:
 
   - name: zone1
-    image: localhost/ubi8-init-molecule:1.0.0
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-      - NET_ADMIN
-    command: "/usr/sbin/init"
-    pre_build_image: true
-    security_opts:
-      - label=disable
-    groups:
-      - zones
+    registry: &registry {url: registry.access.redhat.com}
+    image: &image ubi8/ubi-init
+    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
+    tmpfs: &tmpfs ['/run', '/tmp']
+    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
+    capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
+    command: &command "/usr/sbin/init"
+    security_opts: &security_opts ['label=disable']
+    groups: &groups ['zones']
 
   - name: zone2
-    image: localhost/ubi8-init-molecule:1.0.0
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-      - NET_ADMIN
-    command: "/usr/sbin/init"
-    pre_build_image: true
-    security_opts:
-      - label=disable
-    groups:
-      - zones
+    registry: *registry
+    image: *image
+    tmpfs: *tmpfs
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
+    groups: *groups
 
   - name: zone3
-    image: localhost/ubi8-init-molecule:1.0.0
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-      - NET_ADMIN
-    command: "/usr/sbin/init"
-    pre_build_image: true
-    security_opts:
-      - label=disable
-    groups:
-      - zones
+    registry: *registry
+    image: *image
+    tmpfs: *tmpfs
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
+    groups: *groups
 
   - name: zone4
-    image: localhost/ubi8-init-molecule:1.0.0
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-      - NET_ADMIN
-    command: "/usr/sbin/init"
-    pre_build_image: true
-    security_opts:
-      - label=disable
-    groups:
-      - zones
+    registry: *registry
+    image: *image
+    tmpfs: *tmpfs
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
+    groups: *groups
 
   - name: zone5
-    image: localhost/ubi8-init-molecule:1.0.0
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
-      - NET_ADMIN
-    command: "/usr/sbin/init"
-    pre_build_image: true
-    security_opts:
-      - label=disable
-    groups:
-      - zones
+    registry: *registry
+    image: *image
+    tmpfs: *tmpfs
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
+    groups: *groups
 
 provisioner:
   name: ansible
@@ -112,6 +83,8 @@ provisioner:
   inventory:
     link:
       host_vars: ./host_vars
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
   env:
     ANSIBLE_ROLES_PATH: ../..
 
