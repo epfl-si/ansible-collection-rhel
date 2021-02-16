@@ -1,0 +1,13 @@
+---
+# defaults file for firewalld
+
+firewalld_default_zone: "public"
+firewalld_cleanup_on_exit: "yes"
+firewalld_lockdown: "no"
+firewalld_ipv6_rpfilter: "yes"
+firewalld_individual_calls: "no"
+firewalld_log_denied: "off"
+firewalld_backend: "nftables"
+firewalld_flush_all_on_reload: "yes"
+firewalld_rfc3964_ipv4: "yes"
+firewalld_allow_zone_drifting: "no"

@@ -1,0 +1,23 @@
+---
+
+# We set immediate to true to saves us the task to refresh firewalld afterward
+# Ansible is super slow anyway because it has to loop over each source
+# so there is no gain of trying to apply all roles in runtime and then
+# apply them with --runtime-to-permanant + --reload
+# Maybe it makes a difference for connected clients if firewalld restart after
+# each rule applied. We need to test that under load
+- name: "Set the sources of the {{ firewalld_zone_sources.key }} zone"
+  become: true
+  ansible.posix.firewalld:
+    zone: "{{ firewalld_zone_sources.key }}"
+    permanent: "{{ firewalld_zone_source_item.permanent | default('true') }}"
+    immediate: "{{ firewalld_zone_source_item.immediate | default('true') }}"
+    state: "{{ firewalld_zone_source_item.state | default('enabled') }}"
+    source: "{{ firewalld_zone_source_item.ip }}"
+  loop: "{{ firewalld_zone_sources.value.source }}"
+  loop_control:
+    loop_var: firewalld_zone_source_item
+    label: >
+      "{{ firewalld_zone_sources.key }}:
+      {{ firewalld_zone_source_item.ip }}
+      {{ firewalld_zone_source_item.state | default('enabled') }}"

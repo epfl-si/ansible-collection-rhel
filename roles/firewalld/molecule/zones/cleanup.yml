@@ -1,0 +1,11 @@
+---
+
+- name: Cleanup
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Remove facts cache
+      file:
+        name: ${MOLECULE_SCENARIO_DIRECTORY}/fact_cache
+        state: absent

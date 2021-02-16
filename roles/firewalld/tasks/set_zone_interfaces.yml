@@ -1,0 +1,17 @@
+---
+
+- name: "Set the interface of the {{ firewalld_zone_interfaces.key }} zone"
+  become: true
+  ansible.posix.firewalld:
+    zone: "{{ firewalld_zone_interfaces.key }}"
+    permanent: "{{ firewalld_zone_interface_item.permanent | default('true') }}"
+    immediate: "{{ firewalld_zone_interface_item.immediate | default('true') }}"
+    state: "{{ firewalld_zone_interface_item.state | default('enabled') }}"
+    interface: "{{ firewalld_zone_interface_item.name }}"
+  loop: "{{ firewalld_zone_interfaces.value.interface }}"
+  loop_control:
+    loop_var: firewalld_zone_interface_item
+    label: >
+      "{{ firewalld_zone_interfaces.key }}:
+      {{ firewalld_zone_interface_item.name }}
+      {{ firewalld_zone_interface_item.state | default('enabled') }}"

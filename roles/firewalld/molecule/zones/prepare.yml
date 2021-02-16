@@ -1,0 +1,185 @@
+---
+
+# We must store the containers dynamically assigned IP addresses to allow
+# us to use it in our firewall tests scenario
+
+- name: Prepare
+  hosts: zones
+  gather_facts: false
+  module_defaults:
+    file:
+      owner: root
+      group: root
+      mode: '0700'
+    copy:
+      owner: root
+      group: root
+      mode: '0600'
+  tasks:
+
+    # This will fail if you add a network to the container.
+    # Here is the output of podman inspect for a container
+    # without a network specified at creation:
+    #   "NetworkSettings": {
+    #       "IPAddress": "10.88.0.110",
+    #       "MacAddress": "ae:f1:6d:f0:79:95",
+    #       [...]
+    #
+    # Here is the output of podman inspect for a container
+    # with a network attached (podman run --network xxx):
+    #   "NetworkSettings": {
+    #       "IPAddress": "",
+    #       "MacAddress": "",
+    #       [...]
+    #       "Networks": {
+    #           "cni-podman2": {
+    #               "IPAddress": "10.89.1.3",
+    #               "MacAddress": "66:63:7c:74:1f:d7",
+    #               "NetworkID": "cni-podman2",
+    #               [...]
+    #           }
+    #       }
+    #
+    # But, because we can't attach more than one network to a podman
+    # container, we won't use Molecule to test firewalld's interface zones
+    - name: Get IP
+      connection: local
+      delegate_to: localhost
+      shell:
+        cmd: >
+          podman inspect
+          -f "{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}"
+          {{ inventory_hostname }}
+      register: container_ip
+      changed_when: false
+
+    # iproute provides commands: ip, route, ss, ...
+    # iputils provides commands: ping, arping, tracepath, ...
+    - name: Install ip packages for debugging
+      yum:
+        name:
+          - iproute
+          - iputils
+        state: present
+
+    - name: Get default interface name
+      shell:
+        cmd: ip -0 -4 route show default | awk '{ print $5 }'
+      register: container_interface
+
+    - name: Create custom fact folder
+      file:
+        path: /etc/ansible/facts.d
+        state: directory
+        recurse: true
+
+    - name: Create custom fact to store IP address
+      template:
+        src: ./custom_facts.j2
+        dest: /etc/ansible/facts.d/molecule.fact
+
+    - name: Prepare ssh keys on zone2
+      when: inventory_hostname == "zone2"
+      block:
+
+        - name: Zone2 - Ensure .ssh folder exists
+          file:
+            path: /root/.ssh
+            state: directory
+
+        - name: Zone2 - Install Openssh to provide ssh-keygen command
+          yum:
+            name: openssh
+            state: present
+
+        - name: Zone2 - Create ssh keys pair
+          openssh_keypair:
+            type: ed25519
+            path: /root/.ssh/id_ed25519
+            owner: root
+            comment: root@zone2
+
+        - name: Zone2 - Get public key
+          slurp:
+            src: /root/.ssh/id_ed25519.pub
+          register: zone2_pub_key
+
+    - name: Prepare zone1
+      when: inventory_hostname == "zone1"
+      block:
+
+        - name: Zone1 - Paste zone2's public key in authorized_key file
+          authorized_key:
+            user: root
+            state: present
+            manage_dir: true
+            key: "{{ hostvars['zone2'].zone2_pub_key['content'] | b64decode }}"
+
+        - name: Zone1 - Install servers packages
+          yum:
+            name:
+              - openssh-server
+              - xinetd
+            state: present
+
+        - name: Zone1 - Ensure SSHD server service is running
+          service:
+            daemon_reload: true
+            enabled: true
+            name: sshd.service
+            state: started
+
+        - name: Zone1 - Configure xinetd for port 3306
+          copy:
+            content: |
+              service mysqld
+              {
+                id          = fake-mysqld
+                type        = UNLISTED
+                wait        = no
+                socket_type = stream
+                protocol    = tcp
+                port        = 3306
+                user        = root
+                server      = /usr/sbin/sshd
+              }
+            dest: /etc/xinetd.d/mysqld
+
+        # Use sshd as a fake server since we installed it earlier
+        - name: Zone1 - Configure xinetd for port 33001
+          copy:
+            content: |
+              service mysqld
+              {
+                id          = fake-mysqld1
+                type        = UNLISTED
+                wait        = no
+                socket_type = stream
+                protocol    = tcp
+                port        = 33001
+                user        = root
+                server      = /usr/sbin/sshd
+              }
+            dest: /etc/xinetd.d/mysqld1
+
+        - name: Zone1 - Configure xinetd for port 33002
+          copy:
+            content: |
+              service mysqld
+              {
+                id          = fake-mysqld2
+                type        = UNLISTED
+                wait        = no
+                socket_type = stream
+                protocol    = tcp
+                port        = 33002
+                user        = root
+                server      = /usr/sbin/sshd
+              }
+            dest: /etc/xinetd.d/mysqld2
+
+        - name: Zone1 - Enable xinetd
+          systemd:
+            name: xinetd
+            state: restarted
+            enabled: true

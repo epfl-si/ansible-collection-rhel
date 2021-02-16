@@ -1,0 +1,17 @@
+---
+
+- name: "Set the ports of the {{ firewalld_zone_ports.key }} zone"
+  become: true
+  ansible.posix.firewalld:
+    zone: "{{ firewalld_zone_ports.key }}"
+    permanent: "{{ firewalld_zone_port_item.permanent | default('true') }}"
+    immediate: "{{ firewalld_zone_port_item.immediate | default('true') }}"
+    state: "{{ firewalld_zone_port_item.state | default('enabled') }}"
+    port: "{{ firewalld_zone_port_item.name }}"
+  loop: "{{ firewalld_zone_ports.value.port }}"
+  loop_control:
+    loop_var: firewalld_zone_port_item
+    label:
+      "{{ firewalld_zone_ports.key }}:
+      {{ firewalld_zone_port_item.name }}
+      {{ firewalld_zone_port_item.state | default('enabled') }}"

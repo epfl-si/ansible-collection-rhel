@@ -1,0 +1,32 @@
+---
+
+- name: Get available zones
+  become: true
+  command:
+    cmd: firewall-cmd --get-zones
+  register: firewalld_available_zones
+  changed_when: false
+
+- name: Check if new zone are specified
+  set_fact:
+    firewalld_new_zones: >
+      {{ firewalld_zones | from_yaml | list
+      | difference(firewalld_available_zones.stdout.split()) }}
+  when: firewalld_zones is defined
+
+- name: Create zone
+  become: true
+  ansible.posix.firewalld:
+    zone: "{{ firewalld_new_zone_item }}"
+    state: present
+    permanent: true
+  loop: "{{ firewalld_new_zones }}"
+  loop_control:
+    loop_var: firewalld_new_zone_item
+  when:
+    - firewalld_new_zones is defined
+    - firewalld_new_zones | length > 0
+  notify: Reload firewalld
+
+- name: Flush handlers
+  meta: flush_handlers
