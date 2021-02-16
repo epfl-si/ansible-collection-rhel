@@ -113,7 +113,9 @@
         extended: true
         label: "{{ item.name }}: {{ item.network | default('None specified') }}"
       register: podman_network
-      when: ansible_loop.first
+      when:
+        - item.network is defined
+        - ansible_loop.first
       failed_when: false
 
     - name: Create podman network dedicated to this scenario
@@ -121,7 +123,9 @@
         name: "{{ podman_network.results[0].ansible_loop.allitems[0].network }}"
         subnet:
           "{{ podman_network.results[0].ansible_loop.allitems[0].subnet }}"
-      when: not podman_network.results[0].networks is defined
+      when:
+        - item.network is defined
+        - not podman_network.results[0].networks is defined
 
     - name: Create molecule instance(s)
       command: >
