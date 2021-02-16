@@ -1,9 +1,0 @@
-FROM registry.redhat.io/ubi7/ubi-init
-LABEL maintainer="laurent.indermuehle@epfl.ch"
-
-# This doesn't works here, but ubi is smart enough to use the
-# subription of the system that build this Dockerfile to find rh-python36
-# So you must use a RHEL host to build this.
-# RUN subscription-manager repos --enable rhel-server-rhscl-7-rpms
-# RUN subscription-manager repos --enable rhel-7-server-optional-rpms
-RUN yum install -y rh-python38 sudo initscripts

@@ -1,5 +1,0 @@
-FROM registry.access.redhat.com/ubi8/ubi-init
-LABEL maintainer="laurent.indermuehle@epfl.ch"
-
-RUN dnf install -y python3 sudo initscripts
-RUN alternatives --set python /usr/bin/python3
