@@ -85,8 +85,6 @@ provisioner:
       host_vars: ./host_vars
   playbooks:
     create: ../../../../molecule/resources/playbooks/create.yml
-  env:
-    ANSIBLE_ROLES_PATH: ../..
 
 verifier:
   name: ansible

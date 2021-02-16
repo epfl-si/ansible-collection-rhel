@@ -40,8 +40,6 @@ provisioner:
       pipelining: false
   playbooks:
     create: ../../../../molecule/resources/playbooks/create.yml
-  env:
-    ANSIBLE_ROLES_PATH: ../..
 
 verifier:
   name: ansible
