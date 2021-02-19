@@ -123,9 +123,7 @@
         name: "{{ podman_network.results[0].ansible_loop.allitems[0].network }}"
         subnet:
           "{{ podman_network.results[0].ansible_loop.allitems[0].subnet }}"
-      when:
-        - item.network is defined
-        - not podman_network.results[0].networks is defined
+      when: podman_network.results[0].networks is undefined
 
     - name: Create molecule instance(s)
       command: >
