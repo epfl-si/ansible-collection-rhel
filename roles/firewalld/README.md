@@ -23,7 +23,7 @@ If you wants to empty a zone's sources, first set all sources to disabled, run t
 Be aware that if you change permanent and immediate to false, the rules will be lost on reboot. Currently this role doesn't manage these cases.
 
 ```yaml
-firewalld_zone:
+firewalld_zones:
   external:
     source:
       - ip: 10.80.10.10/32
@@ -41,7 +41,7 @@ firewalld_zone:
 This is similar to adding a source. Only add an interface to a single zone. If you add it many times, the last zone listed will win.
 
 ```yaml
-firewalld_zone:
+firewalld_zones:
   external:
     source:
       - ip: 10.80.10.10/32
@@ -62,7 +62,7 @@ firewalld_zone:
 This is similar to adding a source except you must provide a name instead of a ip key:
 
 ```yaml
-firewalld_zone:
+firewalld_zones:
   external:
     source:
       - ip: 10.80.10.10/32
@@ -82,7 +82,7 @@ firewalld_zone:
 Exactly the same as adding a service. Here's an example:
 
 ```yaml
-firewalld_zone:
+firewalld_zones:
   external:
     source:
       - ip: 10.80.10.10/32
