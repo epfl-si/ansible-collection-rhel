@@ -1,7 +1,7 @@
 ---
 # defaults file for ntp
 
-chrony_pool: [] # 2.rhel.pool.ntp.org iburst
+chrony_pool: []  # 2.rhel.pool.ntp.org iburst
 
 chrony_servers:
   - ntp-1.epfl.ch iburst
