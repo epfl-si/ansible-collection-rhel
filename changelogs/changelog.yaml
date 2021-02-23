@@ -1,0 +1,19 @@
+ancestor: null
+releases:
+  1.0.4:
+    changes:
+      bugfixes:
+      - Doc - Fix main variable name from ``firewalld_zone`` to ``firewalld_zones``
+      - Tests - Fix failure when newtork is undefined
+      - Tests - Fix os detection for CentOS 7/8 when containers are provisionned
+      major_changes:
+      - Change License from MIT to GPLv3
+      minor_changes:
+      - Add a upper limit to the required ansible version to stay in 2.9 (for Tower)
+      - Tests - Add os detection for RHEL7/8 for containers provionning
+      - Tests - Cleanup scenario files
+      - Tests - Use a generalized Dockerfile to build containers
+    fragments:
+    - e06be8f-fix-molecule-dockerfiles.yaml
+    - f429e08-fix-undefined-network.yaml
+    release_date: '2021-02-23'
