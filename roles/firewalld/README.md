@@ -120,7 +120,7 @@ Example Playbook
 License
 -------
 
-MIT
+GPLv3
 
 Author Information
 ------------------
