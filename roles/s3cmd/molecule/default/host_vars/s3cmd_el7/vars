@@ -1,0 +1,33 @@
+---
+
+s3cmd_buckets:
+  bucket1:
+    s3_access_key_rw: key1
+    s3_secret_key_rw: secret1
+    s3_access_key_ro: key2
+    s3_secret_key_ro: secret2
+    s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
+    s3_human_readable_sizes: true
+    s3_host_base: s3.example.com
+    s3_website_endpoint: s3.example.com
+  bucket2:
+    s3_access_key_rw: key3
+    s3_secret_key_rw: secret3
+    s3_access_key_ro: key4
+    s3_secret_key_ro: secret4
+    s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
+    s3_human_readable_sizes: false
+    s3_host_base: s3.example.com
+    s3_website_endpoint: s3.example.com
+
+s3cmd_users_access:
+  - user: root
+    bucket: bucket1
+    grant: read_write
+  - user: root
+    bucket: bucket2
+    grant: read_only
+  - user: user1
+    bucket: bucket1
+    default: true
+    grant: read_write
