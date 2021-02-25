@@ -27,3 +27,8 @@ releases:
     - add_s3cmd.yaml
     - fix_molecule_podman_network.yaml
     release_date: '2021-02-25'
+  1.1.1:
+    changes: {}
+    fragments:
+    - optimise_s3cmd.yaml
+    release_date: '2021-02-25'

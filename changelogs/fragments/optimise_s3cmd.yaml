@@ -1,3 +1,0 @@
----
-trivial:
-  - s3cmd - Optimize user parsing by search each user only once
