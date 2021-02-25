@@ -1,11 +1,9 @@
 [default]
-
 {% if user_access.grant == 'read_write' %}
 access_key = {{ s3cmd_buckets[user_access.bucket].s3_access_key_rw }}
 {% elif user_access.grant == 'read_only' %}
 access_key = {{ s3cmd_buckets[user_access.bucket].s3_access_key_ro }}
-{% endif -%}
-
+{% endif %}
 access_token = 
 add_encoding_exts = 
 add_headers = 
@@ -15,6 +13,7 @@ cache_file =
 check_ssl_certificate = True
 check_ssl_hostname = True
 cloudfront_host = 
+connection_pooling = True
 content_disposition = 
 content_type = 
 default_mime_type = binary/octet-stream
@@ -57,6 +56,7 @@ preserve_attrs = True
 progress_meter = True
 proxy_host = 
 proxy_port = 0
+public_url_use_https = False
 put_continue = False
 recursive = False
 recv_chunk = 65536
@@ -64,13 +64,11 @@ reduced_redundancy = False
 requester_pays = False
 restore_days = 1
 restore_priority = Standard
-
 {% if user_access.grant == 'read_write' %}
 secret_key = {{ s3cmd_buckets[user_access.bucket].s3_secret_key_rw }}
 {% elif user_access.grant == 'read_only' %}
 secret_key = {{ s3cmd_buckets[user_access.bucket].s3_secret_key_ro }}
-{% endif -%}
-
+{% endif %}
 send_chunk = 65536
 server_side_encryption = False
 signature_v2 = False
