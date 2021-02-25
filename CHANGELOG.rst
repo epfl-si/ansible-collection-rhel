@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.1.0
+======
+
+Minor Changes
+-------------
+
+- s3cmd - New role with supports for multiples buckets configuration
+
+Bugfixes
+--------
+
+- Fix Podman Network creation when no network are specified
+
 v1.0.4
 ======
 

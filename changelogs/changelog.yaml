@@ -17,3 +17,13 @@ releases:
     - e06be8f-fix-molecule-dockerfiles.yaml
     - f429e08-fix-undefined-network.yaml
     release_date: '2021-02-23'
+  1.1.0:
+    changes:
+      bugfixes:
+      - Fix Podman Network creation when no network are specified
+      minor_changes:
+      - s3cmd - New role with supports for multiples buckets configuration
+    fragments:
+    - add_s3cmd.yaml
+    - fix_molecule_podman_network.yaml
+    release_date: '2021-02-25'
