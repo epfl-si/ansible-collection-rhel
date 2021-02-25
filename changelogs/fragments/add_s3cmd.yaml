@@ -1,0 +1,4 @@
+---
+
+minor_changes:
+  - s3cmd - New role with support for multiple bucket configuration
