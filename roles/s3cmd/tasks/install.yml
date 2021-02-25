@@ -28,7 +28,7 @@
 - name: Install s3cmd depencencies on RHEL 8
   become: true
   package:
-    name: python38
+    name: python3
     state: present
   when:
     - ansible_os_family == "RedHat"

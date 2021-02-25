@@ -1,0 +1,3 @@
+---
+bugfixes:
+  - s3cmd - Install python3 package instead of python38 on RHEL8
