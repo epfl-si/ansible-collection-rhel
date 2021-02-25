@@ -16,7 +16,6 @@ s3cmd_buckets:
     s3_access_key_ro: key4
     s3_secret_key_ro: secret4
     s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
-    s3_human_readable_sizes: false
     s3_host_base: s3.example.com
     s3_website_endpoint: s3.example.com
 
