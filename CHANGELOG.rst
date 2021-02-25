@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.1.2
+======
+
+Bugfixes
+--------
+
+- s3cmd - Fix tasks with missing escalation of privileges to hang forever
+
 v1.1.1
 ======
 
