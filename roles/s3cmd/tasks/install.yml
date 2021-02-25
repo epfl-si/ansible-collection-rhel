@@ -3,6 +3,7 @@
 # Task file to install s3cmd on RHEL
 
 - name: Install Python3 repo on RHEL7
+  become: true
   community.general.rhsm_repository:
     name:
       - rhel-server-rhscl-7-rpms
@@ -14,6 +15,7 @@
     - not lookup('env', 'MOLECULE_FILE')
 
 - name: Install Python 3 + pip on RHEL
+  become: true
   package:
     name:
       - rh-python38
