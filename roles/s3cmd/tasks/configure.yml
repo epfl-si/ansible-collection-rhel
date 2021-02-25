@@ -2,27 +2,32 @@
 
 # Copy the template into user home dir
 
+- name: Select distinct users
+  set_fact:
+    s3cmd_users_to_parse:
+      "{{ s3cmd_users_access | map(attribute='user') | unique }}"
+
 - name: Find users home path
   become: true
   getent:
     database: passwd
-    key: '{{ user_info.user }}'
-  loop: "{{ s3cmd_users_access }}"
+    key: '{{ user }}'
+  loop: "{{ s3cmd_users_to_parse }}"
   loop_control:
-    loop_var: user_info
-    label: "{{ user_info.user | default('Unset') }}"
+    loop_var: user
+    label: "{{ user | default('Unset') }}"
   register: users_vars
 
 - name: Store home path per user
   set_fact:
     users_home:
       "{{ users_home | default({})
-      | combine({user_vars.user_info.user:
-      user_vars.ansible_facts.getent_passwd[user_vars.user_info.user][4]}) }}"
+      | combine({user_vars.user:
+      user_vars.ansible_facts.getent_passwd[user_vars.user][4]}) }}"
   loop: "{{ users_vars.results }}"
   loop_control:
     loop_var: user_vars
-    label: "User: {{ user_vars.user_info.user | default('Unset') }}"
+    label: "User: {{ user_vars.user | default('Unset') }}"
 
 - name: Create the s3cfg file into user home folder
   become: true
