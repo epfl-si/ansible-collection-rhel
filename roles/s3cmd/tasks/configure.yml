@@ -13,8 +13,6 @@
     label: "{{ user_info.user | default('Unset') }}"
   register: users_vars
 
-# - debug: var=users_vars
-
 - name: Store home path per user
   set_fact:
     users_home:
@@ -32,9 +30,12 @@
   template:
     src: templates/s3cfg.j2
     dest:
-      "{{ users_home[user_access.user] }}/.s3cfg\
-      {%- if user_access.default is undefined or not user_access.default -%}\
-      -{{ user_access.bucket }}\
+      "{{ users_home[user_access.user] }}/.s3cfg-\
+      {{ user_access.bucket }}\
+      {%- if user_access.grant == 'read_only' -%}\
+      -ro\
+      {%- elif user_access.grant == 'read_write' -%}\
+      -rw\
       {%- endif -%}"
     owner: "{{ user_access.user }}"
     group: "{{ user_access.user }}"
@@ -43,3 +44,20 @@
   loop_control:
     loop_var: user_access
     label: "User: {{ user_access.user }}, Bucket: {{ user_access.bucket }}"
+
+- name: Create the default s3cfg file into user home folder
+  become: true
+  become_user: "{{ user_access.user }}"
+  template:
+    src: templates/s3cfg.j2
+    dest: "{{ users_home[user_access.user] }}/.s3cfg"
+    owner: "{{ user_access.user }}"
+    group: "{{ user_access.user }}"
+    mode: '0600'
+  loop: "{{ s3cmd_users_access }}"
+  loop_control:
+    loop_var: user_access
+    label: "User: {{ user_access.user }}, Bucket: {{ user_access.bucket }}"
+  when:
+    - user_access.default is defined
+    - user_access.default is true
