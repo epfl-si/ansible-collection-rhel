@@ -23,10 +23,7 @@ s3cmd_users_access:
   - user: root
     bucket: bucket1
     grant: read_write
+    default: true
   - user: root
     bucket: bucket2
     grant: read_only
-  - user: user1
-    bucket: bucket1
-    default: true
-    grant: read_write
