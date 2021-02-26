@@ -5,6 +5,15 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.1.3
+======
+
+Bugfixes
+--------
+
+- firewalld - Fix syntax of inclusion of external collections
+- s3cmd - Install python3 package instead of python38 on RHEL8
+
 v1.1.2
 ======
 
