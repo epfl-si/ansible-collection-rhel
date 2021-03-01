@@ -1,0 +1,5 @@
+---
+minor_changes:
+
+  - "Raise maximum Ansible version supported to 2.10+ since it's the version\
+    used by our molecule tests"
