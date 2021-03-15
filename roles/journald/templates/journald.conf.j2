@@ -14,35 +14,188 @@
 # See journald.conf(5) for details.
 
 [Journal]
-{% if journald_options.Storage != journald_options_defaults.Storage %}
-Storage={{ journald_options.Storage }}
+{% if journald_audit != journald_audit_default %}
+Audit={{ journald_audit }}
 {% else %}
-#Storage=auto
-{% endif %}
-#Compress=yes
-#Seal=yes
-#SplitMode=uid
-#SyncIntervalSec=5m
-#RateLimitIntervalSec=30s
-#RateLimitBurst=10000
-#SystemMaxUse=
-#SystemKeepFree=
-#SystemMaxFileSize=
-#SystemMaxFiles=100
-#RuntimeMaxUse=
-#RuntimeKeepFree=
-#RuntimeMaxFileSize=
-#RuntimeMaxFiles=100
-#MaxRetentionSec=
-#MaxFileSec=1month
-#ForwardToSyslog=no
-#ForwardToKMsg=no
-#ForwardToConsole=no
-#ForwardToWall=yes
-#TTYPath=/dev/console
-#MaxLevelStore=debug
-#MaxLevelSyslog=debug
-#MaxLevelKMsg=notice
-#MaxLevelConsole=info
-#MaxLevelWall=emerg
-#LineMax=48K
+#Audit={{ journald_audit_default }}
+{% endif -%}
+
+{% if journald_compress != journald_compress_default %}
+Compress={{ journald_compress }}
+{% else %}
+#Compress={{ journald_compress_default }}
+{% endif -%}
+
+{% if journald_forwardToConsole != journald_forwardToConsole_default %}
+ForwardToConsole={{ journald_forwardToConsole }}
+{% else %}
+#ForwardToConsole={{ journald_forwardToConsole_default }}
+{% endif -%}
+
+{% if journald_forwardToKMsg != journald_forwardToKMsg_default %}
+ForwardToKMsg={{ journald_forwardToKMsg }}
+{% else %}
+#ForwardToKMsg={{ journald_forwardToKMsg_default }}
+{% endif -%}
+
+{% if journald_forwardToSyslog != journald_forwardToSyslog_default %}
+ForwardToSyslog={{ journald_forwardToSyslog }}
+{% else %}
+#ForwardToSyslog={{ journald_forwardToSyslog_default }}
+{% endif -%}
+
+{% if journald_forwardToWall != journald_forwardToWall_default %}
+ForwardToWall={{ journald_forwardToWall }}
+{% else %}
+#ForwardToWall={{ journald_forwardToWall_default }}
+{% endif -%}
+
+{% if journald_lineMax != journald_lineMax_default %}
+LineMax={{ journald_lineMax }}
+{% else %}
+#LineMax={{ journald_lineMax_default }}
+{% endif -%}
+
+{% if journald_maxFileSec != journald_maxFileSec_default %}
+MaxFileSec={{ journald_maxFileSec }}
+{% else %}
+#MaxFileSec={{ journald_maxFileSec_default }}
+{% endif -%}
+
+{% if journald_maxFileSec != journald_maxFileSec_default %}
+MaxFileSec={{ journald_maxFileSec }}
+{% else %}
+#maxFileSec={{ journald_maxFileSec_default }}
+{% endif -%}
+
+{% if journald_maxLevelConsole != journald_maxLevelConsole_default %}
+MaxLevelConsole={{ journald_maxLevelConsole }}
+{% else %}
+#MaxLevelConsole={{ journald_maxLevelConsole_default }}
+{% endif -%}
+
+{% if journald_maxLevelKMsg != journald_maxLevelKMsg_default %}
+MaxLevelKMsg={{ journald_maxLevelKMsg }}
+{% else %}
+#MaxLevelKMsg={{ journald_maxLevelKMsg_default }}
+{% endif -%}
+
+{% if journald_maxLevelStore != journald_maxLevelStore_default %}
+MaxLevelStore={{ journald_maxLevelStore }}
+{% else %}
+#MaxLevelStore={{ journald_maxLevelStore_default }}
+{% endif -%}
+
+{% if journald_maxLevelSyslog != journald_maxLevelSyslog_default %}
+MaxLevelSyslog={{ journald_maxLevelSyslog }}
+{% else %}
+#MaxLevelSyslog={{ journald_maxLevelSyslog_default }}
+{% endif -%}
+
+{% if journald_maxLevelWall != journald_maxLevelWall_default %}
+MaxLevelWall={{ journald_maxLevelWall }}
+{% else %}
+#MaxLevelWall={{ journald_maxLevelWall_default }}
+{% endif -%}
+
+{% if journald_maxRetentionSec != journald_maxRetentionSec_default %}
+MaxRetentionSec={{ journald_maxRetentionSec }}
+{% else %}
+#MaxRetentionSec={{ journald_maxRetentionSec_default }}
+{% endif -%}
+
+{% if journald_rateLimitBurst != journald_rateLimitBurst_default %}
+RateLimitBurst={{ journald_rateLimitBurst }}
+{% else %}
+#RateLimitBurst={{ journald_rateLimitBurst_default }}
+{% endif -%}
+
+{% if journald_rateLimitIntervalSec != journald_rateLimitIntervalSec_default %}
+RateLimitIntervalSec={{ journald_rateLimitIntervalSec }}
+{% else %}
+#RateLimitIntervalSec={{ journald_rateLimitIntervalSec_default }}
+{% endif -%}
+
+{% if journald_readKMsg != journald_readKMsg_default %}
+ReadKMsg={{ journald_readKMsg }}
+{% else %}
+#ReadKMsg={{ journald_readKMsg_default }}
+{% endif -%}
+
+{% if journald_runtimeKeepFree != journald_runtimeKeepFree_default %}
+RuntimeKeepFree={{ journald_runtimeKeepFree }}
+{% else %}
+#RuntimeKeepFree={{ journald_runtimeKeepFree_default }}
+{% endif -%}
+
+{% if journald_runtimeMaxFiles != journald_runtimeMaxFiles_default %}
+RuntimeMaxFiles={{ journald_runtimeMaxFiles }}
+{% else %}
+#RuntimeMaxFiles={{ journald_runtimeMaxFiles_default }}
+{% endif -%}
+
+{% if journald_runtimeMaxFileSize != journald_runtimeMaxFileSize_default %}
+RuntimeMaxFileSize={{ journald_runtimeMaxFileSize }}
+{% else %}
+#RuntimeMaxFileSize={{ journald_runtimeMaxFileSize_default }}
+{% endif -%}
+
+{% if journald_runtimeMaxUse != journald_runtimeMaxUse_default %}
+RuntimeMaxUse={{ journald_runtimeMaxUse }}
+{% else %}
+#RuntimeMaxUse={{ journald_runtimeMaxUse_default }}
+{% endif -%}
+
+{% if journald_seal != journald_seal_default %}
+Seal={{ journald_seal }}
+{% else %}
+#Seal={{ journald_seal_default }}
+{% endif -%}
+
+{% if journald_splitMode != journald_splitMode_default %}
+SplitMode={{ journald_splitMode }}
+{% else %}
+#SplitMode={{ journald_splitMode_default }}
+{% endif -%}
+
+{% if journald_storage != journald_storage_default %}
+Storage={{ journald_storage }}
+{% else %}
+#Storage={{ journald_storage_default }}
+{% endif -%}
+
+{% if journald_syncIntervalSec != journald_syncIntervalSec_default %}
+SyncIntervalSec={{ journald_syncIntervalSec }}
+{% else %}
+#SyncIntervalSec={{ journald_syncIntervalSec_default }}
+{% endif -%}
+
+{% if journald_systemKeepFree != journald_systemKeepFree_default %}
+SystemKeepFree={{ journald_systemKeepFree }}
+{% else %}
+#SystemKeepFree={{ journald_systemKeepFree_default }}
+{% endif -%}
+
+{% if journald_systemMaxFiles != journald_systemMaxFiles_default %}
+SystemMaxFiles={{ journald_systemMaxFiles }}
+{% else %}
+#SystemMaxFiles={{ journald_systemMaxFiles_default }}
+{% endif -%}
+
+{% if journald_systemMaxFileSize != journald_systemMaxFileSize_default %}
+SystemMaxFileSize={{ journald_systemMaxFileSize }}
+{% else %}
+#SystemMaxFileSize={{ journald_systemMaxFileSize_default }}
+{% endif -%}
+
+{% if journald_systemMaxUse != journald_systemMaxUse_default %}
+SystemMaxUse={{ journald_systemMaxUse }}
+{% else %}
+#SystemMaxUse={{ journald_systemMaxUse_default }}
+{% endif -%}
+
+{% if journald_tTYPath != journald_tTYPath_default %}
+TTYPath={{ journald_tTYPath }}
+{% else %}
+#TTYPath={{ journald_tTYPath_default }}
+{% endif -%}

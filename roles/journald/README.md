@@ -15,36 +15,43 @@ None
 Role Variables
 --------------
 
-For more information on journald configuration, please visite the [official documentation](https://www.freedesktop.org/software/systemd/man/journald.conf.html#Storage=)
+For more information on journald configuration, please visite the [official documentation](https://www.freedesktop.org/software/systemd/man/journald.conf.html#Storage= )
 
-Here are the defaults values:
+Be extra careful to put quotes around the variables to prevent Ansible to convert `yes` into `True`.
 
-* Storage: "auto"
-* Compress: "yes"
-* Seal: "yes"
-* SplitMode: "uid"
-* SyncIntervalSec: "5m"
-* RateLimitInterval: "30s"
-* RateLimitBurst: "1000"
-* SystemMaxUse: ""
-* SystemKeepFree: ""
-* SystemMaxFileSize: ""
-* RuntimeMaxUse: ""
-* RuntimeKeepFree: ""
-* RuntimeMaxFileSize: ""
-* MaxRetentionSec: ""
-* MaxFileSec: "1month"
-* ForwardToSyslog: "yes"
-* ForwardToKMsg: "no"
-* ForwardToConsole: "no"
-* ForwardToWall: "yes"
-* TTYPath: "/dev/console"
-* MaxLevelStore: "debug"
-* MaxLevelSyslog: "debug"
-* MaxLevelKMsg: "notice"
-* MaxLevelConsole: "info"
-* MaxLevelWall: "emerg"
-* LineMax: "48K"
+To use the following variables, prefix each with "journald_":
+
+* audit: "yes"
+* compress: "yes"
+* forwardToConsole: "no"
+* forwardToKMsg: "no"
+* forwardToSyslog: "no"
+* forwardToWall: "yes"
+* lineMax: "48K"
+* maxFileSec: "1month"
+* maxLevelConsole: "info"
+* maxLevelKMsg: "notice"
+* maxLevelStore: "debug"
+* maxLevelSyslog: "debug"
+* maxLevelWall: "emerg"
+* maxRetentionSec: ""
+* rateLimitBurst: "10000"
+* rateLimitIntervalSec: "30s"
+* readKMsg: "yes"
+* runtimeKeepFree: ""
+* runtimeMaxFiles: "100"
+* runtimeMaxFileSize: ""
+* runtimeMaxUse: ""
+* seal: "yes"
+* splitMode: "uid"
+* storage: "auto"
+* syncIntervalSec: "5m"
+* systemKeepFree: ""
+* systemMaxFiles: "100"
+* systemMaxFileSize: ""
+* systemMaxUse: ""
+* tTYPath: "/dev/console"
+
 
 
 Dependencies
@@ -59,9 +66,8 @@ Example Playbook
       roles:
          - epfl_si.rhel.journald
            vars:
-             journald_options:
-               Storage: persistent
-               SystemMaxUse: 1G
+             journald_storage: "persistent"
+             journald_systemMaxUse: "1G"
 
 
 License

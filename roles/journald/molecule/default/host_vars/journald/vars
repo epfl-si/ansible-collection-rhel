@@ -1,4 +1,5 @@
 ---
 
-journald_options:
-  Storage: tutu
+journald_storage: "persistent"
+journald_systemMaxUse: "1G"
+journald_seal: "yes"
