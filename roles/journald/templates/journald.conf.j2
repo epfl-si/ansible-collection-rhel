@@ -16,7 +16,7 @@
 [Journal]
 {% if journald_options.Storage != journald_options_defaults.Storage %}
 Storage={{ journald_options.Storage }}
-{% elif %}
+{% else %}
 #Storage=auto
 {% endif %}
 #Compress=yes
