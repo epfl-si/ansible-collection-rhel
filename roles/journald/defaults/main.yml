@@ -1,5 +1,5 @@
 ---
-journald_options:
+journald_options_defaults:
   Storage: "auto"
   Compress: "yes"
   Seal: "yes"
@@ -26,3 +26,31 @@ journald_options:
   MaxLevelConsole: "info"
   MaxLevelWall: "emerg"
   LineMax: "48K"
+
+journald_options:
+  Storage: ""
+  Compress: ""
+  Seal: ""
+  SplitMode: ""
+  SyncIntervalSec: ""
+  RateLimitInterval: ""
+  RateLimitBurst: ""
+  SystemMaxUse: ""
+  SystemKeepFree: ""
+  SystemMaxFileSize: ""
+  RuntimeMaxUse: ""
+  RuntimeKeepFree: ""
+  RuntimeMaxFileSize: ""
+  MaxRetentionSec: ""
+  MaxFileSec: ""
+  ForwardToSyslog: ""
+  ForwardToKMsg: ""
+  ForwardToConsole: ""
+  ForwardToWall: ""
+  TTYPath: ""
+  MaxLevelStore: ""
+  MaxLevelSyslog: ""
+  MaxLevelKMsg: ""
+  MaxLevelConsole: ""
+  MaxLevelWall: ""
+  LineMax: ""
