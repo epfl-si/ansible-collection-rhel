@@ -1,5 +1,15 @@
 ---
 
+- name: Ensure journal directory is present
+  file:
+    name: /var/log/journal
+    state: directory
+    owner: root
+    group: systemd-journal
+    mode: '02755'
+    setype: var_log_t
+
+
 - name: Configure journald
   become: true
   template:
