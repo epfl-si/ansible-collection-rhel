@@ -1,7 +1,7 @@
 ---
 
-- name: Reload journald
+- name: Restart journald
   become: true
   systemd:
     name: systemd-journald.service
-    state: reloaded
+    state: restart
