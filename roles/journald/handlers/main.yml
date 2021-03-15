@@ -4,4 +4,4 @@
   become: true
   systemd:
     name: systemd-journald.service
-    state: restart
+    state: restarted
