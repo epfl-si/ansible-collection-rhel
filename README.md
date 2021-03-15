@@ -38,6 +38,10 @@ ansible-galaxy install -r roles/requirements.yml --roles-path ./galaxy_roles
 ansible-galaxy collection install -r collections/requirements.yml --collections-path ./collections
 ```
 
+## Roles documentation
+
+Each role has it's own README.md
+
 
 ## Testing
 
