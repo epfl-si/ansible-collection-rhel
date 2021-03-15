@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: journald
+  author: Laurent Indermühle
+  description: Install and configure journald
+  company: École Polytechnique Fédérale de Lausanne
+  license: GPLv3
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: RHEL
+      versions:
+        - 7
+        - 8
+
+dependencies: []
+
+collections: []
