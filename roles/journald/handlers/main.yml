@@ -1,0 +1,6 @@
+---
+
+- name: Reload journald
+  systemd:
+    name: systemd-journald.service
+    state: reloaded
