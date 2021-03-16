@@ -1,0 +1,7 @@
+---
+
+- name: Converge
+  hosts: journald_novalue
+  roles:
+
+    - role: journald
