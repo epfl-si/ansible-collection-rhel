@@ -1,6 +1,7 @@
 ---
 
 - name: Ensure journal directory is present
+  become: true
   file:
     name: /var/log/journal
     state: directory
