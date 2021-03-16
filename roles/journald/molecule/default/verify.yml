@@ -1,0 +1,25 @@
+---
+
+- name: Verify
+  hosts: journald
+  tasks:
+
+    - name: Check that option get line uncommented and set
+      lineinfile:
+        name: /etc/systemd/journald.conf
+        line: "Storage=persistent"
+        regexp: "^Storage=persistent$"
+        state: present
+      check_mode: true
+      register: line_storage
+      failed_when: line_storage is changed or line_storage is failed
+
+    - name: Check that default value stay commented
+      lineinfile:
+        name: /etc/systemd/journald.conf
+        line: "#Seal=yes"
+        regexp: "^#Seal=yes$"
+        state: present
+      check_mode: true
+      register: line_seal
+      failed_when: line_seal is changed or line_seal is failed
