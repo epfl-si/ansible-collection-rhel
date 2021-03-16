@@ -56,3 +56,10 @@ releases:
     - new-feature-journald.yaml
     - raise-max-ansible-support.yaml
     release_date: '2021-03-16'
+  1.2.1:
+    changes:
+      bugfixes:
+      - Journald - Fix permission to create folder /var/log/journal
+    fragments:
+    - fix-journald.yml
+    release_date: '2021-03-16'

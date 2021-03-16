@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.2.1
+======
+
+Bugfixes
+--------
+
+- Journald - Fix permission to create folder /var/log/journal
+
 v1.2.0
 ======
 
