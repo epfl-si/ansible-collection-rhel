@@ -46,3 +46,13 @@ releases:
     fragments:
     - hotfix.yaml
     release_date: '2021-02-26'
+  1.2.0:
+    changes:
+      minor_changes:
+      - Journald - New role to manage systemd journald
+      - Raise maximum Ansible version supported to 2.10+ since it's the versionused
+        by our molecule tests
+    fragments:
+    - new-feature-journald.yaml
+    - raise-max-ansible-support.yaml
+    release_date: '2021-03-16'

@@ -5,6 +5,15 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.2.0
+======
+
+Minor Changes
+-------------
+
+- Journald - New role to manage systemd journald
+- Raise maximum Ansible version supported to 2.10+ since it's the versionused by our molecule tests
+
 v1.1.3
 ======
 

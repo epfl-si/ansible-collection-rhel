@@ -1,4 +1,0 @@
----
-minor_changes:
-
-  - "Journald - New role to manage systemd journald"

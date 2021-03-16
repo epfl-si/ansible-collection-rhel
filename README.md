@@ -93,5 +93,9 @@ podman exec -it <container-name> bash
 Atm, no automation, everything is done from your computer:
 
 1. Bump the version in `galaxy.yml`
+1. `antsibull-changelog lint`
+1. `antsibull-changelog release --version <ver>`
+1. `git commit -m "Release version <ver>"`
+1. `git tag <ver>`
 1. `ansible-galaxy collection build`
 1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --token=<token>`
