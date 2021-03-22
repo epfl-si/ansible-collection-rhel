@@ -32,7 +32,7 @@ roles
     version: 2.3.0
 ```
 
-Be sure to add the path you whish to download collections and roles to is present in your *ansible.cfg* file:
+Be sure to add the path you want to download collections and roles to is present in your *ansible.cfg* file:
 
 ```ini
 [defaults]
