@@ -3,6 +3,15 @@
 Collection of Ansible roles to setup and manage components of RHEL like ntp, sshd, users, ...
 
 
+## Goal and target audiance
+
+The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtualized infrastructure. But we hope it could be useful for anyone.
+
+You are welcome to suggest improvements either by opening a issue or via a push request.
+
+This collection was created before we came across https://github.com/linux-system-roles. We will periodically evaluate their progress and eventually use some of their roles.
+
+
 ## How to include the collection
 
 In your playbook repository, add this to the *collections/requirements.yml* file:
