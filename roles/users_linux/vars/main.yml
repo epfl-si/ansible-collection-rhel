@@ -2,12 +2,14 @@
 
 users_linux:
   - name: sysadm
-    user_id: "{{ sysadm_id }}"
+    user_uid: "{{ sysadm_uid }}"
+    user_gid: "{{ sysadm_gid | default(sysadm_uid) }}"
     user_shell: "{{ sysadm_shell }}"
     user_home: "{{ sysadm_home }}"
     admins_list: "{{ sysadm_authorized_keys }}"
   - name: "{{ appadm_user }}"
-    user_id: "{{ appadm_id }}"
+    user_uid: "{{ appadm_uid }}"
+    user_gid: "{{ appadm_gid | default(appadm_uid) }}"
     user_shell: "{{ appadm_shell }}"
     user_home: "{{ appadm_home }}"
     admins_list: "{{ appadm_authorized_keys }}"

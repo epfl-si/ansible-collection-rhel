@@ -1,0 +1,7 @@
+---
+
+major_changes:
+
+  - "users_linux - GID may be different than UID now. With this change, you \
+  have to rename your variables sysadm_id and appadm_id to sysadm_uid and \
+  appadm_uid"
