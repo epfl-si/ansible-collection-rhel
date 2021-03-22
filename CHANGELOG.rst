@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.3.0
+======
+
+Major Changes
+-------------
+
+- users_linux - GID may be different than UID now. With this change, you have to rename your variables sysadm_id and appadm_id to sysadm_uid and appadm_uid
+
 v1.2.1
 ======
 
