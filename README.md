@@ -58,13 +58,12 @@ Tests are done using [Molecule](https://molecule.readthedocs.io) with the Podman
 
 When writing this, Ansible colletions are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
 
-Red Hat ubi8-init image doesn't provide Python which is required by Ansible. To build this image locally, run the script `build_container.sh`.
-
 In order to run systemd services inside Podman, we must mount various volumes, disabling Selinux labelling and add capabilities:
 
 ```yaml
   - name: node1
-    image: localhost/ubi8-init-molecule:1.0.0
+    registry: {url: registry.access.redhat.com}
+    image: ubi8/ubi-init
     tmpfs:
       - /run  # for SystemD
       - /tmp  # for SystemD
@@ -74,7 +73,6 @@ In order to run systemd services inside Podman, we must mount various volumes, d
       - SYS_ADMIN  # for SystemD
       - NET_ADMIN  # for FirewallD + VIP testing
     command: "/usr/sbin/init"
-    pre_build_image: true  # To prevent molecule from building the image itself
     security_opts:
       - label=disable  # for SystemD
 ```
@@ -93,8 +91,7 @@ If you want a running environement to debug your changes:
 sudo -i
 cd roles/<name>
 molecule converge -s <scenario>
-podman ps -a
-podman exec -it <container-name> bash
+molecule login -s <scenario> -h <node-name>
 ```
 
 ## Publishing
