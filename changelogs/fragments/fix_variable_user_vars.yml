@@ -1,0 +1,5 @@
+---
+
+bugfixes:
+
+  - users_linux - changed named of varialble user_vars that was already used by another role

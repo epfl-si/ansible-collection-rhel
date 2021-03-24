@@ -30,14 +30,14 @@
     - name: "Find {{ user_linux }} home path"
       user:
         name: "{{ user_linux }}"
-      register: user_vars
+      register: user_linux_vars
 
     - name: "git clone plugin syntax highlight for {{ user_linux }}"
       become: true
       become_user: "{{ user_linux }}"
       git:
         repo: "{{ zsh_plugins_repos.repo }}"
-        dest: "{{ user_vars.home }}/.oh-my-zsh/custom/plugins\
+        dest: "{{ user_linux_vars.home }}/.oh-my-zsh/custom/plugins\
           /{{ zsh_plugins_repos.dest }}"
         version: "{{ zsh_plugins_repos.version }}"
       loop:
@@ -58,7 +58,7 @@
       get_url:
         url: "http://raw.githubusercontent.com/Honiix\
           /oh-my-zsh/master/themes/mh-hostname.zsh-theme"
-        dest: "{{ user_vars.home }}/.oh-my-zsh/custom/themes"
+        dest: "{{ user_linux_vars.home }}/.oh-my-zsh/custom/themes"
         owner: "{{ user_linux }}"
         group: "{{ user_linux }}"
         mode: '0755'
@@ -67,7 +67,7 @@
     - name: 'Create empty .z file to prevent warnings'
       copy:
         content: ''
-        dest: '{{ user_vars.home }}/.z'
+        dest: '{{ user_linux_vars.home }}/.z'
         owner: '{{ user_linux }}'
         group: '{{ user_linux }}'
         mode: '0644'
