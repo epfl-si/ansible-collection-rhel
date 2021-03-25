@@ -1,2 +1,19 @@
 ---
 # tasks file for user
+
+- name: "Create {{ group }} group"
+  become: true
+  group:
+    name: "{{ group }}"
+    state: present
+    gid: "{{ gid | default(omit) }}"
+  when: group is defined
+
+- name: "Add {{ user }} user"
+  user:
+    name: "{{ user }}"
+    state: present
+    group: "{{ group | default(user) }}"
+    shell: "{{ shell | default('/bin/bash') }}"
+    home: "{{ home | default(omit) }}"
+    uid: "{{ uid | default(omit) }}"
