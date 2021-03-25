@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: user
+  namespace: epfl_si
   author: Laurent Indermühle
   description: >
     Create specified user, sets its default shell, manage the authorized_keys

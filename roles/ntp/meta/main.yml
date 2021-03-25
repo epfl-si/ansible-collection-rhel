@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: ntp
+  namespace: epfl_si
   author: Laurent Indermühle
   description: Install NTP and configure it to use EPFL's NTP servers
   company: École Polytechnique Fédérale de Lausanne (EPFL)
