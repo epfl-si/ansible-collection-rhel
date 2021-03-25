@@ -15,9 +15,24 @@ Role Variables
 * user (string)
   * default: none **required**
   * description: The name of the user to create/configure
+* group (string optional)
+  * default: Same as user name
+  * description: In case the group must be different than the user name
+* system (bool)
+  * default: no
+  * description: If 'yes', indicates that the group/user created is a system group/user. It means the automatic uid/gid generated will be different. Generaly less than 1000 for system users.
+* uid (int optional)
+  * default: Automatic
+  * description: Useful to have same user id accross multiple servers. Prevent issues with permission if files are exchanged between servers.
+* gid (int)
+  * default: same as uid
+  * description: In case you want a gid different than the uid
 * shell (string)
-  * default: bash
-  * description: The default shell the user will use at login. bash is translated as */bin/bash*. Supported options: `bash`, `zsh`
+  * default: /bin/bash
+  * description: The default shell the user will use at login.
+* home (path)
+  * default: (null)
+  * description: Set the user's home directory
 * path_add (list of string)
   * default: none **required** if `path_add` is set
     description: A list of path to add to the global $PATH variable. `path_add` and `path` are mutualy exclusive.
