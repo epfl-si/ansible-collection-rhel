@@ -1,0 +1,10 @@
+---
+
+- name: Verify
+  hosts: user1
+  tasks:
+
+    - name: Assert that my-user as been created
+      become: true
+      become_user: my-user
+      ping:
