@@ -6,7 +6,6 @@ scenario:
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
     requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
 
 driver:
