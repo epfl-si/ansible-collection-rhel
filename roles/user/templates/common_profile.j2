@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+{% for p in user_path_add %}
+export PATH={{ p }}:$PATH
+{% endfor %}

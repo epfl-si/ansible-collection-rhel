@@ -7,24 +7,29 @@
     ansible_user: ansible
   roles:
 
-  - role: user
-    username: user_01
-    shell: /bin/bash
+    - role: user
+      username: user_01
+      shell: /bin/bash
 
-  - role: user
-    username: user_02
-    shell: /bin/zsh
-    uid: 1012
-    home: /usr/local/user_02
-    user_path_add: ['/usr/local/bin']
-    authorized_keys:
-      exlusive: true
-      keys:
-        - comment: 'user1@example.com'
-          key: 'ssh-rsa AAAAB1234'
-    sudo:
-      - sudoers_file: 20-my-user
-        hosts: ALL
-        as: my-user-special
-        commands: ['cmd1', 'cmd2']
-        nopasswd: true
+    - role: user
+      username: user_02
+      shell: /bin/zsh
+      uid: 1012
+      home: /usr/local/user_02
+      user_path_add: ['/usr/local/bin']
+      authorized_keys:
+        exlusive: true
+        keys:
+          - comment: 'user1@example.com'
+            key: 'ssh-rsa AAAAB1234'
+      sudo:
+        - sudoers_file: 20-my-user
+          hosts: ALL
+          as: my-user-special
+          commands: ['cmd1', 'cmd2']
+          nopasswd: true
+
+    - role: user
+      username: user_03
+      shell: /bin/bash
+      user_path_add: ['/user_03_test']

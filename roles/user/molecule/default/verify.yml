@@ -76,8 +76,6 @@
       path: /home/user_01/.common_profile
     register: user_01_common_profile
 
-  - debug: var=user_01_common_profile
-
   - name: Assert that no common_profile is added for simple user
     assert:
       that: not user_01_common_profile.stat.exists
@@ -91,11 +89,13 @@
     assert:
       that: user_02_common_profile.stat.exists
 
+  # Must specify shell again otherwise will default to /bin/bash
   - name: Add a new path for user_02
     include_role:
       name: user
     vars:
       username: user_02
+      shell: /bin/zsh
       user_path_add: ['/usr/local/bin', '/opt']
 
   - name: Check if new path /opt is in common_profile
@@ -109,3 +109,16 @@
   - name: Assert that new path /opt is in common_profile
     assert:
       that: not user_02_common_profile_content.changed
+
+  - name: Get user_03 PATH
+    become: true
+    become_user: user_03
+    become_flags: -i
+    command:
+      cmd: echo $PATH
+    register: user_03_path
+    changed_when: false
+
+  - name: Assert that user_03 as user_03_test in its PATH
+    assert:
+      that: "user_03_path.stdout_lines is search('/user_03_test')"

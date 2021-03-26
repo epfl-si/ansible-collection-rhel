@@ -1,50 +1,35 @@
 ---
 
-- name: Get {{ username }} home path
+- name: Get {{ username }} informations
   user:
     name: "{{ username }}"
-  register: user_home_path
+  register: user_info
 
-- debug:
-    msg: "{{ user_path_add | default('not set') }}"
-
-- name: Create a file to store {{ username }}'s paths
-  file:
-    path: "{{ user_home_path.home }}/.common_profile"
-    state: touch
+- name: Add paths to {{ username }} common_profile
+  become: true
+  template:
+    src: templates/common_profile.j2
+    dest: "{{ user_info.home }}/.common_profile"
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0644'
-    access_time: preserve
-    modification_time: preserve
-  when: user_path is defined or user_path_add is defined
-
-- name: Add paths to {{ username }} common_profile
-  lineinfile:
-    regex: "^export PATH={{ item }}:$PATH$"
-    line: "export PATH={{ item }}:$PATH"
-    dest: "{{ user_home_path.home }}/.common_profile"
-    state: present
-  loop: "{{ user_path_add }}"
   when:
     - user_path is not defined
     - user_path_add is defined
     - user_path_add | length > 0
 
-- name: Register all lines in common_profile
-  command:
-    cmd: "cat {{ user_home_path.home }}/.common_profile"
-  register: common_profile_lines
-  when: user_path is defined or user_path_add is defined
+- name: Load common_profile from bash
+  become: true
+  lineinfile:
+    regex: "^source \\$HOME/.common_profile$"
+    line: source $HOME/.common_profile
+    dest: "{{ user_info.home }}/.bashrc"
+    state: present
+  when:
+    - user_path is defined or user_path_add is defined
+    - user_info.shell == '/bin/bash'
 
-- debug: msg=common_profile_lines
-  when: user_path is defined or user_path_add is defined
-
-- name: debug
-  debug:
-    msg: "{{ item }}"
-  loop: "{{ common_profile_lines.stdoutlines }}"
-  when: user_path is defined or user_path_add is defined
+# - name: Remove common_profile in case user_path_add was emptied
 
 # .zshrc
 # export PATH=/home/david/pear/bin:$PATH
