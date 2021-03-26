@@ -1,6 +1,7 @@
 ---
 
 - name: Set {{ username }} authorized_keys
+  become: true
   ansible.posix.authorized_key:
     user: "{{ username }}"
     state: present
