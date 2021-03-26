@@ -34,7 +34,7 @@ Role Variables
   * exclusive (bool)
     * default: false
     * description: Whether to remove all other non-specified keys from authorized_keys file
-  * keys (list of dictionary)
+  * keys_list (list of dictionary)
     * "id" (dictionary)
       * default: none **required**
       * description: Name of the user. Only purpose is to reuse an existing dictionary
@@ -44,7 +44,7 @@ Role Variables
         * comment (string optional)
           default: none
           description: The name or email of the owner of the key
-        * key (string required)
+        * ssh-key (string required)
           description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
 
 
@@ -74,10 +74,10 @@ To avoid repeating the dictionary of public keys, you can create a dictionary at
 admins_pub_keys:
   user1:
     comment: 'user1@example.com'
-    key: 'ssh-rsa AAAAB1234'
+    ssh-key: 'ssh-rsa AAAAB1234'
   user2:
     comment: 'user2 on computer_01'
-    key: 'ssh-ed25519 AAAAB7890'
+    ssh-key: 'ssh-ed25519 AAAAB7890'
 ```
 
 and then reference it in the `authorized_keys.keys` variable:
@@ -88,7 +88,7 @@ and then reference it in the `authorized_keys.keys` variable:
   - role: epfl_si.rhel.user
     user: my-user
     authorized_keys:
-    keys:
+    keys_list:
     - "{{ admins_pub_keys.user1 }}"
     - "{{ admins_pub_keys.user2 }}"
 ```
@@ -111,10 +111,10 @@ Example Playbook
     shell: zsh
     path_add: ['usr/local/bin']
     authorized_keys:
-      exlusive: true
-      keys:
+      exclusive: true
+      keys_list:
         - comment: 'user1@example.com'
-          key: 'ssh-rsa AAAAB1234'
+          ssh-key: 'ssh-rsa AAAAB1234'
     sudo:
       - sudoers_file: 20-my-user
         hosts: ALL
