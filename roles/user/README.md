@@ -15,18 +15,9 @@ Role Variables
 * user (string)
   * default: none **required**
   * description: The name of the user to create/configure
-* group (string optional)
-  * default: Same as user name
-  * description: In case the group must be different than the user name
-* system (bool)
-  * default: no
-  * description: If 'yes', indicates that the group/user created is a system group/user. It means the automatic uid/gid generated will be different. Generaly less than 1000 for system users.
 * uid (int optional)
   * default: Automatic
   * description: Useful to have same user id accross multiple servers. Prevent issues with permission if files are exchanged between servers.
-* gid (int)
-  * default: same as uid
-  * description: In case you want a gid different than the uid
 * shell (string)
   * default: /bin/bash
   * description: The default shell the user will use at login.
