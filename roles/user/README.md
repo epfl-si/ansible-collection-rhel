@@ -94,13 +94,12 @@ and then reference it in the `authorized_keys.keys` variable:
 ```yaml
 - hosts: servers
   roles:
-     - role: epfl_si.rhel.user
-       vars:
-        user: my-user
-        authorized_keys:
-          keys:
-            - "{{ admins_pub_keys.user1 }}"
-            - "{{ admins_pub_keys.user2 }}"
+  - role: epfl_si.rhel.user
+    user: my-user
+    authorized_keys:
+    keys:
+    - "{{ admins_pub_keys.user1 }}"
+    - "{{ admins_pub_keys.user2 }}"
 ```
 
 
@@ -116,22 +115,21 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
-     - role: epfl_si.rhel.user
-       vars:
-        user: my-user
-        shell: zsh
-        path_add: ['usr/local/bin']
-        authorized_keys:
-          exlusive: true
-          keys:
-            - comment: 'user1@example.com'
-              key: 'ssh-rsa AAAAB1234'
-        sudo:
-          - sudoers_file: 20-my-user
-            hosts: ALL
-            as: sysadm
-            commands: ['cmd1', 'cmd2']
-            nopasswd: true
+  - role: epfl_si.rhel.user
+    user: my-user
+    shell: zsh
+    path_add: ['usr/local/bin']
+    authorized_keys:
+      exlusive: true
+      keys:
+        - comment: 'user1@example.com'
+          key: 'ssh-rsa AAAAB1234'
+    sudo:
+      - sudoers_file: 20-my-user
+        hosts: ALL
+        as: sysadm
+        commands: ['cmd1', 'cmd2']
+        nopasswd: true
 ```
 
 License

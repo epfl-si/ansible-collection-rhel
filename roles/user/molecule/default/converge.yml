@@ -2,24 +2,26 @@
 
 - name: Converge
   hosts: user1
+  gather_facts: false
   roles:
 
-    - role: user
-      vars:
-        user: my-user
-        shell: /bin/zsh
-        group: my-group
-        uid: 322
-        system: true
-        path_add: ['usr/local/bin']
-        authorized_keys:
-          exlusive: true
-          keys:
-            - comment: 'user1@example.com'
-              key: 'ssh-rsa AAAAB1234'
-        sudo:
-          - sudoers_file: 20-my-user
-            hosts: ALL
-            as: sysadm
-            commands: ['cmd1', 'cmd2']
-            nopasswd: true
+  - role: user
+    user: user_01
+    shell: /bin/bash
+
+  - role: user
+    user: user_02
+    shell: /bin/zsh
+    uid: 1012
+    path_add: ['usr/local/bin']
+    authorized_keys:
+      exlusive: true
+      keys:
+        - comment: 'user1@example.com'
+          key: 'ssh-rsa AAAAB1234'
+    sudo:
+      - sudoers_file: 20-my-user
+        hosts: ALL
+        as: my-user-special
+        commands: ['cmd1', 'cmd2']
+        nopasswd: true
