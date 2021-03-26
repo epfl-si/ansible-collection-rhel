@@ -4,7 +4,57 @@
   hosts: user1
   tasks:
 
-    - name: Assert that my-user as been created
-      become: true
-      become_user: my-user
-      ping:
+  - name: Assert that user_01 as been created
+    become: true
+    become_user: user_01
+    ping:
+
+  - name: Assert that user_02 as been created
+    become: true
+    become_user: user_02
+    ping:
+
+  - name: Get user_01 data
+    user:
+      name: user_01
+    register: user_01_data
+
+  - name: Get user_02 data
+    user:
+      name: user_02
+    register: user_02_data
+
+  # user_01_data:
+  #   append: false
+  #   changed: false
+  #   comment: ''
+  #   failed: false
+  #   group: 1000
+  #   home: /home/my-user
+  #   move_home: false
+  #   name: my-user
+  #   shell: /bin/zsh
+  #   state: present
+  #   uid: 322
+
+  - name: Get user_01 group data
+    group:
+      name: "user_01"
+    register: user_01_group_data
+
+  # user_01_group_data:
+  #   changed: true
+  #   failed: false
+  #   gid: 1013
+  #   name: my-group
+  #   state: present
+  #   system: false
+
+  - debug: var=user_02_data.uid
+
+  - name: Assert that users are set properly
+    assert:
+      that:
+        - user_01_data.uid == user_01_group_data.gid
+        - user_01_data.name == user_01_group_data.name
+        - user_02_data.uid == '1012'
