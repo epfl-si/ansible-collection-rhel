@@ -5,6 +5,5 @@
     user: "{{ username }}"
     state: present
     manage_dir: true
-    key: >
-      "{{ authorized_keys.keys_list
-      | map(attribute='ssh-key') | join('\n') }}"
+    key:
+      "{{ authorized_keys.keys_list | map(attribute='ssh-key') | join('\n') }}"
