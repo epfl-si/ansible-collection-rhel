@@ -26,7 +26,7 @@ Role Variables
   * description: Set the user's home directory
 * user_path_add (list of string)
   * default: (null)
-    description: A list of path to add to the global $PATH variable. `path_add` and `path` are mutually exclusive.
+    description: A list of path to add to the global $PATH variable. Useful in case you want to quickly add a path to the user without altering the existing one. Removing a path from this list will also remove it from the user at the next playbook run. This paths are shared between different shell and stored in the ~/.common_profile file. `path_add` and `path` are mutually exclusive.
 * user_path: (null)
   * default: none **required** if `path`is set
   * description: Set this to enforce a fixed path. `path_add` and `path` are mutually exclusive.
