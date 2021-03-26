@@ -1,0 +1,10 @@
+---
+
+- name: Set {{ username }} authorized_keys
+  ansible.posix.authorized_key:
+    user: "{{ username }}"
+    state: present
+    manage_dir: true
+    key: >
+      "{{ authorized_keys.keys_list
+      | map(attribute='ssh-key') | join('\n') }}"

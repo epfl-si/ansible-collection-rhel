@@ -28,3 +28,7 @@
 
 - name: Include tasks to manage {{ username }}'s PATH
   import_tasks: path.yml
+
+- name: Include tasks to manager {{ username }}'s authorized keys
+  import_tasks: authorized_keys.yml
+  when: authorized_keys is defined
