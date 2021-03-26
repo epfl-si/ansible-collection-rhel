@@ -70,3 +70,42 @@
   - name: Assert that specified home is set
     assert:
       that: user_02_data.home == '/usr/local/user_02'
+
+  - name: Stat common_profile for simple user
+    stat:
+      path: /home/user_01/.common_profile
+    register: user_01_common_profile
+
+  - debug: var=user_01_common_profile
+
+  - name: Assert that no common_profile is added for simple user
+    assert:
+      that: not user_01_common_profile.stat.exists
+
+  - name: Stat common_profile for user with path_add
+    stat:
+      path: /usr/local/user_02/.common_profile
+    register: user_02_common_profile
+
+  - name: Assert that no common_profile is added for user with path_add
+    assert:
+      that: user_02_common_profile.stat.exists
+
+  - name: Add a new path for user_02
+    include_role:
+      name: user
+    vars:
+      username: user_02
+      user_path_add: ['/usr/local/bin', '/opt']
+
+  - name: Check if new path /opt is in common_profile
+    lineinfile:
+      regex: "^export PATH=/opt:$PATH$"
+      line: "export PATH=/opt:$PATH"
+      dest: /usr/local/user_02/.common_profile
+      state: present
+    register: user_02_common_profile_content
+
+  - name: Assert that new path /opt is in common_profile
+    assert:
+      that: not user_02_common_profile_content.changed
