@@ -1,6 +1,11 @@
 ---
 # tasks file for user
 
+- name: Assert that user_path_add and user_path are not both sets
+  assert:
+    that: not (user_path_add is defined and user_path is defined)
+    fail_msg: user_path_add and user_path are mutually exclusive
+
 - name: "Add {{ username }} user"
   become: true
   user:
