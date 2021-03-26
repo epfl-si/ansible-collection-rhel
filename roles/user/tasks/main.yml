@@ -10,5 +10,14 @@
     home: "{{ home | default(omit) }}"
     uid: "{{ uid | default(omit) }}"
 
-- name: Include tasks to handle PATH
+- name: Get {{ username }} informations
+  user:
+    name: "{{ username }}"
+  register: user_info
+
+- name: Include tasks to manage {{ username }}'s zsh
+  import_tasks: zsh.yml
+  when: shell == '/bin/zsh'
+
+- name: Include tasks to manage {{ username }}'s PATH
   import_tasks: path.yml

@@ -96,7 +96,7 @@
     vars:
       username: user_02
       shell: /bin/zsh
-      user_path_add: ['/usr/local/bin', '/opt']
+      user_path_add: ['/user_02_test', '/opt']
 
   - name: Check if new path /opt is in common_profile
     lineinfile:
@@ -110,15 +110,48 @@
     assert:
       that: not user_02_common_profile_content.changed
 
+  - name: Get user_02 PATH
+    become: true
+    become_user: user_02
+    become_method: su
+    become_flags: '-s /bin/zsh -l'
+    shell:
+      cmd: echo $PATH
+    register: user_02_path
+    changed_when: false
+
+  - name: Assert that user_02 has /user_02_test in its PATH using zsh
+    assert:
+      that: "user_02_path.stdout_lines is search('/user_02_test')"
+
   - name: Get user_03 PATH
     become: true
     become_user: user_03
-    become_flags: -i
-    command:
+    become_method: su
+    become_flags: '-s /bin/bash -l'
+    shell:
       cmd: echo $PATH
     register: user_03_path
     changed_when: false
 
-  - name: Assert that user_03 as user_03_test in its PATH
+  - name: Assert that user_03 has /user_03_test in its PATH using bash
     assert:
       that: "user_03_path.stdout_lines is search('/user_03_test')"
+
+  - name: Empty user_path_add for user_03
+    include_role:
+      name: user
+    vars:
+      username: user_03
+      shell: /bin/bash
+
+  - name: Check that .common_profile is removed for user_03
+    become: true
+    stat:
+      path: /home/user_03/.common_profile
+    register: user_03_common_profile_emptied
+    changed_when: false
+
+  - name: Assert that .common_profile is removed for user_03
+    assert:
+      that: not user_03_common_profile_emptied.stat.exists

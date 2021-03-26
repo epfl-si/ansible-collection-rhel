@@ -16,7 +16,7 @@
       shell: /bin/zsh
       uid: 1012
       home: /usr/local/user_02
-      user_path_add: ['/usr/local/bin']
+      user_path_add: ['/user_02_test']
       authorized_keys:
         exlusive: true
         keys:

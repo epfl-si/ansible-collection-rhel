@@ -1,10 +1,5 @@
 ---
 
-- name: Get {{ username }} informations
-  user:
-    name: "{{ username }}"
-  register: user_info
-
 - name: Add paths to {{ username }} common_profile
   become: true
   template:
@@ -18,25 +13,25 @@
     - user_path_add is defined
     - user_path_add | length > 0
 
-- name: Load common_profile from bash
+- name: Load common_profile
   become: true
   lineinfile:
     regex: "^source \\$HOME/.common_profile$"
     line: source $HOME/.common_profile
-    dest: "{{ user_info.home }}/.bashrc"
+    dest: "{{ user_info.home }}/{{ item.shell_cfg }}"
     state: present
+  loop:
+    - shell_bin: /bin/bash
+      shell_cfg: .bashrc
+    - shell_bin: /bin/zsh
+      shell_cfg: .zshrc
   when:
     - user_path is defined or user_path_add is defined
-    - user_info.shell == '/bin/bash'
+    - user_info.shell == item.shell_bin
 
-# - name: Remove common_profile in case user_path_add was emptied
-
-# .zshrc
-# export PATH=/home/david/pear/bin:$PATH
-# or
-# # append
-# path+=('/home/david/pear/bin')
-# # or prepend
-# path=('/home/david/pear/bin' $path)
-# # export to sub-processes (make it inherited by child processes)
-# export PATH
+- name: Remove {{ username }} common_profile in case user_path_add was emptied
+  become: true
+  file:
+    dest: "{{ user_info.home }}/.common_profile"
+    state: absent
+  when: user_path_add is not defined or user_path_add | length == 0
