@@ -122,7 +122,7 @@
 
   - name: Assert that user_02 has /user_02_test in its PATH using zsh
     assert:
-      that: "user_02_path.stdout_lines is search('/user_02_test')"
+      that: user_02_path.stdout_lines is search('/user_02_test')
 
   - name: Get user_03 PATH
     become: true
@@ -136,7 +136,7 @@
 
   - name: Assert that user_03 has /user_03_test in its PATH using bash
     assert:
-      that: "user_03_path.stdout_lines is search('/user_03_test')"
+      that: user_03_path.stdout_lines is search('/user_03_test')
 
   - name: Empty user_path_add for user_03
     include_role:
@@ -155,3 +155,17 @@
   - name: Assert that .common_profile is removed for user_03
     assert:
       that: not user_03_common_profile_emptied.stat.exists
+
+  - name: Get user_04 PATH
+    become: true
+    become_user: user_04
+    become_method: su
+    become_flags: '-s /bin/bash -l'
+    shell:
+      cmd: echo $PATH
+    register: user_04_path
+    changed_when: false
+
+  - name: Assert that user_04 path as been overwritten
+    assert:
+      that: user_04_path.stdout == '/usr/bin:/user_04_test'

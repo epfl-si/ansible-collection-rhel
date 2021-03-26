@@ -33,3 +33,7 @@
       username: user_03
       shell: /bin/bash
       user_path_add: ['/user_03_test']
+
+    - role: user
+      username: user_04
+      user_path: "/usr/bin:/user_04_test"
