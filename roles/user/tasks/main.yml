@@ -22,7 +22,9 @@
 
 - name: Include tasks to manage {{ username }}'s zsh
   import_tasks: zsh.yml
-  when: shell == '/bin/zsh'
+  when:
+    - shell is defined
+    - shell == '/bin/zsh'
 
 - name: Include tasks to manage {{ username }}'s PATH
   import_tasks: path.yml
