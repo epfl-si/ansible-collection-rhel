@@ -7,7 +7,7 @@ This role handle one user at a time. Call this role multiples times to create ma
 Requirements
 ------------
 
-None
+* The shell specified must be installed
 
 Role Variables
 --------------
