@@ -1,10 +1,10 @@
 ---
 # tasks file for user
 
-- name: "Add {{ user }} user"
+- name: "Add {{ username }} user"
   become: true
   user:
-    name: "{{ user }}"
+    name: "{{ username }}"
     state: present
     shell: "{{ shell | default('/bin/bash') }}"
     home: "{{ home | default(omit) }}"

@@ -6,14 +6,15 @@
   roles:
 
   - role: user
-    user: user_01
+    username: user_01
     shell: /bin/bash
 
   - role: user
-    user: user_02
+    username: user_02
     shell: /bin/zsh
     uid: 1012
     path_add: ['usr/local/bin']
+    user_path_add: ['/usr/local/bin']
     authorized_keys:
       exlusive: true
       keys:

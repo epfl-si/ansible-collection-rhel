@@ -12,26 +12,26 @@ None
 Role Variables
 --------------
 
-* user (string)
+* username (string)
   * default: none **required**
   * description: The name of the user to create/configure
 * uid (int optional)
   * default: Automatic
-  * description: Useful to have same user id accross multiple servers. Prevent issues with permission if files are exchanged between servers.
+  * description: Useful to have same user id across multiple servers. Prevent issues with permission if files are exchanged between servers.
 * shell (string)
   * default: /bin/bash
   * description: The default shell the user will use at login.
 * home (path)
   * default: (null)
   * description: Set the user's home directory
-* path_add (list of string)
-  * default: none **required** if `path_add` is set
-    description: A list of path to add to the global $PATH variable. `path_add` and `path` are mutualy exclusive.
-* path: (string)
+* user_path_add (list of string)
+  * default: (null)
+    description: A list of path to add to the global $PATH variable. `path_add` and `path` are mutually exclusive.
+* user_path: (null)
   * default: none **required** if `path`is set
-  * description: Set this to enforce a fixed path. `path_add` and `path` are mutualy exclusive.
+  * description: Set this to enforce a fixed path. `path_add` and `path` are mutually exclusive.
 * authorized_keys: (dictionary)
-  * exlusive (bool)
+  * exclusive (bool)
     * default: false
     * description: Whether to remove all other non-specified keys from authorized_keys file
   * keys (list of dictionary)
