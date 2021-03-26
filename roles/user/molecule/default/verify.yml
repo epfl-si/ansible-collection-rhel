@@ -66,6 +66,7 @@
   - name: Assert that specified shell is set
     assert:
       that: user_02_data.shell == '/bin/zsh'
-        - user_01_data.uid == user_01_group_data.gid
-        - user_01_data.name == user_01_group_data.name
-        - user_02_data.uid == '1012'
+
+  - name: Assert that specified home is set
+    assert:
+      that: user_02_data.home == '/usr/local/user_02'
