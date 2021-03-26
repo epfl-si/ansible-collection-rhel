@@ -3,6 +3,8 @@
 - name: Converge
   hosts: user1
   gather_facts: false
+  vars:
+    ansible_user: ansible
   roles:
 
   - role: user
