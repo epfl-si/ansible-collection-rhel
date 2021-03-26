@@ -9,3 +9,6 @@
     shell: "{{ shell | default('/bin/bash') }}"
     home: "{{ home | default(omit) }}"
     uid: "{{ uid | default(omit) }}"
+
+- name: Include tasks to handle PATH
+  import_tasks: path.yml

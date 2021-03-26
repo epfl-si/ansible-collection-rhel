@@ -1,0 +1,57 @@
+---
+
+- name: Get {{ username }} home path
+  user:
+    name: "{{ username }}"
+  register: user_home_path
+
+- debug:
+    msg: "{{ user_path_add | default('not set') }}"
+
+- name: Create a file to store {{ username }}'s paths
+  file:
+    path: "{{ user_home_path.home }}/.common_profile"
+    state: touch
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: '0644'
+    access_time: preserve
+    modification_time: preserve
+  when: user_path is defined or user_path_add is defined
+
+- name: Add paths to {{ username }} common_profile
+  lineinfile:
+    regex: "^export PATH={{ item }}:$PATH$"
+    line: "export PATH={{ item }}:$PATH"
+    dest: "{{ user_home_path.home }}/.common_profile"
+    state: present
+  loop: "{{ user_path_add }}"
+  when:
+    - user_path is not defined
+    - user_path_add is defined
+    - user_path_add | length > 0
+
+- name: Register all lines in common_profile
+  command:
+    cmd: "cat {{ user_home_path.home }}/.common_profile"
+  register: common_profile_lines
+  when: user_path is defined or user_path_add is defined
+
+- debug: msg=common_profile_lines
+  when: user_path is defined or user_path_add is defined
+
+- name: debug
+  debug:
+    msg: "{{ item }}"
+  loop: "{{ common_profile_lines.stdoutlines }}"
+  when: user_path is defined or user_path_add is defined
+
+# .zshrc
+# export PATH=/home/david/pear/bin:$PATH
+# or
+# # append
+# path+=('/home/david/pear/bin')
+# # or prepend
+# path=('/home/david/pear/bin' $path)
+# # export to sub-processes (make it inherited by child processes)
+# export PATH
