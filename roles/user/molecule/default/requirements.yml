@@ -4,3 +4,6 @@ collections:
   - name: containers.podman
     version: 1.4.1
     source: https://galaxy.ansible.com
+  - name: ansible.posix
+    version: 1.2.0
+    source: https://galaxy.ansible.com
