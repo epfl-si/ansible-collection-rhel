@@ -51,7 +51,17 @@
   #   state: present
   #   system: false
 
-  - debug: var=user_02_data.uid
+  - name: Assert that uid and gid is the same for simple users
+    assert:
+      that: user_01_data.uid == user_01_group_data.gid
+
+  - name: Assert that group and user has same name for simple users
+    assert:
+      that: user_01_data.name == user_01_group_data.name
+
+  - name: Assert that specified uid is set
+    assert:
+      that: user_02_data.uid == 1012
 
   - name: Assert that users are set properly
     assert:
