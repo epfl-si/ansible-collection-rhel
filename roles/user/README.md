@@ -57,6 +57,24 @@ Role Variables
           description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
 
 
+### role variables vs role parameters
+
+Do note the small difference:
+
+```yaml
+# Role vars
+- role: epfl_si.rhel.user
+  vars:
+    name: my_user
+
+# Role parameters
+- role: epfl_si.rhel.user
+  name: my_user
+```
+
+This is VERY important. Do NOT use roles variables if you wish to create multiples users. If you do that, the variables will be merged because their scope is the entire playbook. This is an undocumented behavior of Ansible. More details on this [Github issue #50278](https://github.com/ansible/ansible/issues/50278)
+
+
 ### Tips for public keys deduplication in inventory
 
 To avoid repeating the dictionary of public keys, you can create a dictionary at the top level of your inventory:
