@@ -116,12 +116,6 @@ Example Playbook
       keys_list:
         - comment: 'user1@example.com'
           ssh-key: 'ssh-rsa AAAAB1234'
-    sudo:
-      - sudoers_file: 20-my-user
-        hosts: ALL
-        as: sysadm
-        commands: ['cmd1', 'cmd2']
-        nopasswd: true
 ```
 
 ## Example with inventory inheritance

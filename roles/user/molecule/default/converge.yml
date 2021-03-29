@@ -24,12 +24,6 @@
             ssh-key: 'ssh-rsa AAAAB1234'
           - comment: 'user2@example.com'
             ssh-key: 'ssh-ed25519 AAAAB5678'
-      sudo:
-        - sudoers_file: 20-my-user
-          hosts: ALL
-          as: my-user-special
-          commands: ['cmd1', 'cmd2']
-          nopasswd: true
 
     - role: user
       username: user_03
