@@ -56,11 +56,11 @@ Do note the small difference:
 # Role vars
 - role: epfl_si.rhel.user
   vars:
-    name: my_user
+    username: my_user
 
 # Role parameters
 - role: epfl_si.rhel.user
-  name: my_user
+  username: my_user
 ```
 
 This is VERY important. Do NOT use roles variables if you wish to create multiples users. If you do that, the variables will be merged because their scope is the entire playbook. This is an undocumented behavior of Ansible. More details on this [Github issue #50278](https://github.com/ansible/ansible/issues/50278)
@@ -86,7 +86,7 @@ and then reference it in the `authorized_keys.keys` variable:
 - hosts: servers
   roles:
   - role: epfl_si.rhel.user
-    user: my-user
+    username: my-user
     authorized_keys:
     keys_list:
     - "{{ admins_pub_keys.user1 }}"
@@ -104,10 +104,11 @@ Example Playbook
 ----------------
 
 ```yaml
+---
 - hosts: servers
   roles:
   - role: epfl_si.rhel.user
-    user: my-user
+    username: my-user
     shell: zsh
     path_add: ['usr/local/bin']
     authorized_keys:
