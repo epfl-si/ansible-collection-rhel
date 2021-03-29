@@ -169,3 +169,15 @@
   - name: Assert that user_04 path as been overwritten
     assert:
       that: user_04_path.stdout == '/usr/bin:/user_04_test'
+
+  - name: Check that user_02 has the correct authorized_keys content
+    copy:
+      content: |
+        ssh-rsa AAAAB1234 user1@example.com
+        ssh-ed25519 AAAAB5678 user2@example.com
+      dest: /usr/local/user_02/.ssh/authorized_keys
+    register: user_02_authorized_keys_content
+
+  - name: Assert that user_02 has the correct authorized_keys content
+    assert:
+      that: not user_02_authorized_keys_content.changed
