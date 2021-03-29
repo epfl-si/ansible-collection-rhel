@@ -181,3 +181,32 @@
   - name: Assert that user_02 has the correct authorized_keys content
     assert:
       that: not user_02_authorized_keys_content.changed
+
+  - name: Delete a keys from user_02 authorized_keys
+    include_role:
+      name: user
+    vars:
+      username: user_02
+      shell: /bin/zsh
+      uid: 1012
+      home: /usr/local/user_02
+      user_path_add: ['/user_02_test']
+      authorized_keys:
+        exclusive: 'True'
+        keys_list:
+          - comment: 'user1@example.com'
+            ssh-key: 'ssh-rsa AAAAB1234'
+    register: test1
+
+  - name: Check that user_02 second key has been deleted from authorized_keys
+    copy:
+      content: |
+        ssh-rsa AAAAB1234 user1@example.com
+      dest: /usr/local/user_02/.ssh/authorized_keys
+    register: user_02_authorized_keys_deleted
+
+  - debug: var=user_02_authorized_keys_deleted
+
+  - name: Assert that user_02 second key has been deleted from authorized_keys
+    assert:
+      that: not user_02_authorized_keys_deleted.changed

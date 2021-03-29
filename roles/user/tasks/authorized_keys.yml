@@ -13,6 +13,7 @@
   become: true
   ansible.posix.authorized_key:
     user: "{{ username }}"
+    exclusive: "{{ authorized_keys.exclusive | default('false') }}"
     state: present
     manage_dir: true
     key: "{{ keys_string | join('\n') }}"
