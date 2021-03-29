@@ -23,9 +23,17 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: servers
+  roles:
+    - role: sudo
+      username: my_user
+      sudoers_file: 20-my-user
+      rules:
+      - hosts: ALL
+        commands: ['cmd1', 'cmd2']
+        nopasswd: true
+```
 
 License
 -------
