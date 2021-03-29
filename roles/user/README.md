@@ -123,6 +123,106 @@ Example Playbook
         nopasswd: true
 ```
 
+## Example with inventory inheritance
+
+In case a user is often reused, you can defined it at top level of your playbook and assign it to a variable. Then later you can add other user at different level of your inventory. At playbook level you may call the role multiples times with a different user each time. Or you can define the list of users to manage in the inventory then call this variable in a loop as shown bellow:
+
+In *inventory/group_vars/all/vars*:
+
+```yaml
+---
+admins_pub_keys:
+  user1:
+    comment: 'user1@example.com'
+    ssh-key: 'ssh-ed25519 AAAAC01234'
+  user2:
+    comment: 'user2@example.com'
+    ssh-key: 'ssh-ed25519 AAAAC45678'
+
+user_manager:
+  username: manager
+  shell: /bin/zsh
+  home: /home/manager
+  authorized_keys:
+    exclusive: true
+    keys_list:
+      - "{{ admins_pub_keys.user1 }}"
+      - "{{ admins_pub_keys.user2 }}"
+```
+
+In *inventory/group_vars/subgroup/vars*:
+
+```yaml
+---
+user_mysql:
+  username: mysql
+  shell: /bin/bash
+  uid: 321
+  home: /home/mysql
+  authorized_keys:
+    exclusive: true
+    keys_list:
+      - "{{ admins_pub_keys.user1 }}"
+
+users:
+  - "{{ user_manager }}"
+  - "{{ user_mysql }}""
+```
+
+In your playbook:
+
+```yaml
+- name: Manage users
+  hosts: all
+  tasks:
+
+    - include_role:
+        name: epfl_si.rhel.user
+      vars:
+        username: "{{ user_item.username }}"
+        shell: "{{ user_item.shell | default('') }}"
+        home: "{{ user_item.home | default('') }}"
+        uid: "{{ user_item.uid | default(0) }}"
+        user_path_add: "{{ user_item.user_path_add | default([]) }}"
+        user_path: "{{ user_item.user_path | default('') }}"
+        authorized_keys: "{{ user_item.authorized_keys | default({}) }}"
+      loop: "{{ users }}"
+      loop_control:
+        loop_var: user_item
+
+```
+
+Alternatively:
+
+```yaml
+- name: Manage users
+  hosts: all
+  roles:
+
+    - role: epfl_si.rhel.user
+      username: manager
+      shell: /bin/bash
+      home: /home/manager
+      authorized_keys:
+        exclusive: true
+        keys_list:
+          - "{{ admins_pub_keys.user1 }}"
+          - "{{ admins_pub_keys.user2 }}"
+
+    - role: epfl_si.rhel.user
+      username: mysql
+      shell: /bin/bash
+      uid: 321
+      home: /home/mysql
+      user_path_add:
+        - /u01/app/mysql/product/mysql-5.7.26/bin
+      authorized_keys:
+        exclusive: true
+        keys_list:
+          - "{{ admins_pub_keys.user1 }}"
+```
+
+
 License
 -------
 

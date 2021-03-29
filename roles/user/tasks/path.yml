@@ -8,10 +8,7 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: '0644'
-  when:
-    - user_path is not defined
-    - user_path_add is defined
-    - user_path_add | length > 0
+  when: user_path_add | length > 0
 
 - name: Load common_profile
   become: true
@@ -26,7 +23,7 @@
     - shell_bin: /bin/zsh
       shell_cfg: .zshrc
   when:
-    - user_path_add is defined
+    - user_path_add | length > 0
     - user_info.shell == item.shell_bin
 
 - name: Remove {{ username }} common_profile in case user_path_add was emptied
@@ -34,10 +31,7 @@
   file:
     dest: "{{ user_info.home }}/.common_profile"
     state: absent
-  when: >
-    user_path_add is not defined
-    or user_path_add | length == 0
-    or user_path is defined
+  when: user_path_add | length == 0 or user_path | length > 0
 
 - name: Set absolute path for {{ username }}
   become: true
@@ -52,5 +46,5 @@
     - shell_bin: /bin/zshrc
       shell_cfg: .zshrc
   when:
-    - user_path is defined
+    - user_path | length > 0
     - user_info.shell == item.shell_bin

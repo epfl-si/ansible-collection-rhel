@@ -1,9 +1,17 @@
 ---
 # tasks file for user
 
-- name: Assert that user_path_add and user_path are not both sets
+- name: Set variables defaults to avoid testing if variables are defined
+  set_fact:
+    user_path_add: "{{ user_path_add | default([]) }}"
+    user_path: "{{ user_path | default('') }}"
+    uid: "{{ uid | default(0) }}"
+    home: "{{ home | default('') }}"
+    authorized_keys: "{{ authorized_keys | default({}) }}"
+
+- name: Assert that {{ username }} user_path_add and user_path are not both sets
   assert:
-    that: not (user_path_add is defined and user_path is defined)
+    that: not ( user_path_add | length > 0 and  user_path | length > 0 )
     fail_msg: user_path_add and user_path are mutually exclusive
 
 - name: "Add {{ username }} user"
@@ -12,8 +20,9 @@
     name: "{{ username }}"
     state: present
     shell: "{{ shell | default('/bin/bash') }}"
-    home: "{{ home | default(omit) }}"
-    uid: "{{ uid | default(omit) }}"
+    home: "{{ omit if (home | length == 0) else home }}"
+    uid: "{{ omit if ( uid | int == 0 ) else ( uid | int ) }}"
+  register: test_user_data
 
 - name: Get {{ username }} informations
   user:
@@ -31,4 +40,12 @@
 
 - name: Include tasks to manager {{ username }}'s authorized keys
   import_tasks: authorized_keys.yml
-  when: authorized_keys is defined
+  when: authorized_keys.keys_list is defined
+
+- name: Reset variables in case the role is called multiple times
+  set_fact:
+    user_path_add: []
+    user_path: ''
+    uid: 0
+    home: ''
+    authorized_keys: {}
