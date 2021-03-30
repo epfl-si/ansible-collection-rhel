@@ -71,7 +71,7 @@ This is VERY important. Do NOT use roles variables if you wish to create multipl
 To avoid repeating the dictionary of public keys, you can create a dictionary at the top level of your inventory:
 
 ```yaml
-admins_pub_keys:
+ssh_pub_keys:
   user1:
     comment: 'user1@example.com'
     ssh_key: 'ssh-rsa AAAAB1234'
@@ -89,8 +89,8 @@ and then reference it in the `authorized_keys.keys` variable:
     username: my-user
     authorized_keys:
     keys_list:
-    - "{{ admins_pub_keys.user1 }}"
-    - "{{ admins_pub_keys.user2 }}"
+    - "{{ ssh_pub_keys.user1 }}"
+    - "{{ ssh_pub_keys.user2 }}"
 ```
 
 
@@ -126,7 +126,7 @@ In *inventory/group_vars/all/vars*:
 
 ```yaml
 ---
-admins_pub_keys:
+ssh_pub_keys:
   user1:
     comment: 'user1@example.com'
     ssh_key: 'ssh-ed25519 AAAAC01234'
@@ -141,8 +141,8 @@ user_manager:
   authorized_keys:
     exclusive: true
     keys_list:
-      - "{{ admins_pub_keys.user1 }}"
-      - "{{ admins_pub_keys.user2 }}"
+      - "{{ ssh_pub_keys.user1 }}"
+      - "{{ ssh_pub_keys.user2 }}"
 ```
 
 In *inventory/group_vars/subgroup/vars*:
@@ -157,7 +157,7 @@ user_mysql:
   authorized_keys:
     exclusive: true
     keys_list:
-      - "{{ admins_pub_keys.user1 }}"
+      - "{{ ssh_pub_keys.user1 }}"
 
 users:
   - "{{ user_manager }}"
