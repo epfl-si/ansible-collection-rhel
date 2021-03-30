@@ -17,8 +17,8 @@
     - name: Check presence of mh-honiix custom theme
       stat:
         path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
-      register: mh_honiix_theme
+      register: mh_hostname_theme
 
     - name: Assert that custom theme has been installed
       assert:
-        that: mh_honiix_theme.stat.exists
+        that: mh_hostname_theme.stat.exists

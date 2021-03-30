@@ -9,4 +9,4 @@
 
     - role: ohmyzsh
       ohmyzsh_user: user_01
-      ohmyzsh_theme: mh-honiix
+      ohmyzsh_theme: mh-hostname

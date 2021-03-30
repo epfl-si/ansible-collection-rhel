@@ -16,7 +16,7 @@ This role install the following custom plugins:
 
 This role install the following custom theme:
 
-* mh-honiix
+* mh-hostname
   * From [mh-hostname.zsh-theme](http://raw.githubusercontent.com/Honiix/oh-my-zsh/master/themes/mh-hostname.zsh-theme)
 
 To add more plugins and themes, edit the *Makefile*
@@ -59,7 +59,7 @@ Example Playbook
     - role: epfl_si.rhel.ohmyzsh
       vars:
         ohmyzsh_user: user_01
-        ohmyzsh_theme: mh-honiix
+        ohmyzsh_theme: mh-hostname
         ohmyzsh_plugins:
           - z
           - git
