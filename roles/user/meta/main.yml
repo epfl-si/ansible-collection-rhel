@@ -4,8 +4,8 @@ galaxy_info:
   namespace: epfl_si
   author: Laurent Indermühle
   description: >
-    Create specified user, sets its default shell, manage the authorized_keys
-    file and sudo rules. This role handle one user at a time. Call this role
+    Create specified user, sets its default shell and manage the
+    authorized_keys file. This role handle one user at a time. Call this role
     multiples times to create many users.
   company: École Polytechnique Fédérale de Lausanne (EPFL)
   license: GPLv3
