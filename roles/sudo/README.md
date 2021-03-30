@@ -1,22 +1,49 @@
-Role Name
+Role Sudo
 =========
 
-A brief description of the role goes here.
+Manage sudoers drop-in files.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+The user must exists. This role doesn't verify if it is present.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* sudoers_file
+    * default: none **required**
+    * type: string
+    * description: The name of the drop-in file to install in */etc/sudoers.d/*. The file can start with a digit and a dash, e.g. 10-myuser. The files are loaded in ascending order.
+* rules
+    * default: none **required**
+    * type: list of objects
+    * description : The list of rules to install for the user. Each rules will become a line in the suders drop-in file.
+    * user
+        * default: none **required**
+        * type: string
+        * description: The user or group allowed to use the rule. May be a username, a group name prefixed with %, a numeric UID prefixed with # or numéric GID prefixed with %#
+    * host
+        * default: ALL
+        * type: string
+        * description: Optional host on which the command will be allowed. May be a hostname, IP address or a whole network (e.g. 10.0.0.0/20) but not 127.0.0.1
+    * runas
+        * default: ALL
+        * type: string
+        * description: This optional parameter controls the target user sudo will run the command as. If omitted, the user will only be permitted to run commands as root.
+    * commands
+        * default: none **required**
+        * type: list
+        * description: The list of command to authorized. Wildcard is possible using an asterisk. Prefer to use full path for commands, e.g. /usr/bin/systemctl * mariadb*
+    * nopasswd
+        * default: False
+        * type: bool
+        * Description: Whether the user can use the commands without giving a password.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
@@ -27,12 +54,11 @@ Including an example of how to use your role (for instance, with variables passe
 - hosts: servers
   roles:
     - role: sudo
-      username: my_user
       sudoers_file: 20-my-user
       rules:
-      - hosts: ALL
-        commands: ['cmd1', 'cmd2']
-        nopasswd: true
+        - user: my_user
+          commands: ['cmd1', 'cmd2']
+          nopasswd: true
 ```
 
 License

@@ -1,2 +1,17 @@
 ---
 # tasks file for sudo
+
+- name: Ensure sudo package is installed
+  become: true
+  package:
+    name: sudo
+    state: present
+
+- name: Create {{ sudoers_file }} drop-in file
+  become: true
+  template:
+    src: templates/sudoers.j2
+    dest: "/etc/sudoers.d/{{ sudoers_file }}"
+    owner: root
+    group: root
+    mode: '0644'
