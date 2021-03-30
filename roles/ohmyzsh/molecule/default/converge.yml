@@ -1,0 +1,12 @@
+---
+
+- name: Converge
+  hosts: ohmyzsh1
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  roles:
+
+    - role: ohmyzsh
+      ohmyzsh_user: user_01
+      ohmyzsh_theme: mh-honiix
