@@ -53,7 +53,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```yaml
 - hosts: servers
   roles:
-    - role: sudo
+    - role: epfl_si.rhel.sudo
       sudoers_file: 20-my-user
       rules:
         - user: my_user
