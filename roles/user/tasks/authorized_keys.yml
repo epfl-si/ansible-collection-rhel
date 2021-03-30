@@ -4,7 +4,7 @@
   set_fact:
     keys_string: >
       {{ authorized_keys.keys_list
-      | map(attribute='ssh-key')
+      | map(attribute='ssh_key')
       | zip(authorized_keys.keys_list | map(attribute='comment'))
       | map('join', ' ')
       }}

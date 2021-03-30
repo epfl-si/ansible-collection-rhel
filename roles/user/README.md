@@ -44,7 +44,7 @@ Role Variables
         * comment (string optional)
           default: none
           description: The name or email of the owner of the key
-        * ssh-key (string required)
+        * ssh_key (string required)
           description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
 
 
@@ -74,10 +74,10 @@ To avoid repeating the dictionary of public keys, you can create a dictionary at
 admins_pub_keys:
   user1:
     comment: 'user1@example.com'
-    ssh-key: 'ssh-rsa AAAAB1234'
+    ssh_key: 'ssh-rsa AAAAB1234'
   user2:
     comment: 'user2 on computer_01'
-    ssh-key: 'ssh-ed25519 AAAAB7890'
+    ssh_key: 'ssh-ed25519 AAAAB7890'
 ```
 
 and then reference it in the `authorized_keys.keys` variable:
@@ -115,7 +115,7 @@ Example Playbook
       exclusive: true
       keys_list:
         - comment: 'user1@example.com'
-          ssh-key: 'ssh-rsa AAAAB1234'
+          ssh_key: 'ssh-rsa AAAAB1234'
 ```
 
 ## Example with inventory inheritance
@@ -129,10 +129,10 @@ In *inventory/group_vars/all/vars*:
 admins_pub_keys:
   user1:
     comment: 'user1@example.com'
-    ssh-key: 'ssh-ed25519 AAAAC01234'
+    ssh_key: 'ssh-ed25519 AAAAC01234'
   user2:
     comment: 'user2@example.com'
-    ssh-key: 'ssh-ed25519 AAAAC45678'
+    ssh_key: 'ssh-ed25519 AAAAC45678'
 
 user_manager:
   username: manager
