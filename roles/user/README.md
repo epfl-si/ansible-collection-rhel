@@ -109,7 +109,7 @@ Example Playbook
   roles:
   - role: epfl_si.rhel.user
     username: my-user
-    shell: zsh
+    shell: /bin/zsh
     path_add: ['usr/local/bin']
     authorized_keys:
       exclusive: true
