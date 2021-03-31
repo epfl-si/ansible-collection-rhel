@@ -19,11 +19,3 @@ s3cmd_buckets:
     s3_host_base: s3.example.com
     s3_website_endpoint: s3.example.com
 
-s3cmd_users_access:
-  - user: root
-    bucket: bucket1
-    grant: read_write
-    default: true
-  - user: root
-    bucket: bucket2
-    grant: read_only

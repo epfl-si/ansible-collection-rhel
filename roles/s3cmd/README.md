@@ -14,8 +14,26 @@ Role Variables
 --------------
 
 
-* `s3cmd_buckets`: Dictionary of buckets with their configurations
-* `s3cmd_users_access:` List of buckets to intall per user with either Read/Write or Read only permissions. A single bucket can be set as default. The default bucket will have an additional configuration file copied in the standard location in `~/.s3cfg`.
+* s3cmd_buckets
+  * default: none **required**
+  * type: Dictionary
+  * Description: Store buckets configurations. It is recommended to store this in the inventory if you manage more than one user that has access to the same bucket.
+* s3cmd_user
+  * default: none *required**
+  * type: string
+  * description: The user for whom configure s3cmd. The user and user homedir must exists
+* s3cmd_bucket
+  * default: none **required**
+  * type: string
+  * description: The bucket name defined in `s3cmd_buckets`
+* s3cmd_read_only
+  * default: False
+  * type: bool
+  * description: Define if the bucket will be in read_write or read_only mode
+* s3cmd_default
+  * default: False
+  * type: bool
+  * description: Only one bucket can be the default. If sets multiple times, the last one executed wins.
 
 Per example:
 
@@ -39,15 +57,6 @@ s3cmd_buckets:
     s3_human_readable_sizes: false
     s3_host_base: s3.example.com
     s3_website_endpoint: s3.example.com
-
-s3cmd_users_access:
-  - user: root
-    bucket: bucket1
-    grant: read_write
-  - user: root
-    bucket: bucket2
-    grant: read_only
-    default: true
 ```
 
 Only the following [s3cmd options](https://s3tools.org/usage) are supported:
@@ -68,18 +77,30 @@ None
 Example Playbook
 ----------------
 
+Configure the role using role parameters:
 
-    - hosts: servers
-      roles:
-         - epfl_si.rhel.s3cmd
-           vars:
-             s3cmd_user: bob
+```yaml
+- hosts: servers
+  roles:
+    - epfl_si.rhel.s3cmd
+      s3cmd_buckets:
+        mybucket:
+          s3_access_key_ro: key2
+          s3_secret_key_ro: secret2
+          s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
+          s3_human_readable_sizes: true
+          s3_host_base: s3.example.com
+          s3_website_endpoint: s3.example.com
+      s3cmd_user: bob
+      s3cmd_bucket: mybucket
+      s3cmd_read_only: true
+      s3cmd_default: true
 
 Example Usage
 -------------
 
 ```bash
-s3cmd -c ~/.s3cfg-bucket-rw ls
+s3cmd -c ~/.s3cfg-mybucket-ro ls
 ```
 
 

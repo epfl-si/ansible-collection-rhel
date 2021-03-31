@@ -25,6 +25,7 @@ platforms:
     capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
     command: &command "/usr/sbin/init"
     security_opts: &security_opts ['label=disable']
+    groups: ['s3cmd']
 
   - name: s3cmd_el8
     registry: *registry
@@ -35,6 +36,7 @@ platforms:
     capabilities: *capabilities
     command: *command
     security_opts: *security_opts
+    groups: ['s3cmd']
 
 provisioner:
   name: ansible
