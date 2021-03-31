@@ -195,7 +195,7 @@
         exclusive: 'True'
         keys_list:
           - comment: 'user1@example.com'
-            ssh-key: 'ssh-rsa AAAAB1234'
+            ssh_key: 'ssh-rsa AAAAB1234'
     register: test1
 
   - name: Check that user_02 2nd key has been deleted from user_authorized_keys
