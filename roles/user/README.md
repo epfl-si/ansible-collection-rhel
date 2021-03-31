@@ -35,17 +35,11 @@ Role Variables
     * default: false
     * description: Whether to remove all other non-specified keys from authorized_keys file
   * keys_list (list of dictionary)
-    * "id" (dictionary)
-      * default: none **required**
-      * description: Name of the user. Only purpose is to reuse an existing dictionary
-        * state (string)
-          * default: present
-          * description: In case exclusive is set to no, allow to remove a key by using `absent`
-        * comment (string optional)
-          default: none
-          description: The name or email of the owner of the key
-        * ssh_key (string required)
-          description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
+    * comment (string optional)
+      default: none
+      description: The name or email of the owner of the key
+    * ssh_key (string required)
+      description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
 
 
 ### role variables vs role parameters
