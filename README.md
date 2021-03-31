@@ -3,9 +3,9 @@
 Collection of Ansible roles to setup and manage components of RHEL like ntp, sshd, users, ...
 
 
-## Goal and target audiance
+## Goal and target audience
 
-The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtualized infrastructure. But we hope it could be useful for anyone.
+The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtual infrastructure. But we hope it could be useful for anyone.
 
 You are welcome to suggest improvements either by opening a issue or via a push request.
 
@@ -45,9 +45,9 @@ Each role has it's own README.md
 
 Tests are done using [Molecule](https://molecule.readthedocs.io) with the Podman driver. Because we wants to test communications between containers using IP address, we [must use rootfull containers](https://www.redhat.com/sysadmin/container-networking-podman).
 
-When writing this, Ansible colletions are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
+When writing this, Ansible collections are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
 
-In order to run systemd services inside Podman, we must mount various volumes, disabling Selinux labelling and add capabilities:
+In order to run Systemd services inside Podman, we must mount various volumes, disabling Selinux labeling and add capabilities:
 
 ```yaml
   - name: node1
