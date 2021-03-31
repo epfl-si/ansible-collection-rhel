@@ -30,7 +30,7 @@
   become_user: "{{ s3cmd_user }}"
   template:
     src: templates/s3cfg.j2
-    dest: "{{ s3cmd_user }}/.s3cfg"
+    dest: "{{ s3cmd_user_vars.home }}/.s3cfg"
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
