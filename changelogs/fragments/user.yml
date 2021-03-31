@@ -1,5 +1,11 @@
 ---
 
+release_summary: >
+  Many roles have been refactored to be simpler to use. With less relying on
+  the inventory it's now easier to understand what a role will do. Before that
+  you had to look the playbook, see there is an inclusion of a role, then search
+  in the inventory for the corresponding variables.
+
 removed_features:
 
   - "users_linux - This role is deleted. Use epfl_si.rhel.user, \
@@ -7,6 +13,6 @@ removed_features:
 
 major_changes:
 
-  - user - New role that create a linux user and manage $PATH for bash and zsh
-  - sudo - New role that manage sudoers.d drop-in files
-  - ohmyzsh - New role with a pre-build .oh-my-zsh folder to install faster
+  - user - New role that creates a linux user and manage $PATH for bash and zsh
+  - sudo - New role that manages sudoers.d drop-in files
+  - ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
