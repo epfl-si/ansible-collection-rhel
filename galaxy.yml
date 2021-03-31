@@ -10,7 +10,7 @@ authors:
 description: Ansible collection to provision and manage RHEL servers
 
 license:
-  - MIT
+  - GPLv3
 
 tags:
   - collection
