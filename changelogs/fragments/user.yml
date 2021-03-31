@@ -1,0 +1,12 @@
+---
+
+removed_features:
+
+  - "users_linux - This role is deleted. Use epfl_si.rhel.user, \
+    epfl_si.rhel.ohmyzsh and epfl_si.rhel.sudo instead"
+
+major_changes:
+
+  - user - New role that create a linux user and manage $PATH for bash and zsh
+  - sudo - New role that manage sudoers.d drop-in files
+  - ohmyzsh - New role with a pre-build .oh-my-zsh folder to install faster
