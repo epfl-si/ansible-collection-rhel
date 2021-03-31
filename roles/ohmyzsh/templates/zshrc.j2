@@ -105,3 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+{# Supports epfl_si.rhel.user user_path_add feature #}
+{% if user_path_add is defined and user_path_add | length > 0 %}
+source $HOME/.common_profile
+{% endif %}
+
+{# Supports epfl_si.rhel.user user_path feature #}
+{% if user_path is defined and user_path | length > 0 %}
+export PATH={{ user_path }}
+{% endif %}
