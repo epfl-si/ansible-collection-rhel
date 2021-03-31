@@ -5,47 +5,47 @@
   set_fact:
     user_path_add: "{{ user_path_add | default([]) }}"
     user_path: "{{ user_path | default('') }}"
-    uid: "{{ uid | default(0) }}"
-    home: "{{ home | default('') }}"
-    authorized_keys: "{{ authorized_keys | default({}) }}"
+    user_uid: "{{ user_uid | default(0) }}"
+    user_home: "{{ user_home | default('') }}"
+    user_authorized_keys: "{{ user_authorized_keys | default({}) }}"
 
-- name: Assert that {{ username }} user_path_add and user_path are not both sets
+- name: Assert that {{ user_name }} user_path_add and user_path are not both set
   assert:
     that: not ( user_path_add | length > 0 and  user_path | length > 0 )
     fail_msg: user_path_add and user_path are mutually exclusive
 
-- name: "Add {{ username }} user"
+- name: "Add {{ user_name }} user"
   become: true
   user:
-    name: "{{ username }}"
+    name: "{{ user_name }}"
     state: present
-    shell: "{{ shell | default('/bin/bash') }}"
-    home: "{{ omit if (home | length == 0) else home }}"
-    uid: "{{ omit if ( uid | int == 0 ) else ( uid | int ) }}"
+    shell: "{{ user_shell | default('/bin/bash') }}"
+    home: "{{ omit if (user_home | length == 0) else user_home }}"
+    uid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
   register: test_user_data
 
-- name: Get {{ username }} informations
+- name: Get {{ user_name }} informations
   user:
-    name: "{{ username }}"
+    name: "{{ user_name }}"
   register: user_info
 
-- name: Include tasks to manage {{ username }}'s zsh
+- name: Include tasks to manage {{ user_name }}'s zsh
   import_tasks: zsh.yml
   when:
-    - shell is defined
-    - shell == '/bin/zsh'
+    - user_shell is defined
+    - user_shell == '/bin/zsh'
 
-- name: Include tasks to manage {{ username }}'s PATH
+- name: Include tasks to manage {{ user_name }}'s PATH
   import_tasks: path.yml
 
-- name: Include tasks to manager {{ username }}'s authorized keys
+- name: Include tasks to manager {{ user_name }}'s authorized keys
   import_tasks: authorized_keys.yml
-  when: authorized_keys.keys_list is defined
+  when: user_authorized_keys.keys_list is defined
 
 - name: Reset variables in case the role is called multiple times
   set_fact:
     user_path_add: []
     user_path: ''
-    uid: 0
-    home: ''
-    authorized_keys: {}
+    user_uid: 0
+    user_home: ''
+    user_authorized_keys: {}

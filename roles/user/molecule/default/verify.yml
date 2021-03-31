@@ -94,8 +94,8 @@
     include_role:
       name: user
     vars:
-      username: user_02
-      shell: /bin/zsh
+      user_name: user_02
+      user_shell: /bin/zsh
       user_path_add: ['/user_02_test', '/opt']
 
   - name: Check if new path /opt is in common_profile
@@ -142,8 +142,8 @@
     include_role:
       name: user
     vars:
-      username: user_03
-      shell: /bin/bash
+      user_name: user_03
+      user_shell: /bin/bash
 
   - name: Check that .common_profile is removed for user_03
     become: true
@@ -170,7 +170,7 @@
     assert:
       that: user_04_path.stdout == '/usr/bin:/user_04_test'
 
-  - name: Check that user_02 has the correct authorized_keys content
+  - name: Check that user_02 has the correct user_authorized_keys content
     copy:
       content: |
         ssh-rsa AAAAB1234 user1@example.com
@@ -182,23 +182,23 @@
     assert:
       that: not user_02_authorized_keys_content.changed
 
-  - name: Delete a keys from user_02 authorized_keys
+  - name: Delete a keys from user_02 user_authorized_keys
     include_role:
       name: user
     vars:
-      username: user_02
-      shell: /bin/zsh
-      uid: 1012
-      home: /usr/local/user_02
+      user_name: user_02
+      user_shell: /bin/zsh
+      user_uid: 1012
+      user_home: /usr/local/user_02
       user_path_add: ['/user_02_test']
-      authorized_keys:
+      user_authorized_keys:
         exclusive: 'True'
         keys_list:
           - comment: 'user1@example.com'
             ssh-key: 'ssh-rsa AAAAB1234'
     register: test1
 
-  - name: Check that user_02 second key has been deleted from authorized_keys
+  - name: Check that user_02 2nd key has been deleted from user_authorized_keys
     copy:
       content: |
         ssh-rsa AAAAB1234 user1@example.com
@@ -207,6 +207,6 @@
 
   - debug: var=user_02_authorized_keys_deleted
 
-  - name: Assert that user_02 second key has been deleted from authorized_keys
+  - name: Assert that user_02 2nd key has been deleted from user_authorized_keys
     assert:
       that: not user_02_authorized_keys_deleted.changed

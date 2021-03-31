@@ -1,16 +1,16 @@
 ---
 
-- name: Disable ZSH wizard for {{ username }}
+- name: Disable ZSH wizard for {{ user_name }}
   become: true
   file:
     path: "{{ user_info.home }}/.zshrc"
     state: touch
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
     mode: '0644'
     access_time: preserve
     modification_time: preserve
-  when: shell == '/bin/zsh'
+  when: user_shell == '/bin/zsh'
 
 - name: Add .zprofile to load .zshrc in non interactive shell (from ansible)
   become: true
@@ -18,7 +18,7 @@
     src: files/.zprofile
     dest: "{{ user_info.home }}/.zprofile"
     backup: true
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
     mode: '0644'
-  when: shell == '/bin/zsh'
+  when: user_shell == '/bin/zsh'

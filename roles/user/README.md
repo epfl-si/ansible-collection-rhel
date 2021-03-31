@@ -12,16 +12,16 @@ Requirements
 Role Variables
 --------------
 
-* username (string)
+* user_name (string)
   * default: none **required**
   * description: The name of the user to create/configure
-* uid (int optional)
+* user_uid (int optional)
   * default: Automatic
   * description: Useful to have same user id across multiple servers. Prevent issues with permission if files are exchanged between servers.
-* shell (string)
+* user_shell (string)
   * default: /bin/bash
   * description: The default shell the user will use at login.
-* home (path)
+* user_home (path)
   * default: (null)
   * description: Set the user's home directory
 * user_path_add (list of string)
@@ -30,7 +30,7 @@ Role Variables
 * user_path: (null)
   * default: none **required** if `path`is set
   * description: Set this to enforce a fixed path. `path_add` and `path` are mutually exclusive.
-* authorized_keys: (dictionary)
+* user_authorized_keys: (dictionary)
   * exclusive (bool)
     * default: false
     * description: Whether to remove all other non-specified keys from authorized_keys file
@@ -50,11 +50,11 @@ Do note the small difference:
 # Role vars
 - role: epfl_si.rhel.user
   vars:
-    username: my_user
+    user_name: my_user
 
 # Role parameters
 - role: epfl_si.rhel.user
-  username: my_user
+  user_name: my_user
 ```
 
 This is VERY important. Do NOT use roles variables if you wish to create multiples users. If you do that, the variables will be merged because their scope is the entire playbook. This is an undocumented behavior of Ansible. More details on this [Github issue #50278](https://github.com/ansible/ansible/issues/50278)
@@ -74,14 +74,14 @@ ssh_pub_keys:
     ssh_key: 'ssh-ed25519 AAAAB7890'
 ```
 
-and then reference it in the `authorized_keys.keys` variable:
+and then reference it in the `user_authorized_keys.keys_list` variable:
 
 ```yaml
 - hosts: servers
   roles:
   - role: epfl_si.rhel.user
-    username: my-user
-    authorized_keys:
+    user_name: my-user
+    user_authorized_keys:
     keys_list:
     - "{{ ssh_pub_keys.user1 }}"
     - "{{ ssh_pub_keys.user2 }}"
@@ -102,10 +102,10 @@ Example Playbook
 - hosts: servers
   roles:
   - role: epfl_si.rhel.user
-    username: my-user
-    shell: /bin/zsh
-    path_add: ['usr/local/bin']
-    authorized_keys:
+    user_name: my-user
+    user_shell: /bin/zsh
+    user_path_add: ['usr/local/bin']
+    user_authorized_keys:
       exclusive: true
       keys_list:
         - comment: 'user1@example.com'
@@ -129,10 +129,10 @@ ssh_pub_keys:
     ssh_key: 'ssh-ed25519 AAAAC45678'
 
 user_manager:
-  username: manager
-  shell: /bin/zsh
-  home: /home/manager
-  authorized_keys:
+  user_name: manager
+  user_shell: /bin/zsh
+  user_home: /home/manager
+  user_authorized_keys:
     exclusive: true
     keys_list:
       - "{{ ssh_pub_keys.user1 }}"
@@ -144,11 +144,11 @@ In *inventory/group_vars/subgroup/vars*:
 ```yaml
 ---
 user_mysql:
-  username: mysql
-  shell: /bin/bash
-  uid: 321
-  home: /home/mysql
-  authorized_keys:
+  user_name: mysql
+  user_shell: /bin/bash
+  user_uid: 321
+  user_home: /home/mysql
+  user_authorized_keys:
     exclusive: true
     keys_list:
       - "{{ ssh_pub_keys.user1 }}"
@@ -168,13 +168,13 @@ In your playbook:
     - include_role:
         name: epfl_si.rhel.user
       vars:
-        username: "{{ user_item.username }}"
-        shell: "{{ user_item.shell | default('') }}"
-        home: "{{ user_item.home | default('') }}"
-        uid: "{{ user_item.uid | default(0) }}"
+        user_name: "{{ user_item.username }}"
+        user_shell: "{{ user_item.shell | default('') }}"
+        user_home: "{{ user_item.home | default('') }}"
+        user_uid: "{{ user_item.uid | default(0) }}"
         user_path_add: "{{ user_item.user_path_add | default([]) }}"
         user_path: "{{ user_item.user_path | default('') }}"
-        authorized_keys: "{{ user_item.authorized_keys | default({}) }}"
+        user_authorized_keys: "{{ user_item.user_authorized_keys | default({}) }}"
       loop: "{{ users }}"
       loop_control:
         loop_var: user_item
@@ -189,23 +189,23 @@ Alternatively:
   roles:
 
     - role: epfl_si.rhel.user
-      username: manager
-      shell: /bin/bash
-      home: /home/manager
-      authorized_keys:
+      user_name: manager
+      user_shell: /bin/bash
+      user_home: /home/manager
+      user_authorized_keys:
         exclusive: true
         keys_list:
           - "{{ admins_pub_keys.user1 }}"
           - "{{ admins_pub_keys.user2 }}"
 
     - role: epfl_si.rhel.user
-      username: mysql
-      shell: /bin/bash
-      uid: 321
-      home: /home/mysql
+      user_name: mysql
+      user_shell: /bin/bash
+      user_uid: 321
+      user_home: /home/mysql
       user_path_add:
         - /u01/app/mysql/product/mysql-5.7.26/bin
-      authorized_keys:
+      user_authorized_keys:
         exclusive: true
         keys_list:
           - "{{ admins_pub_keys.user1 }}"

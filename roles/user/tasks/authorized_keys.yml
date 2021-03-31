@@ -3,17 +3,17 @@
 - name: Transform dict to string
   set_fact:
     keys_string: >
-      {{ authorized_keys.keys_list
+      {{ user_authorized_keys.keys_list
       | map(attribute='ssh_key')
-      | zip(authorized_keys.keys_list | map(attribute='comment'))
+      | zip(user_authorized_keys.keys_list | map(attribute='comment'))
       | map('join', ' ')
       }}
 
-- name: Set {{ username }} authorized_keys
+- name: Set {{ user_name }} authorized_keys
   become: true
   ansible.posix.authorized_key:
-    user: "{{ username }}"
-    exclusive: "{{ authorized_keys.exclusive | default('false') }}"
+    user: "{{ user_name }}"
+    exclusive: "{{ user_authorized_keys.exclusive | default('false') }}"
     state: present
     manage_dir: true
     key: "{{ keys_string | join('\n') }}"

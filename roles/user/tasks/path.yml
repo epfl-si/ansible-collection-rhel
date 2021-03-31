@@ -1,12 +1,12 @@
 ---
 
-- name: Add paths to {{ username }} common_profile
+- name: Add paths to {{ user_name }} common_profile
   become: true
   template:
     src: templates/common_profile.j2
     dest: "{{ user_info.home }}/.common_profile"
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
     mode: '0644'
   when: user_path_add | length > 0
 
@@ -26,14 +26,14 @@
     - user_path_add | length > 0
     - user_info.shell == item.shell_bin
 
-- name: Remove {{ username }} common_profile in case user_path_add was emptied
+- name: Remove {{ user_name }} common_profile in case user_path_add was emptied
   become: true
   file:
     dest: "{{ user_info.home }}/.common_profile"
     state: absent
   when: user_path_add | length == 0 or user_path | length > 0
 
-- name: Set absolute path for {{ username }}
+- name: Set absolute path for {{ user_name }}
   become: true
   lineinfile:
     regex: "^export PATH={{ user_path }}$"

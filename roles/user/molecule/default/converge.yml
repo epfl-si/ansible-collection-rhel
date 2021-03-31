@@ -8,16 +8,16 @@
   roles:
 
     - role: user
-      username: user_01
-      shell: /bin/bash
+      user_name: user_01
+      user_shell: /bin/bash
 
     - role: user
-      username: user_02
-      shell: /bin/zsh
-      uid: 1012
-      home: /usr/local/user_02
+      user_name: user_02
+      user_shell: /bin/zsh
+      user_uid: 1012
+      user_home: /usr/local/user_02
       user_path_add: ['/user_02_test']
-      authorized_keys:
+      user_authorized_keys:
         exclusive: true
         keys_list:
           - comment: 'user1@example.com'
@@ -26,10 +26,10 @@
             ssh-key: 'ssh-ed25519 AAAAB5678'
 
     - role: user
-      username: user_03
-      shell: /bin/bash
+      user_name: user_03
+      user_shell: /bin/bash
       user_path_add: ['/user_03_test']
 
     - role: user
-      username: user_04
+      user_name: user_04
       user_path: "/usr/bin:/user_04_test"
