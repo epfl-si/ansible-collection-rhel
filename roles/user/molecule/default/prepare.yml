@@ -14,8 +14,6 @@
       user:
         name: ansible
         state: present
-        groups:
-          - wheel
 
     - name: Allow ansible to sudo without password
       become: true
