@@ -23,27 +23,16 @@ collections:
     version: 1.1.3
 ```
 
-And add this to *roles/requirements.yml* file:
-
-```yaml
----
-roles
-  - name: gantsign.oh-my-zsh
-    version: 2.3.0
-```
-
-Be sure to add the path you want to download collections and roles to is present in your *ansible.cfg* file:
+Be sure to add the path you want to download collections to is present in your *ansible.cfg* file:
 
 ```ini
 [defaults]
-roles_path = ./roles:./galaxy_roles:~/.ansible/roles
 collections_path = ./collections:~/.ansible/collections/ansible_collections
 ```
 
 Then run:
 
 ```bash
-ansible-galaxy install -r roles/requirements.yml --roles-path ./galaxy_roles
 ansible-galaxy collection install -r collections/requirements.yml --collections-path ./collections
 ```
 
