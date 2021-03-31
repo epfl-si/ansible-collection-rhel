@@ -11,7 +11,7 @@
     # to this unprivileged user.
     - name: Create ansible user
       become: true
-      user:
+      ansible.builtin.user:
         name: ansible
         state: present
 
@@ -27,6 +27,6 @@
 
     - name: Create user_01 user
       become: true
-      user:
+      ansible.builtin.user:
         name: user_01
         state: present
