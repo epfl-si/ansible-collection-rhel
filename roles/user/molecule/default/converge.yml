@@ -33,3 +33,7 @@
     - role: user
       user_name: user_04
       user_path: "/usr/bin:/user_04_test"
+
+    - role: user
+      user_name: user_05
+      user_uid: 344

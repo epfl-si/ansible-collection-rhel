@@ -210,3 +210,13 @@
   - name: Assert that user_02 2nd key has been deleted from user_authorized_keys
     assert:
       that: not user_02_authorized_keys_deleted.changed
+
+  - name: Get user_05 gid
+    ansible.builtin.getent:
+      database: passwd
+      key: user_05
+    register: user_05_data
+
+  - name: Assert that user_05 uid == gid
+    assert:
+      that: user_05_data.ansible_facts.getent_passwd.user_05[2] == '344'

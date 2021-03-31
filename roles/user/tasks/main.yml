@@ -11,13 +11,21 @@
 
 - name: Assert that {{ user_name }} user_path_add and user_path are not both set
   assert:
-    that: not ( user_path_add | length > 0 and  user_path | length > 0 )
+    that: not ( user_path_add | length > 0 and user_path | length > 0 )
     fail_msg: user_path_add and user_path are mutually exclusive
+
+- name: Create group to ensure gid is same as uid for uid < 1000
+  become: true
+  ansible.builtin.group:
+    name: "{{ user_name }}"
+    gid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
+    state: present
 
 - name: "Add {{ user_name }} user"
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ user_name }}"
+    group: "{{ user_name }}"
     state: present
     shell: "{{ user_shell | default('/bin/bash') }}"
     home: "{{ omit if (user_home | length == 0) else user_home }}"
@@ -25,7 +33,7 @@
   register: test_user_data
 
 - name: Get {{ user_name }} informations
-  user:
+  ansible.builtin.user:
     name: "{{ user_name }}"
   register: user_info
 
