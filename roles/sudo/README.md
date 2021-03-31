@@ -11,11 +11,11 @@ The user must exists. This role doesn't verify if it is present.
 Role Variables
 --------------
 
-* sudoers_file
+* sudo_file
     * default: none **required**
     * type: string
     * description: The name of the drop-in file to install in */etc/sudoers.d/*. The file can start with a digit and a dash, e.g. 10-myuser. The files are loaded in ascending order.
-* rules
+* sudo_rules
     * default: none **required**
     * type: list of objects
     * description : The list of rules to install for the user. Each rules will become a line in the suders drop-in file.
@@ -54,8 +54,8 @@ Including an example of how to use your role (for instance, with variables passe
 - hosts: servers
   roles:
     - role: epfl_si.rhel.sudo
-      sudoers_file: 20-my-user
-      rules:
+      sudo_file: 20-my-user
+      sudo_rules:
         - user: my_user
           commands: ['cmd1', 'cmd2']
           nopasswd: true

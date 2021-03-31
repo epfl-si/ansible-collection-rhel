@@ -1,5 +1,5 @@
 {{ ansible_managed | comment }}
-{% for r in rules %}
+{% for r in sudo_rules %}
 {% for c in r.commands %}
 {{ r.user }} {{ r.host | default('ALL') }}=({{ r.runas | default('ALL') }}) {% if r.nopasswd | default(False) %}NOPASSWD:{% endif %} {{ c }}
 {% endfor %}

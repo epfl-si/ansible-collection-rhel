@@ -7,11 +7,11 @@
     name: sudo
     state: present
 
-- name: Create {{ sudoers_file }} drop-in file
+- name: Create {{ sudo_file }} drop-in file
   become: true
   template:
     src: templates/sudoers.j2
-    dest: "/etc/sudoers.d/{{ sudoers_file }}"
+    dest: "/etc/sudoers.d/{{ sudo_file }}"
     owner: root
     group: root
     mode: '0644'
