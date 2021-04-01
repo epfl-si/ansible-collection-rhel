@@ -30,25 +30,28 @@
     shell: "{{ user_shell | default('/bin/bash') }}"
     home: "{{ omit if (user_home | length == 0) else user_home }}"
     uid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
-  register: test_user_data
+  register: user_creation_status
 
-- name: Get {{ user_name }} informations
-  ansible.builtin.user:
-    name: "{{ user_name }}"
-  register: user_info
+- name: Include task to get {{ user_name }} info
+  import_tasks: get_user_info.yml
+  when: not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manage {{ user_name }}'s zsh
   import_tasks: zsh.yml
   when:
     - user_shell is defined
     - user_shell == '/bin/zsh'
+    - not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manage {{ user_name }}'s PATH
   import_tasks: path.yml
+  when: not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manager {{ user_name }}'s authorized keys
   import_tasks: authorized_keys.yml
-  when: user_authorized_keys.keys_list is defined
+  when:
+    - user_authorized_keys.keys_list is defined
+    - not ansible_check_mode or not user_creation_status.changed
 
 - name: Reset variables in case the role is called multiple times
   set_fact:
