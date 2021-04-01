@@ -1,0 +1,25 @@
+---
+
+- name: Verify
+  hosts: sudo1
+  gather_facts: false
+  tasks:
+
+    - name: Check if 20-user_01 drop-in file exists
+      stat:
+        path: /etc/sudoers.d/20-user_01
+      register: user_01_sudo_file
+
+    - name: Assert that 20-user_01 drop-in file exists
+      assert:
+        that: user_01_sudo_file.stat.exists
+
+    - name: Issue a command as root from user_01
+      shell:
+        cmd: sudo ls /root
+        warn: false
+      register: command_from_user_01
+
+    - name: Assert that command sudo ls /root worked without password
+      assert:
+        that: command_from_user_01.rc == 0

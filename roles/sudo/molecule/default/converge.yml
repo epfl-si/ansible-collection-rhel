@@ -1,0 +1,17 @@
+---
+
+- name: Converge
+  hosts: sudo1
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  roles:
+
+    - role: sudo
+      sudo_file: 20-user_01
+      sudo_rules:
+        - user: user_01
+          commands:
+            - '/bin/ls *'
+            - '/bin/cat *'
+          nopasswd: true

@@ -1,0 +1,41 @@
+---
+
+scenario:
+  name: default
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
+
+driver:
+  name: podman
+
+platforms:
+
+  - name: user1
+    registry: {url: registry.access.redhat.com}
+    image: ubi8/ubi
+    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
+
+provisioner:
+  name: ansible
+  log: true
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer
+      stdout_callback: yaml
+    ssh_connection:
+      forks: 1
+      pipelining: false
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  yamllint defaults meta tasks vars
+  ansible-lint --exclude .cache

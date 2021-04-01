@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: journald
+  namespace: epfl_si
   author: Laurent Indermühle
   description: Install and configure journald
   company: École Polytechnique Fédérale de Lausanne

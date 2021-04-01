@@ -1,0 +1,5 @@
+---
+
+breaking_changes:
+
+  - s3cmd - The role now only handle one user and one bucket at a time.

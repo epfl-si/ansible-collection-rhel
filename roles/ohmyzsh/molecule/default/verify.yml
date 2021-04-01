@@ -1,0 +1,24 @@
+---
+
+- name: Verify
+  hosts: ohmyzsh1
+  gather_facts: false
+  tasks:
+
+    - name: Check presence of zsh-completions custom plugin
+      stat:
+        path: /home/user_01/.oh-my-zsh/custom/plugins/zsh-completions
+      register: zsh_completions_folder
+
+    - name: Assert that custom plugins has been installed
+      assert:
+        that: zsh_completions_folder.stat.exists
+
+    - name: Check presence of mh-honiix custom theme
+      stat:
+        path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
+      register: mh_hostname_theme
+
+    - name: Assert that custom theme has been installed
+      assert:
+        that: mh_hostname_theme.stat.exists

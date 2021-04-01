@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: user
+  namespace: epfl_si
+  author: Laurent Indermühle
+  description: >
+    Create specified user, sets its default shell and manage the
+    authorized_keys file. This role handle one user at a time. Call this role
+    multiples times to create many users.
+  company: École Polytechnique Fédérale de Lausanne (EPFL)
+  license: GPLv3
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: RHEL
+      versions: 8
+
+  galaxy_tags: []
+
+dependencies: []

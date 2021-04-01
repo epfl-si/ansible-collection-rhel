@@ -1,0 +1,70 @@
+---
+# tasks file for user
+
+- name: Set variables defaults to avoid testing if variables are defined
+  set_fact:
+    user_path_add: "{{ user_path_add | default([]) }}"
+    user_path: "{{ user_path | default('') }}"
+    user_uid: "{{ user_uid | default(0) }}"
+    user_home: "{{ user_home | default('') }}"
+    user_authorized_keys: "{{ user_authorized_keys | default({}) }}"
+
+- name: Assert that {{ user_name }} user_path_add and user_path are not both set
+  assert:
+    that: not ( user_path_add | length > 0 and user_path | length > 0 )
+    fail_msg: user_path_add and user_path are mutually exclusive
+
+- name: Create group to ensure gid is same as uid for uid < 1000
+  become: true
+  ansible.builtin.group:
+    name: "{{ user_name }}"
+    gid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
+    state: present
+
+- name: "Add {{ user_name }} user"
+  become: true
+  ansible.builtin.user:
+    name: "{{ user_name }}"
+    group: "{{ user_name }}"
+    state: present
+    shell: "{{ user_shell | default('/bin/bash') }}"
+    home: "{{ omit if (user_home | length == 0) else user_home }}"
+    uid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
+  register: user_creation_status
+
+- name: Fix {{ user_name }} home group owner in case the uid changed
+  become: true
+  ansible.builtin.file:
+    path: "{{ user_creation_status.home }}"
+    group: "{{ user_creation_status.group }}"
+    recurse: true
+    state: directory
+
+- name: Include task to get {{ user_name }} info
+  import_tasks: get_user_info.yml
+  when: not ansible_check_mode or not user_creation_status.changed
+
+- name: Include tasks to manage {{ user_name }}'s zsh
+  import_tasks: zsh.yml
+  when:
+    - user_shell is defined
+    - user_shell == '/bin/zsh'
+    - not ansible_check_mode or not user_creation_status.changed
+
+- name: Include tasks to manage {{ user_name }}'s PATH
+  import_tasks: path.yml
+  when: not ansible_check_mode or not user_creation_status.changed
+
+- name: Include tasks to manager {{ user_name }}'s authorized keys
+  import_tasks: authorized_keys.yml
+  when:
+    - user_authorized_keys.keys_list is defined
+    - not ansible_check_mode or not user_creation_status.changed
+
+- name: Reset variables in case the role is called multiple times
+  set_fact:
+    user_path_add: []
+    user_path: ''
+    user_uid: 0
+    user_home: ''
+    user_authorized_keys: {}

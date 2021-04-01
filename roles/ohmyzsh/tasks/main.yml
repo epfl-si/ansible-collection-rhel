@@ -1,0 +1,45 @@
+---
+# tasks file for ohmyzsh
+
+- name: Ensure dependencies are installed
+  become: true
+  package:
+    name:
+      - zsh
+      - git
+    state: present
+
+- name: Upload ohmyzsh custom package
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  ansible.builtin.unarchive:
+    copy: true
+    src: files/ohmyzsh.tar.gz
+    creates: ~/.oh-my-zsh
+    dest: ~/
+    owner: "{{ ohmyzsh_user }}"
+    group: "{{ ohmyzsh_user }}"
+    mode: '0755'
+
+- name: Create empty .z file to prevent warnings
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  copy:
+    content: ''
+    dest: '~/.z'
+    owner: "{{ ohmyzsh_user }}"
+    group: "{{ ohmyzsh_user }}"
+    mode: '0644'
+    force: false
+  when: not ansible_check_mode
+
+- name: Create the .zshrc file
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  template:
+    src: templates/zshrc.j2
+    dest: ~/.zshrc
+    owner: "{{ ohmyzsh_user }}"
+    group: "{{ ohmyzsh_user }}"
+    mode: '0644'
+    backup: true

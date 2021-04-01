@@ -1,0 +1,19 @@
+---
+
+- name: Transform dict to string
+  set_fact:
+    keys_string: >
+      {{ user_authorized_keys.keys_list
+      | map(attribute='ssh_key')
+      | zip(user_authorized_keys.keys_list | map(attribute='comment'))
+      | map('join', ' ')
+      }}
+
+- name: Set {{ user_name }} authorized_keys
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ user_name }}"
+    exclusive: "{{ user_authorized_keys.exclusive | default('false') }}"
+    state: present
+    manage_dir: true
+    key: "{{ keys_string | join('\n') }}"

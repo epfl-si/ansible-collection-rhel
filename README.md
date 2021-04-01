@@ -3,9 +3,9 @@
 Collection of Ansible roles to setup and manage components of RHEL like ntp, sshd, users, ...
 
 
-## Goal and target audiance
+## Goal and target audience
 
-The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtualized infrastructure. But we hope it could be useful for anyone.
+The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtual infrastructure. But we hope it could be useful for anyone.
 
 You are welcome to suggest improvements either by opening a issue or via a push request.
 
@@ -23,27 +23,16 @@ collections:
     version: 1.1.3
 ```
 
-And add this to *roles/requirements.yml* file:
-
-```yaml
----
-roles
-  - name: gantsign.oh-my-zsh
-    version: 2.3.0
-```
-
-Be sure to add the path you want to download collections and roles to is present in your *ansible.cfg* file:
+Be sure to add the path you want to download collections to is present in your *ansible.cfg* file:
 
 ```ini
 [defaults]
-roles_path = ./roles:./galaxy_roles:~/.ansible/roles
 collections_path = ./collections:~/.ansible/collections/ansible_collections
 ```
 
 Then run:
 
 ```bash
-ansible-galaxy install -r roles/requirements.yml --roles-path ./galaxy_roles
 ansible-galaxy collection install -r collections/requirements.yml --collections-path ./collections
 ```
 
@@ -56,9 +45,9 @@ Each role has it's own README.md
 
 Tests are done using [Molecule](https://molecule.readthedocs.io) with the Podman driver. Because we wants to test communications between containers using IP address, we [must use rootfull containers](https://www.redhat.com/sysadmin/container-networking-podman).
 
-When writing this, Ansible colletions are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
+When writing this, Ansible collections are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
 
-In order to run systemd services inside Podman, we must mount various volumes, disabling Selinux labelling and add capabilities:
+In order to run Systemd services inside Podman, we must mount various volumes, disabling Selinux labeling and add capabilities:
 
 ```yaml
   - name: node1

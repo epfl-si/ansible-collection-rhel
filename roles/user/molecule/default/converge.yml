@@ -1,0 +1,39 @@
+---
+
+- name: Converge
+  hosts: user1
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  roles:
+
+    - role: user
+      user_name: user_01
+      user_shell: /bin/bash
+
+    - role: user
+      user_name: user_02
+      user_shell: /bin/zsh
+      user_uid: 1012
+      user_home: /usr/local/user_02
+      user_path_add: ['/user_02_test']
+      user_authorized_keys:
+        exclusive: true
+        keys_list:
+          - comment: 'user1@example.com'
+            ssh_key: 'ssh-rsa AAAAB1234'
+          - comment: 'user2@example.com'
+            ssh_key: 'ssh-ed25519 AAAAB5678'
+
+    - role: user
+      user_name: user_03
+      user_shell: /bin/bash
+      user_path_add: ['/user_03_test']
+
+    - role: user
+      user_name: user_04
+      user_path: "/usr/bin:/user_04_test"
+
+    - role: user
+      user_name: user_05
+      user_uid: 344

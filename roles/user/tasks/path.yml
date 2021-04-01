@@ -1,0 +1,50 @@
+---
+
+- name: Add paths to {{ user_name }} common_profile
+  become: true
+  template:
+    src: templates/common_profile.j2
+    dest: "{{ user_info.home }}/.common_profile"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0644'
+  when: user_path_add | length > 0
+
+- name: Load common_profile
+  become: true
+  lineinfile:
+    regex: "^source \\$HOME/.common_profile$"
+    line: source $HOME/.common_profile
+    dest: "{{ user_info.home }}/{{ item.shell_cfg }}"
+    state: present
+  loop:
+    - shell_bin: /bin/bash
+      shell_cfg: .bashrc
+    - shell_bin: /bin/zsh
+      shell_cfg: .zshrc
+  when:
+    - user_path_add | length > 0
+    - user_info.shell == item.shell_bin
+
+- name: Remove {{ user_name }} common_profile in case user_path_add was emptied
+  become: true
+  file:
+    dest: "{{ user_info.home }}/.common_profile"
+    state: absent
+  when: user_path_add | length == 0 or user_path | length > 0
+
+- name: Set absolute path for {{ user_name }}
+  become: true
+  lineinfile:
+    regex: "^export PATH={{ user_path }}$"
+    line: "export PATH={{ user_path }}"
+    dest: "{{ user_info.home }}/{{ item.shell_cfg }}"
+    state: present
+  loop:
+    - shell_bin: /bin/bash
+      shell_cfg: .bashrc
+    - shell_bin: /bin/zshrc
+      shell_cfg: .zshrc
+  when:
+    - user_path | length > 0
+    - user_info.shell == item.shell_bin

@@ -1,0 +1,13 @@
+---
+
+- name: Get {{ user_name }} informations
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ user_name }}"
+  register: user_getent
+
+- name: Set {{ user_name }} variables
+  set_fact:
+    user_info:
+      home: "{{ user_getent.ansible_facts.getent_passwd[user_name][4] }}"
+      shell: "{{ user_getent.ansible_facts.getent_passwd[user_name][5] }}"

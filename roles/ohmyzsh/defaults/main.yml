@@ -1,0 +1,10 @@
+---
+# defaults file for ohmyzsh
+
+ohmyzsh_theme: robbyrussell
+ohmyzsh_plugins:
+  - z
+  - git
+  - zsh-autosuggestions
+  - zsh-completions
+  - zsh-syntax-highlighting

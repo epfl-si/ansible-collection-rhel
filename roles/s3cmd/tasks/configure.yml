@@ -2,67 +2,36 @@
 
 # Copy the template into user home dir
 
-- name: Select distinct users
-  set_fact:
-    s3cmd_users_to_parse:
-      "{{ s3cmd_users_access | map(attribute='user') | unique }}"
-
 - name: Find users home path
   become: true
-  getent:
-    database: passwd
-    key: '{{ user }}'
-  loop: "{{ s3cmd_users_to_parse }}"
-  loop_control:
-    loop_var: user
-    label: "{{ user | default('Unset') }}"
-  register: users_vars
+  user:
+    name: "{{ s3cmd_user }}"
+  register: s3cmd_user_vars
 
-- name: Store home path per user
-  set_fact:
-    users_home:
-      "{{ users_home | default({})
-      | combine({user_vars.user:
-      user_vars.ansible_facts.getent_passwd[user_vars.user][4]}) }}"
-  loop: "{{ users_vars.results }}"
-  loop_control:
-    loop_var: user_vars
-    label: "User: {{ user_vars.user | default('Unset') }}"
-
-- name: Create the s3cfg file into user home folder
+- name: Create the s3cfg file into {{ s3cmd_user }} home folder
   become: true
-  become_user: "{{ user_access.user }}"
+  become_user: "{{ s3cmd_user }}"
   template:
     src: templates/s3cfg.j2
     dest:
-      "{{ users_home[user_access.user] }}/.s3cfg-\
-      {{ user_access.bucket }}\
-      {%- if user_access.grant == 'read_only' -%}\
+      "{{ s3cmd_user_vars.home }}/.s3cfg-\
+      {{ s3cmd_bucket }}\
+      {%- if s3cmd_read_only | default(False) -%}\
       -ro\
-      {%- elif user_access.grant == 'read_write' -%}\
+      {%- else -%}\
       -rw\
       {%- endif -%}"
-    owner: "{{ user_access.user }}"
-    group: "{{ user_access.user }}"
+    owner: "{{ s3cmd_user }}"
+    group: "{{ s3cmd_user }}"
     mode: '0600'
-  loop: "{{ s3cmd_users_access }}"
-  loop_control:
-    loop_var: user_access
-    label: "User: {{ user_access.user }}, Bucket: {{ user_access.bucket }}"
 
-- name: Create the default s3cfg file into user home folder
+- name: Create the default s3cfg file into {{ s3cmd_user }} home folder
   become: true
-  become_user: "{{ user_access.user }}"
+  become_user: "{{ s3cmd_user }}"
   template:
     src: templates/s3cfg.j2
-    dest: "{{ users_home[user_access.user] }}/.s3cfg"
-    owner: "{{ user_access.user }}"
-    group: "{{ user_access.user }}"
+    dest: "{{ s3cmd_user_vars.home }}/.s3cfg"
+    owner: "{{ s3cmd_user }}"
+    group: "{{ s3cmd_user }}"
     mode: '0600'
-  loop: "{{ s3cmd_users_access }}"
-  loop_control:
-    loop_var: user_access
-    label: "User: {{ user_access.user }}, Bucket: {{ user_access.bucket }}"
-  when:
-    - user_access.default is defined
-    - user_access.default is true
+  when: s3cmd_read_only | default(False)

@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: sshd
+  namespace: epfl_si
   author: Laurent Indermühle
   description: Secures SSHD by prohibiting root and connections
     using password. Enables connection auditing since several users log

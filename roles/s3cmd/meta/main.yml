@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: s3cmd
+  namespace: epfl_si
   author: Laurent Indermühle
   description: Install and configure s3cmd
   company: École Polytechnique Fédérale de Lausanne
