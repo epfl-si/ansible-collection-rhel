@@ -5,6 +5,32 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.0
+======
+
+Release Summary
+---------------
+
+Many roles have been refactored to be simpler to use. With less relying on the inventory it's now easier to understand what a role will do.
+
+
+Major Changes
+-------------
+
+- ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
+- sudo - New role that manages sudoers.d drop-in files
+- user - New role that creates a linux user and manage $PATH for bash and zsh
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- s3cmd - The role now only handle one user and one bucket at a time.
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- users_linux - This role is deleted. Use epfl_si.rhel.user, epfl_si.rhel.ohmyzsh and epfl_si.rhel.sudo instead
+
 v1.3.0
 ======
 

@@ -71,3 +71,21 @@ releases:
     fragments:
     - users_gid_different_than_uid.yml
     release_date: '2021-03-22'
+  1.4.0:
+    changes:
+      breaking_changes:
+      - s3cmd - The role now only handle one user and one bucket at a time.
+      major_changes:
+      - ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
+      - sudo - New role that manages sudoers.d drop-in files
+      - user - New role that creates a linux user and manage $PATH for bash and zsh
+      release_summary: 'Many roles have been refactored to be simpler to use. With
+        less relying on the inventory it''s now easier to understand what a role will
+        do.'
+      removed_features:
+      - users_linux - This role is deleted. Use epfl_si.rhel.user, epfl_si.rhel.ohmyzsh
+        and epfl_si.rhel.sudo instead
+    fragments:
+    - s3cmd.yml
+    - user.yml
+    release_date: '2021-04-01'
