@@ -205,8 +205,6 @@
       dest: /usr/local/user_02/.ssh/authorized_keys
     register: user_02_authorized_keys_deleted
 
-  - debug: var=user_02_authorized_keys_deleted
-
   - name: Assert that user_02 2nd key has been deleted from user_authorized_keys
     assert:
       that: not user_02_authorized_keys_deleted.changed
