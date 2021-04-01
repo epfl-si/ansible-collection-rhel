@@ -5,7 +5,7 @@ galaxy_info:
   author: Laurent Indermühle
   description: Install and configure s3cmd
   company: École Polytechnique Fédérale de Lausanne
-  license: MIT
+  license: GPL-3.0-or-later
   min_ansible_version: 2.9
 
   platforms:

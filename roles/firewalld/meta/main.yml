@@ -5,7 +5,7 @@ galaxy_info:
   author: Laurent Indermühle
   description: Install and configure firewalld
   company: École Polytechnique Fédérale de Lausanne
-  license: GPLv3
+  license: GPL-3.0-or-later
   min_ansible_version: 2.9
 
   platforms:
