@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.1
+======
+
+Bugfixes
+--------
+
+- user - Fix a bug in AWX/Tower when transforming string to list using map that printed the generator object do_map at 0x7.... instead of the string
+
 v1.4.0
 ======
 
@@ -12,7 +20,6 @@ Release Summary
 ---------------
 
 Many roles have been refactored to be simpler to use. With less relying on the inventory it's now easier to understand what a role will do.
-
 
 Major Changes
 -------------

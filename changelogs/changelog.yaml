@@ -79,13 +79,21 @@ releases:
       - ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
       - sudo - New role that manages sudoers.d drop-in files
       - user - New role that creates a linux user and manage $PATH for bash and zsh
-      release_summary: 'Many roles have been refactored to be simpler to use. With
-        less relying on the inventory it''s now easier to understand what a role will
-        do.'
+      release_summary: Many roles have been refactored to be simpler to use. With
+        less relying on the inventory it's now easier to understand what a role will
+        do.
       removed_features:
       - users_linux - This role is deleted. Use epfl_si.rhel.user, epfl_si.rhel.ohmyzsh
         and epfl_si.rhel.sudo instead
     fragments:
     - s3cmd.yml
     - user.yml
+    release_date: '2021-04-01'
+  1.4.1:
+    changes:
+      bugfixes:
+      - user - Fix a bug in AWX/Tower when transforming string to list using map that
+        printed the generator object do_map at 0x7.... instead of the string
+    fragments:
+    - fix_user_map_tower.yml
     release_date: '2021-04-01'
