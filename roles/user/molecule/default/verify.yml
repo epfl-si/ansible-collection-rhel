@@ -218,3 +218,21 @@
   - name: Assert that user_05 uid == gid
     assert:
       that: user_05_data.ansible_facts.getent_passwd.user_05[2] == '344'
+
+  - name: Change user_05 uid from 344 to 388
+    include_role:
+      name: user
+    vars:
+      user_name: user_05
+      user_uid: 388
+
+  - name: Get user_05 home dir uid and gid
+    file:
+      path: /home/user_05
+      state: directory
+    register: user_05_uid_388
+
+  - name: Assert that user_05 home dir group matchs user gid
+    assert:
+      that: user_05_uid_388.gid == 388
+      fail_msg: "folder group should be 388, not {{ user_05_uid_388.gid }}"

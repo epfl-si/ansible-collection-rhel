@@ -32,6 +32,14 @@
     uid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
   register: user_creation_status
 
+- name: Fix {{ user_name }} home group owner in case the uid changed
+  become: true
+  ansible.builtin.file:
+    path: "{{ user_creation_status.home }}"
+    group: "{{ user_creation_status.group }}"
+    recurse: true
+    state: directory
+
 - name: Include task to get {{ user_name }} info
   import_tasks: get_user_info.yml
   when: not ansible_check_mode or not user_creation_status.changed
