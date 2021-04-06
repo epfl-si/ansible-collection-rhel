@@ -42,4 +42,5 @@
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
     mode: '0644'
+    force: false
     backup: true

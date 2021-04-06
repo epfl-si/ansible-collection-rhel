@@ -1,0 +1,5 @@
+---
+
+bugfixes:
+
+  - ohmyzsh - Fix zsh configuration overwritten each run
