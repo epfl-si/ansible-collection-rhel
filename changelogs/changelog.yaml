@@ -97,3 +97,10 @@ releases:
     fragments:
     - fix_user_map_tower.yml
     release_date: '2021-04-01'
+  1.4.2:
+    changes:
+      bugfixes:
+      - ohmyzsh - Fix zsh configuration overwritten each run
+    fragments:
+    - prevent-ohmyzsh-overwrite-config.yml
+    release_date: '2021-04-06'

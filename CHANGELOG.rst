@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.2
+======
+
+Bugfixes
+--------
+
+- ohmyzsh - Fix zsh configuration overwritten each run
+
 v1.4.1
 ======
 
