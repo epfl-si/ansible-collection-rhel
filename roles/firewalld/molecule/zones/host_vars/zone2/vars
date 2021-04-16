@@ -1,5 +1,7 @@
 ---
 
+ansible_user: cmadm
+
 firewalld_zones:
   public:
     interface:
