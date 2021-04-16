@@ -104,3 +104,10 @@ releases:
     fragments:
     - prevent-ohmyzsh-overwrite-config.yml
     release_date: '2021-04-06'
+  1.4.3:
+    changes:
+      bugfixes:
+      - firewalld - Fix non-root ansible_user unable to reload firewalld
+    fragments:
+    - fix-firewalld-interactive-authentication-required.yml
+    release_date: '2021-04-16'

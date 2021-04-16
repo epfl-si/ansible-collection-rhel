@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.3
+======
+
+Bugfixes
+--------
+
+- firewalld - Fix non-root ansible_user unable to reload firewalld
+
 v1.4.2
 ======
 
