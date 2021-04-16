@@ -2,6 +2,9 @@
 
 ansible_user: cmadm
 
+# ansible_default_ipv4.address
+# ansible_default_ipv4.interface
+
 ip_zone2:
   "{{ hostvars['zone2']['ansible_local']['molecule']
   ['podman_network']['node_ip'] }}/32"
