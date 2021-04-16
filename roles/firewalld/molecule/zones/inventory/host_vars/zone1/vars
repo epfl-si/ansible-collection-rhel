@@ -1,30 +1,12 @@
 ---
 
-ansible_user: cmadm
-
-# ansible_default_ipv4.address
-# ansible_default_ipv4.interface
-
-ip_zone2:
-  "{{ hostvars['zone2']['ansible_local']['molecule']
-  ['podman_network']['node_ip'] }}/32"
-ip_zone3:
-  "{{ hostvars['zone3']['ansible_local']['molecule']
-  ['podman_network']['node_ip'] }}/32"
-ip_zone4:
-  "{{ hostvars['zone4']['ansible_local']['molecule']
-  ['podman_network']['node_ip'] }}/32"
-ip_zone5:
-  "{{ hostvars['zone5']['ansible_local']['molecule']
-  ['podman_network']['node_ip'] }}/32"
 my_interface:
-  "{{ hostvars[inventory_hostname]['ansible_local']['molecule']
-  ['podman_network']['node_interface'] }}"
+  "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['interface'] }}"
 
 firewalld_zones:
   external:
     source:
-      - ip: "{{ ip_zone3 }}"
+      - ip: "{{ ip_zone3 }}/32"
     service:
       - {name: ssh, state: disabled}
       - name: mysql
@@ -37,7 +19,7 @@ firewalld_zones:
       - {name: ssh, state: disabled}
   internal:
     source:
-      - ip: "{{ ip_zone2 }}"
+      - ip: "{{ ip_zone2 }}/32"
     service:
       - name: ssh
       - name: mysql
@@ -50,11 +32,11 @@ firewalld_zones:
       - name: "42000-42099/tcp"
   mysqld1:
     source:
-      - ip: "{{ ip_zone4 }}"
+      - ip: "{{ ip_zone4 }}/32"
     port:
       - name: "33001/tcp"
   mysqld2:
     source:
-      - ip: "{{ ip_zone5 }}"
+      - ip: "{{ ip_zone5 }}/32"
     port:
       - name: "33002/tcp"

@@ -5,10 +5,6 @@
   module_defaults:
     wait_for:
       timeout: 2
-  vars:
-    ip_zone1:
-      "{{ hostvars['zone1']['ansible_local']
-      ['molecule']['podman_network']['node_ip'] }}"
   tasks:
 
     - name: Ping from zone2 to zone1
