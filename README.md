@@ -85,7 +85,7 @@ molecule login -s <scenario> -h <node-name>
 
 ## Publishing
 
-Atm, no automation, everything is done from your computer:
+ATM, no automation, everything is done from your computer. To find your token, go to [https://galaxy.ansible.com/me/preferences](https://galaxy.ansible.com/me/preferences)
 
 1. Bump the version in `galaxy.yml`
 1. `antsibull-changelog lint`
@@ -94,3 +94,4 @@ Atm, no automation, everything is done from your computer:
 1. `git tag <ver>`
 1. `ansible-galaxy collection build`
 1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --token=<token>`
+1. `rm ./epfl_si-rhel-<ver>.tar.gz`
