@@ -13,7 +13,7 @@ None
 Role Variables
 --------------
 
-None
+sshd_permit_root_login : Default false
 
 Dependencies
 ------------

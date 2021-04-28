@@ -19,10 +19,20 @@
       register: sshd_config
       changed_when: false
 
-    - name: Assert that ssh connection to root are disabled
+    - name: Assert that ssh connection to root is autorized
+      assert:
+        that: "'permitrootlogin yes' in sshd_config.stdout"
+      when:
+        - sshd_permit_root_login is defined
+        - sshd_permit_root_login is trusty
+
+    - name: Assert that ssh connection to root is forbidden
       assert:
         that: "'permitrootlogin no' in sshd_config.stdout"
+      when:
+        - sshd_permit_root_login is defined
+        - sshd_permit_root_login is falsy
 
-    - name: Assert that connection with password are disabled
+    - name: Assert that connection with password is forbidden
       assert:
         that: "'passwordauthentication no' in sshd_config.stdout"

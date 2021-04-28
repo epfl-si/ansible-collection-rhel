@@ -1,7 +1,7 @@
 ---
 
 scenario:
-  name: setup
+  name: default
 
 dependency:
   name: galaxy
@@ -39,6 +39,9 @@ provisioner:
       pipelining: false
   playbooks:
     create: ../../../../molecule/resources/playbooks/create.yml
+  inventory:
+    link:
+      host_vars: ./host_vars
 
 verifier:
   name: ansible

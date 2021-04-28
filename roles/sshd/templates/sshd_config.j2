@@ -44,7 +44,7 @@ LogLevel VERBOSE
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin no
+PermitRootLogin {{ sshd_permit_root_login }}
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
