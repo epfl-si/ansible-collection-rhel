@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.4
+======
+
+Minor Changes
+-------------
+
+- sshd - Add option to permit root login
+
 v1.4.3
 ======
 

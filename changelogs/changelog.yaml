@@ -111,3 +111,10 @@ releases:
     fragments:
     - fix-firewalld-interactive-authentication-required.yml
     release_date: '2021-04-16'
+  1.4.4:
+    changes:
+      minor_changes:
+      - sshd - Add option to permit root login
+    fragments:
+    - sshd_permit_root_login.yml
+    release_date: '2021-04-28'

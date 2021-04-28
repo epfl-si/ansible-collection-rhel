@@ -1,7 +1,7 @@
 ---
 namespace: epfl_si
 name: rhel
-version: 1.4.3
+version: 1.4.4
 readme: README.md
 
 authors:

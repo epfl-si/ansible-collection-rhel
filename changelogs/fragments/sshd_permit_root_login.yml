@@ -1,5 +1,0 @@
----
-
-minor_changes:
-
-  - sshd - Add option to permit root login
