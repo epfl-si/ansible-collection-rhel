@@ -24,7 +24,7 @@
         that: "'permitrootlogin yes' in sshd_config.stdout"
       when:
         - sshd_permit_root_login is defined
-        - sshd_permit_root_login is trusty
+        - sshd_permit_root_login is truthy
 
     - name: Assert that ssh connection to root is forbidden
       assert:
