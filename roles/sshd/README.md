@@ -1,8 +1,8 @@
 Role Name
 =========
 
-Secures SSHD by prohibiting root and connections
-using password. Enables connection auditing since several users log
+Secures SSHD by prohibiting login as root and login using passwords.
+Enables connection auditing since several users log
 in to the same account (sysadm, appadm, ...)
 
 Requirements
