@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.5
+======
+
+Bugfixes
+--------
+
+- sshd - Fix missing new line is sshd configuration
+
 v1.4.4
 ======
 

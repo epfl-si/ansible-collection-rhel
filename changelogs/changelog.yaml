@@ -118,3 +118,10 @@ releases:
     fragments:
     - sshd_permit_root_login.yml
     release_date: '2021-04-28'
+  1.4.5:
+    changes:
+      bugfixes:
+      - sshd - Fix missing new line is sshd configuration
+    fragments:
+    - sshd_fix_newline.yml
+    release_date: '2021-04-29'
