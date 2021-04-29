@@ -44,7 +44,11 @@ LogLevel VERBOSE
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin {% if sshd_permit_root_login %}yes{% else %}no{% endif %}
+{% if sshd_permit_root_login %}
+PermitRootLogin yes
+{% else %}
+PermitRootLogin no
+{% endif %}
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
