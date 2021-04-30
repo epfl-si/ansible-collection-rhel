@@ -43,17 +43,17 @@
   when: user_name != 'root'
 
 - name: Include task to get {{ user_name }} info
-  import_tasks: get_user_info.yml
+  include_tasks: get_user_info.yml
   when: not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manage {{ user_name }}'s zsh
-  import_tasks: zsh.yml
+  include_tasks: zsh.yml
   when:
     - _user_shell == '/bin/zsh'
     - not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manage {{ user_name }}'s PATH
-  import_tasks: path.yml
+  include_tasks: path.yml
   when: not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manager {{ user_name }}'s authorized keys
