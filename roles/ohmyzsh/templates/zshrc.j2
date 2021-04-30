@@ -23,13 +23,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 {# Supports epfl_si.rhel.user user_path_add and user_path feature #}
-
-{# Supports epfl_si.rhel.user user_path_add feature #}
 {% if user_path_add is defined and user_path_add | length > 0 %}
 source $HOME/.common_profile
-{% endif %}
-
-{# Supports epfl_si.rhel.user user_path feature #}
-{% if user_path is defined and user_path | length > 0 %}
-export PATH={{ user_path }}
 {% endif %}

@@ -21,17 +21,22 @@
     group: "{{ ohmyzsh_user }}"
     mode: '0755'
 
-- name: Create empty .z file to prevent warnings
+- name: Ensure ~/.common_profile and ~/.z exists
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  copy:
-    content: ''
-    dest: '~/.z'
+  ansible.builtin.file:
+    path: "{{ ohmyzsh_necessary_files_item }}"
+    state: touch
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
     mode: '0644'
-    force: false
-  when: not ansible_check_mode
+    access_time: preserve
+    modification_time: preserve
+  loop:
+    - ~/.common_profile
+    - ~/.z
+  loop_control:
+    loop_var: ohmyzsh_necessary_files_item
 
 - name: Create the .zshrc file
   become: true
