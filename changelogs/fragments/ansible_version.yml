@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - Raise supported version up to Ansible 4 (ansible-core 2.11)
