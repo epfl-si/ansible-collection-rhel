@@ -40,6 +40,7 @@
     group: "{{ user_creation_status.group }}"
     recurse: true
     state: directory
+  when: user_name != 'root'
 
 - name: Include task to get {{ user_name }} info
   import_tasks: get_user_info.yml
