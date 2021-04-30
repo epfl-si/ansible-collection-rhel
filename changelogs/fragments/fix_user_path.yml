@@ -1,0 +1,6 @@
+---
+
+bugfixes:
+
+  - user - Fix user PATH definition
+  - user - Fix .zshrc from ohmyzsh overwritten by accident
