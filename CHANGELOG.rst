@@ -5,6 +5,20 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.6
+======
+
+Minor Changes
+-------------
+
+- Raise supported version up to Ansible 4 (ansible-core 2.11)
+
+Bugfixes
+--------
+
+- user - Fix .zshrc from ohmyzsh overwritten by accident
+- user - Fix user PATH definition
+
 v1.4.5
 ======
 

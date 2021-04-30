@@ -125,3 +125,14 @@ releases:
     fragments:
     - sshd_fix_newline.yml
     release_date: '2021-04-29'
+  1.4.6:
+    changes:
+      bugfixes:
+      - user - Fix .zshrc from ohmyzsh overwritten by accident
+      - user - Fix user PATH definition
+      minor_changes:
+      - Raise supported version up to Ansible 4 (ansible-core 2.11)
+    fragments:
+    - ansible_version.yml
+    - fix_user_path.yml
+    release_date: '2021-04-30'
