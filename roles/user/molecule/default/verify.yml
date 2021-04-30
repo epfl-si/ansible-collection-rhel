@@ -71,15 +71,6 @@
     assert:
       that: user_02_data.home == '/usr/local/user_02'
 
-  - name: Stat common_profile for simple user
-    stat:
-      path: /home/user_01/.common_profile
-    register: user_01_common_profile
-
-  - name: Assert that no common_profile is added for simple user
-    assert:
-      that: not user_01_common_profile.stat.exists
-
   - name: Stat common_profile for user with path_add
     stat:
       path: /usr/local/user_02/.common_profile
@@ -147,14 +138,18 @@
 
   - name: Check that .common_profile is removed for user_03
     become: true
-    stat:
-      path: /home/user_03/.common_profile
+    lineinfile:
+      regex: "^export PATH=/user_03_test:$PATH$"
+      dest: /home/user_03/.common_profile
+      state: absent
     register: user_03_common_profile_emptied
     changed_when: false
 
+  - debug: var=user_03_common_profile_emptied
+
   - name: Assert that .common_profile is removed for user_03
     assert:
-      that: not user_03_common_profile_emptied.stat.exists
+      that: not user_03_common_profile_emptied.changed
 
   - name: Get user_04 PATH
     become: true
