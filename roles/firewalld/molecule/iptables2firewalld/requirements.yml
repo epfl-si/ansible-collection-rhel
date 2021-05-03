@@ -2,5 +2,5 @@
 
 collections:
   - name: containers.podman
-    version: 1.4.1
+    version: 1.5.0
     source: https://galaxy.ansible.com
