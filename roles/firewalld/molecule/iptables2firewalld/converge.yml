@@ -4,4 +4,4 @@
   hosts: iptables
   roles:
 
-    - firewalld
+    - role: firewalld
