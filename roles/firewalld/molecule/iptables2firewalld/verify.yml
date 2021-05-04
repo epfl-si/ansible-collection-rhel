@@ -12,3 +12,9 @@
         that:
           - ansible_facts.services['firewalld.service'].status == 'enabled'
           - ansible_facts.services['firewalld.service'].state == 'running'
+
+    - name: Try to insert a rule
+      ansible.posix.firewalld:
+        service: https
+        permanent: yes
+        state: enabled
