@@ -1,0 +1,8 @@
+---
+
+all:
+  children:
+    iptables:
+      hosts:
+        iptables2firewalld1:
+        iptables2firewalld2:
