@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.5.0
+======
+
+Major Changes
+-------------
+
+- s3cmd - Stop intalling extra repositories and Python 3.8 on RHEL7. Instead we add pip3 to the requirements. This means you have to activate EPEL and install the packages python3 and python3-pip yourself now.
+
+Minor Changes
+-------------
+
+- firwalld - Add idempotency to task that validate the configuration
+
 v1.4.7
 ======
 

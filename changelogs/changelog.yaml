@@ -145,3 +145,17 @@ releases:
     fragments:
     - firewalld_support_rhel7.yml
     release_date: '2021-05-05'
+  1.5.0:
+    changes:
+      major_changes:
+      - 's3cmd - Stop intalling extra repositories and Python 3.8 on RHEL7. Instead
+        we add pip3 to the requirements. This means you have to activate EPEL and
+        install the packages python3 and python3-pip yourself now.
+
+        '
+      minor_changes:
+      - firwalld - Add idempotency to task that validate the configuration
+    fragments:
+    - firewalld_idempotency.yml
+    - s3cmd_remve_python38.yml
+    release_date: '2021-05-05'
