@@ -1,4 +1,4 @@
-Role Name
+Role s3cmd
 =========
 
 Install and configure s3cmd
@@ -8,7 +8,9 @@ This role handle multiple buckets configure on the same computer at the same tim
 Requirements
 ------------
 
-None
+* pip3
+
+On RHEL7, no package to intall pip exists for the builtin Python. For this reason, the easiest way to install pip is to activate the EPEL repo, then intall python3 + python3-pip3 packages.
 
 Role Variables
 --------------

@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: s3cmd
   roles:
 
     - role: s3cmd

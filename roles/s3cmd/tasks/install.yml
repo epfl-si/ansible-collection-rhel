@@ -2,40 +2,8 @@
 
 # Task file to install s3cmd on RHEL
 
-- name: Install Python3 repo on RHEL7
-  become: true
-  community.general.rhsm_repository:
-    name:
-      - rhel-server-rhscl-7-rpms
-      - rhel-7-server-optional-rpms
-    state: enabled
-  when:
-    - ansible_os_family == "RedHat"
-    - ansible_distribution_major_version == "7"
-    - not lookup('env', 'MOLECULE_FILE')
-
-- name: Install Python 3 + pip on RHEL
-  become: true
-  package:
-    name:
-      - rh-python38
-      - python3-pip
-    state: present
-  when:
-    - ansible_os_family == "RedHat"
-    - ansible_distribution_major_version == "7"
-
-- name: Install s3cmd depencencies on RHEL 8
-  become: true
-  package:
-    name: python3
-    state: present
-  when:
-    - ansible_os_family == "RedHat"
-    - ansible_distribution_major_version == "8"
-
 - name: Install s3cmd from Pypi
-  become: true
+  become: yes
   pip:
     executable: pip3
     name: s3cmd
