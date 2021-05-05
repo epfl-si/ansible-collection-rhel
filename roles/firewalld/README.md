@@ -10,7 +10,9 @@ Requirements
 ------------
 
 * `iptables` on RHEL7
+* A Python2 interpreter on RHEL7 (because firewalld bindings with python3 are missing)
 * `nftable` on RHEL8
+* A python3 interpreter on RHEL8
 
 This firewall backend can't be configured.
 
@@ -140,7 +142,8 @@ If you add a zone to the list of zones in your inventory that is not present in 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
+
 
 Example Playbook
 ----------------
