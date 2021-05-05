@@ -33,6 +33,7 @@
     cmd: >
       /usr/bin/firewall-offline-cmd --system-config /etc/firewalld
       --check-config
+  changed_when: false
   register: firewalld_validate_config_result
 
 - name: Check if configuration is valid
