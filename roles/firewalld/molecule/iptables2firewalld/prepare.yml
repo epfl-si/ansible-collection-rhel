@@ -4,25 +4,33 @@
   hosts: iptables
   tasks:
 
+    # This prevent the following warning:
+    # pam_systemd(sudo:session): Failed to create session: Unit is masked.
+    - name: Unmask systemd-logind
+      become: yes
+      ansible.builtin.systemd:
+        name: systemd-logind.service
+        masked: no
+
     - name: Install Iptable package
-      become: true
-      yum:
+      become: yes
+      ansible.builtin.yum:
         name: iptables-services
         state: present
 
     - name: Enable iptables
-      become: true
-      systemd:
+      become: yes
+      ansible.builtin.systemd:
         name: iptables.service
-        daemon_reload: true
-        enabled: true
+        daemon_reload: yes
+        enabled: yes
         state: started
 
     # This simulates when our servers were downgraded from
     # firewalld to iptables.
     - name: Mask firewalld service
-      become: true
-      systemd:
+      become: yes
+      ansible.builtin.systemd:
         name: firewalld.service
-        daemon_reload: true
-        masked: true
+        daemon_reload: yes
+        masked: yes
