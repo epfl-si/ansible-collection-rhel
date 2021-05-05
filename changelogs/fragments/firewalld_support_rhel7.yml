@@ -1,0 +1,9 @@
+---
+
+minor_changes:
+
+  - firewalld - Add support for RHEL7. It worked previously but with warning.
+
+bugfixes:
+
+  - firewalld - Configuration validation now displays errors and warnings
