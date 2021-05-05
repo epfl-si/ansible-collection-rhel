@@ -9,7 +9,10 @@ All resources can be deleted using a `state: disabled` argument. The only except
 Requirements
 ------------
 
-None
+* `iptables` on RHEL7
+* `nftable` on RHEL8
+
+This firewall backend can't be configured.
 
 
 Role Variables

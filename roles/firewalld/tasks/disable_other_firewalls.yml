@@ -3,8 +3,9 @@
 - name: Update services facts
   service_facts:
 
-- name: Uninstall iptables
+- name: Uninstall iptables on RHEL 8+
   when:
+    - ansible_facts['distribution_major_version'] >= '8'
     - ansible_facts.services['iptables.service'].status is defined
     - ansible_facts.services['iptables.service'].status == 'enabled'
   become: true

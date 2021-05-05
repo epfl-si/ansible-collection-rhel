@@ -2,27 +2,54 @@
 # When we were using Iptable, firewall unit file was mask. We must
 # ensure it is unmaked
 
+- name: Ensure iptables is intalled on RHEL7
+  become: yes
+  ansible.builtin.yum:
+    name: iptables
+    state: present
+
 - name: Install firewalld
-  become: true
-  yum:
+  become: yes
+  ansible.builtin.yum:
     name: firewalld
     state: present
 
 - name: Configure firewalld
-  become: true
-  template:
+  become: yes
+  ansible.builtin.template:
     src: templates/firewalld.conf.j2
     dest: /etc/firewalld/firewalld.conf
-    backup: true
+    backup: yes
     owner: root
     group: root
     mode: '0644'
-    validate: /usr/bin/firewall-offline-cmd --system-config %s --check-config
+  notify: Reload firewalld
+
+# template validate is not usable because firewall-offline-cmd
+# --system-config wants a folder, not the content of the file.
+- name: Validate the configuration
+  become: yes
+  ansible.builtin.command:
+    cmd: >
+      /usr/bin/firewall-offline-cmd --system-config /etc/firewalld
+      --check-config
+  register: firewalld_validate_config_result
+
+- name: Check if configuration is valid
+  become: yes
+  assert:
+    that:
+      - "'ERROR' not in firewalld_validate_config_result.stderr"
+      - "'WARNING' not in firewalld_validate_config_result.stderr"
+    fail_msg: >
+      The file /etc/firewalld/firewalld.cmd returned errors or warnings. Fix
+      the configuration then run `/usr/bin/firewall-offline-cmd --system-config
+      /etc/firewalld --check-config` again
 
 - name: Start and enable firewalld
-  become: true
-  systemd:
+  become: yes
+  ansible.builtin.systemd:
     name: firewalld.service
     state: started
-    enabled: true
+    enabled: yes
     masked: false
