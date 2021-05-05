@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - firwalld - Add idempotency to task that validate the configuration
