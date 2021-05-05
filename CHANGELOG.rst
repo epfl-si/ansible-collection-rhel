@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.4.7
+======
+
+Minor Changes
+-------------
+
+- firewalld - Add support for RHEL7. It worked previously but with warning.
+
+Bugfixes
+--------
+
+- firewalld - Configuration validation now displays errors and warnings
+
 v1.4.6
 ======
 

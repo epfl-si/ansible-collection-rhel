@@ -136,3 +136,12 @@ releases:
     - ansible_version.yml
     - fix_user_path.yml
     release_date: '2021-04-30'
+  1.4.7:
+    changes:
+      bugfixes:
+      - firewalld - Configuration validation now displays errors and warnings
+      minor_changes:
+      - firewalld - Add support for RHEL7. It worked previously but with warning.
+    fragments:
+    - firewalld_support_rhel7.yml
+    release_date: '2021-05-05'
