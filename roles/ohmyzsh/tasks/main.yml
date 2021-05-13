@@ -38,6 +38,7 @@
   loop_control:
     loop_var: ohmyzsh_necessary_files_item
 
+# Must use force because role epfl_si.rhel.user creates an empty .zshrc file
 - name: Create the .zshrc file
   become: true
   become_user: "{{ ohmyzsh_user }}"
@@ -47,5 +48,5 @@
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
     mode: '0644'
-    force: false
+    force: true
     backup: true
