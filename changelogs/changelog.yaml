@@ -159,3 +159,10 @@ releases:
     - firewalld_idempotency.yml
     - s3cmd_remve_python38.yml
     release_date: '2021-05-05'
+  1.5.1:
+    changes:
+      bugfixes:
+      - ohmyzsh - Fix .zshrc never written
+    fragments:
+    - fix_ohmyzsh_write_zshrc.yml
+    release_date: '2021-05-18'

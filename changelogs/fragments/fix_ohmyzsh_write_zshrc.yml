@@ -1,5 +1,0 @@
----
-
-bugfixes:
-
-  - ohmyzsh - Fix .zshrc never written

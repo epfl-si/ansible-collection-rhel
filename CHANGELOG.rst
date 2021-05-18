@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.5.1
+======
+
+Bugfixes
+--------
+
+- ohmyzsh - Fix .zshrc never written
+
 v1.5.0
 ======
 
