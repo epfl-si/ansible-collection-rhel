@@ -1,16 +1,8 @@
 ---
-# When we were using Iptable, firewall unit file was mask. We must
-# ensure it is unmaked
-
-- name: Ensure iptables is intalled on RHEL7
-  become: yes
-  ansible.builtin.yum:
-    name: iptables
-    state: present
 
 - name: Install firewalld
   become: yes
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: firewalld
     state: present
 
@@ -47,6 +39,8 @@
       the configuration then run `/usr/bin/firewall-offline-cmd --system-config
       /etc/firewalld --check-config` again
 
+# When we were using Iptable, firewall unit file was mask. We must
+# ensure it is unmaked
 - name: Start and enable firewalld
   become: yes
   ansible.builtin.systemd:
