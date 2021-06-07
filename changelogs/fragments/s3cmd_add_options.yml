@@ -1,0 +1,13 @@
+---
+
+major_changes:
+
+  - s3cmd - Every options are now configurable using `s3cmd_options` dictionary
+
+breaking_changes:
+
+  - s3cmd - Cut `s3_` prefix from bucket options
+  - >
+    s3cmd - New mandatory option `s3cmd_options`. If you had a `s3cmd_buckets`
+    dictionary in inventory. You can simply pass the right key to
+    `s3cmd_options`.
