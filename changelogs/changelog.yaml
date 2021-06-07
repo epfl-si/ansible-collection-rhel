@@ -185,3 +185,13 @@ releases:
     - firewalld_iptables_on_rhel7.yml
     - s3cmd_add_options.yml
     release_date: '2021-06-07'
+  1.6.1:
+    changes:
+      bugfixes:
+      - s3cmd - Fix host_base and log_target_prefix options
+      security_fixes:
+      - s3cmd - Stop leaking secrets in ansible logs
+    fragments:
+    - s3cmd_fix_options.yml
+    - s3cmd_stop_leaking_secrets.yml
+    release_date: '2021-06-07'

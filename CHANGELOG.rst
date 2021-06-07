@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.6.1
+======
+
+Security Fixes
+--------------
+
+- s3cmd - Stop leaking secrets in ansible logs
+
+Bugfixes
+--------
+
+- s3cmd - Fix host_base and log_target_prefix options
+
 v1.6.0
 ======
 
