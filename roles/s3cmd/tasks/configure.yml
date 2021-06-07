@@ -24,6 +24,7 @@
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
+  no_log: yes
 
 - name: Create the default s3cfg file into {{ s3cmd_user }} home folder
   become: true
@@ -34,4 +35,5 @@
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
+  no_log: yes
   when: s3cmd_read_only | default(False)
