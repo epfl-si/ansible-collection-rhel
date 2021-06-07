@@ -2,4 +2,4 @@
 extends: default
 
 rules:
-  truthy: {allowed-values: ["yes", "true", "no", "false"]}
+  truthy: {allowed-values: ["yes", "true", "True", "no", "false", "False"]}
