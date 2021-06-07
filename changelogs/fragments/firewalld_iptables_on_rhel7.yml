@@ -1,6 +1,0 @@
----
-bugfixes:
-
-    - >
-      firewalld - Cut a task that installed iptables on any platform with
-      a missleading title containing RHEL7.

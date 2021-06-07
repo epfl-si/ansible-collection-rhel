@@ -5,6 +5,25 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.6.0
+======
+
+Major Changes
+-------------
+
+- s3cmd - Every options are now configurable using `s3cmd_options` dictionary
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- s3cmd - Cut `s3_` prefix from bucket options
+- s3cmd - New mandatory option `s3cmd_options`. If you had a `s3cmd_buckets` dictionary in inventory. You can simply pass the right key to `s3cmd_options`.
+
+Bugfixes
+--------
+
+- firewalld - Cut a task that installed iptables on any platform with a missleading title containing RHEL7.
+
 v1.5.1
 ======
 

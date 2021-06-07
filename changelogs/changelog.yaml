@@ -166,3 +166,22 @@ releases:
     fragments:
     - fix_ohmyzsh_write_zshrc.yml
     release_date: '2021-05-18'
+  1.6.0:
+    changes:
+      breaking_changes:
+      - s3cmd - Cut `s3_` prefix from bucket options
+      - 's3cmd - New mandatory option `s3cmd_options`. If you had a `s3cmd_buckets`
+        dictionary in inventory. You can simply pass the right key to `s3cmd_options`.
+
+        '
+      bugfixes:
+      - 'firewalld - Cut a task that installed iptables on any platform with a missleading
+        title containing RHEL7.
+
+        '
+      major_changes:
+      - s3cmd - Every options are now configurable using `s3cmd_options` dictionary
+    fragments:
+    - firewalld_iptables_on_rhel7.yml
+    - s3cmd_add_options.yml
+    release_date: '2021-06-07'
