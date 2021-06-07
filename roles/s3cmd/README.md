@@ -42,23 +42,23 @@ Per example:
 ```yaml
 s3cmd_buckets:
   bucket1:
-    s3_access_key_rw: key1
-    s3_secret_key_rw: secret1
-    s3_access_key_ro: key2
-    s3_secret_key_ro: secret2
-    s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
-    s3_human_readable_sizes: true
-    s3_host_base: s3.example.com
-    s3_website_endpoint: s3.example.com
+    access_key_rw: key1
+    secret_key_rw: secret1
+    access_key_ro: key2
+    secret_key_ro: secret2
+    host_bucket: '%(bucket)s.s3.amazonaws.com'
+    human_readable_sizes: true
+    host_base: s3.example.com
+    website_endpoint: s3.example.com
   bucket2:
-    s3_access_key_rw: key3
-    s3_secret_key_rw: secret3
-    s3_access_key_ro: key4
-    s3_secret_key_ro: secret4
-    s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
-    s3_human_readable_sizes: false
-    s3_host_base: s3.example.com
-    s3_website_endpoint: s3.example.com
+    access_key_rw: key3
+    secret_key_rw: secret3
+    access_key_ro: key4
+    secret_key_ro: secret4
+    host_bucket: '%(bucket)s.s3.amazonaws.com'
+    human_readable_sizes: false
+    host_base: s3.example.com
+    website_endpoint: s3.example.com
 ```
 
 Only the following [s3cmd options](https://s3tools.org/usage) are supported:
