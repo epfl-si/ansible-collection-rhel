@@ -1,0 +1,5 @@
+---
+
+bugfixes:
+
+    - s3cmd - Fix host_base and log_target_prefix options

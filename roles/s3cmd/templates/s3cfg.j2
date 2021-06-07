@@ -35,7 +35,7 @@ gpg_decrypt = {{ s3cmd_options.gpg_decrypt | default('%(gpg_command)s -d --verbo
 gpg_encrypt = {{ s3cmd_options.gpg_encrypt | default('%(gpg_command)s -c --verbose --no-use-agent --batch --yes --passphrase-fd %(passphrase_fd)s -o %(output_file)s %(input_file)s') }}
 gpg_passphrase = {{ s3cmd_options.gpg_passphrase | default('') }}
 guess_mime_type = {{ s3cmd_options.guess_mime_type | default(True) }}
-host_base = {{ s3cmd_options.buckets[s3cmd_bucket].host_base | default('') }}
+host_base = {{ s3cmd_options.host_base | default('') }}
 host_bucket = {{ s3cmd_options.host_bucket | default('') }}
 human_readable_sizes = {{ s3cmd_options.human_readable_sizes | default('') }}
 invalidate_default_index_on_cf = {{ s3cmd_options.invalidate_default_index_on_cf | default(False) }}
@@ -45,7 +45,7 @@ kms_key = {{ s3cmd_options.kms_key | default('') }}
 limit = {{ s3cmd_options.limit | default('-1') }}
 limitrate = {{ s3cmd_options.limitrate | default('0') }}
 list_md5 = {{ s3cmd_options.list_md5 | default(False) }}
-log_target_prefix {{ s3cmd_options.log_target_prefix | default('') }}
+log_target_prefix = {{ s3cmd_options.log_target_prefix | default('') }}
 long_listing = {{ s3cmd_options.long_listing | default(False) }}
 max_delete = {{ s3cmd_options.max_delete | default('-1') }}
 mime_type = {{ s3cmd_options.mime_type | default('') }}
