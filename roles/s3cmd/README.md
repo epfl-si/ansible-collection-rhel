@@ -16,10 +16,14 @@ Role Variables
 --------------
 
 
-* s3cmd_buckets
+* s3cmd_bucket
   * default: none **required**
+  * type: string
+  * Description: The friendly name of the bucket to use. This will be used to name the .s3cfg file. E.G.: `.s3cfg-bucket1-rw`
+* s3cmd_options
+  * default: see `templates/s3cfg.j2` for defaults values
   * type: Dictionary
-  * Description: Store buckets configurations. It is recommended to store this in the inventory if you manage more than one user that has access to the same bucket.
+  * Description: The keys correspond to the s3cmd options found in the configuration file: [default configuration](https://s3tools.org/kb/item14.htm)
 * s3cmd_user
   * default: none *required**
   * type: string
@@ -37,7 +41,13 @@ Role Variables
   * type: bool
   * description: Only one bucket can be the default. If sets multiple times, the last one executed wins.
 
-Per example:
+
+
+### Tips to manage option from Ansible Inventory
+
+It is recommended to store s3cmd options in the inventory if you manage more than one user that has access to the same bucket. The prefix "s3cmd_" is not used for s3cmd options to have shorter variables. So name your dictionary with a explicit name. Like `s3cmd_buckets` for instance.
+
+Here is an example:
 
 ```yaml
 s3cmd_buckets:
@@ -61,16 +71,6 @@ s3cmd_buckets:
     website_endpoint: s3.example.com
 ```
 
-Only the following [s3cmd options](https://s3tools.org/usage) are supported:
-
-* access_key: string, required
-* host_base: string, required
-* host_bucket: string, required
-* human_readable_sizes: Bool, optional, default False
-* secret_key: string, required
-* website_endpoint: string, optional, default empty
-
-
 Dependencies
 ------------
 
@@ -84,19 +84,28 @@ Configure the role using role parameters:
 ```yaml
 - hosts: servers
   roles:
+
     - epfl_si.rhel.s3cmd
-      s3cmd_buckets:
-        mybucket:
-          s3_access_key_ro: key2
-          s3_secret_key_ro: secret2
-          s3_host_bucket: '%(bucket)s.s3.amazonaws.com'
-          s3_human_readable_sizes: true
-          s3_host_base: s3.example.com
-          s3_website_endpoint: s3.example.com
-      s3cmd_user: bob
       s3cmd_bucket: mybucket
+      s3cmd_options:
+        access_key_ro: key2
+        secret_key_ro: secret2
+        host_bucket: '%(bucket)s.s3.amazonaws.com'
+        human_readable_sizes: true
+        host_base: s3.example.com
+        website_endpoint: s3.example.com
+      s3cmd_user: bob
       s3cmd_read_only: true
       s3cmd_default: true
+
+      # Or with the s3cmd_buckets dict in inventory:
+      - epfl_si.rhel.s3cmd
+      s3cmd_bucket: mybucket2
+      s3cmd_options: "{{ s3cmd_buckets['mybucket2'] }}"
+      s3cmd_user: bob
+      s3cmd_read_only: true
+      s3cmd_default: true
+```
 
 Example Usage
 -------------
