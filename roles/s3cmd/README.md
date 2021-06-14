@@ -5,6 +5,9 @@ Install and configure s3cmd
 
 This role handle multiple buckets configure on the same computer at the same time. The defaults one can be use with `s3cmd` command. The other one must be specified `s3cmd --config=~/.s3cfg-my-secondary-bucket`
 
+If you experience a slow transfer rate or frequent errors when transferring data, we recommend replacing `s3cmd` with the `aws s3` command in the AWS CLI.
+
+
 Requirements
 ------------
 
