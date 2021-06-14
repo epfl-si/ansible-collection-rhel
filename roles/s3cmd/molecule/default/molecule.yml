@@ -51,7 +51,7 @@ provisioner:
       pipelining: false
   inventory:
     link:
-      host_vars: ./host_vars
+      group_vars: ./group_vars
   playbooks:
     create: ../../../../molecule/resources/playbooks/create.yml
 
