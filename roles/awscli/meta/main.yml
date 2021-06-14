@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  role_name: awscli
+  namespace: epfl_si
+  author: laurent.indermuehle@epfl.ch
+  description: Install and configure AWS CLI v2
+  company: École Polytechnique Fédérale de Lausanne
+  license: GPL-3.0-or-later
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: RHEL
+      versions:
+        - 7
+        - 8
+
+dependencies: []

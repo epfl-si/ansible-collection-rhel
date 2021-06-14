@@ -1,0 +1,64 @@
+---
+
+scenario:
+  name: default
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
+
+driver:
+  name: podman
+
+# To access DBUS we must disable selinux labels
+# NET_ADMIN capability is required to attach an IP and admin of firewall
+# pre_build_image: means that the container already has Ansible inside
+platforms:
+
+  - name: awscli_el7
+    registry: &registry {url: registry.access.redhat.com}
+    image: ubi7/ubi-init
+    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
+    tmpfs: &tmpfs ['/run', '/tmp']
+    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
+    capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
+    command: &command "/usr/sbin/init"
+    security_opts: &security_opts ['label=disable']
+    groups: ['awscli']
+
+  - name: awscli_el8
+    registry: *registry
+    image: ubi8/ubi-init
+    dockerfile: *docker
+    tmpfs: *tmpfs
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
+    groups: ['awscli']
+
+provisioner:
+  name: ansible
+  log: true
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer
+      stdout_callback: yaml
+    ssh_connection:
+      forks: 4
+      pipelining: false
+  inventory:
+    link:
+      group_vars: ./group_vars
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+
+verifier:
+  name: ansible
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
