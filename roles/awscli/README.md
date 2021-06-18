@@ -16,7 +16,7 @@ None
 Role Variables
 --------------
 
-Todo
+* awscli_force_installation: (bool, default False) To force reinstallation or update to latestest revision
 
 
 ### Tips to manage option from Ansible Inventory
