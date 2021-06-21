@@ -1,0 +1,11 @@
+{{ ansible_managed | comment }}
+
+{% for b in awscli_buckets %}
+{% if b.default is defined and b.default is truthy %}
+[default]
+region = {{ s3_buckets[b.friendly_name].region }}
+{% endif %} 
+
+[profile {{ b.friendly_name }}]
+region = {{ s3_buckets[b.friendly_name].region }}
+{% endfor %}

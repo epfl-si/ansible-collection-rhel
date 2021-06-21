@@ -5,6 +5,10 @@
   ansible.builtin.import_tasks: install.yml
   when: awscli_state == 'present'
 
+- name: Configure AWS CLI v2
+  ansible.builtin.import_tasks: configure.yml
+  when: awscli_state == 'present'
+
 - name: Uninstall AWS CLI v2
   ansible.builtin.import_tasks: uninstall.yml
   when: awscli_state == 'absent'

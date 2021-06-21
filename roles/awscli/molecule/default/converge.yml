@@ -1,6 +1,14 @@
 ---
 - name: Converge
   hosts: awscli
-  roles:
+  tasks:
 
-    - role: awscli
+    - name: Include role awscli
+      ansible.builtin.include_role:
+        name: awscli
+      vars:
+        awscli_user: "{{ molecule_awscli_item.awscli_user }}"
+        awscli_buckets: "{{ molecule_awscli_item.awscli_buckets }}"
+      loop: "{{ awscli_users_buckets }}"
+      loop_control:
+        loop_var: molecule_awscli_item
