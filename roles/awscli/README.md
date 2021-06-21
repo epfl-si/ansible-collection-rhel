@@ -17,6 +17,7 @@ Role Variables
 --------------
 
 * awscli_force_installation: (bool, default False) To force reinstallation or update to latestest revision
+* awscli_state: (Either present or absent, default to present) If state is set to absent, AWS cli will be uninstalled
 
 
 ### Tips to manage option from Ansible Inventory

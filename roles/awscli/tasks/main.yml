@@ -1,5 +1,10 @@
 ---
 # tasks file for awscli
 
-- name: Import tasks to install AWS CLI v2
-  include_tasks: install.yml
+- name: Install AWS CLI v2
+  ansible.builtin.import_tasks: install.yml
+  when: awscli_state == 'present'
+
+- name: Uninstall AWS CLI v2
+  ansible.builtin.import_tasks: uninstall.yml
+  when: awscli_state == 'absent'

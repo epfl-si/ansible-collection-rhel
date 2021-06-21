@@ -1,16 +1,7 @@
 ---
 
 - name: Force reinstallation
-  become: yes
-  ansible.builtin.file:
-    path: "{{ awscli_intallers_files_item }}"
-    state: absent
-  loop:
-    - /root/awscliv2.zip
-    - /root/aws
-    - /usr/local/bin_aws
-  loop_control:
-    loop_var: awscli_intallers_files_item
+  ansible.builtin.import_tasks: uninstall.yml
   when: awscli_force_installation is truthy
 
 # Amazon provides a GPG key signature to test the validity of the bundle but
