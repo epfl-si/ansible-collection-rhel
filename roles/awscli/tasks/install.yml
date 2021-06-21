@@ -37,8 +37,14 @@
     dest: /root
     remote_src: yes
 
-- name: Launch aws installer
+- name: Launch AWS installer
   become: yes
   ansible.builtin.command:
-    cmd: /root/aws/install
+    cmd: >
+      /root/aws/install
+      --bin-dir {{ awscli_bin_dir }}
+      --install-dir {{ awscli_install_dir }}
+      {% if awscli_force_installation is truthy %}--update{% endif %}
     creates: /usr/local/bin/aws
+  register: awscli_install_result
+  changed_when: awscli_install_result.stdout is search('You can now run')

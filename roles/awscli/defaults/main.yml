@@ -1,4 +1,6 @@
 ---
 # defaults file for awscli
 
+awscli_bin_dir: /usr/local/bin
+awscli_install_dir: /usr/local/aws-cli
 awscli_force_installation: no
