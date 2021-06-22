@@ -19,24 +19,116 @@ None
 Role Variables
 --------------
 
-Here is the [reference for s3_* options bellow](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+### awscli_force_installation
 
-* awscli_force_installation: (bool, default False) To force reinstallation or update to latestest revision
-* awscli_state: (Either present or absent, default to present) If state is set to absent, AWS cli will be uninstalled
-* awscli_user: (string, default '') The linux username where to install the configuration file. The role will use getent('passwd') to find the user home directory
-* awscli_profiles: (list of hashes)
-  * name: (string, default '') A friendly name for the profile.
-  * region:
-  * s3_read_only: false
-  * s3_max_concurrent_requests: 10
-  * s3_max_queue_size: 1000
-  * s3_multipart_threshold: 8MB
-  * s3_multipart_chunksize: 8MB
-  * s3_max_bandwidth: 0
-  * s3_use_accelerate_endpoint: false
-  * s3_addressing_style: auto
-  * s3_payload_signing_enabled false
-  * s3_use_dualstack_endpoint: false
+* Choices / Defaults:
+  * **no** <-
+  * yes
+* Required: no
+* Comments: To force reinstallation or update to latestest revision. In case the last version was already installed, the installation will be redone also redone.
+
+
+### awscli_state
+
+* Choices / Defaults:
+  * **present** <-
+  * absent
+* Required: no
+* Comments: If state is set to absent, AWS cli will be uninstalled
+
+
+### awscli_bin_dir
+
+* Defaults: /usr/local/bin
+* Required: no
+* Comments: Location of the aws command. Be aware that new user doesn't have this location in their path on RHEL 8
+
+
+### awscli_install_dir
+
+* Defaults: /usr/local/aws-cli
+* Required: no
+* Comments: Location of the binary files
+
+
+### awscli_user
+
+* Required: **yes**
+* Comments: The linux username where to install the configuration file
+
+
+### awscli_profiles
+
+* Required: **yes**
+* Comments: Contains a list of profiles settings that holds the parameters bellow. The variables that have the `s3_` prefix are documented in the [AWS user guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+
+
+#### name
+
+* Required: **yes**
+* Comments: A friendly name for the profile
+
+
+#### region
+
+* Defaults: ''
+* Required: no
+* Comments: [AWS service endpoints documentation](https://docs.aws.amazon.com/general/latest/gr/rande.html)
+
+
+#### s3_max_concurrent_requests
+
+* Defaults: 10
+* Required: no
+
+
+#### s3_max_queue_size
+
+* Defaults: 1000
+* Required: no
+
+
+#### s3_multipart_threshold
+
+* Defaults: 8MB
+* Required: no
+
+
+#### s3_multipart_chunksize
+
+* Defaults: 8MB
+* Required: no
+
+
+#### s3_max_bandwidth
+
+* Defaults: 0
+* Required: no
+
+
+#### s3_use_accelerate_endpoint
+
+* Defaults: false
+* Required: no
+
+
+#### s3_addressing_style
+
+* Defaults: auto
+* Required: no
+
+
+#### s3_payload_signing_enabled
+
+* Defaults: false
+* Required: no
+
+
+#### s3_use_dualstack_endpoint
+
+* Defaults: false
+* Required: no
+
 
 
 ### Tips to manage option from Ansible Inventory
