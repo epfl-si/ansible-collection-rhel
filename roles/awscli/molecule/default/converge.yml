@@ -8,7 +8,7 @@
         name: awscli
       vars:
         awscli_user: "{{ molecule_awscli_item.awscli_user }}"
-        awscli_buckets: "{{ molecule_awscli_item.awscli_buckets }}"
-      loop: "{{ awscli_users_buckets }}"
+        awscli_profiles: "{{ molecule_awscli_item.awscli_profiles }}"
+      loop: "{{ awscli_users_profiles }}"
       loop_control:
         loop_var: molecule_awscli_item

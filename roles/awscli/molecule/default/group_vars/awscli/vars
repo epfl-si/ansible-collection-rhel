@@ -1,25 +1,31 @@
 ---
 
-s3_buckets:
-  bucket1:
+aws_credentials:
+  profile1:
     access_key_rw: key1
     secret_key_rw: secret1
     access_key_ro: key2
     secret_key_ro: secret2
-    host_base: s3.example.com
-    region: EU
-  bucket2:
+  profile2:
     access_key_rw: key3
     secret_key_rw: secret3
     access_key_ro: key4
     secret_key_ro: secret4
-    host_base: s3.example.com
-    region: EU
 
-awscli_users_buckets:
+awscli_users_profiles:
   - awscli_user: root
-    awscli_buckets:
-      - friendly_name: bucket1
+    awscli_profiles:
+      - name: profile1
         default: yes
-      - friendly_name: bucket2
-        read_only: yes
+        access_key: aws_credentials['profile1'].access_key_rw
+        secret_key: aws_credentials['profile1'].secret_key_rw
+        s3_max_concurrent_requests: 20
+        s3_max_queue_size: 1200
+        s3_multipart_threshold: 128MB
+        s3_multipart_chunksize: 32MB
+        s3_max_bandwidth: 150MB/s
+        s3_use_accelerate_endpoint: true
+        s3_addressing_style: path
+      - name: profile2
+        access_key: aws_credentials['profile2'].access_key_ro
+        secret_key: aws_credentials['profile2'].secret_key_ro

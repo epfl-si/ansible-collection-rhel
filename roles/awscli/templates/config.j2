@@ -1,11 +1,31 @@
 {{ ansible_managed | comment }}
 
-{% for b in awscli_buckets %}
-{% if b.default is defined and b.default is truthy %}
+{% for p in awscli_profiles %}
+{% if p.default is defined and p.default is truthy %}
 [default]
-region = {{ s3_buckets[b.friendly_name].region }}
+region = {{ p.region | default(omit) }}
+s3 =
+  max_concurrent_requests = {{ s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
+  max_queue_size = {{ s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
+  multipart_threshold = {{ s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
+  multipart_chunksize = {{ s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+  max_bandwidth = {{ s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+  use_accelerate_endpoint = {{ s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
+  addressing_style = {{ s3_addressing_style | default(awscli_default_s3_addressing_style) }}
+  payload_signing_enabled = {{ s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
+  use_dualstack_endpoint = {{ s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
 {% endif %} 
 
-[profile {{ b.friendly_name }}]
-region = {{ s3_buckets[b.friendly_name].region }}
+[profile {{ p.name }}]
+region = {{ p.region | default(omit) }}
+s3 =
+  max_concurrent_requests = {{ s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
+  max_queue_size = {{ s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
+  multipart_threshold = {{ s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
+  multipart_chunksize = {{ s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+  max_bandwidth = {{ s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+  use_accelerate_endpoint = {{ s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
+  addressing_style = {{ s3_addressing_style | default(awscli_default_s3_addressing_style) }}
+  payload_signing_enabled = {{ s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
+  use_dualstack_endpoint = {{ s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
 {% endfor %}

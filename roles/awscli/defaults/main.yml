@@ -5,3 +5,14 @@ awscli_state: present
 awscli_bin_dir: /usr/local/bin
 awscli_install_dir: /usr/local/aws-cli
 awscli_force_installation: no
+
+awscli_default_region: ''
+awscli_default_s3_max_concurrent_requests: '10'
+awscli_default_s3_max_queue_size: '1000'
+awscli_default_s3_multipart_threshold: '8MB'
+awscli_default_s3_multipart_chunksize: '8MB'
+awscli_default_s3_max_bandwidth: '0'
+awscli_default_s3_use_accelerate_endpoint: 'false'
+awscli_default_s3_addressing_style: 'auto'
+awscli_default_s3_payload_signing_enabled: 'false'
+awscli_default_s3_use_dualstack_endpoint: 'false'
