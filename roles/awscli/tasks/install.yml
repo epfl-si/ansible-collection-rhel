@@ -1,0 +1,35 @@
+---
+
+- name: Force reinstallation
+  ansible.builtin.import_tasks: uninstall.yml
+  when: awscli_force_installation is truthy
+
+# Amazon provides a GPG key signature to test the validity of the bundle but
+# get_url doesn't support that kind of checks (Ansible 4.1.0 at time of
+# writing this) so we take a leap of faith for now and don't check the file.
+# Also we could specify which version to download. For simplicity we will
+# always download the latest available for now.
+- name: Download the AWS CLI v2 bundle
+  become: yes
+  ansible.builtin.get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /root/awscliv2.zip
+
+- name: Unzip the AWS CLI v2 bundle
+  become: yes
+  ansible.builtin.unarchive:
+    src: /root/awscliv2.zip
+    dest: /root
+    remote_src: yes
+
+- name: Launch AWS installer
+  become: yes
+  ansible.builtin.command:
+    cmd: >
+      /root/aws/install
+      --bin-dir {{ awscli_bin_dir }}
+      --install-dir {{ awscli_install_dir }}
+      {% if awscli_force_installation is truthy %}--update{% endif %}
+    creates: /usr/local/bin/aws
+  register: awscli_install_result
+  changed_when: awscli_install_result.stdout is search('You can now run')

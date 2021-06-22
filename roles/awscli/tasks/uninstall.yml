@@ -1,0 +1,15 @@
+---
+
+- name: Uninstall AWS cli
+  become: yes
+  ansible.builtin.file:
+    path: "{{ awscli_intallers_files_item }}"
+    state: absent
+  loop:
+    - /root/awscliv2.zip
+    - /root/aws
+    - "{{ awscli_bin_dir }}/aws"
+    - "{{ awscli_bin_dir }}/aws_completer"
+    - "{{ awscli_install_dir }}"
+  loop_control:
+    loop_var: awscli_intallers_files_item

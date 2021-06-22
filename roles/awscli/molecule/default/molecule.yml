@@ -16,7 +16,7 @@ driver:
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  - name: s3cmd_el7
+  - name: awscli_el7
     registry: &registry {url: registry.access.redhat.com}
     image: ubi7/ubi-init
     dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
@@ -25,9 +25,9 @@ platforms:
     capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
     command: &command "/usr/sbin/init"
     security_opts: &security_opts ['label=disable']
-    groups: ['s3cmd']
+    groups: ['awscli']
 
-  - name: s3cmd_el8
+  - name: awscli_el8
     registry: *registry
     image: ubi8/ubi-init
     dockerfile: *docker
@@ -36,7 +36,7 @@ platforms:
     capabilities: *capabilities
     command: *command
     security_opts: *security_opts
-    groups: ['s3cmd']
+    groups: ['awscli']
 
 provisioner:
   name: ansible

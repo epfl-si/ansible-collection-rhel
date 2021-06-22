@@ -1,0 +1,17 @@
+---
+
+- name: Prepare
+  hosts: awscli
+  tasks:
+
+    - name: Install unzip
+      become: yes
+      ansible.builtin.package:
+        name: unzip
+        state: present
+
+    - name: Create user john
+      become: yes
+      ansible.builtin.user:
+        name: john
+        state: present

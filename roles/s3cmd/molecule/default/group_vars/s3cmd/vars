@@ -1,21 +1,13 @@
 ---
 
-s3cmd_buckets:
+aws_credentials:
   bucket1:
     access_key_rw: key1
     secret_key_rw: secret1
     access_key_ro: key2
     secret_key_ro: secret2
-    host_bucket: '%(bucket)s.s3.amazonaws.com'
-    human_readable_sizes: true
-    host_base: s3.example.com
-    website_endpoint: s3.example.com
   bucket2:
     access_key_rw: key3
     secret_key_rw: secret3
     access_key_ro: key4
     secret_key_ro: secret4
-    host_bucket: '%(bucket)s.s3.amazonaws.com'
-    host_base: s3.example.com
-    website_endpoint: s3.example.com
-
