@@ -10,7 +10,7 @@
     become: yes
     become_user: john
     ansible.builtin.command:
-      cmd: "{{ awscli_bin_dir }}/aws configure list-profiles"
+      cmd: "/usr/local/bin/aws configure list-profiles"
     register: john_profiles
     changed_when: no
 
@@ -21,7 +21,7 @@
   - name: Get root profiles
     become: yes
     ansible.builtin.command:
-      cmd: "{{ awscli_bin_dir }}/aws configure list-profiles"
+      cmd: "/usr/local/bin/aws configure list-profiles"
     register: root_profiles
     changed_when: no
 
