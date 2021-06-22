@@ -7,7 +7,9 @@
 
 - name: Configure AWS CLI v2
   ansible.builtin.import_tasks: configure.yml
-  when: awscli_state == 'present'
+  when:
+    - awscli_state == 'present'
+    - awscli_user is defined and awscli_user | length > 0
 
 - name: Uninstall AWS CLI v2
   ansible.builtin.import_tasks: uninstall.yml
