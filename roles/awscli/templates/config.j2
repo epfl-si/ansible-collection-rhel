@@ -3,29 +3,29 @@
 {% for p in awscli_profiles %}
 {% if p.default is defined and p.default is truthy %}
 [default]
-region = {{ p.region | default(omit) }}
+region = {{ p.region | default('') }}
 s3 =
-  max_concurrent_requests = {{ s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
-  max_queue_size = {{ s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
-  multipart_threshold = {{ s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
-  multipart_chunksize = {{ s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
-  max_bandwidth = {{ s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
-  use_accelerate_endpoint = {{ s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
-  addressing_style = {{ s3_addressing_style | default(awscli_default_s3_addressing_style) }}
-  payload_signing_enabled = {{ s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
-  use_dualstack_endpoint = {{ s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
+  max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
+  max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
+  multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
+  multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+  max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+  use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
+  addressing_style = {{ p.s3_addressing_style | default(awscli_default_s3_addressing_style) }}
+  payload_signing_enabled = {{ p.s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
+  use_dualstack_endpoint = {{ p.s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
 {% endif %} 
 
 [profile {{ p.name }}]
-region = {{ p.region | default(omit) }}
+region = {{ p.region | default('') }}
 s3 =
-  max_concurrent_requests = {{ s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
-  max_queue_size = {{ s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
-  multipart_threshold = {{ s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
-  multipart_chunksize = {{ s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
-  max_bandwidth = {{ s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
-  use_accelerate_endpoint = {{ s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
-  addressing_style = {{ s3_addressing_style | default(awscli_default_s3_addressing_style) }}
-  payload_signing_enabled = {{ s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
-  use_dualstack_endpoint = {{ s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
+  max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
+  max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
+  multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
+  multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+  max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+  use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
+  addressing_style = {{ p.s3_addressing_style | default(awscli_default_s3_addressing_style) }}
+  payload_signing_enabled = {{ p.s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
+  use_dualstack_endpoint = {{ p.s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
 {% endfor %}

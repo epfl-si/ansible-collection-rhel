@@ -17,8 +17,8 @@ awscli_users_profiles:
     awscli_profiles:
       - name: profile1
         default: yes
-        access_key: aws_credentials['profile1'].access_key_rw
-        secret_key: aws_credentials['profile1'].secret_key_rw
+        access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
         s3_max_concurrent_requests: 20
         s3_max_queue_size: 1200
         s3_multipart_threshold: 128MB
@@ -27,5 +27,5 @@ awscli_users_profiles:
         s3_use_accelerate_endpoint: true
         s3_addressing_style: path
       - name: profile2
-        access_key: aws_credentials['profile2'].access_key_ro
-        secret_key: aws_credentials['profile2'].secret_key_ro
+        access_key: "{{ aws_credentials['profile2'].access_key_ro }}"
+        secret_key: "{{ aws_credentials['profile2'].secret_key_ro }}"
