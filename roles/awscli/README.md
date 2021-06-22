@@ -76,6 +76,29 @@ Role Variables
 * Comments: [AWS service endpoints documentation](https://docs.aws.amazon.com/general/latest/gr/rande.html)
 
 
+#### default
+
+* Choices / Defaults:
+  * **no** <-
+  * yes
+* Required: no
+* Comments: One of the profiles should be marked as default. It will then be added to the `[default]` section of the configuration file. If no profiles are marked as default, the `aws` command will fail if used without the `--profile <name>` parameter
+
+
+#### access_key
+
+* Defaults: ''
+* Required: **yes**
+* Comments: The access_key used to authenticate
+
+
+#### secret_key
+
+* Defaults: ''
+* Required: **yes**
+* Comments: The secret_key used to authenticate
+
+
 #### s3_max_concurrent_requests
 
 * Defaults: 10
