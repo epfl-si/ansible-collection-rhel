@@ -13,8 +13,7 @@ It is your responsibility to ensure that one of the profile is marked as 'defaul
 Requirements
 ------------
 
-None
-
+* Unzip
 
 Role Variables
 --------------

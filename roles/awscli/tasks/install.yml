@@ -15,12 +15,6 @@
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: /root/awscliv2.zip
 
-- name: Ensure unzip command is installed
-  become: yes
-  ansible.builtin.package:
-    name: unzip
-    state: present
-
 - name: Unzip the AWS CLI v2 bundle
   become: yes
   ansible.builtin.unarchive:
