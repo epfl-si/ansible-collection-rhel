@@ -5,6 +5,29 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.7.0
+======
+
+Major Changes
+-------------
+
+- s3cmd - Cut `s3cmd_options` object. Now every variable is prefixed by `s3cmd_`
+- s3cmd - Cut dependency over a s3cmd_bucket object, now simply pass a `s3cmd_access_key` and `s3cmd_secret_key` to the role
+
+Minor Changes
+-------------
+
+- awscli - Add new role to install and manage aws cli v2
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Remove from inventory any settings besides `access_key` and `secret_key` inside the `s3cmd_buckets` object.
+- Remove parameters `s3cmd_options`
+- Rename in your inventory `s3cmd_buckets` to `aws_credentials`
+- remove one indentation of every variable contained in s3cmd_options and add the prefix `s3cmd_` to it.
+- s3cmd - Due to breking changes in 1.7.0, please do the following changes
+
 v1.6.1
 ======
 

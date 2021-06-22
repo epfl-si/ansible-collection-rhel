@@ -195,3 +195,22 @@ releases:
     - s3cmd_fix_options.yml
     - s3cmd_stop_leaking_secrets.yml
     release_date: '2021-06-07'
+  1.7.0:
+    changes:
+      breaking_changes:
+      - s3cmd - Due to breaking changes in 1.7.0, please do the following changes
+      - s3cmd - Remove from inventory any settings besides `access_key` and `secret_key` inside
+        the `s3cmd_buckets` object.
+      - s3cmd - Remove parameters `s3cmd_options`
+      - s3cmd - Rename in your inventory `s3cmd_buckets` to `aws_credentials`
+      - s3cmd - Remove one indentation of every variable contained in s3cmd_options and add
+        the prefix `s3cmd_` to it.
+      major_changes:
+      - s3cmd - Cut `s3cmd_options` object. Now every variable is prefixed by `s3cmd_`
+      - s3cmd - Cut dependency over a s3cmd_bucket object, now simply pass a `s3cmd_access_key`
+        and `s3cmd_secret_key` to the role
+      minor_changes:
+      - awscli - Add new role to install and manage aws cli v2
+    fragments:
+    - awscli.yml
+    release_date: '2021-06-22'
