@@ -14,9 +14,9 @@
     register: john_profiles
     changed_when: no
 
-  - name: Asssert that john has 3 profiles
+  - name: Assert that john has 4 profiles
     assert:
-      that: john_profiles | length == 4
+      that: "{{ john_profiles.stdout_lines | length == 4 }}"
 
   - name: Get root profiles
     become: yes
@@ -25,6 +25,6 @@
     register: root_profiles
     changed_when: no
 
-  - name: Asssert that root has 3 profiles
+  - name: Assert that root has 3 profiles
     assert:
-      that: root_profiles | length == 3
+      that: "{{ root_profiles.stdout_lines | length == 3 }}"
