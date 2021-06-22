@@ -11,4 +11,3 @@ aws_credentials:
     secret_key_rw: secret3
     access_key_ro: key4
     secret_key_ro: secret4
-

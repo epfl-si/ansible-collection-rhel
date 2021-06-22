@@ -23,7 +23,7 @@ Role Variables
 * s3cmd_bucket
   * default: none **required**
   * type: string
-  * Description: The friendly name of the bucket to use. This will be used to name the .s3cfg file. E.G.: `.s3cfg-bucket1-rw`
+  * Description: The friendly name of the bucket to use. This will be used to name the .s3cfg file. E.G.: `.s3cfg-bucket1`
 * s3cmd_user
   * default: none *required**
   * type: string
