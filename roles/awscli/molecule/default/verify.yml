@@ -5,6 +5,26 @@
   hosts: awscli
   gather_facts: false
   tasks:
-  - name: Example assertion
+
+  - name: Get john profiles
+    become: yes
+    become_user: john
+    ansible.builtin.command:
+      cmd: "{{ awscli_bin_dir }}/aws configure list-profiles"
+    register: john_profiles
+    changed_when: no
+
+  - name: Asssert that john has 3 profiles
     assert:
-      that: true
+      that: john_profiles | length == 4
+
+  - name: Get root profiles
+    become: yes
+    ansible.builtin.command:
+      cmd: "{{ awscli_bin_dir }}/aws configure list-profiles"
+    register: root_profiles
+    changed_when: no
+
+  - name: Asssert that root has 3 profiles
+    assert:
+      that: root_profiles | length == 3

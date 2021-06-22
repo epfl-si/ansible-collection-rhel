@@ -1,0 +1,10 @@
+---
+
+- name: Prepare
+  hosts: awscli
+  tasks:
+
+    - name: Create user john
+      ansible.builtin.user:
+        name: john
+        state: present
