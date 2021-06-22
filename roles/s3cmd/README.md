@@ -90,7 +90,6 @@ Configure the role using role parameters:
       s3cmd_host_base: s3.example.com
       s3cmd_website_endpoint: s3.example.com
       s3cmd_user: bob
-      s3cmd_read_only: true
       s3cmd_default: true
 
     # Or with the aws_credentials dict in inventory:
@@ -99,7 +98,6 @@ Configure the role using role parameters:
       s3cmd_access_key: "{{ aws_credentials['bucket2'].access_key_rw }}"
       s3cmd_secret_key: "{{ aws_credentials['bucket2'].secret_key_rw }}"
       s3cmd_user: bob
-      s3cmd_read_only: true
       s3cmd_default: true
 ```
 

@@ -13,14 +13,7 @@
   become_user: "{{ s3cmd_user }}"
   template:
     src: templates/s3cfg.j2
-    dest:
-      "{{ s3cmd_user_vars.home }}/.s3cfg-\
-      {{ s3cmd_bucket }}\
-      {%- if s3cmd_read_only | default(False) -%}\
-      -ro\
-      {%- else -%}\
-      -rw\
-      {%- endif -%}"
+    dest: "{{ s3cmd_user_vars.home }}/.s3cfg-{{ s3cmd_bucket }}"
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
@@ -36,4 +29,3 @@
     group: "{{ s3cmd_user }}"
     mode: '0600'
   no_log: yes
-  when: s3cmd_read_only | default(False)
