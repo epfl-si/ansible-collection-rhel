@@ -7,16 +7,16 @@
     - role: s3cmd
       s3cmd_user: root
       s3cmd_bucket: bucket1
-      s3cmd_options:
-        access_key_rw: key1
-        secret_key_rw: secret1
-        human_readable_sizes: yes
-        bucket_location: 'EU'
-        multipart_chunk_size_mb: '50'
+      s3cmd_access_key: key1
+      s3cmd_secret_key: secret1
+      s3cmd_human_readable_sizes: yes
+      s3cmd_bucket_location: 'EU'
+      s3cmd_multipart_chunk_size_mb: '50'
       s3cmd_default: true
 
     - role: s3cmd
       s3cmd_user: root
       s3cmd_bucket: bucket2
-      s3cmd_options: "{{ s3cmd_buckets['bucket2'] }}"
+      s3cmd_access_key: "{{ aws_credentials['bucket2'].access_key_rw }}"
+      s3cmd_secret_key: "{{ aws_credentials['bucket2'].secret_key_rw }}"
       s3cmd_read_only: true
