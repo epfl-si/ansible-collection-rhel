@@ -2,7 +2,7 @@
 # defaults file for s3cmd
 
 s3cmd_access_key: ''
-s3cmd_access_token: 00
+s3cmd_access_token: ''
 s3cmd_add_encoding_exts: ''
 s3cmd_add_headers: ''
 s3cmd_bucket_location: 'us-east-1'
