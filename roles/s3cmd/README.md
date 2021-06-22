@@ -13,7 +13,8 @@ Requirements
 
 * pip3
 
-On RHEL7, no package to intall pip exists for the builtin Python. For this reason, the easiest way to install pip is to activate the EPEL repo, then intall python3 + python3-pip3 packages.
+On RHEL7, no package to intall pip exists for the builtin Python. For this reason, the easiest way to install pip is to activate the EPEL repo, then intall python3 + python3-pip3 packages. For an example, have a look at `molecule/default/prepare.yml`.
+
 
 Role Variables
 --------------
