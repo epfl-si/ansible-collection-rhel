@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.7.1
+======
+
+Bugfixes
+--------
+
+- awscli - Set a default region to prevent erros if left empty
+
 v1.7.0
 ======
 
@@ -22,11 +30,11 @@ Minor Changes
 Breaking Changes / Porting Guide
 --------------------------------
 
-- Remove from inventory any settings besides `access_key` and `secret_key` inside the `s3cmd_buckets` object.
-- Remove parameters `s3cmd_options`
-- Rename in your inventory `s3cmd_buckets` to `aws_credentials`
-- remove one indentation of every variable contained in s3cmd_options and add the prefix `s3cmd_` to it.
-- s3cmd - Due to breking changes in 1.7.0, please do the following changes
+- s3cmd - Due to breaking changes in 1.7.0, please do the following changes
+- s3cmd - Remove from inventory any settings besides `access_key` and `secret_key` inside the `s3cmd_buckets` object.
+- s3cmd - Remove one indentation of every variable contained in s3cmd_options and add the prefix `s3cmd_` to it.
+- s3cmd - Remove parameters `s3cmd_options`
+- s3cmd - Rename in your inventory `s3cmd_buckets` to `aws_credentials`
 
 v1.6.1
 ======

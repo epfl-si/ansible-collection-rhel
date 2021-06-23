@@ -1,5 +1,0 @@
----
-
-bugfixes:
-
-  - awscli - Set a default region to prevent erros if left empty
