@@ -238,6 +238,7 @@ Or if you prefer to use a loop:
       loop: "{{ awscli_users_profiles }}"
       loop_control:
         loop_var: awscli_item
+      tags: awscli
 ```
 
 
@@ -250,8 +251,17 @@ Or if you prefer to use a loop:
 
     - role: epfl_si.rhel.awscli
       awscli_force_installation: yes
+      tags: awscli
 ```
 
+
+### Uninstall
+
+If you want to remove the AWS CLI binary and command you can use the following command. This will not remove the configuration files inside `~/.aws`.
+
+```bash
+ansible-playbook -i inv.yml play.yml --tags awscli -e "awscli_state=absent"
+```
 
 Example Usage
 -------------
