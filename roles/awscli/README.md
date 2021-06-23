@@ -180,16 +180,16 @@ s3_default_max_concurrent_requests: 2
 
 # Suggested way to store configurations if you prefer to use a loop in
 # your playbook (example bellow)
-awscli_users_profile:
+awscli_users_profiles:
   - awscli_user: root
-    awscli_profile:
+    awscli_profiles:
       - name: profile1
         default: yes
-        access_key: aws_credentials['profile1'].access_key_rw
-        secret_key: aws_credentials['profile1'].secret_key_rw
+        access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
       - name: profile2
-        access_key: aws_credentials['profile2'].access_key_rw
-        secret_key: aws_credentials['profile2'].secret_key_rw
+        access_key: "{{ aws_credentials['profile2'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile2'].secret_key_rw }}"
         s3_multipart_threshold: 128MB
 ```
 
@@ -214,11 +214,11 @@ Configure the role using role parameters:
       awscli_profiles:
         - name: profile1
           default: yes
-          access_key: aws_credentials['profile1'].access_key_rw
-          secret_key: aws_credentials['profile1'].secret_key_rw
+          access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+          secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
         - name: profile2
-          access_key: aws_credentials['profile2'].access_key_rw
-          secret_key: aws_credentials['profile2'].secret_key_rw
+          access_key: "{{ aws_credentials['profile2'].access_key_rw }}"
+          secret_key: "{{ aws_credentials['profile2'].secret_key_rw }}"
 ```
 
 Or if you prefer to use a loop:
@@ -230,7 +230,7 @@ Or if you prefer to use a loop:
 
     - name: Include role awscli
       ansible.builtin.include_role:
-        name: awscli
+        name: epfl_si.rhel.awscli
       vars:
         awscli_user: "{{ awscli_item.awscli_user }}"
         awscli_default_s3_max_concurrent_requests: '5'
