@@ -9,7 +9,14 @@ s3 =
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
   multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
   multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+{% if 
+  ( p.s3_max_bandwidth is defined
+    and p.s3_max_bandwidth | length > 0
+  )
+  or awscli_default_s3_max_bandwidth | length > 0
+%}
   max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+{% endif %}
   use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
   addressing_style = {{ p.s3_addressing_style | default(awscli_default_s3_addressing_style) }}
   payload_signing_enabled = {{ p.s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
@@ -23,7 +30,14 @@ s3 =
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
   multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
   multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
+{% if 
+  ( p.s3_max_bandwidth is defined
+    and p.s3_max_bandwidth | length > 0
+  )
+  or awscli_default_s3_max_bandwidth | length > 0
+%}
   max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
+{% endif %}
   use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
   addressing_style = {{ p.s3_addressing_style | default(awscli_default_s3_addressing_style) }}
   payload_signing_enabled = {{ p.s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}

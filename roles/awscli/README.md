@@ -124,7 +124,7 @@ Role Variables
 
 #### s3_max_bandwidth
 
-* Defaults: 0
+* Defaults: unlimited
 * Required: no
 
 

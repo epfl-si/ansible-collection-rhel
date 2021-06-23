@@ -1,0 +1,5 @@
+---
+
+bugfixes:
+
+  - awscli - Fix max_bandwidth default value to unlimited
