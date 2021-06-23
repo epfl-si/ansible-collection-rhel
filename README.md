@@ -76,6 +76,8 @@ When writing this, Ansible collections are fairly new and the question about how
 In order to run Systemd services inside Podman, we must mount various volumes, disabling Selinux labeling and add capabilities:
 
 ```yaml
+---
+platforms:
   - name: node1
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi-init
