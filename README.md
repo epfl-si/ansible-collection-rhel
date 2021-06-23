@@ -49,12 +49,12 @@ On the controller node, we prefer to use a virtualenv:
 
 ```bash
 sudo yum install python 3.8 python3-virtualenv
-mkdir -p ~/python-venv/ansible-4.0.0
-virtualenv --python=python3.8 ~/python-venv/ansible-4.0.0
-source ~/python-venv/ansible-4.0.0/bin/activate
+mkdir -p ~/python-venv/ansible-4.1.0
+virtualenv --python=python3.8 ~/python-venv/ansible-4.1.0
+source ~/python-venv/ansible-4.1.0/bin/activate
 python -m  pip install --upgrade pip
 pip install \
-  ansible==4.0.0 \
+  ansible==4.1.0 \
   ansible-lint \
   antsibull-changelog \
   molecule \
@@ -96,7 +96,7 @@ Each role contains its own tests. To use Molecule:
 
 ```bash
 sudo -i  # Remember, we need rootfull containers
-source ~/python-venv/ansible-4.0.0/bin/activate
+source ~/python-venv/ansible-4.1.0/bin/activate
 cd roles/<name>
 molecule test -s <scenario>
 ```
@@ -105,7 +105,7 @@ If you want a running environement to debug your changes:
 
 ```bash
 sudo -i
-source ~/python-venv/ansible-4.0.0/bin/activate
+source ~/python-venv/ansible-4.1.0/bin/activate
 cd roles/<name>
 molecule converge -s <scenario>
 molecule login -s <scenario> -h <node-name>
@@ -116,7 +116,7 @@ molecule login -s <scenario> -h <node-name>
 ATM, no automation, everything is done from your computer. To find your token, go to [https://galaxy.ansible.com/me/preferences](https://galaxy.ansible.com/me/preferences)
 
 1. Bump the version in `galaxy.yml`
-1. `source ~/python-venv/ansible-4.0.0/bin/activate`
+1. `source ~/python-venv/ansible-4.1.0/bin/activate`
 1. `antsibull-changelog lint`
 1. `antsibull-changelog release --version <ver>`
 1. `git commit -m "Release version <ver>"`
