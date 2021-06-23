@@ -221,3 +221,10 @@ releases:
     fragments:
     - awscli_default_region.yml
     release_date: '2021-06-23'
+  1.7.2:
+    changes:
+      bugfixes:
+      - awscli - Fix max_bandwidth default value to unlimited
+    fragments:
+    - awscli_fix_max_bandwidth.yml
+    release_date: '2021-06-23'

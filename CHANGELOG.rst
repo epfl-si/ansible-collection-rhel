@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.7.2
+======
+
+Bugfixes
+--------
+
+- awscli - Fix max_bandwidth default value to unlimited
+
 v1.7.1
 ======
 
