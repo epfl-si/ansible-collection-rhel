@@ -70,9 +70,9 @@ Role Variables
 
 #### region
 
-* Defaults: ''
-* Required: no
-* Comments: [AWS service endpoints documentation](https://docs.aws.amazon.com/general/latest/gr/rande.html)
+* Defaults: 'eu-west-3'
+* Required: **yes**
+* Comments: If you have an s3 endpoint that doesn't use region it would be tempting to let this value at en empty string. Doing so will result by all sorts of errors (502 bad gateway notably). For this reason, the role provide a default value to 'eu-west-3 (Europe Paris). For a list of regions, look in [AWS service endpoints documentation](https://docs.aws.amazon.com/general/latest/gr/rande.html)
 
 
 #### default
