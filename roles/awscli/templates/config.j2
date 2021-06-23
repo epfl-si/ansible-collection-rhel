@@ -3,7 +3,7 @@
 {% for p in awscli_profiles %}
 {% if p.default is defined and p.default is truthy %}
 [default]
-region = {{ p.region | default('') }}
+region = {{ p.region | default(awscli_default_region) }}
 s3 =
   max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
@@ -17,7 +17,7 @@ s3 =
 {% endif %} 
 
 [profile {{ p.name }}]
-region = {{ p.region | default('') }}
+region = {{ p.region | default(awscli_default_region) }}
 s3 =
   max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
