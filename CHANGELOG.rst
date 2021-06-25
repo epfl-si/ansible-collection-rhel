@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.7.3
+======
+
+Minor Changes
+-------------
+
+- awscli - Add support for global settings
+
 v1.7.2
 ======
 

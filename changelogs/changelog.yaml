@@ -228,3 +228,10 @@ releases:
     fragments:
     - awscli_fix_max_bandwidth.yml
     release_date: '2021-06-23'
+  1.7.3:
+    changes:
+      minor_changes:
+      - awscli - Add support for global settings
+    fragments:
+    - aws_add_global_settings.yml
+    release_date: '2021-06-25'
