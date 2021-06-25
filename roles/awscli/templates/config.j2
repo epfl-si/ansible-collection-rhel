@@ -3,39 +3,67 @@
 {% for p in awscli_profiles %}
 {% if p.default is defined and p.default is truthy %}
 [default]
-region = {{ p.region | default(awscli_default_region) }}
+region = {{ p.region | default(awscli_default_global_region) }}
+{% if ( p.cli_auto_prompt is defined and p.cli_auto_prompt | length > 0 )
+  or awscli_default_global_cli_auto_prompt | length > 0 %}
+cli_auto_prompt = {{ p.cli_auto_prompt | default(awscli_default_global_cli_auto_prompt) }}
+{% endif %}
+cli_binary_format = {{ p.cli_binary_format | default(awscli_default_global_cli_binary_format) }}
+{% if ( p.cli_pager is defined and p.cli_pager == 'disabled')
+  or awscli_default_global_cli_pager | length > 0 %}
+cli_pager =
+{% elif ( p.cli_pager is defined and p.cli_pager | length > 0 )
+  or awscli_default_global_cli_pager | length > 0 %}
+cli_pager = {{ p.cli_pager | default(awscli_default_global_cli_pager) }}
+{% endif %}
+cli_timestamp_format = {{ p.cli_timestamp_format | default(awscli_default_global_cli_timestamp_format) }}
+max_attempts = {{ p.max_attempts | default(awscli_default_global_max_attempts) }}
+{% if ( p.output is defined and p.output | length > 0 )
+  or awscli_default_global_output | length > 0 %}
+output = {{ p.output | default(awscli_default_global_output) }}
+{% endif %}
 s3 =
   max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
   multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
   multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
-{% if 
-  ( p.s3_max_bandwidth is defined
-    and p.s3_max_bandwidth | length > 0
-  )
-  or awscli_default_s3_max_bandwidth | length > 0
-%}
+{% if ( p.s3_max_bandwidth is defined and p.s3_max_bandwidth | length > 0 )
+  or awscli_default_s3_max_bandwidth | length > 0 %}
   max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
 {% endif %}
   use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}
   addressing_style = {{ p.s3_addressing_style | default(awscli_default_s3_addressing_style) }}
   payload_signing_enabled = {{ p.s3_payload_signing_enabled | default(awscli_default_s3_payload_signing_enabled) }}
   use_dualstack_endpoint = {{ p.s3_use_dualstack_endpoint | default(awscli_default_s3_use_dualstack_endpoint) }}
-{% endif %} 
+{% endif %}
 
 [profile {{ p.name }}]
-region = {{ p.region | default(awscli_default_region) }}
+region = {{ p.region | default(awscli_default_global_region) }}
+{% if ( p.cli_auto_prompt is defined and p.cli_auto_prompt | length > 0 )
+  or awscli_default_global_cli_auto_prompt | length > 0 %}
+cli_auto_prompt = {{ p.cli_auto_prompt | default(awscli_default_global_cli_auto_prompt) }}
+{% endif %}
+cli_binary_format = {{ p.cli_binary_format | default(awscli_default_global_cli_binary_format) }}
+{% if ( p.cli_pager is defined and p.cli_pager == 'disabled')
+  or awscli_default_global_cli_pager | length > 0 %}
+cli_pager =
+{% elif ( p.cli_pager is defined and p.cli_pager | length > 0 )
+  or awscli_default_global_cli_pager | length > 0 %}
+cli_pager = {{ p.cli_pager | default(awscli_default_global_cli_pager) }}
+{% endif %}
+cli_timestamp_format = {{ p.cli_timestamp_format | default(awscli_default_global_cli_timestamp_format) }}
+max_attempts = {{ p.max_attempts | default(awscli_default_global_max_attempts) }}
+{% if ( p.output is defined and p.output | length > 0 )
+  or awscli_default_global_output | length > 0 %}
+output = {{ p.output | default(awscli_default_global_output) }}
+{% endif %}
 s3 =
   max_concurrent_requests = {{ p.s3_max_concurrent_requests | default(awscli_default_s3_max_concurrent_requests) }}
   max_queue_size = {{ p.s3_max_queue_size | default(awscli_default_s3_max_queue_size) }}
   multipart_threshold = {{ p.s3_multipart_threshold | default(awscli_default_s3_multipart_threshold) }}
   multipart_chunksize = {{ p.s3_multipart_chunksize | default(awscli_default_s3_multipart_chunksize) }}
-{% if 
-  ( p.s3_max_bandwidth is defined
-    and p.s3_max_bandwidth | length > 0
-  )
-  or awscli_default_s3_max_bandwidth | length > 0
-%}
+{% if ( p.s3_max_bandwidth is defined and p.s3_max_bandwidth | length > 0 )
+  or awscli_default_s3_max_bandwidth | length > 0 %}
   max_bandwidth = {{ p.s3_max_bandwidth | default(awscli_default_s3_max_bandwidth) }}
 {% endif %}
   use_accelerate_endpoint = {{ p.s3_use_accelerate_endpoint | default(awscli_default_s3_use_accelerate_endpoint) }}

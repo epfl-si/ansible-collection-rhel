@@ -6,7 +6,18 @@ awscli_bin_dir: /usr/local/bin
 awscli_install_dir: /usr/local/aws-cli
 awscli_force_installation: no
 
-awscli_default_region: 'eu-west-3'
+# The following variables are default values for omitted
+# variables inside the awscli_profiles object
+# This allow to provide an incomplete list of variables inside that object.
+awscli_default_global_region: 'eu-west-3'
+awscli_default_global_cli_auto_prompt: ''
+awscli_default_global_cli_binary_format: 'base64'
+awscli_default_global_cli_pager: ''
+awscli_default_global_cli_timestamp_format: 'iso8601'
+awscli_default_global_max_attempts: '2'
+awscli_default_global_output: ''
+
+# S3
 awscli_default_s3_max_concurrent_requests: '10'
 awscli_default_s3_max_queue_size: '1000'
 awscli_default_s3_multipart_threshold: '8MB'

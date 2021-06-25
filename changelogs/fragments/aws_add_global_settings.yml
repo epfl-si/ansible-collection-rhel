@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - awscli - Add support for global settings

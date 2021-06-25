@@ -98,6 +98,43 @@ Role Variables
 * Comments: The secret_key used to authenticate
 
 
+#### cli_auto_prompt
+
+* Defaults: ''
+* Required: no
+
+
+#### cli_binary_format
+
+* Defaults: 'base64'
+* Required: no
+
+
+#### cli_pager
+
+* Defaults: ''
+* Required: no
+* Comments: To disable the pager, use the value "disabled". AWS CLI expect an empty string to disable the pager, but we already use that value in or Jinja template.
+
+
+#### cli_timestamp_format
+
+* Defaults: 'iso8601'
+* Required: no
+
+
+#### max_attempts
+
+* Defaults: '2'
+* Required: no
+
+
+#### output
+
+* Defaults: ''
+* Required: no
+
+
 #### s3_max_concurrent_requests
 
 * Defaults: 10

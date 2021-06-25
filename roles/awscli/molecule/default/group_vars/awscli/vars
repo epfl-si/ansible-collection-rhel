@@ -1,5 +1,7 @@
 ---
 
+awscli_default_global_max_attempts: 5
+
 aws_credentials:
   profile1:
     access_key_rw: key1
@@ -19,6 +21,7 @@ awscli_users_profiles:
         default: yes
         access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
         secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
+        max_attempts: 3
         s3_max_concurrent_requests: 20
         s3_max_queue_size: 1200
         s3_multipart_threshold: 128MB
