@@ -1,5 +1,13 @@
 ---
 
+# - name: Install backend for RHEL7
+#   become: yes
+#   ansible.builtin.package:
+#     name: iptables
+#     state: present
+#   when: ansible_distribution_major_version == "7"
+#   notify: Start and enable firewalld
+
 - name: Install firewalld
   become: yes
   ansible.builtin.package:
