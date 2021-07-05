@@ -94,5 +94,5 @@ RFC3964_IPv4={% if firewalld_rfc3964_ipv4 | bool %}yes{% else %}no{% endif %}
 # Note: If "yes" packets will only drift from source based zones to interface
 # based zones (including the default zone). Packets never drift from interface
 # based zones to other interfaces based zones (including the default zone).
-# Possible values; "yes", "no". Defaults to "no".
+# Possible values; "yes", "no". Defaults to "yes".
 AllowZoneDrifting={% if firewalld_allow_zone_drifting | bool %}yes{% else %}no{% endif %}
