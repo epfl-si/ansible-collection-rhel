@@ -7,7 +7,7 @@
 # Default: public
 DefaultZone={{ firewalld_default_zone }}
 
-{% if ansible_facts['distribution_major_version'] >= '7' %}
+{% if ansible_distribution_major_version >= '7' %}
 # Minimal mark
 # Marks up to this minimum are free for use for example in the direct
 # interface. If more free marks are needed, increase the minimum
@@ -49,7 +49,7 @@ IndividualCalls={% if firewalld_individual_calls | bool %}yes{% else %}no{% endi
 # Default: off
 LogDenied={{ firewalld_log_denied }}
 
-{% if ansible_facts['distribution_major_version'] >= '7' %}
+{% if ansible_distribution_major_version >= '7' %}
 # AutomaticHelpers
 # For the secure use of iptables and connection tracking helpers it is
 # recommended to turn AutomaticHelpers off. But this might have side effects on
@@ -61,7 +61,7 @@ LogDenied={{ firewalld_log_denied }}
 AutomaticHelpers=system
 {% endif %}
 
-{% if ansible_facts['distribution_major_version'] >= '8' %}
+{% if ansible_distribution_major_version >= '8' %}
 # FirewallBackend
 # Selects the firewall backend implementation.
 # Choices are:
