@@ -1,7 +1,17 @@
 ---
 
 - name: Reload firewalld
-  become: true
+  become: yes
   ansible.builtin.systemd:
     name: firewalld.service
     state: reloaded
+
+# When we were using Iptable, firewall unit file was mask. We must
+# ensure it is unmaked
+- name: Start and enable firewalld
+  become: yes
+  ansible.builtin.systemd:
+    name: firewalld.service
+    state: started
+    enabled: yes
+    masked: false
