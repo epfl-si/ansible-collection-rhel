@@ -48,13 +48,13 @@ Each role has it's own README.md
 On the controller node, we prefer to use a virtualenv:
 
 ```bash
-sudo yum install python 3.8 python3-virtualenv
-mkdir -p ~/python-venv/ansible-4.1.0
-virtualenv --python=python3.8 ~/python-venv/ansible-4.1.0
-source ~/python-venv/ansible-4.1.0/bin/activate
+sudo yum install python3.8 python3-virtualenv
+mkdir -p ~/python-venv/ansible-4.2.0
+virtualenv --python=python3.8 ~/python-venv/ansible-4.2.0
+source ~/python-venv/ansible-4.2.0/bin/activate
 python -m  pip install --upgrade pip
 pip install \
-  ansible==4.1.0 \
+  ansible==4.2.0 \
   ansible-lint \
   antsibull-changelog \
   molecule \
