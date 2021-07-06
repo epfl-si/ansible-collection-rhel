@@ -1,19 +1,10 @@
 ---
 
-# - name: Install backend for RHEL7
-#   become: yes
-#   ansible.builtin.package:
-#     name: iptables
-#     state: present
-#   when: ansible_distribution_major_version == "7"
-#   notify: Start and enable firewalld
-
 - name: Install firewalld
   become: yes
   ansible.builtin.package:
     name: firewalld
     state: present
-  notify: Start and enable firewalld
 
 - name: Configure firewalld
   become: yes
@@ -47,6 +38,16 @@
       The file /etc/firewalld/firewalld.cmd returned errors or warnings. Fix
       the configuration then run `/usr/bin/firewall-offline-cmd --system-config
       /etc/firewalld --check-config` again
+
+# When we were using Iptable, firewall unit file was mask. We must
+# ensure it is unmaked
+- name: Start and enable firewalld
+  become: yes
+  ansible.builtin.systemd:
+    name: firewalld.service
+    state: started
+    enabled: yes
+    masked: false
 
 - name: Force handler to ensure firewalld is up for create_new_zones.yml
   meta: flush_handlers

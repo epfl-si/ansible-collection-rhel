@@ -1,6 +1,0 @@
----
-
-bugfixes:
-
-  - firewalld - Fix missing backend (iptables) on RHEL7
-  - firewalld - Fix options not always set correctly in the configuration

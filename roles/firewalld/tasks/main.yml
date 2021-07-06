@@ -1,6 +1,9 @@
 ---
 # tasks file for firewalld
 
+- name: Preflight check
+  include_tasks: preflight_checks.yml
+
 - name: Disable others firwalld
   include_tasks: disable_other_firewalls.yml
 

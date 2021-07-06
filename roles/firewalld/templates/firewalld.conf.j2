@@ -7,13 +7,11 @@
 # Default: public
 DefaultZone={{ firewalld_default_zone }}
 
-{% if ansible_distribution_major_version >= '7' %}
 # Minimal mark
 # Marks up to this minimum are free for use for example in the direct
 # interface. If more free marks are needed, increase the minimum
 # Default: 100
 MinimalMark=100
-{% endif %}
 
 # Clean up on exit
 # If set to no or false the firewall configuration will not get cleaned up
@@ -50,7 +48,6 @@ IndividualCalls={% if firewalld_individual_calls | bool %}yes{% else %}no{% endi
 # Default: off
 LogDenied={{ firewalld_log_denied }}
 
-{% if ansible_distribution_major_version >= '7' %}
 # AutomaticHelpers
 # For the secure use of iptables and connection tracking helpers it is
 # recommended to turn AutomaticHelpers off. But this might have side effects on
@@ -60,9 +57,7 @@ LogDenied={{ firewalld_log_denied }}
 # will be used. Possible values are: yes, no and system.
 # Default: system
 AutomaticHelpers=system
-{% endif %}
 
-{% if ansible_distribution_major_version >= '8' %}
 # FirewallBackend
 # Selects the firewall backend implementation.
 # Choices are:
@@ -84,7 +79,6 @@ FlushAllOnReload={% if firewalld_flush_all_on_reload | bool %}yes{% else %}no{% 
 # internet.
 # Defaults to "yes".
 RFC3964_IPv4={% if firewalld_rfc3964_ipv4 | bool %}yes{% else %}no{% endif %}
-{% endif %}
 
 # AllowZoneDrifting
 # Older versions of firewalld had undocumented behavior known as "zone
