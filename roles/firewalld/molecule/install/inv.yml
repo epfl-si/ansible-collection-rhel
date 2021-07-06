@@ -1,0 +1,10 @@
+---
+
+all:
+  children:
+    install:
+      hosts:
+        install_el8:
+        # install_el9:
+  vars:
+    firewalld_allow_zone_drifting: no

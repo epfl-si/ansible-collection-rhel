@@ -1,0 +1,7 @@
+---
+
+- name: Converge
+  hosts: install
+  roles:
+
+    - role: firewalld
