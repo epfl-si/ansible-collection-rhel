@@ -9,10 +9,8 @@ All resources can be deleted using a `state: disabled` argument. The only except
 Requirements
 ------------
 
-* `iptables` on RHEL7
-* A Python2 interpreter on RHEL7 (because firewalld bindings with python3 are missing)
-* `nftable` on RHEL8
-* A python3 interpreter on RHEL8
+* `nftable`
+* A python3 interpreter
 
 This firewall backend can't be configured.
 
