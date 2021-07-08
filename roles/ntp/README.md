@@ -26,7 +26,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - indermue.el8.ntp
+         - epfl_si.rhel.ntp
 
 
 License
