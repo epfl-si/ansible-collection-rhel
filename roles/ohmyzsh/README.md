@@ -54,6 +54,7 @@ Example Playbook
 
 
 ```yaml
+---
 - hosts: servers
   roles:
     - role: epfl_si.rhel.ohmyzsh
