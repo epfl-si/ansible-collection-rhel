@@ -1,0 +1,5 @@
+---
+
+deprecated_features:
+
+    - ntp - Deprecating role. Will be remove in future release
