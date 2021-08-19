@@ -32,8 +32,6 @@ provisioner:
     ssh_connection:
       forks: 1
       pipelining: false
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
   inventory:
     link:
       host_vars: ./host_vars

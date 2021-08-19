@@ -35,8 +35,6 @@ provisioner:
   inventory:
     link:
       host_vars: ./host_vars
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
 
 verifier:
   name: ansible

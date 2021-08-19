@@ -47,8 +47,6 @@ provisioner:
   inventory:
     link:
       group_vars: ./group_vars
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
 
 verifier:
   name: ansible

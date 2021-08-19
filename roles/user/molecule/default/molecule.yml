@@ -24,8 +24,6 @@ provisioner:
     ssh_connection:
       forks: 1
       pipelining: false
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
 
 verifier:
   name: ansible

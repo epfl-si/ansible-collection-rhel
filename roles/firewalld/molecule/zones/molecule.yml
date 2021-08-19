@@ -75,8 +75,6 @@ provisioner:
       hosts: inventory/static.yml
       group_vars: inventory/group_vars
       host_vars: inventory/host_vars
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
 
 verifier:
   name: ansible
