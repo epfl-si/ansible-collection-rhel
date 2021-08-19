@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.8.2
+======
+
+Minor Changes
+-------------
+
+- tests - Remove our create playbook since it has been merge upstream
+
+Bugfixes
+--------
+
+- firewalld - Fix a task that failed in check mode
+
 v1.8.1
 ======
 

@@ -262,3 +262,13 @@ releases:
     - firewalld_check_mode.yml
     - ohmyzsh_update.yml
     release_date: '2021-08-19'
+  1.8.2:
+    changes:
+      bugfixes:
+      - firewalld - Fix a task that failed in check mode
+      minor_changes:
+      - tests - Remove our create playbook since it has been merge upstream
+    fragments:
+    - check_mode.yml
+    - molecule-3-4-0.yml
+    release_date: '2021-08-19'
