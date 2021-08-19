@@ -6,6 +6,7 @@
     cmd: firewall-cmd --get-zones
   register: firewalld_available_zones
   changed_when: false
+  check_mode: false
 
 - name: Check if new zone are specified
   set_fact:
