@@ -20,7 +20,7 @@ In your playbook repository, add this to the *collections/requirements.yml* file
 ---
 collections:
   - name: epfl_si.rhel
-    version: 1.1.3
+    version: 1.8.1
 ```
 
 Be sure to add the path you want to download collections to is present in your *ansible.cfg* file:
