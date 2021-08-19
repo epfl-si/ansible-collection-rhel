@@ -1,5 +1,0 @@
----
-
-bugfixes:
-
-  - firewalld - Fix a task that failed in check mode

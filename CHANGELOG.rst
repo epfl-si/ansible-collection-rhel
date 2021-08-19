@@ -5,20 +5,32 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.8.1
+======
+
+Minor Changes
+-------------
+
+- ohmyzsh - Updated the installer with latest ohmyzsh and plugins versions
+
+Deprecated Features
+-------------------
+
+- ntp - Deprecating role. Will be remove in future release
+
+Bugfixes
+--------
+
+- firewalld - Fix a task that failed in check mode
+
 v1.8.0
 ======
 
 Release Summary
 ---------------
 
-This release drops support for RHEL7 in the firewalld role. This moves was
-decided because the molecule tests stop working on our RHEL8 VM that runs
-Podman. We prioritize moving to RHEL8 instead of spending time creating
-automated tests for an old version.
-
-Unless someone step in to help, There is strong chances that all roles
-will soon drop support for RHEL7.
-
+This release drops support for RHEL7 in the firewalld role. This moves was decided because the molecule tests stop working on our RHEL8 VM that runs Podman. We prioritize moving to RHEL8 instead of spending time creating automated tests for an old version.
+Unless someone step in to help, There is strong chances that all roles will soon drop support for RHEL7. 
 
 Removed Features (previously deprecated)
 ----------------------------------------
