@@ -38,6 +38,7 @@
       The file /etc/firewalld/firewalld.cmd returned errors or warnings. Fix
       the configuration then run `/usr/bin/firewall-offline-cmd --system-config
       /etc/firewalld --check-config` again
+  when: not ansible_check_mode
 
 # When we were using Iptable, firewall unit file was mask. We must
 # ensure it is unmaked
