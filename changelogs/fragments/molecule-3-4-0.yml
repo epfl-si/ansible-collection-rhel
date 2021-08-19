@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - tests - Remove our create playbook since it has been merge upstream
