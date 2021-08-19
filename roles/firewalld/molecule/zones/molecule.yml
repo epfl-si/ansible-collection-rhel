@@ -3,11 +3,6 @@
 scenario:
   name: zones
 
-dependency:
-  name: galaxy
-  options:
-    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml
-
 driver:
   name: podman
 
