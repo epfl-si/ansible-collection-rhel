@@ -126,3 +126,4 @@ ATM, no automation, everything is done from your computer. To find your token, g
 1. `ansible-galaxy collection build`
 1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --token=<token>`
 1. `rm ./epfl_si-rhel-<ver>.tar.gz`
+1. `git push --tags`
