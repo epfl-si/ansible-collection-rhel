@@ -32,4 +32,8 @@ RUN \
     yum makecache fast \
     && yum install --assumeyes bash iproute iputils sudo python3 initscripts \
     && yum clean all; \
+  elif [ $(command -v dnf) ] && [ $(. /etc/os-release && echo $ID) == rocky ]; then \
+    dnf makecache \
+    && dnf install --assumeyes bash iproute iputils sudo python3 initscripts \
+    && dnf clean all; \
   fi
