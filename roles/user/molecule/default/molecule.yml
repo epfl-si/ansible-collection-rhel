@@ -8,10 +8,16 @@ driver:
 
 platforms:
 
-  - name: user1
+  - name: user-el8
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi
     dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
+    groups: [users]
+  - name: user-rl8
+    registry: {url: registry.hub.docker.com}
+    image: rockylinux/rockylinux:8
+    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
+    groups: [users]
 
 provisioner:
   name: ansible
