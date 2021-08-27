@@ -50,6 +50,7 @@ Role Variables
 Do note the small difference:
 
 ```yaml
+---
 # Role vars
 - role: epfl_si.rhel.user
   vars:
@@ -68,6 +69,7 @@ This is VERY important. Do NOT use roles variables if you wish to create multipl
 To avoid repeating the dictionary of public keys, you can create a dictionary at the top level of your inventory:
 
 ```yaml
+---
 ssh_pub_keys:
   user1:
     comment: 'user1@example.com'
@@ -80,6 +82,7 @@ ssh_pub_keys:
 and then reference it in the `user_authorized_keys.keys_list` variable:
 
 ```yaml
+---
 - hosts: servers
   roles:
   - role: epfl_si.rhel.user
@@ -164,6 +167,7 @@ users:
 In your playbook:
 
 ```yaml
+---
 - name: Manage users
   hosts: all
   tasks:
@@ -187,6 +191,7 @@ In your playbook:
 Alternatively:
 
 ```yaml
+---
 - name: Manage users
   hosts: all
   roles:
