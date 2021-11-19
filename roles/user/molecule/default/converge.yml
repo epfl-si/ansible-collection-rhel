@@ -10,6 +10,7 @@
     - role: user
       user_name: user_01
       user_shell: /bin/bash
+      user_umask: '0026'
 
     - role: user
       user_name: user_02
@@ -24,6 +25,7 @@
             ssh_key: 'ssh-rsa AAAAB1234'
           - comment: 'user2@example.com'
             ssh_key: 'ssh-ed25519 AAAAB5678'
+      user_umask: '0027'
 
     - role: user
       user_name: user_03

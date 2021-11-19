@@ -9,3 +9,8 @@ export PATH={{ _user_path }}
 {% else %}
 # No path specified in Ansible
 {% endif %}
+
+{% if user_umask is defined %}
+# User's umask
+umask {{ user_umask }}
+{% endif %}

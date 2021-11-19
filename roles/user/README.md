@@ -43,6 +43,9 @@ Role Variables
       description: The name or email of the owner of the key
     * ssh_key (string required)
       description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
+* user_umask: (int optional)
+  * default: omit
+  * description: Allow to set a different umask for this user. Do use single quote around the number. Otherwise the value may be set to '22' instead of '022' or '0022'
 
 
 ### role variables vs role parameters

@@ -1,6 +1,6 @@
 ---
 
-- name: Add paths to {{ user_name }} common_profile
+- name: Template {{ user_name }} common_profile
   become: true
   template:
     src: templates/common_profile.j2

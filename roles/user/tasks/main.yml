@@ -52,9 +52,8 @@
     - _user_shell == '/bin/zsh'
     - not ansible_check_mode or not user_creation_status.changed
 
-- name: Include tasks to manage {{ user_name }}'s PATH
-  include_tasks: path.yml
-  when: not ansible_check_mode or not user_creation_status.changed
+- name: Include tasks to manage {{ user_name }}'s common profile
+  include_tasks: common_profile.yml
 
 - name: Include tasks to manager {{ user_name }}'s authorized keys
   import_tasks: authorized_keys.yml

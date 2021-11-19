@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - user - Add user umask option
