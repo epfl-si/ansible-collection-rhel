@@ -37,4 +37,4 @@ verifier:
 lint: |
   set -e
   yamllint defaults meta tasks vars
-  ansible-lint --exclude .cache
+  ansible-lint --exclude .cache --exclude molecule
