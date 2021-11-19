@@ -146,8 +146,6 @@
     register: user_03_common_profile_emptied
     changed_when: false
 
-  - debug: var=user_03_common_profile_emptied
-
   - name: Assert that .common_profile is removed for user_03
     assert:
       that: not user_03_common_profile_emptied.changed
