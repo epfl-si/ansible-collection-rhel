@@ -226,7 +226,7 @@ Alternatively:
 License
 -------
 
-GPLv3
+MIT
 
 Author Information
 ------------------

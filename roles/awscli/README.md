@@ -320,7 +320,7 @@ alias aws='aws --endpoint-url https://s3.example.com'
 License
 -------
 
-GPLv3
+MIT
 
 
 Author Information

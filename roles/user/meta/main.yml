@@ -8,7 +8,7 @@ galaxy_info:
     authorized_keys file. This role handle one user at a time. Call this role
     multiples times to create many users.
   company: École Polytechnique Fédérale de Lausanne (EPFL)
-  license: GPL-3.0-or-later
+  license: MIT
 
   min_ansible_version: 2.9
 

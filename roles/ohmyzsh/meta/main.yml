@@ -5,7 +5,7 @@ galaxy_info:
   author: Laurent Indermühle
   description: Install and configure oh-my-zsh
   company: École Polytechnique Fédérale de Lausanne (EPFL)
-  license: GPL-3.0-or-later
+  license: MIT
 
   min_ansible_version: 2.9
 

@@ -113,7 +113,7 @@ s3cmd -c ~/.s3cfg-mybucket2 ls
 License
 -------
 
-GPLv3
+MIT
 
 Author Information
 ------------------

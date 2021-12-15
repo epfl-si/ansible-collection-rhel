@@ -7,7 +7,7 @@ galaxy_info:
     using password. Enables connection auditing since several users log
     in to the same account (sysadm, appadm, ...)
   company: École Polytechnique Fédérale de Lausanne (EPFL)
-  license: GPL-3.0-or-later
+  license: MIT
 
   min_ansible_version: 2.9
 
