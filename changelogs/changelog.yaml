@@ -272,3 +272,14 @@ releases:
     - check_mode.yml
     - molecule-3-4-0.yml
     release_date: '2021-08-19'
+  1.9.0:
+    changes:
+      minor_changes:
+      - Change license to MIT
+      - nginx - New role to manage nginx
+      - user - Add user umask option
+    fragments:
+    - add_user_umask.yml
+    - change_license.yml
+    - nginx.yml
+    release_date: '2021-12-15'

@@ -5,6 +5,16 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.9.0
+======
+
+Minor Changes
+-------------
+
+- Change license to MIT
+- nginx - New role to manage nginx
+- user - Add user umask option
+
 v1.8.2
 ======
 
