@@ -1,0 +1,16 @@
+---
+# Defaults variables for role nginx
+
+nginx_user: nginx
+nginx_pid: /var/run/nginx.pid
+nginx_events: |
+  multi_accept       on;
+  worker_connections 65535;
+nginx_http: |
+  # Logging
+  access_log /var/log/nginx/access.log;
+  error_log  /var/log/nginx/error.log warn;
+nginx_servers:
+  - |
+    listen 80;
+    server_name test.example.com;

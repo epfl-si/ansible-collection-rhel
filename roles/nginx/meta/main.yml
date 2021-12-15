@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: nginx
+  namespace: epfl_si
+  author: Laurent Indermühle
+  description: Install and configure nginx
+  company: École Polytechnique Fédérale de Lausanne
+  license: MIT
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: RHEL
+      versions:
+        - 8
+
+dependencies: []
+
+collections: []

@@ -1,0 +1,13 @@
+---
+
+- name: Converge
+  hosts: nginx
+  vars:
+    ansible_user: cmadm
+  roles:
+
+    - role: nginx
+      nginx_http: |
+        # Logging
+        access_log             /var/log/nginx/access.log;
+        error_log              /var/log/nginx/error.log warn;

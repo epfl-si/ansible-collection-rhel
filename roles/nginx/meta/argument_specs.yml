@@ -1,0 +1,41 @@
+---
+
+argument_specs:
+  # roles/nginx/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the nginx role.
+    options:
+      nginx_user:
+        type: "str"
+        default: nginx
+        description: "The user name for the process"
+      nginx_pid:
+        type: "str"
+        default: /var/run/nginx.pid
+        description: "The full path to the PID file"
+      nginx_events:
+        type: "str"
+        default: |
+          multi_accept       on;
+          worker_connections 65535;
+        description:
+          "The content of the `events` section of the configuration file"
+      nginx_http:
+        type: "str"
+        default: |
+          # Logging
+          access_log /var/log/nginx/access.log;
+          error_log  /var/log/nginx/error.log warn;
+        description:
+          "The content of the `http` section of the configuation file, exept for
+          the servers."
+      nginx_servers:
+        type: "list"
+        elements: "str"
+        default:
+          - |
+            listen 80;
+            server_name test.example.com;
+        description:
+          "A list of `server` content that will be added inside the `http`
+          section of the configuration file."

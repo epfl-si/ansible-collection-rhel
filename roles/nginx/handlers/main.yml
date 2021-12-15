@@ -1,0 +1,16 @@
+---
+# handlers for role nginx
+
+- name: Enable nginx
+  become: true
+  ansible.builtin.systemd:
+    name: nginx.service
+    state: started
+    daemon_reload: true
+    enabled: true
+
+- name: Restart nginx
+  become: true
+  ansible.builtin.systemd:
+    name: nginx.service
+    state: restarted
