@@ -1,5 +1,24 @@
 ---
 
+# python3-libselinux       # For copy, file, template, ...
+# python3-policycoreutils
+- name: Install package to manage SeLinux
+  become: true
+  ansible.builtin.package:
+    name:
+      - python3-libselinux        # for seboolean
+      - python3-libsemanage       # for seboolean
+
+- name: Set necessary SeLinux flags on and persistent
+  become: true
+  ansible.posix.seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
+  loop:
+    - httpd_can_network_connect
+    - httpd_can_network_relay
+  when: not lookup('env', 'MOLECULE_FILE')
 - name: Install Nginx module
   become: true
   ansible.builtin.dnf:
