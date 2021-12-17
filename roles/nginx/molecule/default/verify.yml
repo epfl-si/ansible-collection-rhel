@@ -13,3 +13,8 @@
         s: "{{ services_state.ansible_facts.services['nginx.service'] }}"
       assert:
         that: s.state == 'running'and s.status == 'enabled'
+
+    - name: Test nginx returned code
+      ansible.builtin.uri:
+        url: http://localhost
+        status_code: 200
