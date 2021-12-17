@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.9.1
+======
+
+Minor Changes
+-------------
+
+- nging - Manage SeLinux to allow connections and relay. Now Nginx can act as a reverse proxy!
+
 v1.9.0
 ======
 

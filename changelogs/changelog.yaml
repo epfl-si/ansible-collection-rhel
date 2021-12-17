@@ -283,3 +283,11 @@ releases:
     - change_license.yml
     - nginx.yml
     release_date: '2021-12-15'
+  1.9.1:
+    changes:
+      minor_changes:
+      - nging - Manage SeLinux to allow connections and relay. Now Nginx can act as
+        a reverse proxy!
+    fragments:
+    - nginx_selinux.yml
+    release_date: '2021-12-17'
