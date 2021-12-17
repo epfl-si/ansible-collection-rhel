@@ -1,0 +1,5 @@
+---
+
+minor_changes:
+
+  - nging - Manage SeLinux to allow connections and relay. Now Nginx can act as a reverse proxy!

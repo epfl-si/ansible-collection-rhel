@@ -8,6 +8,7 @@
     name:
       - python3-libselinux        # for seboolean
       - python3-libsemanage       # for seboolean
+      - python3-policycoreutils   # for seport
 
 - name: Set necessary SeLinux flags on and persistent
   become: true
@@ -19,6 +20,19 @@
     - httpd_can_network_connect
     - httpd_can_network_relay
   when: not lookup('env', 'MOLECULE_FILE')
+
+- name: Allow backend port in selinux
+  community.general.seport:
+    ports: "{{ item }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  loop: "{{ nginx_backends_ports }}"
+  when:
+    - not lookup('env', 'MOLECULE_FILE')
+    - nginx_backends_ports is defined
+    - nginx_backends_ports | length > 0
+
 - name: Install Nginx module
   become: true
   ansible.builtin.dnf:

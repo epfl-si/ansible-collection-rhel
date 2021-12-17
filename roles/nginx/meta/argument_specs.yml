@@ -39,3 +39,11 @@ argument_specs:
         description:
           "A list of `server` content that will be added inside the `http`
           section of the configuration file."
+      nginx_backends_ports:
+        type: "list"
+        elements: "str"
+        required: false
+        description:
+          "If you wish to use nginx as a reverse proxy. You must specify the
+          list of ports you intent to use as backend so we can allow them
+          in SeLinux."

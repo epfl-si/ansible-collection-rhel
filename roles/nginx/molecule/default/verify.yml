@@ -18,3 +18,10 @@
       ansible.builtin.uri:
         url: http://localhost
         status_code: 200
+
+    # This test is useless regaring SeLinux flags because SeLinux can't be
+    # enabled inside a container.
+    - name: Test nginx reverse proxy
+      ansible.builtin.uri:
+        url: http://localhost:1000
+        status_code: 200
