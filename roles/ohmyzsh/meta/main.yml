@@ -11,7 +11,8 @@ galaxy_info:
 
   platforms:
     - name: RHEL
-      versions: 8
+      versions:
+        - 8
 
   galaxy_tags: []
 
