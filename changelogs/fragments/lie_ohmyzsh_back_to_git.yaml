@@ -1,0 +1,14 @@
+---
+
+minor_changes:
+
+  - ohmyzsh - Change installation method from bundle to git clone
+
+release_summary: The ohmyzsh roles was causing issue because we were changing
+  file permission. This prevented oh-my-zsh to update itself due to all files
+  been makes 'unstaged' by git. During the release of a newer version of the
+  role, Ansible Galaxy refused our new version due to a file, the bundle
+  installer of oh-my-zsh + its plugins, been too big (23MB). The I had now
+  other choice to revert the installation to git clone. The role may become
+  very slow to deploy for the first time. But now 'omz update' should works
+  properly.
