@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.9.3
+======
+
+Minor Changes
+-------------
+
+- user - Only chown the user's home if the user changed. Previously we were always doing it, which was very long if the user has many files.
+
 v1.9.2
 ======
 

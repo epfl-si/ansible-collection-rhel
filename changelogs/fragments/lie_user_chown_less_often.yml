@@ -1,6 +1,0 @@
----
-
-minor_changes:
-
-  - user - Only chown the user's home if the user changed. Previously we were
-      always doing it, which was very long if the user has many files.

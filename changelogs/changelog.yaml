@@ -312,3 +312,11 @@ releases:
     fragments:
     - lie_ohmyzsh_back_to_git.yaml
     release_date: '2022-02-23'
+  1.9.3:
+    changes:
+      minor_changes:
+      - user - Only chown the user's home if the user changed. Previously we were
+        always doing it, which was very long if the user has many files.
+    fragments:
+    - lie_user_chown_less_often.yml
+    release_date: '2022-02-23'
