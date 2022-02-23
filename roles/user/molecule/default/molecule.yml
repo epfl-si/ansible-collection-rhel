@@ -28,7 +28,7 @@ provisioner:
       callback_whitelist: profile_tasks, timer
       stdout_callback: yaml
     ssh_connection:
-      forks: 1
+      forks: 2
       pipelining: false
 
 verifier:
@@ -36,5 +36,7 @@ verifier:
 
 lint: |
   set -e
-  yamllint defaults meta tasks vars
-  ansible-lint --exclude .cache --exclude molecule
+  echo "Run yamllint"
+  yamllint .
+  echo "Run ansible-lint"
+  ansible-lint .
