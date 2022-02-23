@@ -16,19 +16,3 @@
         path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
       failed_when: not mh_hostname_theme.stat.exists
       register: mh_hostname_theme
-
-    - name: Update oh-my-zsh
-      become: yes
-      become_user: user_01
-      ansible.builtin.shell:
-        cmd: >
-          ZSH=/home/user_01/.oh-my-zsh
-          ; source /home/user_01/.zshrc
-          ; zsh -f /home/user_01/.oh-my-zsh/tools/upgrade.sh
-      register: ohmyzsh_molcule_omz_update
-
-    - name: Assert that no update were found
-      assert:
-        that:
-          "ohmyzsh_molcule_omz_update
-          is search('Current branch master is up to date')"
