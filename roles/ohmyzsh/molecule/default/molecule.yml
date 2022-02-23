@@ -31,4 +31,4 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint --exclude .cache
+  ansible-lint .
