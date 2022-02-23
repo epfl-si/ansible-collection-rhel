@@ -5,6 +5,24 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v1.9.2
+======
+
+Release Summary
+---------------
+
+The ohmyzsh roles was causing issue because we were changing file permission. This prevented oh-my-zsh to update itself due to all files been makes 'unstaged' by git. During the release of a newer version of the role, Ansible Galaxy refused our new version due to a file, the bundle installer of oh-my-zsh + its plugins, been too big (23MB). The I had now other choice to revert the installation to git clone. The role may become very slow to deploy for the first time. But now 'omz update' should works properly.
+
+Minor Changes
+-------------
+
+- ohmyzsh - Change installation method from bundle to git clone
+
+Known Issues
+------------
+
+- ohmyzsh - All previous version had a issue that may prevent you to update the custom plugins using GIT. To see if you are impacted, simply do a git status inside ~/.oh-my-zsh/custom/plugins. If git list alot of files changed, then you have to bug. To fix it, you have 2 options. 1) Delete the ~/.oh-my-zsh folder and run this role again. 2) Use the command `git reset --hard HEAD` in each impacted git repo.
+
 v1.9.1
 ======
 
