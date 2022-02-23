@@ -31,5 +31,7 @@ verifier:
 
 lint: |
   set -e
+  echo "Run yamllint"
   yamllint .
+  echo "Run ansible-lint"
   ansible-lint .
