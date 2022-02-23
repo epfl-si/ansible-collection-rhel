@@ -8,10 +8,11 @@ driver:
 
 platforms:
 
-  - name: ohmyzsh1
+  - name: ohmyzsh_el8
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi
     dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
+    groups: ['ohmyzsh']
 
 provisioner:
   name: ansible
@@ -30,5 +31,7 @@ verifier:
 
 lint: |
   set -e
+  echo "Run yamllint"
   yamllint .
-  ansible-lint --exclude .cache
+  echo "Run ansible-lint"
+  ansible-lint .

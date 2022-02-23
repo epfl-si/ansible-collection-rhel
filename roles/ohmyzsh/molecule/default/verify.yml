@@ -1,40 +1,19 @@
 ---
 
 - name: Verify
-  hosts: ohmyzsh1
+  hosts: ohmyzsh
   gather_facts: false
+  become: true
   tasks:
 
-    - name: Check presence of zsh-completions custom plugin
+    - name: Assert that custom plugins has been installed
       stat:
         path: /home/user_01/.oh-my-zsh/custom/plugins/zsh-completions
+      failed_when: not zsh_completions_folder.stat.exists
       register: zsh_completions_folder
 
-    - name: Assert that custom plugins has been installed
-      assert:
-        that: zsh_completions_folder.stat.exists
-
-    - name: Check presence of mh-honiix custom theme
+    - name: Assert that custom theme has been installed
       stat:
         path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
+      failed_when: not mh_hostname_theme.stat.exists
       register: mh_hostname_theme
-
-    - name: Assert that custom theme has been installed
-      assert:
-        that: mh_hostname_theme.stat.exists
-
-    - name: Update oh-my-zsh
-      become: yes
-      become_user: user_01
-      ansible.builtin.shell:
-        cmd: >
-          ZSH=/home/user_01/.oh-my-zsh
-          ; source /home/user_01/.zshrc
-          ; zsh -f /home/user_01/.oh-my-zsh/tools/upgrade.sh
-      register: ohmyzsh_molcule_omz_update
-
-    - name: Assert that no update were found
-      assert:
-        that:
-          "ohmyzsh_molcule_omz_update
-          is search('Current branch master is up to date')"

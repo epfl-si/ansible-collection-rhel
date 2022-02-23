@@ -9,17 +9,61 @@
       - git
     state: present
 
-- name: Upload ohmyzsh custom package
+- name: Ensure oh-my-zsh folder is present
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  ansible.builtin.unarchive:
-    copy: true
-    src: files/ohmyzsh.tar.gz
-    creates: ~/.oh-my-zsh
-    dest: ~/
+  file:
+    path: ~/.oh-my-zsh
+    state: directory
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
-    mode: '0755'
+    mode: 0700
+
+- name: Init and configure GIT
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  shell:
+    cmd: >
+      git init ~/.oh-my-zsh
+      && cd ~/.oh-my-zsh
+      && git config core.eol lf
+      && git config core.autocrlf false
+      && git config fsck.zeroPaddedFilemode ignore
+      && git config fetch.fsck.zeroPaddedFilemode ignore
+      && git config receive.fsck.zeroPaddedFilemode ignore
+      && git config oh-my-zsh.remote origin
+      && git config oh-my-zsh.branch master
+      && git remote add origin https://github.com/ohmyzsh/ohmyzsh.git
+      && git fetch --depth=1 origin
+      && git checkout -b master origin/master
+    creates: ~/.oh-my-zsh/.git
+
+- name: Install plugins
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  git:
+    dest: ~/.oh-my-zsh/custom/plugins/{{ item.dest }}
+    repo: "{{ item.repo }}"
+    depth: 1
+    update: false
+  loop:
+    - dest: zsh-autosuggestions
+      repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    - dest: zsh-completions
+      repo: https://github.com/zsh-users/zsh-completions.git
+    - dest: zsh-syntax-highlighting
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+
+- name: Download mh-hostname theme
+  become: true
+  become_user: "{{ ohmyzsh_user }}"
+  get_url:
+    url:
+      "http://raw.githubusercontent.com/Honiix/oh-my-zsh/master/themes\
+      /mh-hostname.zsh-theme"
+    dest: ~/.oh-my-zsh/custom/themes
+    checksum: >
+      sha256:ea5e6863ae79a95aca113dcdb5579e608a7417c0fe33625dfaa94a4b97b02793
 
 - name: Ensure ~/.common_profile and ~/.z exists
   become: true

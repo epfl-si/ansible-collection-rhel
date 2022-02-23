@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: ohmyzsh1
+  hosts: ohmyzsh
   gather_facts: false
   vars:
     ansible_user: ansible
@@ -11,10 +11,6 @@
       ohmyzsh_user: user_01
       ohmyzsh_theme: mh-hostname
 
-  tasks:
-
-    - name: Change shell to zsh for user_01
-      become: yes
-      ansible.builtin.user:
-        name: user_01
-        shell: /bin/zsh
+    - role: ohmyzsh
+      ohmyzsh_user: root
+      ohmyzsh_theme: mh-hostname

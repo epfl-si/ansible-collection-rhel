@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: ohmyzsh
   namespace: epfl_si
-  author: Laurent Indermühle
+  author: laurent.indermuehle@epfl.ch
   description: Install and configure oh-my-zsh
   company: École Polytechnique Fédérale de Lausanne (EPFL)
   license: MIT
@@ -11,7 +11,8 @@ galaxy_info:
 
   platforms:
     - name: RHEL
-      versions: 8
+      versions:
+        - 8
 
   galaxy_tags: []
 
