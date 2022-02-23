@@ -3,6 +3,7 @@
 - name: Prepare
   hosts: users
   gather_facts: false
+  become: true
   tasks:
 
     - name: Unmask systemd-logind.service
@@ -15,13 +16,11 @@
     # us see when a task need the become directive, we will connect
     # to this unprivileged user.
     - name: Create ansible user
-      become: true
       user:
         name: ansible
         state: present
 
     - name: Allow ansible to sudo without password
-      become: true
       copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/10-ansible
@@ -31,7 +30,6 @@
         mode: '0644'
 
     - name: Install zsh
-      become: true
       package:
         name: zsh
         state: present
