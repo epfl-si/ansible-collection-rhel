@@ -43,3 +43,13 @@
           - zsh
           - util-linux-user
         state: present
+
+    - name: Change shell to zsh for user_01
+      ansible.builtin.user:
+        name: user_01
+        shell: /bin/zsh
+
+    - name: Change shell to zsh for root
+      ansible.builtin.user:
+        name: root
+        shell: /bin/zsh
