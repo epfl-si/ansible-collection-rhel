@@ -3,6 +3,8 @@
 - name: Verify
   hosts: ohmyzsh
   gather_facts: false
+  vars:
+    ansible_user: ansible
   tasks:
 
     - name: Assert that custom plugins has been installed
