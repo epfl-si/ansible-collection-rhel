@@ -49,3 +49,20 @@
     - role: user
       user_name: user_05
       user_uid: 344
+
+  tasks:
+
+    # Test the loop with vars taken from the inventory
+    - include_role:
+        name: user
+      vars:
+        user_name: "{{ user_item.user_name }}"
+        user_shell: "{{ user_item.shell | default('') }}"
+        user_home: "{{ user_item.home | default('') }}"
+        user_uid: "{{ user_item.uid | default(0) }}"
+        user_path_add: "{{ user_item.user_path_add | default([]) }}"
+        user_path: "{{ user_item.user_path | default('') }}"
+        user_authorized_keys: "{{ user_item.user_authorized_keys | default({}) }}"
+      loop: "{{ users_to_manage }}"
+      loop_control:
+        loop_var: user_item

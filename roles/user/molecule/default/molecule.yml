@@ -24,8 +24,10 @@ provisioner:
       callback_whitelist: profile_tasks, timer
       stdout_callback: yaml
     ssh_connection:
-      forks: 2
       pipelining: false
+  inventory:
+    links:
+      hosts: inventory
 
 verifier:
   name: ansible
