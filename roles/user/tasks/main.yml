@@ -48,6 +48,12 @@
   include_tasks: get_user_info.yml
   when: not ansible_check_mode or not user_creation_status.changed
 
+- name: Include tasks to manage {{ user_name }}'s bash
+  include_tasks: bash.yml
+  when:
+    - __user_shell == '/bin/bash'
+    - not ansible_check_mode or not user_creation_status.changed
+
 - name: Include tasks to manage {{ user_name }}'s zsh
   include_tasks: zsh.yml
   when:
