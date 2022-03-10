@@ -1,8 +1,8 @@
 user
 =========
 
-Create specified user, sets its default shell, manage the authorized_keys file and sudo rules.
-This role handle one user at a time. Call this role multiples times to create many users.
+Create specified user, set its default shell, manage the authorized_keys file and sudo rules.
+This role handle one user at a time. Call this role multiple times to create many users.
 
 
 Requirements
