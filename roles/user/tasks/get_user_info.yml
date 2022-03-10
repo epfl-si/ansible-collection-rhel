@@ -8,6 +8,6 @@
 
 - name: Set {{ user_name }} variables
   set_fact:
-    user_info:
+    __user_info:
       home: "{{ user_getent.ansible_facts.getent_passwd[user_name][4] }}"
       shell: "{{ user_getent.ansible_facts.getent_passwd[user_name][5] }}"

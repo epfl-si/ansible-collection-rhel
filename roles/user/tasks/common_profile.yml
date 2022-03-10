@@ -4,7 +4,7 @@
   become: true
   template:
     src: templates/common_profile.j2
-    dest: "{{ user_info.home }}/.common_profile"
+    dest: "{{ __user_info.home }}/.common_profile"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: '0644'

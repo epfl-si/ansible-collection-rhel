@@ -3,23 +3,23 @@
 
 - name: Set variables defaults to avoid testing if variables are defined
   set_fact:
-    _user_path_add: "{{ user_path_add | default([]) }}"
-    _user_path: "{{ user_path | default('') }}"
-    _user_shell: "{{ user_shell | default('/bin/bash') }}"
-    _user_uid: "{{ user_uid | default(0) }}"
-    _user_home: "{{ user_home | default('') }}"
-    _user_authorized_keys: "{{ user_authorized_keys | default({}) }}"
+    __user_path_add: "{{ user_path_add | default([]) }}"
+    __user_path: "{{ user_path | default('') }}"
+    __user_shell: "{{ user_shell | default('/bin/bash') }}"
+    __user_uid: "{{ user_uid | default(0) }}"
+    __user_home: "{{ user_home | default('') }}"
+    __user_authorized_keys: "{{ user_authorized_keys | default({}) }}"
 
 - name: Assert that {{ user_name }} user_path_add and user_path are not both set
   assert:
-    that: not ( _user_path_add | length > 0 and _user_path | length > 0 )
-    fail_msg: _user_path_add and _user_path are mutually exclusive
+    that: not ( __user_path_add | length > 0 and __user_path | length > 0 )
+    fail_msg: __user_path_add and __user_path are mutually exclusive
 
 - name: Create group to ensure gid is same as uid for uid < 1000
   become: true
   ansible.builtin.group:
     name: "{{ user_name }}"
-    gid: "{{ omit if ( _user_uid | int == 0 ) else ( _user_uid | int ) }}"
+    gid: "{{ omit if ( __user_uid | int == 0 ) else ( __user_uid | int ) }}"
     state: present
 
 - name: "Add {{ user_name }} user"
@@ -28,9 +28,9 @@
     name: "{{ user_name }}"
     group: "{{ user_name }}"
     state: present
-    shell: "{{ _user_shell }}"
-    home: "{{ omit if (_user_home | length == 0) else _user_home }}"
-    uid: "{{ omit if ( _user_uid | int == 0 ) else ( _user_uid | int ) }}"
+    shell: "{{ __user_shell }}"
+    home: "{{ omit if (__user_home | length == 0) else __user_home }}"
+    uid: "{{ omit if ( __user_uid | int == 0 ) else ( __user_uid | int ) }}"
   register: user_creation_status
 
 - name: Fix {{ user_name }} home group owner in case the uid changed
@@ -51,7 +51,7 @@
 - name: Include tasks to manage {{ user_name }}'s zsh
   include_tasks: zsh.yml
   when:
-    - _user_shell == '/bin/zsh'
+    - __user_shell == '/bin/zsh'
     - not ansible_check_mode or not user_creation_status.changed
 
 - name: Include tasks to manage {{ user_name }}'s common profile
@@ -60,13 +60,13 @@
 - name: Include tasks to manager {{ user_name }}'s authorized keys
   import_tasks: authorized_keys.yml
   when:
-    - _user_authorized_keys.keys_list is defined
+    - __user_authorized_keys.keys_list is defined
     - not ansible_check_mode or not user_creation_status.changed
 
 - name: Reset variables in case the role is called multiple times
   set_fact:
-    _user_path_add: []
-    _user_path: ''
-    _user_uid: 0
-    _user_home: ''
-    _user_authorized_keys: {}
+    __user_path_add: []
+    __user_path: ''
+    __user_uid: 0
+    __user_home: ''
+    __user_authorized_keys: {}
