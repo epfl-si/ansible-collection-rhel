@@ -8,6 +8,16 @@
   roles:
 
     - role: user
+      user_name: root
+      user_authorized_keys:
+        exclusive: true
+        keys_list:
+          - comment: 'user1@example.com'
+            ssh_key: 'ssh-rsa AAAAB1234'
+          - comment: 'user2@example.com'
+            ssh_key: 'ssh-ed25519 AAAAB5678'
+
+    - role: user
       user_name: user_01
       user_shell: /bin/bash
       user_umask: '0026'
