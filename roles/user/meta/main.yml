@@ -2,9 +2,9 @@
 galaxy_info:
   role_name: user
   namespace: epfl_si
-  author: Laurent Indermühle
+  author: laurent.indermuehle@epfl.ch
   description: >
-    Create specified user, sets its default shell and manage the
+    Create specified user, set its default shell and manage the
     authorized_keys file. This role handle one user at a time. Call this role
     multiples times to create many users.
   company: École Polytechnique Fédérale de Lausanne (EPFL)
