@@ -178,7 +178,7 @@ In your playbook:
     - include_role:
         name: epfl_si.rhel.user
       vars:
-        user_name: "{{ user_item.username }}"
+        user_name: "{{ user_item.user_name }}"
         user_shell: "{{ user_item.shell | default('') }}"
         user_home: "{{ user_item.home | default('') }}"
         user_uid: "{{ user_item.uid | default(0) }}"
