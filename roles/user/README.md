@@ -92,8 +92,8 @@ and then reference it in the `user_authorized_keys.keys_list` variable:
     user_name: my-user
     user_authorized_keys:
       keys_list:
-      - "{{ ssh_pub_keys.user1 }}"
-      - "{{ ssh_pub_keys.user2 }}"
+        - "{{ ssh_pub_keys.user1 }}"
+        - "{{ ssh_pub_keys.user2 }}"
 ```
 
 
