@@ -3,15 +3,14 @@
 - name: Verify
   hosts: users
   gather_facts: false
+  become: true
   tasks:
 
   - name: Assert that user_01 as been created
-    become: true
     become_user: user_01
     ping:
 
   - name: Assert that user_02 as been created
-    become: true
     become_user: user_02
     ping:
 
@@ -113,7 +112,6 @@
       that: not user_02_common_profile_content.changed
 
   - name: Get user_02 PATH
-    become: true
     become_user: user_02
     become_method: su
     become_flags: '-s /bin/zsh -l'
@@ -127,7 +125,6 @@
       that: user_02_path.stdout_lines is search('/user_02_test')
 
   - name: Get user_03 PATH
-    become: true
     become_user: user_03
     become_method: su
     become_flags: '-s /bin/bash -l'
@@ -147,8 +144,7 @@
       user_name: user_03
       user_shell: /bin/bash
 
-  - name: Check that .common_profile is removed for user_03
-    become: true
+  - name: Check that added path is removed from .common_profile for user_03
     lineinfile:
       regex: "^export PATH=/user_03_test:$PATH$"
       dest: /home/user_03/.common_profile
@@ -161,7 +157,6 @@
       that: not user_03_common_profile_emptied.changed
 
   - name: Get user_04 PATH
-    become: true
     become_user: user_04
     become_method: su
     become_flags: '-s /bin/bash -l'
@@ -243,7 +238,6 @@
       fail_msg: "folder group should be 388, not {{ user_05_uid_388.gid }}"
 
   - name: Get user_01 umask
-    become: true
     become_user: user_01
     become_flags: -i
     ansible.builtin.command:
@@ -256,7 +250,6 @@
       that: user_01_umask.stdout == '0026'
 
   - name: Get user_02 umask
-    become: true
     become_user: user_02
     become_flags: -i
     ansible.builtin.command:
