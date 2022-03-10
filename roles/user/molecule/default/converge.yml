@@ -49,28 +49,3 @@
     - role: user
       user_name: user_05
       user_uid: 344
-
-  post_tasks:
-
-    - name: Source .common_profile for user_01,3,4,5
-      become: true
-      ansible.builtin.lineinfile:
-        regex: "^source \\$HOME/.common_profile$"
-        line: "source $HOME/.common_profile"
-        dest: "/home/{{ user_lists_item }}/.bash_profile"
-        state: present
-      loop:
-        - user_01
-        - user_03
-        - user_04
-        - user_05
-      loop_control:
-        loop_var: user_lists_item
-
-    - name: Source .common_profile for user_02
-      become: true
-      ansible.builtin.lineinfile:
-        regex: "^source \\$HOME/.common_profile$"
-        line: "source $HOME/.common_profile"
-        dest: /usr/local/user_02/.zshrc
-        state: present
