@@ -83,7 +83,9 @@
       path: /usr/local/user_02/.common_profile
     register: user_02_common_profile
 
-  - name: Assert that common_profile is added for user with path_add and custom home location
+  - name: >
+      Assert that common_profile is added for user with path_add and custom
+      home location
     assert:
       that: user_02_common_profile.stat.exists
 
