@@ -5,6 +5,7 @@
   gather_facts: false
   vars:
     ansible_user: ansible
+  become: true
   roles:
 
     - role: user
@@ -12,7 +13,6 @@
       user_shell: /bin/zsh
 
     - role: user
-      become: true
       user_name: root
       user_authorized_keys:
         exclusive: true
@@ -23,13 +23,11 @@
             ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - role: user
-      become: true
       user_name: user_01
       user_shell: /bin/bash
       user_umask: '0026'
 
     - role: user
-      become: true
       user_name: user_02
       user_shell: /bin/zsh
       user_uid: 1012
@@ -45,39 +43,31 @@
       user_umask: '0027'
 
     - role: user
-      become: true
       user_name: user_03
       user_shell: /bin/bash
       user_path_add: ['/user_03_test']
 
     - role: user
-      become: true
       user_name: user_04
       user_path: "/usr/bin:/user_04_test"
 
     - role: user
-      become: true
       user_name: user_05
       user_uid: 344
 
   tasks:
 
-    - name: Run block as root
-      block:
-
-        # Test the loop with vars taken from the inventory
-        - include_role:
-            name: user
-          vars:
-            user_name: "{{ user_item.user_name }}"
-            user_shell: "{{ user_item.shell | default('') }}"
-            user_home: "{{ user_item.home | default('') }}"
-            user_uid: "{{ user_item.uid | default(0) }}"
-            user_path_add: "{{ user_item.user_path_add | default([]) }}"
-            user_path: "{{ user_item.user_path | default('') }}"
-            user_authorized_keys: "{{ user_item.user_authorized_keys | default({}) }}"
-          loop: "{{ users_to_manage }}"
-          loop_control:
-            loop_var: user_item
-
-      become: true
+    # Test the loop with vars taken from the inventory
+    - include_role:
+        name: user
+      vars:
+        user_name: "{{ user_item.user_name }}"
+        user_shell: "{{ user_item.shell | default('') }}"
+        user_home: "{{ user_item.home | default('') }}"
+        user_uid: "{{ user_item.uid | default(0) }}"
+        user_path_add: "{{ user_item.user_path_add | default([]) }}"
+        user_path: "{{ user_item.user_path | default('') }}"
+        user_authorized_keys: "{{ user_item.user_authorized_keys | default({}) }}"
+      loop: "{{ users_to_manage }}"
+      loop_control:
+        loop_var: user_item
