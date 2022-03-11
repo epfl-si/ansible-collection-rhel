@@ -1,10 +1,10 @@
 {{ ansible_managed | comment }}
 
-{% if user_path_add | length > 0 %}
+{% if user_path_add | default('') | length > 0 %}
 {% for p in user_path_add %}
 export PATH={{ p }}:$PATH
 {% endfor %}
-{% elif user_path | length > 0 %}
+{% elif user_path | default('') | length > 0 %}
 export PATH={{ user_path }}
 {% else %}
 # No path specified in Ansible
