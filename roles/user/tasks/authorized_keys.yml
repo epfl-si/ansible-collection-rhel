@@ -10,7 +10,6 @@
       }}
 
 - name: Set {{ user_name }} authorized_keys
-  become: true
   ansible.posix.authorized_key:
     user: "{{ user_name }}"
     exclusive:

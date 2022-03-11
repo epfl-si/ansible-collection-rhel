@@ -15,12 +15,10 @@
     ping:
 
   - name: Assert that user_06 as been created
-    become: true
     become_user: user_06
     ping:
 
   - name: Assert that user_07 as been created
-    become: true
     become_user: user_07
     ping:
 

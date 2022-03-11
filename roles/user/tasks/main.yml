@@ -16,14 +16,12 @@
     fail_msg: __user_path_add and __user_path are mutually exclusive
 
 - name: Create group to ensure gid is same as uid for uid < 1000
-  become: true
   ansible.builtin.group:
     name: "{{ user_name }}"
     gid: "{{ omit if ( __user_uid | int == 0 ) else ( __user_uid | int ) }}"
     state: present
 
 - name: "Add {{ user_name }} user"
-  become: true
   ansible.builtin.user:
     name: "{{ user_name }}"
     group: "{{ user_name }}"
@@ -34,7 +32,6 @@
   register: user_creation_status
 
 - name: Fix {{ user_name }} home group owner in case the uid changed
-  become: true
   ansible.builtin.file:
     path: "{{ user_creation_status.home }}"
     group: "{{ user_creation_status.group }}"

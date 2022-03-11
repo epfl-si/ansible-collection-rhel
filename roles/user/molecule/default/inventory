@@ -23,7 +23,7 @@ users:
           - "{{ ssh_pub_keys.user2 }}"
 
     user_07:
-      user_name: mysql
+      user_name: user_07
       user_shell: /bin/bash
       user_uid: 1007
       user_home: /home/user_07

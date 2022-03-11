@@ -4,6 +4,8 @@ user
 Create specified user, set its default shell, manage the authorized_keys file and sudo rules.
 This role handle one user at a time. Call this role multiple times to create many users.
 
+This role must be run with `become: true` if it modified any other user than `ansible_user`.
+
 
 Requirements
 ------------

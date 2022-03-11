@@ -1,7 +1,6 @@
 ---
 
 - name: Template {{ user_name }} common_profile
-  become: true
   template:
     src: templates/common_profile.j2
     dest: "{{ __user_info.home }}/.common_profile"
