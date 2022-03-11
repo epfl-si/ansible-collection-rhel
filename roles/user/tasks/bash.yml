@@ -1,6 +1,6 @@
 ---
 
-- name: Load .common_profile file from .bash_profile of {{ user_name }}
+- name: Add line to load .common_profile from .bash_profile of {{ user_name }}
   lineinfile:
     regex: "^source \\$HOME/.common_profile$"
     line: "source $HOME/.common_profile"
