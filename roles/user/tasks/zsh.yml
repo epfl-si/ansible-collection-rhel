@@ -9,7 +9,6 @@
     mode: '0644'
     access_time: preserve
     modification_time: preserve
-  when: __user_shell == '/bin/zsh'
 
 - name: Add .zprofile to load .zshrc in non interactive shell (from ansible)
   copy:
@@ -19,4 +18,3 @@
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: '0644'
-  when: __user_shell == '/bin/zsh'

@@ -1,2 +1,5 @@
 ---
 # defaults file for user
+# Those variables must match the ones from meta/argument_specs.yml
+
+user_shell: /bin/bash

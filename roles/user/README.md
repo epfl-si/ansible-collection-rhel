@@ -17,37 +17,7 @@ Requirements
 Role Variables
 --------------
 
-* user_name (string)
-  * default: none **required**
-  * description: The name of the user to create/configure
-* user_uid (int optional)
-  * default: Automatic
-  * description: Useful to have same user id across multiple servers. Prevent issues with permission if files are exchanged between servers.
-* user_shell (string)
-  * default: /bin/bash
-  * description: The default shell the user will use at login.
-* user_home (path)
-  * default: (null)
-  * description: Set the user's home directory
-* user_path_add (list of string)
-  * default: (null)
-    description: A list of path to add to the global $PATH variable. Useful in case you want to quickly add a path to the user without altering the existing one. Removing a path from this list will also remove it from the user at the next playbook run. This paths are shared between different shell and stored in the ~/.common_profile file. `path_add` and `path` are mutually exclusive.
-* user_path: (null)
-  * default: none **required** if `path`is set
-  * description: Set this to enforce a fixed path. `path_add` and `path` are mutually exclusive.
-* user_authorized_keys: (dictionary)
-  * exclusive (bool)
-    * default: false
-    * description: Whether to remove all other non-specified keys from authorized_keys file
-  * keys_list (list of dictionary)
-    * comment (string optional)
-      default: none
-      description: The name or email of the owner of the key
-    * ssh_key (string required)
-      description: The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519 AAAAC3Nz...."
-* user_umask: (int optional)
-  * default: omit
-  * description: Allow to set a different umask for this user. Do use single quote around the number. Otherwise the value may be set to '22' instead of '022' or '0022'
+The role parameters are in *meta/argument_specs.yml* or use the command `ansible-doc --type role epfl_si.rhel.user` to read them.
 
 
 ### role variables vs role parameters

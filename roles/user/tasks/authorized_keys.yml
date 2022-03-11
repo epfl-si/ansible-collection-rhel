@@ -5,7 +5,7 @@
     keys_string: >
       {{ user_authorized_keys.keys_list
       | map(attribute='ssh_key')
-      | zip(__user_authorized_keys.keys_list | map(attribute='comment'))
+      | zip(user_authorized_keys.keys_list | map(attribute='comment'))
       | map('join', ' ') | list
       }}
 
@@ -13,7 +13,7 @@
   ansible.posix.authorized_key:
     user: "{{ user_name }}"
     exclusive:
-      "{{ __user_authorized_keys.exclusive | default('false') }}"
+      "{{ user_authorized_keys.exclusive | default('false') }}"
     state: present
     manage_dir: true
     key: "{{ keys_string | join('\n') }}"
