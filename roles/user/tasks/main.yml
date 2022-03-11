@@ -13,8 +13,8 @@
 - name: Create group to ensure gid is same as uid for uid < 1000
   ansible.builtin.group:
     name: "{{ user_name }}"
-    gid: >
-      "{{ omit if ( user_uid | default(0) | int == 0 )
+    gid:
+      "{{ omit if ( user_uid | default(0) | int == 0 ) \
       else ( user_uid | int ) }}"
     state: present
 
@@ -24,9 +24,11 @@
     group: "{{ user_name }}"
     state: present
     shell: "{{ user_shell }}"
-    home: >
+    home:
       "{{ omit if ( user_home | default('') | length == 0 ) else user_home }}"
-    uid: "{{ omit if ( user_uid | int == 0 ) else ( user_uid | int ) }}"
+    uid:
+      "{{ omit if ( user_uid | default(0) | int == 0 ) \
+      else ( user_uid | int ) }}"
   register: user_creation_status
 
 - name: Fix {{ user_name }} home group owner in case the uid changed
