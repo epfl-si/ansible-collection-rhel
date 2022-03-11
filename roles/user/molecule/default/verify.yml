@@ -83,7 +83,7 @@
       path: /usr/local/user_02/.common_profile
     register: user_02_common_profile
 
-  - name: Assert that no common_profile is added for user with path_add
+  - name: Assert that common_profile is added for user with path_add and custom home location
     assert:
       that: user_02_common_profile.stat.exists
 
@@ -150,7 +150,7 @@
     register: user_03_common_profile_emptied
     changed_when: false
 
-  - name: Assert that .common_profile is removed for user_03
+  - name: Assert that user_path_add is removed from .common_profile for user_03
     assert:
       that: not user_03_common_profile_emptied.changed
 
