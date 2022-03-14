@@ -2,6 +2,20 @@
 
 scenario:
   name: default
+  test_sequence:
+    - dependency
+    # - lint  # Disabled, lint done for the whole collection
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 
 driver:
   name: podman
@@ -31,10 +45,3 @@ provisioner:
 
 verifier:
   name: ansible
-
-lint: |
-  set -e
-  echo "Run yamllint"
-  yamllint .
-  echo "Run ansible-lint"
-  ansible-lint .
