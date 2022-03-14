@@ -6,11 +6,6 @@
   become: true
   tasks:
 
-    # - name: Unmask systemd-logind.service
-    #   ansible.builtin.systemd:
-    #     name: systemd-logind.service
-    #     masked: false
-
     - name: Prepare ansible user with permission to sudo without password
       import_tasks: ../default/tasks/prepare_ansible_user.yml
 
