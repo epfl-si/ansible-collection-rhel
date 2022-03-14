@@ -9,6 +9,11 @@
     - name: Prepare ansible user with permission to sudo without password
       import_tasks: ../default/tasks/prepare_ansible_user.yml
 
+    - name: Install zsh
+      package:
+        name: zsh
+        state: present
+
     - name: Create mock pre-existing user with SSH keys
       user:
         name: user_pre_exist
