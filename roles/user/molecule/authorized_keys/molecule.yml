@@ -1,7 +1,7 @@
 ---
 
 scenario:
-  name: default
+  name: authorized_keys
   test_sequence:
     - dependency
     # - lint  # Disabled, lint done for the whole collection
@@ -22,7 +22,7 @@ driver:
 
 platforms:
 
-  - name: user-el8
+  - name: user_el8_ak
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi
     dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2

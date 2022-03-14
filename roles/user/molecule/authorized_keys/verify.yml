@@ -1,0 +1,122 @@
+---
+
+- name: Verify
+  hosts: users
+  gather_facts: false
+  become: true
+  tasks:
+
+    # ------------------------------------------------------------------------
+    # Check that keys have been installed
+    # ------------------------------------------------------------------------
+
+    # root
+    - name: Assert that root has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /root/.ssh/authorized_keys
+      check_mode: true
+      register: root_authorized_keys
+      failed_when: root_authorized_keys.changed
+
+    # Pre existing
+    - name: Assert that user_pre_exist has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_pre_exist/.ssh/authorized_keys
+      check_mode: true
+      register: user_pre_exist_authorized_keys
+      failed_when: user_pre_exist_authorized_keys.changed
+
+    # ZSH
+    - name: Assert that user_zsh has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_zsh/.ssh/authorized_keys
+      check_mode: true
+      register: user_zsh_authorized_keys
+      failed_when: user_zsh_authorized_keys.changed
+
+    # BASH
+    - name: Assert that user_bash has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_bash/.ssh/authorized_keys
+      check_mode: true
+      register: user_bash_authorized_keys
+      failed_when: user_bash_authorized_keys.changed
+
+    # ZSH from a loop
+    - name: Assert that user_zsh_loop has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_zsh_loop/.ssh/authorized_keys
+      check_mode: true
+      register: user_zsh_loop_authorized_keys
+      failed_when: user_zsh_loop_authorized_keys.changed
+
+    # BASH from a loop
+    - name: Assert that user_bash_loop has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_bash_loop/.ssh/authorized_keys
+      check_mode: true
+      register: user_bash_loop_authorized_keys
+      failed_when: user_bash_loop_authorized_keys.changed
+
+
+    # ------------------------------------------------------------------------
+    # Test Keys deletion
+    # ------------------------------------------------------------------------
+
+    - name: Delete a keys from user_deletion authorized_keys
+      include_role:
+        name: user
+      vars:
+        user_name: user_deletion
+        user_authorized_keys:
+          exclusive: true
+          keys_list:
+            - comment: 'user1@example.com'
+              ssh_key: 'ssh-rsa AAAAB1234'
+
+    - name: Assert that user_deletion key has been deleted from authorized_keys
+      copy:
+        content: |
+          ssh-rsa AAAAB1234 user1@example.com
+        dest: /home/user_deletion/.ssh/authorized_keys
+      check_mode: true
+      register: user_deletion_authorized_keys_deleted
+      failed_when: user_deletion_authorized_keys_deleted.changed
+
+
+    # ------------------------------------------------------------------------
+    # Test Keys exclusivity
+    # ------------------------------------------------------------------------
+
+    - name: Add a key to user_zsh authorized_keys
+      lineinfile:
+        path: /home/user_zsh/.ssh/authorized_keys
+        state: present
+        line: ssh-rsa 1111 unmanaged_key@example.com
+
+    - name: Enforce role on ZSH user
+      include_role:
+        name: user
+      vars:
+        user_name: user_zsh
+        user_authorized_keys:
+          exclusive: true
+          keys_list:
+            - comment: 'user1@example.com'
+              ssh_key: 'ssh-rsa AAAAB1234'
+            - comment: 'user2@example.com'
+              ssh_key: 'ssh-ed25519 AAAAB5678'
+
+    - name: Assert that user_zsh has the expected authorized_keys
+      copy:
+        content: "{{ expected_keys }}"
+        dest: /home/user_zsh/.ssh/authorized_keys
+      check_mode: true
+      register: user_zsh_authorized_keys
+      failed_when: user_zsh_authorized_keys.changed

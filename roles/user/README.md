@@ -151,9 +151,9 @@ In your playbook:
         name: epfl_si.rhel.user
       vars:
         user_name: "{{ user_item.user_name }}"
-        user_shell: "{{ user_item.shell | default('') }}"
-        user_home: "{{ user_item.home | default('') }}"
-        user_uid: "{{ user_item.uid | default(0) }}"
+        user_shell: "{{ user_item.user_shell | default('/bin/bash') }}"
+        user_home: "{{ user_item.user_home | default('') }}"
+        user_uid: "{{ user_item.user_uid | default(0) }}"
         user_path_add: "{{ user_item.user_path_add | default([]) }}"
         user_path: "{{ user_item.user_path | default('') }}"
         user_authorized_keys: "{{ user_item.user_authorized_keys | default({}) }}"

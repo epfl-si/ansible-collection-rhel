@@ -17,6 +17,11 @@
       "{{ omit if ( user_uid | default(0) | int == 0 ) \
       else ( user_uid | int ) }}"
     state: present
+    system:
+      "{{ true if ( \
+        (user_uid is defined) \
+        and (user_uid | int <= 999) \
+      ) else false }}"
 
 - name: "Add {{ user_name }} user"
   ansible.builtin.user:
@@ -43,19 +48,19 @@
 
 - name: Include task to get {{ user_name }} info
   include_tasks: get_user_info.yml
-  when: not ansible_check_mode or not user_creation_status.changed
+  when: not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s bash
   include_tasks: bash.yml
   when:
     - user_shell == '/bin/bash'
-    - not ansible_check_mode or not user_creation_status.changed
+    - not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s zsh
   include_tasks: zsh.yml
   when:
     - user_shell == '/bin/zsh'
-    - not ansible_check_mode or not user_creation_status.changed
+    - not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s common profile
   include_tasks: common_profile.yml

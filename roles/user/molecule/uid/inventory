@@ -1,0 +1,20 @@
+---
+
+users:
+  hosts:
+    user_el8_uid:
+  vars:
+
+    user_1013_loop:
+      user_name: user_1013_loop
+      user_shell: /bin/zsh
+      user_uid: 1013
+
+    user_345_loop:
+      user_name: user_345_loop
+      user_shell: /bin/bash
+      user_uid: 345
+
+    users_to_manage:
+      - "{{ user_1013_loop }}"
+      - "{{ user_345_loop }}"

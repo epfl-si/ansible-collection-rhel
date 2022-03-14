@@ -1,0 +1,28 @@
+---
+
+- name: Prepare
+  hosts: users
+  gather_facts: false
+  become: true
+  tasks:
+
+    # - name: Unmask systemd-logind.service
+    #   ansible.builtin.systemd:
+    #     name: systemd-logind.service
+    #     masked: false
+
+    - name: Prepare ansible user with permission to sudo without password
+      import_tasks: ../default/tasks/prepare_ansible_user.yml
+
+    - name: Create mock pre-existing user with SSH keys
+      user:
+        name: user_pre_exist
+        state: present
+
+    - name: Add mock SSH key to pre-existing user
+      ansible.posix.authorized_key:
+        user: user_pre_exist
+        exclusive: false
+        state: present
+        manage_dir: true
+        key: ssh-rsa AAAAB1234 user1@example.com

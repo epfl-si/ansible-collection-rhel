@@ -1,0 +1,128 @@
+---
+
+- name: Verify
+  hosts: users
+  gather_facts: false
+  become: true
+  tasks:
+
+    # ------------------------------------------------------------------------
+    # Check adding a location to the PATH
+    # ------------------------------------------------------------------------
+
+    - name: Assert that new location was added to PATH of root
+      become_method: su
+      become_flags: '-s /bin/bash -l'
+      command:
+        cmd: echo $PATH
+      register: root_path
+      changed_when: false
+      failed_when: root_path.stdout is not search('/added_path')
+
+    - name: Assert that new location was added to PATH of user_add_path_zsh
+      become_user: user_add_path_zsh
+      become_method: su
+      become_flags: '-s /bin/zsh -l'
+      command:
+        cmd: echo $PATH
+      register: user_zsh_path
+      changed_when: false
+      failed_when: user_zsh_path.stdout is not search('/added_path_zsh')
+
+    - name: Assert that new location was added to PATH of user_add_path_bash
+      become_user: user_add_path_bash
+      become_method: su
+      become_flags: '-s /bin/bash -l'
+      command:
+        cmd: echo $PATH
+      register: user_bash_path
+      changed_when: false
+      failed_when: user_bash_path.stdout is not search('/added_path_bash')
+
+    # ------------------------------------------------------------------------
+    # Check overwriting the entire PATH
+    # ------------------------------------------------------------------------
+
+    - name: Assert that new location was added to PATH of user_add_path_zsh
+      become_user: user_path_zsh
+      become_method: su
+      become_flags: '-s /bin/zsh -l'
+      command:
+        cmd: echo $PATH
+      register: user_zsh_path
+      changed_when: false
+      failed_when: user_zsh_path.stdout != '/usr/bin:/path_zsh'
+
+    - name: Assert that new location was added to PATH of user_add_path_bash
+      become_user: user_path_bash
+      become_method: su
+      become_flags: '-s /bin/bash -l'
+      command:
+        cmd: echo $PATH
+      register: user_bash_path
+      changed_when: false
+      failed_when: user_bash_path.stdout != '/usr/bin:/path_bash'
+
+
+    # ------------------------------------------------------------------------
+    # Check PATH written from a loop
+    # ------------------------------------------------------------------------
+
+    - name: Assert that PATH of user_zsh_loop was set
+      become_user: user_zsh_loop
+      become_method: su
+      become_flags: '-s /bin/zsh -l'
+      command:
+        cmd: echo $PATH
+      register: user_zsh_loop_path
+      changed_when: false
+      failed_when: user_zsh_loop_path.stdout is not search('/add_path_zsh')
+
+    - name: Assert that new location was added to PATH of user_add_path_bash
+      become_user: user_bash_loop
+      become_method: su
+      become_flags: '-s /bin/bash -l'
+      command:
+        cmd: echo $PATH
+      register: user_bash_loop_path
+      changed_when: false
+      failed_when: user_bash_loop_path.stdout != '/usr/bin:/path_bash'
+
+
+    # ------------------------------------------------------------------------
+    # Check removing a location from the path
+    # ------------------------------------------------------------------------
+
+    - name: Enforce role for user_add_path_zsh
+      include_role:
+        name: user
+      vars:
+        user_name: user_add_path_zsh
+        user_shell: /bin/zsh
+
+    - name: Assert that added location was removed from PATH of user_add_path_zsh
+      become_user: user_add_path_zsh
+      become_method: su
+      become_flags: '-s /bin/zsh -l'
+      command:
+        cmd: echo $PATH
+      register: user_zsh_path
+      changed_when: false
+      failed_when: user_zsh_path.stdout is search('/added_path_zsh')
+
+    - name: Enforce role for user_add_path_bash
+      include_role:
+        name: user
+      vars:
+        user_name: user_add_path_bash
+        user_shell: /bin/bash
+
+    - name: Assert that new location was added to PATH of user_add_path_bash
+      become_user: user_add_path_bash
+      become_method: su
+      become_flags: '-s /bin/bash -l'
+      command:
+        cmd: echo $PATH
+      register: user_bash_path
+      changed_when: false
+      failed_when: user_bash_path.stdout is search('/added_path_bash')

@@ -6,30 +6,15 @@
   become: true
   tasks:
 
-    - name: Unmask systemd-logind.service
-      ansible.builtin.systemd:
-        name: systemd-logind.service
-        masked: false
+    # - name: Unmask systemd-logind.service
+    #   ansible.builtin.systemd:
+    #     name: systemd-logind.service
+    #     masked: false
 
-    # In ubi8 we are always root. This doesn't reflect a real world
-    # scenario when ssh connections to root are forbidden. To help
-    # us see when a task need the become directive, we will connect
-    # to this unprivileged user.
-    - name: Create ansible user
-      user:
-        name: ansible
-        state: present
+    - name: Prepare ansible user with permission to sudo without password
+      import_tasks: tasks/prepare_ansible_user.yml
 
-    - name: Allow ansible to sudo without password
-      copy:
-        content: "ansible ALL=(ALL) NOPASSWD: ALL"
-        dest: /etc/sudoers.d/10-ansible
-        validate: /usr/sbin/visudo -csf %s
-        owner: root
-        group: root
-        mode: '0644'
-
-    - name: Install zsh
-      package:
-        name: zsh
-        state: present
+    # - name: Install zsh
+    #   package:
+    #     name: zsh
+    #     state: present
