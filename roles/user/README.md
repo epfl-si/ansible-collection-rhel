@@ -17,7 +17,7 @@ Requirements
 Role Variables
 --------------
 
-The role parameters are in *meta/argument_specs.yml* or use the command `ansible-doc --type role epfl_si.rhel.user` to read them.
+The role parameters are explained in *meta/argument_specs.yml* or you can use the command `ansible-doc --type role epfl_si.rhel.user` to read them.
 
 
 ### role variables vs role parameters
