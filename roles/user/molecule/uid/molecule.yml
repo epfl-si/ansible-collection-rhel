@@ -26,8 +26,6 @@ platforms:
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi
     dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
-    groups: [users]
-
 
 provisioner:
   name: ansible
