@@ -1,0 +1,66 @@
+---
+
+- name: Verify
+  hosts: users
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Assert that root umask is set to desired value
+      become_method: su
+      become_flags: --login
+      command:
+        cmd: umask
+      register: root_umask
+      changed_when: false
+      failed_when: root_umask.stdout != '0006'
+
+    - name: Assert that user_auto_umask umask is 022
+      become_user: user_auto_umask
+      become_method: su
+      become_flags: --login
+      command:
+        cmd: umask
+      register: user_auto_umask
+      changed_when: false
+      failed_when: user_auto_umask.stdout != '022'
+
+    - name: Assert that user_bash_0066 umask is 0066
+      become_user: user_bash_0066
+      become_method: su
+      become_flags: --login
+      command:
+        cmd: umask
+      register: user_bash_0066
+      changed_when: false
+      failed_when: user_bash_0066.stdout != '0066'
+
+    - name: Assert that user_zsh_0066 umask is 0066
+      become_user: user_zsh_0066
+      become_method: su
+      become_flags: '-s /bin/zsh -l'
+      command:
+        cmd: umask
+      register: user_zsh_0066
+      changed_when: false
+      failed_when: user_zsh_0066.stdout != '0066'
+
+    - name: Assert that user_loop umask is 022
+      become_user: user_loop
+      become_method: su
+      become_flags: --login
+      command:
+        cmd: umask
+      register: user_loop
+      changed_when: false
+      failed_when: user_loop.stdout != '022'
+
+    - name: Assert that user_loop_umask umask is 0066
+      become_user: user_loop_umask
+      become_method: su
+      become_flags: --login
+      command:
+        cmd: umask
+      register: user_loop_umask
+      changed_when: false
+      failed_when: user_loop_umask.stdout != '0066'
