@@ -50,25 +50,6 @@
       register: user_bash_authorized_keys
       failed_when: user_bash_authorized_keys.changed
 
-    # ZSH from a loop
-    - name: Assert that user_zsh_loop has the expected authorized_keys
-      copy:
-        content: "{{ expected_keys }}"
-        dest: /home/user_zsh_loop/.ssh/authorized_keys
-      check_mode: true
-      register: user_zsh_loop_authorized_keys
-      failed_when: user_zsh_loop_authorized_keys.changed
-
-    # BASH from a loop
-    - name: Assert that user_bash_loop has the expected authorized_keys
-      copy:
-        content: "{{ expected_keys }}"
-        dest: /home/user_bash_loop/.ssh/authorized_keys
-      check_mode: true
-      register: user_bash_loop_authorized_keys
-      failed_when: user_bash_loop_authorized_keys.changed
-
-
     # ------------------------------------------------------------------------
     # Test Keys deletion
     # ------------------------------------------------------------------------
