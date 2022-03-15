@@ -6,89 +6,22 @@
   become: true
   tasks:
 
-  - name: Assert that user_01 as been created
-    become_user: user_01
-    ping:
-
-  - name: Assert that user_02 as been created
-    become_user: user_02
-    ping:
-
-  - name: Assert that user_06 as been created
-    become_user: user_06
-    ping:
-
-  - name: Assert that user_07 as been created
-    become_user: user_07
-    ping:
-
-  - name: Get user_01 data
+  - name: Get user_bash data
     user:
-      name: user_01
-    register: user_01_data
+      name: user_bash
+    check_mode: true
+    register: user_bash_data
+    failed_when: >
+      user_bash_data.shell != '/bin/bash'
+      or
+      user_bash_data.home != '/var/lib/user_bash'
 
-  - name: Get user_02 data
+  - name: Get user_zsh data
     user:
-      name: user_02
-    register: user_02_data
-
-  # user_01_data:
-  #   append: false
-  #   changed: false
-  #   comment: ''
-  #   failed: false
-  #   group: 1000
-  #   home: /home/my-user
-  #   move_home: false
-  #   name: my-user
-  #   shell: /bin/zsh
-  #   state: present
-  #   uid: 322
-
-  - name: Get user_01 group data
-    group:
-      name: "user_01"
-    register: user_01_group_data
-
-  # user_01_group_data:
-  #   changed: true
-  #   failed: false
-  #   gid: 1013
-  #   name: my-group
-  #   state: present
-  #   system: false
-
-
-  - name: Assert that specified shell is set
-    assert:
-      that: user_02_data.shell == '/bin/zsh'
-
-  - name: Assert that specified home is set
-    assert:
-      that: user_02_data.home == '/usr/local/user_02'
-
-
-
-  - name: Get user_01 umask
-    become_user: user_01
-    become_flags: -i
-    ansible.builtin.command:
-      cmd: umask
-    register: user_01_umask
-    changed_when: false
-
-  - name: Assert that user_01 umask is 0026 on BASH
-    ansible.builtin.assert:
-      that: user_01_umask.stdout == '0026'
-
-  - name: Get user_02 umask
-    become_user: user_02
-    become_flags: -i
-    ansible.builtin.command:
-      cmd: umask
-    register: user_02_umask
-    changed_when: false
-
-  - name: Assert that user_02 umask is 0027 on ZSH
-    ansible.builtin.assert:
-      that: user_02_umask.stdout == '0027'
+      name: user_zsh
+    check_mode: true
+    register: user_zsh_data
+    failed_when: >
+      user_zsh_data.shell != '/bin/zsh'
+      or
+      user_zsh_data.home != '/var/lib/user_zsh'
