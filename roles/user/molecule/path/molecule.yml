@@ -41,9 +41,6 @@ provisioner:
       pipelining: false
   playbooks:
     prepare: ../default/prepare.yml
-  inventory:
-    links:
-      hosts: inventory
 
 verifier:
   name: ansible

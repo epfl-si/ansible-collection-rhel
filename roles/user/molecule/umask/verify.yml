@@ -44,23 +44,3 @@
       register: user_zsh_0066
       changed_when: false
       failed_when: user_zsh_0066.stdout != '0066'
-
-    - name: Assert that user_loop umask is 022
-      become_user: user_loop
-      become_method: su
-      become_flags: --login
-      command:
-        cmd: umask
-      register: user_loop
-      changed_when: false
-      failed_when: user_loop.stdout != '022'
-
-    - name: Assert that user_loop_umask umask is 0066
-      become_user: user_loop_umask
-      become_method: su
-      become_flags: --login
-      command:
-        cmd: umask
-      register: user_loop_umask
-      changed_when: false
-      failed_when: user_loop_umask.stdout != '0066'

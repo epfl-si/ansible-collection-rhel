@@ -39,9 +39,6 @@ provisioner:
       stdout_callback: yaml
     ssh_connection:
       pipelining: false
-  inventory:
-    links:
-      hosts: inventory
 
 verifier:
   name: ansible

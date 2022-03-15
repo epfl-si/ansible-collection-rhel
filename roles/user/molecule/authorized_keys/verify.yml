@@ -4,6 +4,10 @@
   hosts: users
   gather_facts: false
   become: true
+  vars:
+    expected_keys: |
+      ssh-rsa AAAAB1234 user1@example.com
+      ssh-ed25519 AAAAB5678 user2@example.com
   tasks:
 
     # ------------------------------------------------------------------------

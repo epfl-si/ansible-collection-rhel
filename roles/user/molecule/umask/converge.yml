@@ -27,15 +27,3 @@
       user_name: user_zsh_0066
       user_shell: /bin/zsh
       user_umask: '0066'
-
-  tasks:
-
-    # Test the loop with vars taken from the inventory
-    - include_role:
-        name: user
-      vars:
-        user_name: "{{ user_item.user_name }}"
-        user_umask: "{{ user_item.user_umask | default('022') }}"
-      loop: "{{ users_to_manage }}"
-      loop_control:
-        loop_var: user_item
