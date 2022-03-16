@@ -73,6 +73,24 @@
       register: user_deletion_authorized_keys_deleted
       failed_when: user_deletion_authorized_keys_deleted.changed
 
+    # ------------------------------------------------------------------------
+    # Test Keys emptying
+    # ------------------------------------------------------------------------
+
+    - name: Delete a keys from user_deletion authorized_keys
+      ansible.builtin.include_role:
+        name: user
+      vars:
+        user_name: user_empty
+        user_authorized_keys_exclusive: true
+        user_authorized_keys: []
+
+    - name: Assert that user_empty's authorized_keys file is deleted
+      ansible.builtin.stat:
+        path: /home/user_empty/.ssh/authorized_keys
+      register: user_empty_authorized_keys
+      failed_when: user_empty_authorized_keys.stat.exists
+
 
     # ------------------------------------------------------------------------
     # Test Keys exclusivity
