@@ -3,17 +3,16 @@
 - name: Transform dict to string
   ansible.builtin.set_fact:
     keys_string: >
-      {{ user_authorized_keys.keys_list
+      {{ user_authorized_keys
       | map(attribute='ssh_key')
-      | zip(user_authorized_keys.keys_list | map(attribute='comment'))
+      | zip(user_authorized_keys | map(attribute='comment'))
       | map('join', ' ') | list
       }}
 
 - name: Set {{ user_name }} authorized_keys
   ansible.posix.authorized_key:
     user: "{{ user_name }}"
-    exclusive:
-      "{{ user_authorized_keys.exclusive | default('false') }}"
+    exclusive: "{{ user_authorized_keys_exclusive }}"
     state: present
     manage_dir: true
     key: "{{ keys_string | join('\n') }}"

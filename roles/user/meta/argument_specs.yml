@@ -39,27 +39,24 @@ argument_specs:
         description: >
           Set this to enforce a fixed path. `user_path_add` and `user_path` are
           mutually exclusive.
+      user_authorized_keys_exclusive:
+        type: bool
+        default: false
+        description: >
+          Whether to remove all other non-specified keys from
+          authorized_keys file
       user_authorized_keys:
-        type: dict
+        type: list
+        elements: dict
         options:
-          exclusive:
-            type: bool
-            default: false
+          comment:
+            type: str
+            description: The name or email of the owner of the key
+          ssh_key:
+            type: str
             description: >
-              Whether to remove all other non-specified keys from
-              authorized_keys file
-          keys_list:
-            type: list
-            elements: dict
-            options:
-              comment:
-                type: str
-                description: The name or email of the owner of the key
-              ssh_key:
-                type: str
-                description: >
-                  The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519
-                  AAAAC3Nz...."
+              The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519
+              AAAAC3Nz...."
       user_umask:
         type: int
         default: '022'

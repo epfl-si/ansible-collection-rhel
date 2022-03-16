@@ -69,5 +69,4 @@
   ansible.builtin.import_tasks: authorized_keys.yml
   when:
     - user_authorized_keys is defined
-    - user_authorized_keys.keys_list is defined
     - not ansible_check_mode or not user_creation_status.changed

@@ -59,11 +59,10 @@
         name: user
       vars:
         user_name: user_deletion
+        user_authorized_keys_exclusive: true
         user_authorized_keys:
-          exclusive: true
-          keys_list:
-            - comment: 'user1@example.com'
-              ssh_key: 'ssh-rsa AAAAB1234'
+          - comment: 'user1@example.com'
+            ssh_key: 'ssh-rsa AAAAB1234'
 
     - name: Assert that user_deletion key has been deleted from authorized_keys
       ansible.builtin.copy:
@@ -90,13 +89,12 @@
         name: user
       vars:
         user_name: user_zsh
+        user_authorized_keys_exclusive: true
         user_authorized_keys:
-          exclusive: true
-          keys_list:
-            - comment: 'user1@example.com'
-              ssh_key: 'ssh-rsa AAAAB1234'
-            - comment: 'user2@example.com'
-              ssh_key: 'ssh-ed25519 AAAAB5678'
+          - comment: 'user1@example.com'
+            ssh_key: 'ssh-rsa AAAAB1234'
+          - comment: 'user2@example.com'
+            ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - name: Assert that user_zsh has the expected authorized_keys
       ansible.builtin.copy:

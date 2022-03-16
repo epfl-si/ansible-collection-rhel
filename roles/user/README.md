@@ -58,11 +58,10 @@ Basic example :
     user_name: my-user
     user_shell: /bin/zsh
     user_path_add: ['usr/local/bin']
+    user_authorized_keys_exclusive: true
     user_authorized_keys:
-      exclusive: true
-      keys_list:
-        - comment: 'user1@example.com'
-          ssh_key: 'ssh-rsa AAAAB1234'
+      - comment: 'user1@example.com'
+        ssh_key: 'ssh-rsa AAAAB1234'
     user_umask: '0027'
 ```
 
@@ -94,11 +93,10 @@ Then, in your playbook:
       user_name: manager
       user_shell: /bin/bash
       user_home: /home/manager
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - "{{ ssh_pub_keys.user1 }}"
-          - "{{ ssh_pub_keys.user2 }}"
+        - "{{ ssh_pub_keys.user1 }}"
+        - "{{ ssh_pub_keys.user2 }}"
 
     - role: epfl_si.rhel.user
       user_name: mysql
@@ -107,10 +105,9 @@ Then, in your playbook:
       user_home: /home/mysql
       user_path_add:
         - /u01/app/mysql/product/mysql-5.7.26/bin
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - "{{ ssh_pub_keys.user1 }}"
+        - "{{ ssh_pub_keys.user1 }}"
 ```
 
 License

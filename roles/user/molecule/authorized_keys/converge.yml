@@ -11,53 +11,58 @@
     - name: Add keys to root user
       role: user
       user_name: root
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - comment: 'user1@example.com'
-            ssh_key: 'ssh-rsa AAAAB1234'
-          - comment: 'user2@example.com'
-            ssh_key: 'ssh-ed25519 AAAAB5678'
+        - comment: 'user1@example.com'
+          ssh_key: 'ssh-rsa AAAAB1234'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - name: Create a ZSH user
       role: user
       user_name: user_zsh
       user_shell: /bin/zsh
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - comment: 'user1@example.com'
-            ssh_key: 'ssh-rsa AAAAB1234'
-          - comment: 'user2@example.com'
-            ssh_key: 'ssh-ed25519 AAAAB5678'
+        - comment: 'user1@example.com'
+          ssh_key: 'ssh-rsa AAAAB1234'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - name: Create a BASH user
       role: user
       user_name: user_bash
       user_shell: /bin/bash
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - comment: 'user1@example.com'
-            ssh_key: 'ssh-rsa AAAAB1234'
-          - comment: 'user2@example.com'
-            ssh_key: 'ssh-ed25519 AAAAB5678'
+        - comment: 'user1@example.com'
+          ssh_key: 'ssh-rsa AAAAB1234'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - name: Add a key to a pre-exising user with exclusive set to OFF
       role: user
       user_name: user_pre_exist
       user_authorized_keys:
-        keys_list:
-          - comment: 'user2@example.com'
-            ssh_key: 'ssh-ed25519 AAAAB5678'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
 
-    - name: Create a user to test key deletion
+    - name: Create a user to test a key deletion
       role: user
       user_name: user_deletion
+      user_authorized_keys_exclusive: true
       user_authorized_keys:
-        exclusive: true
-        keys_list:
-          - comment: 'user1@example.com'
-            ssh_key: 'ssh-rsa AAAAB1234'
-          - comment: 'user2@example.com'
-            ssh_key: 'ssh-ed25519 AAAAB5678'
+        - comment: 'user1@example.com'
+          ssh_key: 'ssh-rsa AAAAB1234'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
+
+    - name: Create a user to test key emptying
+      role: user
+      user_name: user_empty
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: 'user1@example.com'
+          ssh_key: 'ssh-rsa AAAAB1234'
+        - comment: 'user2@example.com'
+          ssh_key: 'ssh-ed25519 AAAAB5678'
