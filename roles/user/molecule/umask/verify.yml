@@ -23,7 +23,7 @@
         cmd: umask
       register: user_auto_umask
       changed_when: false
-      failed_when: user_auto_umask.stdout != '022'
+      failed_when: user_auto_umask.stdout != '0022'
 
     - name: Assert that user_bash_0066 umask is 0066
       become_user: user_bash_0066
