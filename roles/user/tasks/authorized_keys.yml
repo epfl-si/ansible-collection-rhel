@@ -6,7 +6,7 @@
       {{ user_authorized_keys
       | map(attribute='ssh_key')
       | zip(user_authorized_keys | map(attribute='comment'))
-      | map('join', ' ') | list
+      | map('join', ' ')
       }}
 
 - name: Set {{ user_name }} authorized_keys
