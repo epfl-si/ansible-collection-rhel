@@ -62,6 +62,7 @@ argument_specs:
                   AAAAC3Nz...."
       user_umask:
         type: int
+        default: '022'
         description: >
           Allow to set a different umask for this user. Do use single quote
           around the number. Otherwise the value may be set to '22' instead of
