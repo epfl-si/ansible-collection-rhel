@@ -1,0 +1,38 @@
+---
+
+breaking_changes:
+
+  - >
+    user - Modify variable to set authorized_keys as exlusive to be outside of
+    the user_authorized_keys variable
+  - user - Modify user_authorized_keys from dict to list
+  - user - Removed the variable keys_list from user_authorized_keys
+  - |
+    To use the new syntax, please modifiy the roles parameters from
+      ---
+      - name: Create a user
+        role: epfl_si.rhel.user:
+        user_authorized_keys:
+          exclusive: true
+          keys_list:
+            - comment: 'user1@example.com'
+              ssh_key: 'ssh-rsa AAAAB1234'
+
+    To
+      ---
+      - name: Create a user
+        role: epfl_si.rhel.user:
+        user_authorized_keys_exclusive: true
+        user_authorized_keys:
+          - comment: 'user1@example.com'
+            ssh_key: 'ssh-rsa AAAAB1234'
+
+minor_changes:
+
+  - user - Add tests for every scenario
+  - user - Add options validation (main/argument_specs.yml)
+  - user - Fix linting for ansible-lint 6.0.0
+
+bugfixes:
+
+  - user - Fix idempotence when changing SSH keys for the root user
