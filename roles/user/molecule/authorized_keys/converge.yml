@@ -64,5 +64,3 @@
       user_authorized_keys:
         - comment: 'user1@example.com'
           ssh_key: 'ssh-rsa AAAAB1234'
-        - comment: 'user2@example.com'
-          ssh_key: 'ssh-ed25519 AAAAB5678'
