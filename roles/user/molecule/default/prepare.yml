@@ -12,9 +12,9 @@
     #     masked: false
 
     - name: Prepare ansible user with permission to sudo without password
-      import_tasks: tasks/prepare_ansible_user.yml
+      ansible.builtin.import_tasks: tasks/prepare_ansible_user.yml
 
     - name: Install zsh
-      package:
+      ansible.builtin.package:
         name: zsh
         state: present

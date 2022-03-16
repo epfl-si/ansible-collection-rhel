@@ -1,7 +1,7 @@
 ---
 
 - name: Transform dict to string
-  set_fact:
+  ansible.builtin.set_fact:
     keys_string: >
       {{ user_authorized_keys.keys_list
       | map(attribute='ssh_key')

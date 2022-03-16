@@ -7,7 +7,7 @@
   tasks:
 
   - name: Get user_bash data
-    user:
+    ansible.builtin.user:
       name: user_bash
     check_mode: true
     register: user_bash_data
@@ -17,7 +17,7 @@
       user_bash_data.home != '/var/lib/user_bash'
 
   - name: Get user_zsh data
-    user:
+    ansible.builtin.user:
       name: user_zsh
     check_mode: true
     register: user_zsh_data

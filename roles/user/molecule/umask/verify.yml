@@ -9,7 +9,7 @@
     - name: Assert that root umask is set to desired value
       become_method: su
       become_flags: --login
-      command:
+      ansible.builtin.command:
         cmd: umask
       register: root_umask
       changed_when: false
@@ -19,7 +19,7 @@
       become_user: user_auto_umask
       become_method: su
       become_flags: --login
-      command:
+      ansible.builtin.command:
         cmd: umask
       register: user_auto_umask
       changed_when: false
@@ -29,7 +29,7 @@
       become_user: user_bash_0066
       become_method: su
       become_flags: --login
-      command:
+      ansible.builtin.command:
         cmd: umask
       register: user_bash_0066
       changed_when: false
@@ -39,7 +39,7 @@
       become_user: user_zsh_0066
       become_method: su
       become_flags: '-s /bin/zsh -l'
-      command:
+      ansible.builtin.command:
         cmd: umask
       register: user_zsh_0066
       changed_when: false

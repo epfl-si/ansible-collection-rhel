@@ -13,7 +13,7 @@
     - name: Assert that new location was added to PATH of root
       become_method: su
       become_flags: '-s /bin/bash -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: root_path
       changed_when: false
@@ -23,7 +23,7 @@
       become_user: user_add_path_zsh
       become_method: su
       become_flags: '-s /bin/zsh -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_zsh_path
       changed_when: false
@@ -33,7 +33,7 @@
       become_user: user_add_path_bash
       become_method: su
       become_flags: '-s /bin/bash -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_bash_path
       changed_when: false
@@ -47,7 +47,7 @@
       become_user: user_path_zsh
       become_method: su
       become_flags: '-s /bin/zsh -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_zsh_path
       changed_when: false
@@ -57,7 +57,7 @@
       become_user: user_path_bash
       become_method: su
       become_flags: '-s /bin/bash -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_bash_path
       changed_when: false
@@ -69,7 +69,7 @@
     # ------------------------------------------------------------------------
 
     - name: Enforce role for user_add_path_zsh
-      include_role:
+      ansible.builtin.include_role:
         name: user
       vars:
         user_name: user_add_path_zsh
@@ -79,14 +79,14 @@
       become_user: user_add_path_zsh
       become_method: su
       become_flags: '-s /bin/zsh -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_zsh_path
       changed_when: false
       failed_when: user_zsh_path.stdout is search('/added_path_zsh')
 
     - name: Enforce role for user_add_path_bash
-      include_role:
+      ansible.builtin.include_role:
         name: user
       vars:
         user_name: user_add_path_bash
@@ -96,7 +96,7 @@
       become_user: user_add_path_bash
       become_method: su
       become_flags: '-s /bin/bash -l'
-      command:
+      ansible.builtin.command:
         cmd: echo $PATH
       register: user_bash_path
       changed_when: false

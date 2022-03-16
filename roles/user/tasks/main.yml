@@ -2,7 +2,7 @@
 # tasks file for user
 
 - name: Assert that {{ user_name }} user_path_add and user_path are not both set
-  assert:
+  ansible.builtin.assert:
     that: >
       not (
         user_path_add | default('') | length > 0
@@ -47,7 +47,7 @@
     - user_creation_status.changed
 
 - name: Include task to get {{ user_name }} info
-  include_tasks: get_user_info.yml
+  ansible.builtin.include_tasks: get_user_info.yml
   when: not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s bash
@@ -57,16 +57,16 @@
     - not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s zsh
-  include_tasks: zsh.yml
+  ansible.builtin.include_tasks: zsh.yml
   when:
     - user_shell == '/bin/zsh'
     - not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s common profile
-  include_tasks: common_profile.yml
+  ansible.builtin.include_tasks: common_profile.yml
 
 - name: Include tasks to manager {{ user_name }}'s authorized keys
-  import_tasks: authorized_keys.yml
+  ansible.builtin.import_tasks: authorized_keys.yml
   when:
     - user_authorized_keys is defined
     - user_authorized_keys.keys_list is defined

@@ -16,7 +16,7 @@
 
     # root
     - name: Assert that root has the expected authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: "{{ expected_keys }}"
         dest: /root/.ssh/authorized_keys
       check_mode: true
@@ -25,7 +25,7 @@
 
     # Pre existing
     - name: Assert that user_pre_exist has the expected authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: "{{ expected_keys }}"
         dest: /home/user_pre_exist/.ssh/authorized_keys
       check_mode: true
@@ -34,7 +34,7 @@
 
     # ZSH
     - name: Assert that user_zsh has the expected authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: "{{ expected_keys }}"
         dest: /home/user_zsh/.ssh/authorized_keys
       check_mode: true
@@ -43,7 +43,7 @@
 
     # BASH
     - name: Assert that user_bash has the expected authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: "{{ expected_keys }}"
         dest: /home/user_bash/.ssh/authorized_keys
       check_mode: true
@@ -55,7 +55,7 @@
     # ------------------------------------------------------------------------
 
     - name: Delete a keys from user_deletion authorized_keys
-      include_role:
+      ansible.builtin.include_role:
         name: user
       vars:
         user_name: user_deletion
@@ -66,7 +66,7 @@
               ssh_key: 'ssh-rsa AAAAB1234'
 
     - name: Assert that user_deletion key has been deleted from authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: |
           ssh-rsa AAAAB1234 user1@example.com
         dest: /home/user_deletion/.ssh/authorized_keys
@@ -80,13 +80,13 @@
     # ------------------------------------------------------------------------
 
     - name: Add a key to user_zsh authorized_keys
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /home/user_zsh/.ssh/authorized_keys
         state: present
         line: ssh-rsa 1111 unmanaged_key@example.com
 
     - name: Enforce role on ZSH user
-      include_role:
+      ansible.builtin.include_role:
         name: user
       vars:
         user_name: user_zsh
@@ -99,7 +99,7 @@
               ssh_key: 'ssh-ed25519 AAAAB5678'
 
     - name: Assert that user_zsh has the expected authorized_keys
-      copy:
+      ansible.builtin.copy:
         content: "{{ expected_keys }}"
         dest: /home/user_zsh/.ssh/authorized_keys
       check_mode: true
