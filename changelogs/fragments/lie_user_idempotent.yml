@@ -32,6 +32,7 @@ minor_changes:
   - user - Add tests for every scenario
   - user - Add options validation (main/argument_specs.yml)
   - user - Fix linting for ansible-lint 6.0.0
+  - user - Enhanced Check mode
 
 bugfixes:
 

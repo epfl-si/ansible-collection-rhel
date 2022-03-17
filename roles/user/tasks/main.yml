@@ -48,19 +48,14 @@
 
 - name: Include task to get {{ user_name }} info
   ansible.builtin.include_tasks: get_user_info.yml
-  when: not ansible_check_mode
 
 - name: Include tasks to manage {{ user_name }}'s bash
   include_tasks: bash.yml
-  when:
-    - user_shell == '/bin/bash'
-    - not ansible_check_mode
+  when: user_shell == '/bin/bash'
 
 - name: Include tasks to manage {{ user_name }}'s zsh
   ansible.builtin.include_tasks: zsh.yml
-  when:
-    - user_shell == '/bin/zsh'
-    - not ansible_check_mode
+  when: user_shell == '/bin/zsh'
 
 - name: Include tasks to manage {{ user_name }}'s common profile
   ansible.builtin.include_tasks: common_profile.yml
@@ -69,4 +64,4 @@
   ansible.builtin.import_tasks: authorized_keys.yml
   when:
     - user_authorized_keys is defined
-    - not ansible_check_mode or not user_creation_status.changed
+    - not user_creation_status.changed
