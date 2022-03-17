@@ -25,4 +25,4 @@
         exclusive: false
         state: present
         manage_dir: true
-        key: ssh-rsa AAAAB1234 user1@example.com
+        key: ssh-rsa D1 user1@example.com
