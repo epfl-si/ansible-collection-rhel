@@ -62,6 +62,4 @@
 
 - name: Include tasks to manager {{ user_name }}'s authorized keys
   ansible.builtin.import_tasks: authorized_keys.yml
-  when:
-    - user_authorized_keys is defined
-    - not user_creation_status.changed
+  when: user_authorized_keys is defined
