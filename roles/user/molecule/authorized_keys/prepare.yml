@@ -1,0 +1,28 @@
+---
+
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Prepare ansible user with permission to sudo without password
+      import_tasks: ../default/tasks/prepare_ansible_user.yml
+
+    - name: Install zsh
+      ansible.builtin.package:
+        name: zsh
+        state: present
+
+    - name: Create mock pre-existing user with SSH keys
+      ansible.builtin.user:
+        name: user_pre_exist
+        state: present
+
+    - name: Add mock SSH key to pre-existing user
+      ansible.posix.authorized_key:
+        user: user_pre_exist
+        exclusive: false
+        state: present
+        manage_dir: true
+        key: ssh-rsa D1 user1@example.com

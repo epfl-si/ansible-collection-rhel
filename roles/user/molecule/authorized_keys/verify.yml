@@ -1,0 +1,127 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+
+    # ------------------------------------------------------------------------
+    # Check that keys have been installed
+    # ------------------------------------------------------------------------
+
+    # root
+    - name: Assert that root has the expected authorized_keys
+      ansible.builtin.copy:
+        content: |
+          ssh-rsa A1 root1@example.com
+          ssh-ed25519 A2 root2@example.com
+        dest: /root/.ssh/authorized_keys
+      check_mode: true
+      register: root_authorized_keys
+      failed_when: root_authorized_keys.changed
+
+    # Pre existing
+    - name: Assert that user_pre_exist has the expected authorized_keys
+      ansible.builtin.copy:
+        content: |
+          ssh-rsa D1 user1@example.com
+          ssh-ed25519 D2 user_pre_exist@example.com
+        dest: /home/user_pre_exist/.ssh/authorized_keys
+      check_mode: true
+      register: user_pre_exist_authorized_keys
+      failed_when: user_pre_exist_authorized_keys.changed
+
+    # ZSH
+    - name: Assert that user_zsh has the expected authorized_keys
+      ansible.builtin.copy:
+        content: &zsh_expected_keys |
+          ssh-rsa B1 user_zsh1@example.com
+          ssh-ed25519 B2 user_zsh2@example.com
+        dest: /home/user_zsh/.ssh/authorized_keys
+      check_mode: true
+      register: user_zsh_authorized_keys
+      failed_when: user_zsh_authorized_keys.changed
+
+    # BASH
+    - name: Assert that user_bash has the expected authorized_keys
+      ansible.builtin.copy:
+        content: |
+          ssh-rsa C1 user_bash1@example.com
+          ssh-ed25519 C2 user_bash2@example.com
+        dest: /home/user_bash/.ssh/authorized_keys
+      check_mode: true
+      register: user_bash_authorized_keys
+      failed_when: user_bash_authorized_keys.changed
+
+    # ------------------------------------------------------------------------
+    # Test Keys deletion
+    # ------------------------------------------------------------------------
+
+    - name: Delete a keys from user_deletion authorized_keys
+      ansible.builtin.include_role:
+        name: user
+      vars:
+        user_name: user_deletion
+        user_authorized_keys_exclusive: true
+        user_authorized_keys:
+          - comment: user_deletion1@example.com
+            ssh_key: ssh-rsa E1
+
+    - name: Assert that user_deletion's key E2 is absent from authorized_keys
+      ansible.builtin.copy:
+        content: ssh-rsa E1 user_deletion1@example.com
+        dest: /home/user_deletion/.ssh/authorized_keys
+      # check_mode: true
+      register: user_deletion_authorized_keys
+      # failed_when: user_deletion_authorized_keys.changed
+
+    - debug: var=user_deletion_authorized_keys
+
+    # ------------------------------------------------------------------------
+    # Test Keys emptying
+    # ------------------------------------------------------------------------
+
+    - name: Delete a keys from user_empty authorized_keys
+      ansible.builtin.include_role:
+        name: user
+      vars:
+        user_name: user_empty
+        user_authorized_keys_exclusive: true
+        user_authorized_keys: []
+
+    - name: Assert that user_empty's authorized_keys file is deleted
+      ansible.builtin.stat:
+        path: /home/user_empty/.ssh/authorized_keys
+      register: user_empty_authorized_keys
+      failed_when: user_empty_authorized_keys.stat.size > 0
+
+    # ------------------------------------------------------------------------
+    # Test Keys exclusivity
+    # ------------------------------------------------------------------------
+
+    - name: Add a key to user_zsh authorized_keys
+      ansible.builtin.lineinfile:
+        path: /home/user_zsh/.ssh/authorized_keys
+        state: present
+        line: ssh-rsa Z unmanaged_key@example.com
+
+    - name: Enforce role on ZSH user
+      ansible.builtin.include_role:
+        name: user
+      vars:
+        user_name: user_zsh
+        user_authorized_keys_exclusive: true
+        user_authorized_keys:
+          - comment: user_zsh1@example.com
+            ssh_key: ssh-rsa B1
+          - comment: user_zsh2@example.com
+            ssh_key: ssh-ed25519 B2
+
+    - name: Assert that user_zsh has the expected authorized_keys
+      ansible.builtin.copy:
+        content: *zsh_expected_keys
+        dest: /home/user_zsh/.ssh/authorized_keys
+      check_mode: true
+      register: user_zsh_authorized_keys
+      failed_when: user_zsh_authorized_keys.changed

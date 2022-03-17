@@ -1,0 +1,8 @@
+---
+
+- name: Add line to load .common_profile from .bash_profile of {{ user_name }}
+  ansible.builtin.lineinfile:
+    regex: "^source \\$HOME/.common_profile$"
+    line: "source $HOME/.common_profile"
+    dest: "{{ __user_info.home }}/.bash_profile"
+    state: present

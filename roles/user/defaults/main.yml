@@ -1,2 +1,7 @@
 ---
 # defaults file for user
+# Those variables must match the ones from meta/argument_specs.yml
+
+user_shell: /bin/bash
+user_umask: '022'
+user_authorized_keys_exclusive: false

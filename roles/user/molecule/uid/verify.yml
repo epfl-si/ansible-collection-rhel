@@ -1,0 +1,68 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+
+  - name: Get user_auto_uid group data
+    ansible.builtin.group:
+      name: user_auto_uid
+    check_mode: true
+    register: user_auto_uid_group_data
+
+  - name: Assert that uid and gid is the same for user without specified UID
+    ansible.builtin.user:
+      name: user_auto_uid
+    check_mode: true
+    register: user_auto_uid_data
+    failed_when: user_auto_uid_data.uid != user_auto_uid_group_data.gid
+
+  - name: Assert that specified UID is set for UID > 1000
+    ansible.builtin.user:
+      name: user_1012
+    check_mode: true
+    register: user_1012_data
+    failed_when: user_1012_data.uid != 1012
+
+  - name: Assert that specified UID is set for UID < 1000
+    ansible.builtin.user:
+      name: user_344
+    check_mode: true
+    register: user_344_data
+    failed_when: user_344_data.uid != 344
+
+  # ------------------------------------------------------------------------
+  # Test modifying the UID of an existing user
+  # ------------------------------------------------------------------------
+
+  - name: Change user_1014 uid from 1014 to 1015
+    ansible.builtin.include_role:
+      name: user
+    vars:
+      user_name: user_1014
+      user_uid: 1015
+
+  - name: Assert that user_1014 home dir group matchs user gid
+    ansible.builtin.file:
+      path: /home/user_1014
+      state: directory
+    check_mode: true
+    register: user_1014_home_dir
+    failed_when: user_1014_home_dir.gid != 1015
+
+  - name: Change user_346 uid from 346 to 347
+    ansible.builtin.include_role:
+      name: user
+    vars:
+      user_name: user_346
+      user_uid: 347
+
+  - name: Assert that user_346 home dir group matchs user gid
+    ansible.builtin.file:
+      path: /home/user_346
+      state: directory
+    check_mode: true
+    register: user_346_home_dir
+    failed_when: user_346_home_dir.gid != 347

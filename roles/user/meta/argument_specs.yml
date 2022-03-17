@@ -1,0 +1,66 @@
+---
+
+argument_specs:
+  # roles/user/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the user role.
+    author: laurent.indermuehle@epfl.ch
+    options:
+      user_name:
+        type: str
+        required: true
+        description: The name of the user to create/configure
+      user_uid:
+        type: int
+        description: >
+          Useful to have same user id across multiple servers. Prevent issues
+          with permission if files are exchanged between servers.
+      user_shell:
+        type: str
+        default: /bin/bash
+        choices:
+          - /bin/bash
+          - /bin/zsh
+        description: The default shell the user will use at login.
+      user_home:
+        type: str
+        description: Set the user's home directory
+      user_path_add:
+        type: str
+        description: >
+          A list of path to add to the global $PATH variable. Useful in case you
+          want to quickly add a path to the user without altering the existing
+          one. Removing a path from this list will also remove it from the user
+          at the next playbook run. This paths are shared between different
+          shell and stored in the ~/.common_profile file. `user_path_add` and
+          `user_path` are mutually exclusive.
+      user_path:
+        type: str
+        description: >
+          Set this to enforce a fixed path. `user_path_add` and `user_path` are
+          mutually exclusive.
+      user_authorized_keys_exclusive:
+        type: bool
+        default: false
+        description: >
+          Whether to remove all other non-specified keys from
+          authorized_keys file
+      user_authorized_keys:
+        type: list
+        elements: dict
+        options:
+          comment:
+            type: str
+            description: The name or email of the owner of the key
+          ssh_key:
+            type: str
+            description: >
+              The SSH public key. E.G. "ssh-rsa AAAAB..." or "ssh-ed25519
+              AAAAC3Nz...."
+      user_umask:
+        type: int
+        default: '022'
+        description: >
+          Allow to set a different umask for this user. Do use single quote
+          around the number. Otherwise the value may be set to '22' instead of
+          '022' or '0022'

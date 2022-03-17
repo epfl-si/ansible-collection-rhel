@@ -1,0 +1,66 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  become: true
+  roles:
+
+    - name: Add keys to root user
+      role: user
+      user_name: root
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: root1@example.com
+          ssh_key: ssh-rsa A1
+        - comment: root2@example.com
+          ssh_key: ssh-ed25519 A2
+
+    - name: Create a ZSH user
+      role: user
+      user_name: user_zsh
+      user_shell: /bin/zsh
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: user_zsh1@example.com
+          ssh_key: ssh-rsa B1
+        - comment: user_zsh2@example.com
+          ssh_key: ssh-ed25519 B2
+
+    - name: Create a BASH user
+      role: user
+      user_name: user_bash
+      user_shell: /bin/bash
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: user_bash1@example.com
+          ssh_key: ssh-rsa C1
+        - comment: user_bash2@example.com
+          ssh_key: ssh-ed25519 C2
+
+    - name: Add a key to a pre-exising user with exclusive set to OFF
+      role: user
+      user_name: user_pre_exist
+      user_authorized_keys:
+        - comment: user_pre_exist@example.com
+          ssh_key: ssh-ed25519 D2
+
+    - name: Create a user to test a key deletion
+      role: user
+      user_name: user_deletion
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: user_deletion1@example.com
+          ssh_key: ssh-rsa E1
+        - comment: user_deletion2@example.com
+          ssh_key: ssh-ed25519 E2
+
+    - name: Create a user to test key emptying
+      role: user
+      user_name: user_empty
+      user_authorized_keys_exclusive: true
+      user_authorized_keys:
+        - comment: user_empty@example.com
+          ssh_key: ssh-rsa F1

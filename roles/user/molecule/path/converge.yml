@@ -1,0 +1,37 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  become: true
+  roles:
+
+    - name: Add an entry to PATH of root
+      role: user
+      user_name: root
+      user_path_add: ['/added_path']
+
+    - name: Add an entry to PATH of a ZSH user
+      role: user
+      user_name: user_add_path_zsh
+      user_shell: /bin/zsh
+      user_path_add: ['/added_path_zsh']
+
+    - name: Add an entry to PATH of a BASH user
+      role: user
+      user_name: user_add_path_bash
+      user_shell: /bin/bash
+      user_path_add: ['/added_path_bash']
+
+    - name: Set the PATH of a ZSH user
+      role: user
+      user_name: user_path_zsh
+      user_shell: /bin/zsh
+      user_path: "/usr/bin:/path_zsh"
+
+    - name: Set the PATH of a BASH user
+      role: user
+      user_name: user_path_bash
+      user_path: "/usr/bin:/path_bash"
