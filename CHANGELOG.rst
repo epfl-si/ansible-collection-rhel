@@ -5,6 +5,21 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.0.1
+======
+
+Release Summary
+---------------
+
+Add functionalities to the role ohmyzsh to allow changing title on your terminal's window and add custom functions to the .zshrc file.
+
+Minor Changes
+-------------
+
+- ohmyzsh - Add option to add custom function in the zsh configuration file
+- ohmyzsh - Add option to change the terminal title
+- ohmyzsh - Add option to disable automatic title
+
 v2.0.0
 ======
 
@@ -12,7 +27,6 @@ Release Summary
 ---------------
 
 Because of a breaking change in the role user, this is a major release. The ntp role is removed as annonced in the release 1.8.1.
-
 
 Minor Changes
 -------------
@@ -25,8 +39,8 @@ Minor Changes
 Breaking Changes / Porting Guide
 --------------------------------
 
-- To use the new syntax, please modifiy the roles parameters from # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys: #     exclusive: true #     keys_list: #       - comment: 'user1@example.com' #         ssh_key: 'ssh-rsa AAAAB1234'
-  To # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys_exclusive: true #   user_authorized_keys: #     - comment: 'user1@example.com' #       ssh_key: 'ssh-rsa AAAAB1234'
+- To use the new syntax, please modifiy the roles parameters from # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys: #     exclusive: true #     keys_list: #       - comment: user1@example.com #         ssh_key: ssh-rsa AAAAB1234
+  To # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys_exclusive: true #   user_authorized_keys: #     - comment: user1@example.com #       ssh_key: ssh-rsa AAAAB1234
 - user - Modify user_authorized_keys from dict to list
 - user - Modify variable to set authorized_keys as exlusive to be outside of the user_authorized_keys variable
 - user - Removed the variable keys_list from user_authorized_keys

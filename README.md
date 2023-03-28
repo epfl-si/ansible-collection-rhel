@@ -121,6 +121,7 @@ ATM, no automation, everything is done from your computer. To find your token, g
 1. `source ~/python-venv/ansible-4.1.0/bin/activate`
 1. `antsibull-changelog lint`
 1. `antsibull-changelog release --version <ver>`
+1. `git add .`
 1. `git commit -m "Release version <ver>"`
 1. `git tag <ver>`
 1. `ansible-galaxy collection build`

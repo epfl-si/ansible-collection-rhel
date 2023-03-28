@@ -323,24 +323,14 @@ releases:
   2.0.0:
     changes:
       breaking_changes:
-      - 'To use the new syntax, please modifiy the roles parameters from
-        # ---
-        # - name: Create a user
-        #   role: epfl_si.rhel.user:
-        #   user_authorized_keys:
-        #     exclusive: true
-        #     keys_list:
-        #       - comment: user1@example.com
+      - 'To use the new syntax, please modifiy the roles parameters from # --- # -
+        name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys:
+        #     exclusive: true #     keys_list: #       - comment: user1@example.com
         #         ssh_key: ssh-rsa AAAAB1234
 
-        To
-        # ---
-        # - name: Create a user
-        #   role: epfl_si.rhel.user:
-        #   user_authorized_keys_exclusive: true
-        #   user_authorized_keys:
-        #     - comment: user1@example.com
-        #       ssh_key: ssh-rsa AAAAB1234
+        To # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys_exclusive:
+        true #   user_authorized_keys: #     - comment: user1@example.com #       ssh_key:
+        ssh-rsa AAAAB1234
 
         '
       - user - Modify user_authorized_keys from dict to list
@@ -356,8 +346,19 @@ releases:
       - user - Add tests for every scenario
       - user - Enhanced Check mode
       - user - Fix linting for ansible-lint 6.0.0
-      release_summary: 'Because of a breaking change in the role user, this is a major
-        release. The ntp role is removed as annonced in the release 1.8.1.'
+      release_summary: Because of a breaking change in the role user, this is a major
+        release. The ntp role is removed as annonced in the release 1.8.1.
     fragments:
     - lie_user_idempotent.yml
     release_date: '2022-03-17'
+  2.0.1:
+    changes:
+      minor_changes:
+      - ohmyzsh - Add option to add custom function in the zsh configuration file
+      - ohmyzsh - Add option to change the terminal title
+      - ohmyzsh - Add option to disable automatic title
+      release_summary: Add functionalities to the role ohmyzsh to allow changing title
+        on your terminal's window and add custom functions to the .zshrc file.
+    fragments:
+    - ohmyzsh_title.yml
+    release_date: '2023-03-28'
