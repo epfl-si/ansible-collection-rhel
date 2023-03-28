@@ -29,10 +29,15 @@
         group: root
         mode: '0644'
 
-    - name: Create user_01 user
+    - name: Create test users
       user:
-        name: user_01
+        name: "{{ item }}"
         state: present
+      loop:
+        - user_01
+        - user_auto_title
+        - user_title
+        - user_custom_function
 
     - name: Install zsh and chsh
       package:
@@ -41,12 +46,13 @@
           - util-linux-user
         state: present
 
-    - name: Change shell to zsh for user_01
+    - name: Change shell to zsh for test users
       ansible.builtin.user:
-        name: user_01
+        name: "{{ item }}"
         shell: /bin/zsh
-
-    - name: Change shell to zsh for root
-      ansible.builtin.user:
-        name: root
-        shell: /bin/zsh
+      loop:
+        - root
+        - user_01
+        - user_auto_title
+        - user_title
+        - user_custom_function

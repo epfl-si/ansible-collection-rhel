@@ -27,8 +27,3 @@ provisioner:
 
 verifier:
   name: ansible
-
-lint: |
-  set -e
-  yamllint .
-  ansible-lint --exclude .cache

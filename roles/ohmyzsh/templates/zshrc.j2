@@ -3,6 +3,21 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+{% if ohmyzsh_disable_auto_title | bool is truthy %}
+export DISABLE_AUTO_TITLE="true"
+{% endif %}
+
+{% if ohmyzsh_title | length > 0 %}
+printf "\033];%s\07\n" "{{ ohmyzsh_title }}"
+{% endif %}
+
+
+{% if ohmyzsh_custom_functions | length > 0 %}
+{% for cf in ohmyzsh_custom_functions %}
+{{ cf }}
+{% endfor %}
+{% endif %}
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
