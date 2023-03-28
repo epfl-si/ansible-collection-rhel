@@ -42,6 +42,18 @@ Role Variables
   * default: ['git', 'z', 'zsh-autosuggestions', 'zsh-completions', 'zsh-syntax-highlighting']
   * type: list
   * description: List of plugins to activate.
+* ohmyzsh_disable_auto_title
+  * default: false
+  * type: bool
+  * description: Let you disable the oh-my-zsh function that update the window title triggered by some commands.
+* ohmyzsh_title
+  * default: ""
+  * type: string
+  * description: Let you set a window title.
+* ohmyzsh_custom_functions
+  * default: []
+  * type: list
+  * description: A list of function you want to add to your .zshrc.
 
 
 Dependencies
@@ -67,6 +79,16 @@ Example Playbook
           - zsh-autosuggestions
           - zsh-completions
           - zsh-syntax-highlighting
+        ohmyzsh_disable_auto_title: true
+        ohmyzsh_title: a-test-title
+        ohmyzsh_custom_functions:
+          - |
+            function ssh()
+            {
+              echo -ne '\e[22t'
+              /usr/bin/ssh "$@"
+              echo -ne '\e[23t'
+            }
 ```
 
 License

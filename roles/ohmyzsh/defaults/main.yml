@@ -8,3 +8,7 @@ ohmyzsh_plugins:
   - zsh-autosuggestions
   - zsh-completions
   - zsh-syntax-highlighting
+
+ohmyzsh_disable_auto_title: false
+ohmyzsh_title: ""
+ohmyzsh_custom_functions: []

@@ -17,3 +17,35 @@
         path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
       failed_when: not mh_hostname_theme.stat.exists
       register: mh_hostname_theme
+
+    - name: Get user_auto_title zshrc files
+      ansible.builtin.slurp:
+        src: /home/user_auto_title/.zshrc
+      register: user_auto_title_zshrc
+
+    - name: Assert that Automatic Title is disabled
+      assert:
+        that:
+          - user_auto_title_zshrc.content | b64decode
+            is search('export DISABLE_AUTO_TITLE="true"')
+
+    - name: Get user_title zshrc files
+      ansible.builtin.slurp:
+        src: /home/user_title/.zshrc
+      register: user_title_zshrc
+
+    - name: Assert that Title has been set
+      assert:
+        that:
+          - user_title_zshrc.content | b64decode is search('a-test-title')
+
+    - name: Get user_custom_function zshrc files
+      ansible.builtin.slurp:
+        src: /home/user_custom_function/.zshrc
+      register: user_custom_function_zshrc
+
+    - name: Assert that Custom Function are installed
+      assert:
+        that:
+          - user_custom_function_zshrc.content | b64decode
+            is search('function ssh()')
