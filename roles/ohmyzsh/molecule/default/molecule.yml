@@ -28,10 +28,3 @@ provisioner:
 
 verifier:
   name: ansible
-
-lint: |
-  set -e
-  echo "Run yamllint"
-  yamllint .
-  echo "Run ansible-lint"
-  ansible-lint .
