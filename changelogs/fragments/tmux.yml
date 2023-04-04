@@ -1,4 +1,0 @@
----
-
-minor_changes:
-  - tmux - Add tmux role with support for the plugin manager 'tpm'

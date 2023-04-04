@@ -362,3 +362,10 @@ releases:
     fragments:
     - ohmyzsh_title.yml
     release_date: '2023-03-28'
+  2.0.2:
+    changes:
+      minor_changes:
+      - tmux - Add tmux role with support for the plugin manager 'tpm'
+    fragments:
+    - tmux.yml
+    release_date: '2023-04-04'

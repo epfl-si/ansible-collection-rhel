@@ -4,6 +4,10 @@ objects:
       description: The main entry point for the nginx role.
       name: nginx
       version_added: null
+    tmux:
+      description: The main entry point for the tmux role.
+      name: tmux
+      version_added: null
     user:
       description: The main entry point for the user role.
       name: user
@@ -24,4 +28,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 2.0.1
+version: 2.0.2

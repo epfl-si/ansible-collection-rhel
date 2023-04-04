@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.0.2
+======
+
+Minor Changes
+-------------
+
+- tmux - Add tmux role with support for the plugin manager 'tpm'
+
 v2.0.1
 ======
 
