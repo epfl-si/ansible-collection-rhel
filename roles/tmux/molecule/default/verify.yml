@@ -1,0 +1,46 @@
+---
+
+- name: Verify
+  hosts: tmux
+  gather_facts: false
+  tasks:
+
+    - name: Test presence of .tmux.conf file
+      ansible.builtin.stat:
+        path: /home/{{ item }}/.tmux.conf
+      loop:
+        - user_wo_tpm
+        - user_with_tpm
+        - user_options
+      register: status
+
+    - name: Assert that all .tmux.conf file exists
+      ansible.builtin.assert:
+        that:
+          - status.results[0].stat.exists
+
+    - name: Test presence of tpm
+      ansible.builtin.stat:
+        path: /home/user_with_tpm/.tmux/plugins/tpm/.git
+      register: status
+
+    - name: Assert that tpm is installed
+      ansible.builtin.assert:
+        that:
+          - status.stat.exists
+
+    - name: Test tmux option exists in .tmux.conf
+      ansible.builtin.lineinfile:
+        path: /home/user_options/.tmux.conf
+        regexp: '^bind-key -n F4 copy-mode$'
+        line: "SEARCH STRING FOUND"
+        state: present
+      register: result
+      changed_when: false
+      check_mode: true  # dry-run
+
+    - name: Assert that tmux option exists in .tmux.conf
+      ansible.builtin.assert:
+        that:
+          - result.msg == 'line replaced'
+        fail_msg: "The line 'bind-key -n F4 copy-mode' not found in .tmux.conf"

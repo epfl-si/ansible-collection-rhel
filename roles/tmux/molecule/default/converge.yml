@@ -1,0 +1,22 @@
+---
+
+- name: Converge
+  hosts: tmux
+  vars:
+    ansible_user: cmadm
+  roles:
+
+    - role: tmux
+      become: true
+      tmux_user: user_wo_tpm
+
+    - role: tmux
+      become: true
+      tmux_user: user_with_tpm
+      tmux_with_tpm: true
+
+    - role: tmux
+      become: true
+      tmux_user: user_options
+      tmux_options:
+        - bind-key -n F4 copy-mode

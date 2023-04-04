@@ -1,0 +1,32 @@
+---
+
+scenario:
+  name: default
+
+driver:
+  name: podman
+
+# To access DBUS we must disable selinux labels
+# NET_ADMIN capability is required to attach an IP and admin of firewall
+# pre_build_image: means that the container already has Ansible inside
+platforms:
+
+  - name: tmux
+    registry: {url: registry.access.redhat.com}
+    image: ubi8/ubi
+    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
+
+provisioner:
+  name: ansible
+  log: true
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer
+      stdout_callback: yaml
+    ssh_connection:
+      forks: 1
+      pipelining: false
+
+verifier:
+  name: ansible

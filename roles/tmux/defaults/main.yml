@@ -1,0 +1,10 @@
+---
+# Defaults variables for role tmux
+
+tmux_with_tpm: false
+
+tmux_plugins:
+  - name: tmux-plugins/tmux-resurrect
+  - name: tmux-plugins/tmux-continuum
+    options:
+      - '@continuum-restore "on"'

@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+
+{% if tmux_options is defined and tmux_options | length > 0 %}
+{% for option in tmux_options %}
+{{ option }}
+{% endfor %}
+{% endif %}
+
+{% if tmux_with_tpm %}
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+{% for p in tmux_plugins %}
+set -g @plugin '{{ p.name }}'
+{% if p.option is defined and p.option | length > 0 %}
+{% for o in p.option %}
+set -g {{ o }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+{% endif %}

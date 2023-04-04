@@ -1,0 +1,30 @@
+---
+# Task file to configure tmux
+
+- name: Get users informations for {{ tmux_user }}
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ tmux_user }}"
+    fail_key: false
+  register: user_getent
+
+- name: Compute user home path for {{ tmux_user }}
+  ansible.builtin.set_fact:
+    _tmux_user_home:
+      "{{ user_getent.ansible_facts.getent_passwd[tmux_user][4] }}"
+
+- name: Install tmux configuration for {{ tmux_user }}
+  ansible.builtin.template:
+    src: tmux.conf.j2
+    dest: "{{ _tmux_user_home }}/.tmux.conf"
+    owner: "{{ tmux_user }}"
+    group: "{{ tmux_user }}"
+    mode: '0644'
+
+# tpm will check if it is configred in .tmux.conf during its installation
+# so this taks must be bellow the templating of the configuration
+- name: Install TPM plugin manager for {{ tmux_user }}
+  ansible.builtin.import_tasks:
+    file: tpm.yml
+  when:
+    - tmux_with_tpm

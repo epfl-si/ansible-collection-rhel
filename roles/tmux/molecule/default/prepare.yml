@@ -1,0 +1,38 @@
+---
+
+- name: Prepare
+  hosts: tmux
+  gather_facts: false
+  vars:
+    ansible_user: root
+  tasks:
+
+    # In ubi8 we are always root. This doesn't reflect a real world
+    # scenario when ssh connections to root are forbidden. To help
+    # us see when a task needs the `become` directive, we will connect
+    # to this cmadm user.
+    - name: Create ansible user
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - cmadm
+        - user_wo_tpm
+        - user_with_tpm
+        - user_options
+
+    - name: Allow ansible to sudo without password
+      ansible.builtin.copy:
+        content: "cmadm ALL=(ALL) NOPASSWD: ALL"
+        dest: /etc/sudoers.d/10-cmadm
+        validate: /usr/sbin/visudo -csf %s
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Install requirements
+      ansible.builtin.package:
+        name:
+          - tmux
+          - git
+        state: present

@@ -1,0 +1,43 @@
+---
+
+argument_specs:
+  # roles/tmux/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the tmux role.
+    options:
+      tmux_user:
+        type: "str"
+        default: ""
+        description: "The user where to install the .tmux.conf file"
+      tmux_options:
+        type: "list"
+        elements: "str"
+        default: ""
+        required: false
+        description: "All your settings and binding goes in this list."
+      tmux_with_tpm:
+        type: "bool"
+        default: false
+        description: "Set to true if you want to install tpm plugin manager."
+      tmux_plugins:
+        type: "list"
+        elements: "str"
+        options:
+          name:
+            type: "string"
+            required: true
+            description: >-
+              The name of the plugin to install. E.G.
+              tmux-plugins/tmux-resurrect or git@github.com:user/plugin.
+              After adding plugins, launch a tmux session then press prefix + I
+              (capital i, as in Install) to fetch the plugin.
+          options:
+            type: "list"
+            elements: "str"
+            required: false
+            default: [""]
+        default:
+          - name: tmux-resurrect
+          - name: tmux-continuum
+            options:
+              - '@continuum-restore "on"'

@@ -1,0 +1,15 @@
+---
+- name: Ensure .tmux/plugins/tpm folder for {{ tmux_user }}
+  ansible.builtin.file:
+    path: "{{ _tmux_user_home }}/.tmux/plugins/tpm"
+    state: directory
+    owner: "{{ tmux_user }}"
+    group: "{{ tmux_user }}"
+    mode: '0700'
+
+- name: Git clone plugin manager for {{ tmux_user }}
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ _tmux_user_home }}/.tmux/plugins/tpm"
+    update: false
+  register: tpm_clone
