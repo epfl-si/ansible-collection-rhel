@@ -49,4 +49,6 @@
     mode: '0644'
     owner: root
     group: root
-  notify: Restart nginx
+  notify:
+    - Restart nginx
+    - Enable nginx
