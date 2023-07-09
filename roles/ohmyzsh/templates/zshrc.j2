@@ -38,6 +38,4 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 {# Supports epfl_si.rhel.user user_path_add and user_path feature #}
-{% if user_path_add is defined and user_path_add | length > 0 %}
 source $HOME/.common_profile
-{% endif %}
