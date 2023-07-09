@@ -5,28 +5,28 @@
   tasks:
 
     - name: Check bucket 1 config
-      stat:
+      ansible.builtin.stat:
         path: /root/.s3cfg-bucket1
       register: bucket1_conf
 
     - name: Assert that bucket 1 config is present
-      assert:
+      ansible.builtin.assert:
         that: bucket1_conf.stat.exists
 
     - name: Check bucket 2 config
-      stat:
+      ansible.builtin.stat:
         path: /root/.s3cfg-bucket2
       register: bucket2_conf
 
     - name: Assert that bucket 2 config is present
-      assert:
+      ansible.builtin.assert:
         that: bucket2_conf.stat.exists
 
     - name: Check default bucket config
-      stat:
+      ansible.builtin.stat:
         path: /root/.s3cfg
       register: bucket_default_conf
 
     - name: Assert that default bucket config is present
-      assert:
+      ansible.builtin.assert:
         that: bucket_default_conf.stat.exists

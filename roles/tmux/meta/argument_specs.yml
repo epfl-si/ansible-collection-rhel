@@ -24,7 +24,7 @@ argument_specs:
         elements: "str"
         options:
           name:
-            type: "string"
+            type: "str"
             required: true
             description: >-
               The name of the plugin to install. E.G.

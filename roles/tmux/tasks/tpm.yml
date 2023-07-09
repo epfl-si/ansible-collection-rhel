@@ -8,7 +8,7 @@
     mode: '0700'
 
 - name: Git clone plugin manager for {{ tmux_user }}
-  ansible.builtin.git:
+  ansible.builtin.git:  # noqa latest[git]
     repo: https://github.com/tmux-plugins/tpm
     dest: "{{ _tmux_user_home }}/.tmux/plugins/tpm"
     update: false

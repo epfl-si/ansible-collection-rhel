@@ -6,25 +6,25 @@
   gather_facts: false
   tasks:
 
-  - name: Get john profiles
-    become: yes
-    become_user: john
-    ansible.builtin.command:
-      cmd: "/usr/local/bin/aws configure list-profiles"
-    register: john_profiles
-    changed_when: no
+    - name: Get john profiles
+      become: true
+      become_user: john
+      ansible.builtin.command:
+        cmd: "/usr/local/bin/aws configure list-profiles"
+      register: john_profiles
+      changed_when: false
 
-  - name: Assert that john has 4 profiles
-    assert:
-      that: "{{ john_profiles.stdout_lines | length == 4 }}"
+    - name: Assert that john has 4 profiles
+      ansible.builtin.assert:
+        that: "{{ john_profiles.stdout_lines | length == 4 }}"
 
-  - name: Get root profiles
-    become: yes
-    ansible.builtin.command:
-      cmd: "/usr/local/bin/aws configure list-profiles"
-    register: root_profiles
-    changed_when: no
+    - name: Get root profiles
+      become: true
+      ansible.builtin.command:
+        cmd: "/usr/local/bin/aws configure list-profiles"
+      register: root_profiles
+      changed_when: false
 
-  - name: Assert that root has 3 profiles
-    assert:
-      that: "{{ root_profiles.stdout_lines | length == 3 }}"
+    - name: Assert that root has 3 profiles
+      ansible.builtin.assert:
+        that: "{{ root_profiles.stdout_lines | length == 3 }}"

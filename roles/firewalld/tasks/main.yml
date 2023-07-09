@@ -2,22 +2,28 @@
 # tasks file for firewalld
 
 - name: Preflight check
-  include_tasks: preflight_checks.yml
+  ansible.builtin.include_tasks:
+    file: preflight_checks.yml
 
 - name: Disable others firwalld
-  include_tasks: disable_other_firewalls.yml
+  ansible.builtin.include_tasks:
+    file: disable_other_firewalls.yml
 
 - name: Setup firewalld
-  include_tasks: setup_firewalld.yml
+  ansible.builtin.include_tasks:
+    file: setup_firewalld.yml
 
 - name: Setup Ansible dependencies to manage firewalld
-  import_tasks: setup_ansible_dependencies.yml
+  ansible.builtin.import_tasks:
+    file: setup_ansible_dependencies.yml
 
 - name: Create new zones
-  include_tasks: create_new_zones.yml
+  ansible.builtin.include_tasks:
+    file: create_new_zones.yml
 
 - name: Set zone sources
-  include_tasks: set_zone_sources.yml
+  ansible.builtin.include_tasks:
+    file: set_zone_sources.yml
   loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_sources
@@ -27,7 +33,8 @@
     - firewalld_zone_sources.value.source is defined
 
 - name: Set zone interfaces
-  include_tasks: set_zone_interfaces.yml
+  ansible.builtin.include_tasks:
+    file: set_zone_interfaces.yml
   loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_interfaces
@@ -37,7 +44,8 @@
     - firewalld_zone_interfaces.value.interface is defined
 
 - name: Set zone services
-  include_tasks: set_zone_services.yml
+  ansible.builtin.include_tasks:
+    file: set_zone_services.yml
   loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_services
@@ -47,7 +55,8 @@
     - firewalld_zone_services.value.service is defined
 
 - name: Set zone ports
-  include_tasks: set_zone_ports.yml
+  ansible.builtin.include_tasks:
+    file: set_zone_ports.yml
   loop: "{{ firewalld_zones | dict2items }}"
   loop_control:
     loop_var: firewalld_zone_ports

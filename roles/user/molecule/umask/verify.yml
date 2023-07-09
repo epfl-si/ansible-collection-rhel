@@ -7,7 +7,7 @@
   tasks:
 
     - name: Assert that root umask is set to desired value
-      become_method: su
+      become_method: ansible.builtin.su
       become_flags: --login
       ansible.builtin.command:
         cmd: umask
@@ -17,7 +17,7 @@
 
     - name: Assert that user_auto_umask umask is 022
       become_user: user_auto_umask
-      become_method: su
+      become_method: ansible.builtin.su
       become_flags: --login
       ansible.builtin.command:
         cmd: umask
@@ -27,7 +27,7 @@
 
     - name: Assert that user_bash_0066 umask is 0066
       become_user: user_bash_0066
-      become_method: su
+      become_method: ansible.builtin.su
       become_flags: --login
       ansible.builtin.command:
         cmd: umask
@@ -37,7 +37,7 @@
 
     - name: Assert that user_zsh_0066 umask is 0066
       become_user: user_zsh_0066
-      become_method: su
+      become_method: ansible.builtin.su
       become_flags: '-s /bin/zsh -l'
       ansible.builtin.command:
         cmd: umask

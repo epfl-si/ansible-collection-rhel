@@ -3,8 +3,8 @@
 # Task file to install s3cmd on RHEL
 
 - name: Install s3cmd from Pypi
-  become: yes
-  pip:
+  become: true
+  ansible.builtin.pip:
     executable: pip3
     name: s3cmd
     state: present

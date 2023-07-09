@@ -1,17 +1,17 @@
 ---
 
 - name: Install firewalld
-  become: yes
+  become: true
   ansible.builtin.package:
     name: firewalld
     state: present
 
 - name: Configure firewalld
-  become: yes
+  become: true
   ansible.builtin.template:
     src: templates/firewalld.conf.j2
     dest: /etc/firewalld/firewalld.conf
-    backup: yes
+    backup: true
     owner: root
     group: root
     mode: '0644'
@@ -20,7 +20,7 @@
 # template validate is not usable because firewall-offline-cmd
 # --system-config wants a folder, not the content of the file.
 - name: Validate the configuration
-  become: yes
+  become: true
   ansible.builtin.command:
     cmd: >
       /usr/bin/firewall-offline-cmd --system-config /etc/firewalld
@@ -29,8 +29,8 @@
   register: firewalld_validate_config_result
 
 - name: Check if configuration is valid
-  become: yes
-  assert:
+  become: true
+  ansible.builtin.assert:
     that:
       - "'ERROR' not in firewalld_validate_config_result.stderr"
       - "'WARNING' not in firewalld_validate_config_result.stderr"
@@ -43,12 +43,12 @@
 # When we were using Iptable, firewall unit file was mask. We must
 # ensure it is unmaked
 - name: Start and enable firewalld
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: firewalld.service
     state: started
-    enabled: yes
+    enabled: true
     masked: false
 
 - name: Force handler to ensure firewalld is up for create_new_zones.yml
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers

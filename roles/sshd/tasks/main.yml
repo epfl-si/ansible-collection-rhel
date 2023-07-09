@@ -5,19 +5,19 @@
   block:
 
     - name: Ensure SSHD server is installed
-      package:
+      ansible.builtin.package:
         name: openssh-server
         state: present
 
     - name: Ensure SSHD server service is running
-      systemd:
+      ansible.builtin.systemd:
         daemon_reload: true
         enabled: true
         name: sshd.service
         state: started
 
     - name: Configure sshd_config
-      template:
+      ansible.builtin.template:
         src: templates/sshd_config.j2
         dest: /etc/ssh/sshd_config
         owner: root
@@ -25,4 +25,4 @@
         mode: '0600'
         backup: true
         validate: /sbin/sshd -t -f %s
-      notify: restart sshd
+      notify: Restart sshd

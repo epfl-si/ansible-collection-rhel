@@ -1,6 +1,6 @@
 ---
 
 - name: Test minimum RHEL version supported
-  fail:
+  ansible.builtin.fail:
     msg: This role supports RHEL 8+
   when: ansible_distribution_major_version < '8'

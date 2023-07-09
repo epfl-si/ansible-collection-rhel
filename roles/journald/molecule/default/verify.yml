@@ -5,7 +5,7 @@
   tasks:
 
     - name: Check that option get line uncommented and set
-      lineinfile:
+      ansible.builtin.lineinfile:
         name: /etc/systemd/journald.conf
         line: "Storage=persistent"
         regexp: "^Storage=persistent$"
@@ -15,7 +15,7 @@
       failed_when: line_storage is changed or line_storage is failed
 
     - name: Check that default value stay commented
-      lineinfile:
+      ansible.builtin.lineinfile:
         name: /etc/systemd/journald.conf
         line: "#Seal=yes"
         regexp: "^#Seal=yes$"

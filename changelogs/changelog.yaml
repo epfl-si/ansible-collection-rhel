@@ -1,381 +1,400 @@
+---
 ancestor: null
 releases:
   1.0.4:
     changes:
       bugfixes:
-      - Doc - Fix main variable name from ``firewalld_zone`` to ``firewalld_zones``
-      - Tests - Fix failure when newtork is undefined
-      - Tests - Fix os detection for CentOS 7/8 when containers are provisionned
+        - Doc - Fix main variable name from ``firewalld_zone`` to
+          ``firewalld_zones``
+        - Tests - Fix failure when newtork is undefined
+        - Tests - Fix os detection for CentOS 7/8 when containers are
+          provisionned
       major_changes:
-      - Change License from MIT to GPLv3
+        - Change License from MIT to GPLv3
       minor_changes:
-      - Add a upper limit to the required ansible version to stay in 2.9 (for Tower)
-      - Tests - Add os detection for RHEL7/8 for containers provionning
-      - Tests - Cleanup scenario files
-      - Tests - Use a generalized Dockerfile to build containers
+        - Add a upper limit to the required ansible version to stay in 2.9 (for
+          Tower)
+        - Tests - Add os detection for RHEL7/8 for containers provionning
+        - Tests - Cleanup scenario files
+        - Tests - Use a generalized Dockerfile to build containers
     fragments:
-    - e06be8f-fix-molecule-dockerfiles.yaml
-    - f429e08-fix-undefined-network.yaml
+      - e06be8f-fix-molecule-dockerfiles.yaml
+      - f429e08-fix-undefined-network.yaml
     release_date: '2021-02-23'
   1.1.0:
     changes:
       bugfixes:
-      - Fix Podman Network creation when no network are specified
+        - Fix Podman Network creation when no network are specified
       minor_changes:
-      - s3cmd - New role with supports for multiples buckets configuration
+        - s3cmd - New role with supports for multiples buckets configuration
     fragments:
-    - add_s3cmd.yaml
-    - fix_molecule_podman_network.yaml
+      - add_s3cmd.yaml
+      - fix_molecule_podman_network.yaml
     release_date: '2021-02-25'
   1.1.1:
     fragments:
-    - optimise_s3cmd.yaml
+      - optimise_s3cmd.yaml
     release_date: '2021-02-25'
   1.1.2:
     changes:
       bugfixes:
-      - s3cmd - Fix tasks with missing escalation of privileges to hang forever
+        - s3cmd - Fix tasks with missing escalation of privileges to hang
+          forever
     fragments:
-    - fix_s3cmd_install_hang_forever.yaml
+      - fix_s3cmd_install_hang_forever.yaml
     release_date: '2021-02-25'
   1.1.3:
     changes:
       bugfixes:
-      - firewalld - Fix syntax of inclusion of external collections
-      - s3cmd - Install python3 package instead of python38 on RHEL8
+        - firewalld - Fix syntax of inclusion of external collections
+        - s3cmd - Install python3 package instead of python38 on RHEL8
     fragments:
-    - hotfix.yaml
+      - hotfix.yaml
     release_date: '2021-02-26'
   1.2.0:
     changes:
       minor_changes:
-      - Journald - New role to manage systemd journald
-      - Raise maximum Ansible version supported to 2.10+ since it's the versionused
-        by our molecule tests
+        - Journald - New role to manage systemd journald
+        - Raise maximum Ansible version supported to 2.10+ since it's the
+          version used by our molecule tests
     fragments:
-    - new-feature-journald.yaml
-    - raise-max-ansible-support.yaml
+      - new-feature-journald.yaml
+      - raise-max-ansible-support.yaml
     release_date: '2021-03-16'
   1.2.1:
     changes:
       bugfixes:
-      - Journald - Fix permission to create folder /var/log/journal
+        - Journald - Fix permission to create folder /var/log/journal
     fragments:
-    - fix-journald.yml
+      - fix-journald.yml
     release_date: '2021-03-16'
   1.3.0:
     changes:
       major_changes:
-      - users_linux - GID may be different than UID now. With this change, you have
-        to rename your variables sysadm_id and appadm_id to sysadm_uid and appadm_uid
+        - users_linux - GID may be different than UID now. With this change, you
+          have to rename your variables sysadm_id and appadm_id to sysadm_uid
+          and appadm_uid
     fragments:
-    - users_gid_different_than_uid.yml
+      - users_gid_different_than_uid.yml
     release_date: '2021-03-22'
   1.4.0:
     changes:
       breaking_changes:
-      - s3cmd - The role now only handle one user and one bucket at a time.
+        - s3cmd - The role now only handle one user and one bucket at a time.
       major_changes:
-      - ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
-      - sudo - New role that manages sudoers.d drop-in files
-      - user - New role that creates a linux user and manage $PATH for bash and zsh
-      release_summary: Many roles have been refactored to be simpler to use. With
-        less relying on the inventory it's now easier to understand what a role will
-        do.
+        - ohmyzsh - New role with a pre-build .oh-my-zsh for a fast installation
+        - sudo - New role that manages sudoers.d drop-in files
+        - user - New role that creates a linux user and manage $PATH for bash
+          and zsh
+      release_summary: Many roles have been refactored to be simpler to use.
+        With less relying on the inventory it's now easier to understand what a
+        role will do.
       removed_features:
-      - users_linux - This role is deleted. Use epfl_si.rhel.user, epfl_si.rhel.ohmyzsh
-        and epfl_si.rhel.sudo instead
+        - users_linux - This role is deleted. Use epfl_si.rhel.user,
+          epfl_si.rhel.ohmyzsh and epfl_si.rhel.sudo instead
     fragments:
-    - s3cmd.yml
-    - user.yml
+      - s3cmd.yml
+      - user.yml
     release_date: '2021-04-01'
   1.4.1:
     changes:
       bugfixes:
-      - user - Fix a bug in AWX/Tower when transforming string to list using map that
-        printed the generator object do_map at 0x7.... instead of the string
+        - user - Fix a bug in AWX/Tower when transforming string to list using
+          map that printed the generator object do_map at 0x7.... instead of the
+          string
     fragments:
-    - fix_user_map_tower.yml
+      - fix_user_map_tower.yml
     release_date: '2021-04-01'
   1.4.2:
     changes:
       bugfixes:
-      - ohmyzsh - Fix zsh configuration overwritten each run
+        - ohmyzsh - Fix zsh configuration overwritten each run
     fragments:
-    - prevent-ohmyzsh-overwrite-config.yml
+      - prevent-ohmyzsh-overwrite-config.yml
     release_date: '2021-04-06'
   1.4.3:
     changes:
       bugfixes:
-      - firewalld - Fix non-root ansible_user unable to reload firewalld
+        - firewalld - Fix non-root ansible_user unable to reload firewalld
     fragments:
-    - fix-firewalld-interactive-authentication-required.yml
+      - fix-firewalld-interactive-authentication-required.yml
     release_date: '2021-04-16'
   1.4.4:
     changes:
       minor_changes:
-      - sshd - Add option to permit root login
+        - sshd - Add option to permit root login
     fragments:
-    - sshd_permit_root_login.yml
+      - sshd_permit_root_login.yml
     release_date: '2021-04-28'
   1.4.5:
     changes:
       bugfixes:
-      - sshd - Fix missing new line is sshd configuration
+        - sshd - Fix missing new line is sshd configuration
     fragments:
-    - sshd_fix_newline.yml
+      - sshd_fix_newline.yml
     release_date: '2021-04-29'
   1.4.6:
     changes:
       bugfixes:
-      - user - Fix .zshrc from ohmyzsh overwritten by accident
-      - user - Fix user PATH definition
+        - user - Fix .zshrc from ohmyzsh overwritten by accident
+        - user - Fix user PATH definition
       minor_changes:
-      - Raise supported version up to Ansible 4 (ansible-core 2.11)
+        - Raise supported version up to Ansible 4 (ansible-core 2.11)
     fragments:
-    - ansible_version.yml
-    - fix_user_path.yml
+      - ansible_version.yml
+      - fix_user_path.yml
     release_date: '2021-04-30'
   1.4.7:
     changes:
       bugfixes:
-      - firewalld - Configuration validation now displays errors and warnings
+        - firewalld - Configuration validation now displays errors and warnings
       minor_changes:
-      - firewalld - Add support for RHEL7. It worked previously but with warning.
+        - firewalld - Add support for RHEL7. It worked previously but with
+          warning.
     fragments:
-    - firewalld_support_rhel7.yml
+      - firewalld_support_rhel7.yml
     release_date: '2021-05-05'
   1.5.0:
     changes:
       major_changes:
-      - 's3cmd - Stop intalling extra repositories and Python 3.8 on RHEL7. Instead
-        we add pip3 to the requirements. This means you have to activate EPEL and
-        install the packages python3 and python3-pip yourself now.
-
-        '
+        - s3cmd - Stop intalling extra repositories and Python 3.8 on RHEL7.
+          Instead we add pip3 to the requirements. This means you have to
+          activate EPEL and install the packages python3 and python3-pip
+          yourself now.
       minor_changes:
-      - firwalld - Add idempotency to task that validate the configuration
+        - firwalld - Add idempotency to task that validate the configuration
     fragments:
-    - firewalld_idempotency.yml
-    - s3cmd_remve_python38.yml
+      - firewalld_idempotency.yml
+      - s3cmd_remve_python38.yml
     release_date: '2021-05-05'
   1.5.1:
     changes:
       bugfixes:
-      - ohmyzsh - Fix .zshrc never written
+        - ohmyzsh - Fix .zshrc never written
     fragments:
-    - fix_ohmyzsh_write_zshrc.yml
+      - fix_ohmyzsh_write_zshrc.yml
     release_date: '2021-05-18'
   1.6.0:
     changes:
       breaking_changes:
-      - s3cmd - Cut `s3_` prefix from bucket options
-      - 's3cmd - New mandatory option `s3cmd_options`. If you had a `s3cmd_buckets`
-        dictionary in inventory. You can simply pass the right key to `s3cmd_options`.
-
-        '
+        - s3cmd - Cut `s3_` prefix from bucket options
+        - s3cmd - New mandatory option `s3cmd_options`. If you had a
+          `s3cmd_buckets` dictionary in inventory. You can simply pass the right
+          key to `s3cmd_options`.
       bugfixes:
-      - 'firewalld - Cut a task that installed iptables on any platform with a missleading
-        title containing RHEL7.
-
-        '
+        - firewalld - Cut a task that installed iptables on any platform with a
+          missleading title containing RHEL7.
       major_changes:
-      - s3cmd - Every options are now configurable using `s3cmd_options` dictionary
+        - s3cmd - Every options are now configurable using `s3cmd_options`
+          dictionary
     fragments:
-    - firewalld_iptables_on_rhel7.yml
-    - s3cmd_add_options.yml
+      - firewalld_iptables_on_rhel7.yml
+      - s3cmd_add_options.yml
     release_date: '2021-06-07'
   1.6.1:
     changes:
       bugfixes:
-      - s3cmd - Fix host_base and log_target_prefix options
+        - s3cmd - Fix host_base and log_target_prefix options
       security_fixes:
-      - s3cmd - Stop leaking secrets in ansible logs
+        - s3cmd - Stop leaking secrets in ansible logs
     fragments:
-    - s3cmd_fix_options.yml
-    - s3cmd_stop_leaking_secrets.yml
+      - s3cmd_fix_options.yml
+      - s3cmd_stop_leaking_secrets.yml
     release_date: '2021-06-07'
   1.7.0:
     changes:
       breaking_changes:
-      - s3cmd - Due to breaking changes in 1.7.0, please do the following changes
-      - s3cmd - Remove from inventory any settings besides `access_key` and `secret_key`
-        inside the `s3cmd_buckets` object.
-      - s3cmd - Remove one indentation of every variable contained in s3cmd_options
-        and add the prefix `s3cmd_` to it.
-      - s3cmd - Remove parameters `s3cmd_options`
-      - s3cmd - Rename in your inventory `s3cmd_buckets` to `aws_credentials`
+        - s3cmd - Due to breaking changes in 1.7.0, please do the following
+          changes
+        - s3cmd - Remove from inventory any settings besides `access_key` and
+          `secret_key` inside the `s3cmd_buckets` object.
+        - s3cmd - Remove one indentation of every variable contained in
+          s3cmd_options and add the prefix `s3cmd_` to it.
+        - s3cmd - Remove parameters `s3cmd_options`
+        - s3cmd - Rename in your inventory `s3cmd_buckets` to `aws_credentials`
       major_changes:
-      - s3cmd - Cut `s3cmd_options` object. Now every variable is prefixed by `s3cmd_`
-      - s3cmd - Cut dependency over a s3cmd_bucket object, now simply pass a `s3cmd_access_key`
-        and `s3cmd_secret_key` to the role
+        - s3cmd - Cut `s3cmd_options` object. Now every variable is prefixed by
+          `s3cmd_`
+        - s3cmd - Cut dependency over a s3cmd_bucket object, now simply pass a
+          `s3cmd_access_key` and `s3cmd_secret_key` to the role
       minor_changes:
-      - awscli - Add new role to install and manage aws cli v2
+        - awscli - Add new role to install and manage aws cli v2
     fragments:
-    - awscli.yml
+      - awscli.yml
     release_date: '2021-06-22'
   1.7.1:
     changes:
       bugfixes:
-      - awscli - Set a default region to prevent erros if left empty
+        - awscli - Set a default region to prevent erros if left empty
     fragments:
-    - awscli_default_region.yml
+      - awscli_default_region.yml
     release_date: '2021-06-23'
   1.7.2:
     changes:
       bugfixes:
-      - awscli - Fix max_bandwidth default value to unlimited
+        - awscli - Fix max_bandwidth default value to unlimited
     fragments:
-    - awscli_fix_max_bandwidth.yml
+      - awscli_fix_max_bandwidth.yml
     release_date: '2021-06-23'
   1.7.3:
     changes:
       minor_changes:
-      - awscli - Add support for global settings
+        - awscli - Add support for global settings
     fragments:
-    - aws_add_global_settings.yml
+      - aws_add_global_settings.yml
     release_date: '2021-06-25'
   1.8.0:
     changes:
-      release_summary: 'This release drops support for RHEL7 in the firewalld role.
-        This moves was decided because the molecule tests stop working on our RHEL8
-        VM that runs Podman. We prioritize moving to RHEL8 instead of spending time
-        creating automated tests for an old version.
+      release_summary: This release drops support for RHEL7 in the firewalld
+        role. This moves was decided because the molecule tests stop working on
+        our RHEL8 VM that runs Podman. We prioritize moving to RHEL8 instead of
+        spending time creating automated tests for an old version.
 
-        Unless someone step in to help, There is strong chances that all roles will
-        soon drop support for RHEL7. '
+        Unless someone step in to help, There is strong chances that all roles
+        will soon drop support for RHEL7.'
       removed_features:
-      - firewalld - Drop support for RHEL7
+        - firewalld - Drop support for RHEL7
     fragments:
-    - firewalld_drop_rhel7.yml
+      - firewalld_drop_rhel7.yml
     release_date: '2021-07-06'
   1.8.1:
     changes:
       bugfixes:
-      - firewalld - Fix a task that failed in check mode
+        - firewalld - Fix a task that failed in check mode
       deprecated_features:
-      - ntp - Deprecating role. Will be remove in future release
+        - ntp - Deprecating role. Will be remove in future release
       minor_changes:
-      - ohmyzsh - Updated the installer with latest ohmyzsh and plugins versions
+        - ohmyzsh - Updated the installer with latest ohmyzsh and plugins
+          versions
     fragments:
-    - deprecate_ntp.yml
-    - firewalld_check_mode.yml
-    - ohmyzsh_update.yml
+      - deprecate_ntp.yml
+      - firewalld_check_mode.yml
+      - ohmyzsh_update.yml
     release_date: '2021-08-19'
   1.8.2:
     changes:
       bugfixes:
-      - firewalld - Fix a task that failed in check mode
+        - firewalld - Fix a task that failed in check mode
       minor_changes:
-      - tests - Remove our create playbook since it has been merge upstream
+        - tests - Remove our create playbook since it has been merge upstream
     fragments:
-    - check_mode.yml
-    - molecule-3-4-0.yml
+      - check_mode.yml
+      - molecule-3-4-0.yml
     release_date: '2021-08-19'
   1.9.0:
     changes:
       minor_changes:
-      - Change license to MIT
-      - nginx - New role to manage nginx
-      - user - Add user umask option
+        - Change license to MIT
+        - nginx - New role to manage nginx
+        - user - Add user umask option
     fragments:
-    - add_user_umask.yml
-    - change_license.yml
-    - nginx.yml
+      - add_user_umask.yml
+      - change_license.yml
+      - nginx.yml
     release_date: '2021-12-15'
   1.9.1:
     changes:
       minor_changes:
-      - nging - Manage SeLinux to allow connections and relay. Now Nginx can act as
-        a reverse proxy!
+        - nging - Manage SeLinux to allow connections and relay. Now Nginx can act as
+          a reverse proxy!
     fragments:
-    - nginx_selinux.yml
+      - nginx_selinux.yml
     release_date: '2021-12-17'
   1.9.2:
     changes:
       known_issues:
-      - ohmyzsh - All previous version had a issue that may prevent you to update
-        the custom plugins using GIT. To see if you are impacted, simply do a git
-        status inside ~/.oh-my-zsh/custom/plugins. If git list alot of files changed,
-        then you have to bug. To fix it, you have 2 options. 1) Delete the ~/.oh-my-zsh
-        folder and run this role again. 2) Use the command `git reset --hard HEAD`
-        in each impacted git repo.
+        - ohmyzsh - All previous version had a issue that may prevent you to
+          update the custom plugins using GIT. To see if you are impacted,
+          simply do a git status inside ~/.oh-my-zsh/custom/plugins. If git list
+          alot of files changed, then you have to bug. To fix it, you have 2
+          options. 1) Delete the ~/.oh-my-zsh folder and run this role again.
+          2) Use the command `git reset --hard HEAD` in each impacted git repo.
       minor_changes:
-      - ohmyzsh - Change installation method from bundle to git clone
-      release_summary: The ohmyzsh roles was causing issue because we were changing
-        file permission. This prevented oh-my-zsh to update itself due to all files
-        been makes 'unstaged' by git. During the release of a newer version of the
-        role, Ansible Galaxy refused our new version due to a file, the bundle installer
-        of oh-my-zsh + its plugins, been too big (23MB). The I had now other choice
-        to revert the installation to git clone. The role may become very slow to
-        deploy for the first time. But now 'omz update' should works properly.
+        - ohmyzsh - Change installation method from bundle to git clone
+      release_summary: The ohmyzsh roles was causing issue because we were
+        changing file permission. This prevented oh-my-zsh to update itself due
+        to all files been makes 'unstaged' by git. During the release of a newer
+        version of the role, Ansible Galaxy refused our new version due to a
+        file, the bundle installer of oh-my-zsh + its plugins, been too big
+        (23MB). The I had now other choice to revert the installation to git
+        clone. The role may become very slow to deploy for the first time. But
+        now 'omz update' should works properly.
     fragments:
-    - lie_ohmyzsh_back_to_git.yaml
+      - lie_ohmyzsh_back_to_git.yaml
     release_date: '2022-02-23'
   1.9.3:
     changes:
       minor_changes:
-      - user - Only chown the user's home if the user changed. Previously we were
-        always doing it, which was very long if the user has many files.
+        - user - Only chown the user's home if the user changed. Previously we
+          were always doing it, which was very long if the user has many files.
     fragments:
-    - lie_user_chown_less_often.yml
+      - lie_user_chown_less_often.yml
     release_date: '2022-02-23'
   2.0.0:
     changes:
       breaking_changes:
-      - 'To use the new syntax, please modifiy the roles parameters from # --- # -
-        name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys:
-        #     exclusive: true #     keys_list: #       - comment: user1@example.com
-        #         ssh_key: ssh-rsa AAAAB1234
-
-        To # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys_exclusive:
-        true #   user_authorized_keys: #     - comment: user1@example.com #       ssh_key:
-        ssh-rsa AAAAB1234
-
-        '
-      - user - Modify user_authorized_keys from dict to list
-      - 'user - Modify variable to set authorized_keys as exlusive to be outside of
-        the user_authorized_keys variable
-
-        '
-      - user - Removed the variable keys_list from user_authorized_keys
+        - |-
+          To use the new syntax, please modifiy the roles parameters from
+          ---
+          - name: Create a user
+            role: epfl_si.rhel.user:
+            user_authorized_keys:
+            exclusive: true
+            keys_list:
+              - comment: user1@example.com
+                ssh_key: ssh-rsa AAAAB1234
+          To
+          ---
+          - name: Create a user
+            role: epfl_si.rhel.user:
+            user_authorized_keys_exclusive: true
+            user_authorized_keys:
+              - comment: user1@example.com
+                ssh_key: ssh-rsa AAAAB1234
+        - user - Modify user_authorized_keys from dict to list
+        - user - Modify variable to set authorized_keys as exlusive to be
+          outside of the user_authorized_keys variable
+        - user - Removed the variable keys_list from user_authorized_keys
       bugfixes:
-      - user - Fix idempotence when changing SSH keys for the root user
+        - user - Fix idempotence when changing SSH keys for the root user
       minor_changes:
-      - user - Add options validation (main/argument_specs.yml)
-      - user - Add tests for every scenario
-      - user - Enhanced Check mode
-      - user - Fix linting for ansible-lint 6.0.0
-      release_summary: Because of a breaking change in the role user, this is a major
-        release. The ntp role is removed as annonced in the release 1.8.1.
+        - user - Add options validation (main/argument_specs.yml)
+        - user - Add tests for every scenario
+        - user - Enhanced Check mode
+        - user - Fix linting for ansible-lint 6.0.0
+      release_summary: Because of a breaking change in the role user, this is a
+        major release. The ntp role is removed as annonced in the release 1.8.1.
     fragments:
-    - lie_user_idempotent.yml
+      - lie_user_idempotent.yml
     release_date: '2022-03-17'
   2.0.1:
     changes:
       minor_changes:
-      - ohmyzsh - Add option to add custom function in the zsh configuration file
-      - ohmyzsh - Add option to change the terminal title
-      - ohmyzsh - Add option to disable automatic title
-      release_summary: Add functionalities to the role ohmyzsh to allow changing title
-        on your terminal's window and add custom functions to the .zshrc file.
+        - ohmyzsh - Add option to add custom function in the zsh configuration
+          file
+        - ohmyzsh - Add option to change the terminal title
+        - ohmyzsh - Add option to disable automatic title
+      release_summary: Add functionalities to the role ohmyzsh to allow changing
+        title on your terminal's window and add custom functions to the .zshrc
+        file.
     fragments:
-    - ohmyzsh_title.yml
+      - ohmyzsh_title.yml
     release_date: '2023-03-28'
   2.0.2:
     changes:
       minor_changes:
-      - tmux - Add tmux role with support for the plugin manager 'tpm'
+        - tmux - Add tmux role with support for the plugin manager 'tpm'
     fragments:
-    - tmux.yml
+      - tmux.yml
     release_date: '2023-04-04'
   2.0.3:
     changes:
       bugfixes:
-      - nginx - Fix the service not beeing enabled if nginx was already installed
+        - nginx - Fix the service not beeing enabled if nginx was already
+          installed
       minor_changes:
-      - user - Add list to add custom variables to the .common_profile file.
+        - user - Add list to add custom variables to the .common_profile file.
     fragments:
-    - fix_nginx_service_enabling.yaml
-    - user_custom_vars.yml
+      - fix_nginx_service_enabling.yaml
+      - user_custom_vars.yml
     release_date: '2023-07-09'

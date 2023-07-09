@@ -6,7 +6,7 @@
 # apply them with --runtime-to-permanant + --reload
 # Maybe it makes a difference for connected clients if firewalld restart after
 # each rule applied. We need to test that under load
-- name: "Set the sources of the {{ firewalld_zone_sources.key }} zone"
+- name: Set the sources of the zone {{ firewalld_zone_sources.key }}
   become: true
   ansible.posix.firewalld:
     zone: "{{ firewalld_zone_sources.key }}"

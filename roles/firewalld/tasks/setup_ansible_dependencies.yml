@@ -1,13 +1,13 @@
 ---
 
 - name: Install python-firewall for Ansible
-  become: yes
+  become: true
   ansible.builtin.yum:
     name: python-firewall
   when: ansible_distribution_major_version == '7'
 
 - name: Install python3-firewall for Ansible
-  become: yes
+  become: true
   ansible.builtin.dnf:
     name: python3-firewall
   when: ansible_distribution_major_version == '8'

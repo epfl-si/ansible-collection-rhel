@@ -1,40 +1,40 @@
 ---
 
-- name: "Get {{ awscli_user }} informations"
+- name: Get  informations of {{ awscli_user }}
   ansible.builtin.getent:
     database: passwd
     key: "{{ awscli_user }}"
   register: _awscli_getent
 
-- name: "Set {{ awscli_user }} variables"
+- name: Set variables for {{ awscli_user }}
   ansible.builtin.set_fact:
     _awscli_user_home:
       "{{ _awscli_getent.ansible_facts.getent_passwd[awscli_user][4] }}"
 
-- name: "Create .aws folder to store configuration for {{ awscli_user }}"
-  become: yes
+- name: Create .aws folder to store configuration for {{ awscli_user }}
+  become: true
   ansible.builtin.file:
     path: "{{ _awscli_user_home }}/.aws"
     state: directory
     owner: "{{ awscli_user }}"
     group: "{{ awscli_user }}"
-    mode: 0700
+    mode: '0700'
 
-- name: "Store configuration for user {{ awscli_user }}"
-  become: yes
+- name: Store configuration for user {{ awscli_user }}
+  become: true
   ansible.builtin.template:
     src: templates/config.j2
     dest: "{{ _awscli_user_home }}/.aws/config"
     owner: "{{ awscli_user }}"
     group: "{{ awscli_user }}"
-    mode: 0600
+    mode: '0600'
 
-- name: "Store credentials for user {{ awscli_user }}"
-  become: yes
+- name: Store credentials for user {{ awscli_user }}
+  become: true
   ansible.builtin.template:
     src: templates/credentials.j2
     dest: "{{ _awscli_user_home }}/.aws/credentials"
     owner: "{{ awscli_user }}"
     group: "{{ awscli_user }}"
-    mode: 0600
-  no_log: yes
+    mode: '0600'
+  no_log: true

@@ -5,34 +5,34 @@
   tasks:
 
     - name: Update services facts
-      service_facts:
+      ansible.builtin.service_facts:
 
     - name: Assert that sshd is running
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_facts.services['sshd.service'].status is defined
           - ansible_facts.services['sshd.service'].status == 'enabled'
 
     - name: Grab the effective configuration of sshd
-      command:
+      ansible.builtin.command:
         cmd: sshd -T
       register: sshd_config
       changed_when: false
 
     - name: Assert that ssh connection to root is autorized
-      assert:
+      ansible.builtin.assert:
         that: "'permitrootlogin yes' in sshd_config.stdout"
       when:
         - sshd_permit_root_login is defined
         - sshd_permit_root_login is truthy
 
     - name: Assert that ssh connection to root is forbidden
-      assert:
+      ansible.builtin.assert:
         that: "'permitrootlogin no' in sshd_config.stdout"
       when:
         - sshd_permit_root_login is defined
         - sshd_permit_root_login is falsy
 
     - name: Assert that connection with password is forbidden
-      assert:
+      ansible.builtin.assert:
         that: "'passwordauthentication no' in sshd_config.stdout"

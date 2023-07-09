@@ -16,12 +16,12 @@
     # us see when a task need the become directive, we will connect
     # to this unprivileged user.
     - name: Create ansible user
-      user:
+      ansible.builtin.user:
         name: ansible
         state: present
 
     - name: Allow ansible to sudo without password
-      copy:
+      ansible.builtin.copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/10-ansible
         validate: /usr/sbin/visudo -csf %s
@@ -30,7 +30,7 @@
         mode: '0644'
 
     - name: Create test users
-      user:
+      ansible.builtin.user:
         name: "{{ item }}"
         state: present
       loop:
@@ -40,7 +40,7 @@
         - user_custom_function
 
     - name: Install zsh and chsh
-      package:
+      ansible.builtin.package:
         name:
           - zsh
           - util-linux-user

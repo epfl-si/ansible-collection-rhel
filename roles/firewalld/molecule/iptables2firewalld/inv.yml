@@ -7,4 +7,4 @@ all:
         iptables2firewalld1:
         # iptables2firewalld2:
   vars:
-    firewalld_allow_zone_drifting: no
+    firewalld_allow_zone_drifting: false

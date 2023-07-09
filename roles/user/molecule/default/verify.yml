@@ -6,22 +6,22 @@
   become: true
   tasks:
 
-  - name: Get user_bash data
-    ansible.builtin.user:
-      name: user_bash
-    check_mode: true
-    register: user_bash_data
-    failed_when: >
-      user_bash_data.shell != '/bin/bash'
-      or
-      user_bash_data.home != '/var/lib/user_bash'
+    - name: Get user_bash data
+      ansible.builtin.user:
+        name: user_bash
+      check_mode: true
+      register: user_bash_data
+      failed_when: >
+        user_bash_data.shell != '/bin/bash'
+        or
+        user_bash_data.home != '/var/lib/user_bash'
 
-  - name: Get user_zsh data
-    ansible.builtin.user:
-      name: user_zsh
-    check_mode: true
-    register: user_zsh_data
-    failed_when: >
-      user_zsh_data.shell != '/bin/zsh'
-      or
-      user_zsh_data.home != '/var/lib/user_zsh'
+    - name: Get user_zsh data
+      ansible.builtin.user:
+        name: user_zsh
+      check_mode: true
+      register: user_zsh_data
+      failed_when: >
+        user_zsh_data.shell != '/bin/zsh'
+        or
+        user_zsh_data.home != '/var/lib/user_zsh'

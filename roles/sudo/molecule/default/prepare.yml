@@ -8,7 +8,7 @@
     - name: Unmask systemd-logind.service
       ansible.builtin.systemd:
         name: systemd-logind.service
-        masked: no
+        masked: false
 
     # In ubi8 we are always root. This doesn't reflect a real world
     # scenario when ssh connections to root are forbidden. To help
@@ -22,7 +22,7 @@
 
     - name: Allow ansible to sudo without password
       become: true
-      copy:
+      ansible.builtin.copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/10-ansible
         validate: /usr/sbin/visudo -csf %s

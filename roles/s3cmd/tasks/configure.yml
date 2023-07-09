@@ -4,28 +4,28 @@
 
 - name: Find users home path
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ s3cmd_user }}"
   register: s3cmd_user_vars
 
-- name: Create the s3cfg file into {{ s3cmd_user }} home folder
+- name: Create the s3cfg file into home folder of {{ s3cmd_user }}
   become: true
   become_user: "{{ s3cmd_user }}"
-  template:
+  ansible.builtin.template:
     src: templates/s3cfg.j2
     dest: "{{ s3cmd_user_vars.home }}/.s3cfg-{{ s3cmd_bucket }}"
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
-  no_log: yes
+  no_log: true
 
-- name: Create the default s3cfg file into {{ s3cmd_user }} home folder
+- name: Create the default s3cfg file into home folder of {{ s3cmd_user }}
   become: true
   become_user: "{{ s3cmd_user }}"
-  template:
+  ansible.builtin.template:
     src: templates/s3cfg.j2
     dest: "{{ s3cmd_user_vars.home }}/.s3cfg"
     owner: "{{ s3cmd_user }}"
     group: "{{ s3cmd_user }}"
     mode: '0600'
-  no_log: yes
+  no_log: true

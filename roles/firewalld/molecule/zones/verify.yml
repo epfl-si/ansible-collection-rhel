@@ -8,7 +8,7 @@
   tasks:
 
     - name: Ping from zone2 to zone1
-      command:
+      ansible.builtin.command:
         cmd: "ping -W 2 -c 1 {{ ip_zone1 }}"
 
       register: ping_zone2_to_zone1
@@ -17,20 +17,20 @@
       when: inventory_hostname == "zone2"
 
     - name: Assert that zone2 can ping zone1
-      assert:
+      ansible.builtin.assert:
         that: ping_zone2_to_zone1.rc == 0
         fail_msg: Ping from zone2 to zone1 failed
         success_msg: Ping from zone2 to zone1 successful
       when: inventory_hostname == "zone2"
 
     - name: Assert that zone2 is allowed on port 22
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 22
       when: inventory_hostname == "zone2"
 
     - name: Assert that zone3 is blocked on port 22
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 22
       register: zone3_to_port_22
@@ -38,31 +38,31 @@
       when: inventory_hostname == "zone3"
 
     - name: Assert that zone2 is allowed on port 3306
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 3306
       when: inventory_hostname == "zone2"
 
     - name: Assert that zone3 is allowed on port 3306
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 3306
       when: inventory_hostname == "zone3"
 
     - name: Assert that zone4 is allowed on port 33001
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 33001
       when: inventory_hostname == "zone4"
 
     - name: Assert that zone5 is allowed on port 33002
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 33002
       when: inventory_hostname == "zone5"
 
     - name: Assert that zone4 is blocked on port 33002
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 33002
       register: zone4_to_port_33002
@@ -70,7 +70,7 @@
       when: inventory_hostname == "zone4"
 
     - name: Assert that zone5 is blocked on port 33001
-      wait_for:
+      ansible.builtin.wait_for:
         host: "{{ ip_zone1 }}"
         port: 33001
       register: zone5_to_port_33001

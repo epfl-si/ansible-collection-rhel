@@ -7,7 +7,8 @@
   tasks:
 
     - name: Prepare ansible user with permission to sudo without password
-      import_tasks: ../default/tasks/prepare_ansible_user.yml
+      ansible.builtin.import_tasks:
+        file: ../default/tasks/prepare_ansible_user.yml
 
     - name: Install zsh
       ansible.builtin.package:

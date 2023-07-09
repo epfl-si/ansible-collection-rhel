@@ -7,13 +7,13 @@
   tasks:
 
     - name: Assert that custom plugins has been installed
-      stat:
+      ansible.builtin.stat:
         path: /home/user_01/.oh-my-zsh/custom/plugins/zsh-completions
       failed_when: not zsh_completions_folder.stat.exists
       register: zsh_completions_folder
 
     - name: Assert that custom theme has been installed
-      stat:
+      ansible.builtin.stat:
         path: /home/user_01/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
       failed_when: not mh_hostname_theme.stat.exists
       register: mh_hostname_theme
@@ -24,7 +24,7 @@
       register: user_auto_title_zshrc
 
     - name: Assert that Automatic Title is disabled
-      assert:
+      ansible.builtin.assert:
         that:
           - user_auto_title_zshrc.content | b64decode
             is search('export DISABLE_AUTO_TITLE="true"')
@@ -35,7 +35,7 @@
       register: user_title_zshrc
 
     - name: Assert that Title has been set
-      assert:
+      ansible.builtin.assert:
         that:
           - user_title_zshrc.content | b64decode is search('a-test-title')
 
@@ -45,7 +45,7 @@
       register: user_custom_function_zshrc
 
     - name: Assert that Custom Function are installed
-      assert:
+      ansible.builtin.assert:
         that:
           - user_custom_function_zshrc.content | b64decode
             is search('function ssh()')

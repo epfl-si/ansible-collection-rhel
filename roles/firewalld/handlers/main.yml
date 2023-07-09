@@ -1,13 +1,13 @@
 ---
 
 - name: Reload firewalld
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: firewalld.service
     state: reloaded
 
 - name: Restart firewalld
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: firewalld.service
     state: restarted

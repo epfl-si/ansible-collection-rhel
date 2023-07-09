@@ -1,6 +1,6 @@
 ---
 
-- name: "Set the interface of the {{ firewalld_zone_interfaces.key }} zone"
+- name: Set the interface of the zone {{ firewalld_zone_interfaces.key }}
   become: true
   ansible.posix.firewalld:
     zone: "{{ firewalld_zone_interfaces.key }}"

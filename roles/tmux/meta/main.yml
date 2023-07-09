@@ -6,7 +6,7 @@ galaxy_info:
   description: Configure tmux
   company: École Polytechnique Fédérale de Lausanne
   license: MIT
-  min_ansible_version: '2.12'
+  min_ansible_version: '2.11'
 
   platforms:
     - name: EL

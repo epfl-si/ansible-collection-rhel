@@ -1,7 +1,7 @@
 ---
 
 - name: Uninstall AWS cli
-  become: yes
+  become: true
   ansible.builtin.file:
     path: "{{ awscli_intallers_files_item }}"
     state: absent

@@ -3,7 +3,7 @@
 
 - name: Ensure dependencies are installed
   become: true
-  package:
+  ansible.builtin.package:
     name:
       - zsh
       - git
@@ -12,17 +12,17 @@
 - name: Ensure oh-my-zsh folder is present
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  file:
+  ansible.builtin.file:
     path: ~/.oh-my-zsh
     state: directory
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
-    mode: 0700
+    mode: '0700'
 
 - name: Init and configure GIT
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  shell:
+  ansible.builtin.shell:  # noqa command-instead-of-module
     cmd: >
       git init ~/.oh-my-zsh
       && cd ~/.oh-my-zsh
@@ -41,7 +41,7 @@
 - name: Install plugins
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  git:
+  ansible.builtin.git:  # noqa latest[git]
     dest: ~/.oh-my-zsh/custom/plugins/{{ item.dest }}
     repo: "{{ item.repo }}"
     depth: 1
@@ -57,11 +57,14 @@
 - name: Download mh-hostname theme
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  get_url:
+  ansible.builtin.get_url:
     url:
       "http://raw.githubusercontent.com/Honiix/oh-my-zsh/master/themes\
       /mh-hostname.zsh-theme"
     dest: ~/.oh-my-zsh/custom/themes
+    owner: "{{ ohmyzsh_user }}"
+    group: "{{ ohmyzsh_user }}"
+    mode: '0644'
     checksum: >
       sha256:ea5e6863ae79a95aca113dcdb5579e608a7417c0fe33625dfaa94a4b97b02793
 
@@ -86,7 +89,7 @@
 - name: Create the .zshrc file
   become: true
   become_user: "{{ ohmyzsh_user }}"
-  template:
+  ansible.builtin.template:
     src: templates/zshrc.j2
     dest: ~/.zshrc
     owner: "{{ ohmyzsh_user }}"

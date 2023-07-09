@@ -1,0 +1,40 @@
+---
+# .ansible-lint
+# exclude_paths included in this file are parsed relative to this file's location
+# and not relative to the CWD of execution. CLI arguments passed to the --exclude
+# option will be parsed relative to the CWD of execution.
+exclude_paths:
+  - .cache/  # implicit unless exclude_paths is defined in config
+  - roles/firewalld/molecule/install/inv.yml
+  - roles/firewalld/molecule/iptables2firewalld/inv.yml
+
+# Mock roles and modules in order to pass ansible-playbook --syntax-check
+mock_modules: []
+mock_roles: []
+
+# Enable checking of loop variable prefixes in roles
+# loop_var_prefix: "{role}_"
+
+# This makes linter to fully ignore rules/tags listed below
+skip_list: []
+# - schema[meta]
+# - schema[playbook]
+
+# Any rule that has the 'opt-in' tag will not be loaded unless its 'id' is
+# mentioned in the enable_list:
+enable_list:
+  - no-log-password  # opt-in
+  - no-same-owner  # opt-in
+  # add yaml here if you want to avoid ignoring yaml checks when yamllint
+  # library is missing. Normally its absence just skips using that rule.
+  - yaml
+
+# Offline mode disables installation of requirements.yml
+offline: true
+
+# This makes the linter display but not fail for rules/tags listed below:
+warn_list:
+  - experimental  # experimental is included in the implicit list
+#  - package-latest
+#  - no-handler
+#  - git-latest

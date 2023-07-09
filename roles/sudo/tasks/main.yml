@@ -3,13 +3,13 @@
 
 - name: Ensure sudo package is installed
   become: true
-  package:
+  ansible.builtin.package:
     name: sudo
     state: present
 
-- name: Create {{ sudo_file }} drop-in file
+- name: Create drop-in file for {{ sudo_file }}
   become: true
-  template:
+  ansible.builtin.template:
     src: templates/sudoers.j2
     dest: "/etc/sudoers.d/{{ sudo_file }}"
     owner: root

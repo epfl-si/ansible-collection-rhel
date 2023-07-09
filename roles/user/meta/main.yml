@@ -10,12 +10,12 @@ galaxy_info:
   company: École Polytechnique Fédérale de Lausanne (EPFL)
   license: MIT
 
-  min_ansible_version: 2.9
+  min_ansible_version: '2.11'
 
   platforms:
-    - name: EL
+    - name: 'EL'
       versions:
-        - 8
+        - '8'
 
   galaxy_tags: []
 

@@ -5,10 +5,10 @@
   tasks:
 
     - name: Get Services facts
-      service_facts:
+      ansible.builtin.service_facts:
 
     - name: Check if firewalld is running
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_facts.services['firewalld.service'].status == 'enabled'
           - ansible_facts.services['firewalld.service'].state == 'running'
@@ -16,5 +16,5 @@
     - name: Try to insert a rule
       ansible.posix.firewalld:
         service: https
-        permanent: yes
+        permanent: true
         state: enabled

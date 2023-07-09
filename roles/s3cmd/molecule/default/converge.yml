@@ -9,7 +9,7 @@
       s3cmd_bucket: bucket1
       s3cmd_access_key: key1
       s3cmd_secret_key: secret1
-      s3cmd_human_readable_sizes: yes
+      s3cmd_human_readable_sizes: true
       s3cmd_bucket_location: 'EU'
       s3cmd_multipart_chunk_size_mb: '50'
       s3cmd_default: true

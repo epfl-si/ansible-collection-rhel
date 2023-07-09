@@ -1,7 +1,7 @@
 ---
 
 - name: Disable ZSH wizard for {{ user_name }}
-  file:
+  ansible.builtin.file:
     path: "{{ __user_info.home }}/.zshrc"
     state: touch
     owner: "{{ user_name }}"
@@ -11,7 +11,7 @@
     modification_time: preserve
 
 - name: Add .zprofile to load .zshrc in non interactive shell (from ansible)
-  copy:
+  ansible.builtin.copy:
     src: files/.zprofile
     dest: "{{ __user_info.home }}/.zprofile"
     backup: true

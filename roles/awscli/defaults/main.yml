@@ -4,7 +4,7 @@
 awscli_state: present
 awscli_bin_dir: /usr/local/bin
 awscli_install_dir: /usr/local/aws-cli
-awscli_force_installation: no
+awscli_force_installation: false
 
 # The following variables are default values for omitted
 # variables inside the awscli_profiles object

@@ -26,124 +26,126 @@ Compress={{ journald_compress }}
 #Compress={{ journald_compress_default }}
 {% endif -%}
 
-{% if journald_forwardToConsole != journald_forwardToConsole_default %}
-ForwardToConsole={{ journald_forwardToConsole }}
+{% if journald_forward_to_console != journald_forward_to_console_default %}
+ForwardToConsole={{ journald_forward_to_console }}
 {% else %}
-#ForwardToConsole={{ journald_forwardToConsole_default }}
+#ForwardToConsole={{ journald_forward_to_console_default }}
 {% endif -%}
 
-{% if journald_forwardToKMsg != journald_forwardToKMsg_default %}
-ForwardToKMsg={{ journald_forwardToKMsg }}
+{% if journald_forward_to_kmsg != journald_forward_to_kmsg_default %}
+ForwardToKMsg={{ journald_forward_to_kmsg }}
 {% else %}
-#ForwardToKMsg={{ journald_forwardToKMsg_default }}
+#ForwardToKMsg={{ journald_forward_to_kmsg_default }}
 {% endif -%}
 
-{% if journald_forwardToSyslog != journald_forwardToSyslog_default %}
-ForwardToSyslog={{ journald_forwardToSyslog }}
+{% if journald_forward_to_syslog != journald_forward_to_syslog_default %}
+ForwardToSyslog={{ journald_forward_to_syslog }}
 {% else %}
-#ForwardToSyslog={{ journald_forwardToSyslog_default }}
+#ForwardToSyslog={{ journald_forward_to_syslog_default }}
 {% endif -%}
 
-{% if journald_forwardToWall != journald_forwardToWall_default %}
-ForwardToWall={{ journald_forwardToWall }}
+{% if journald_forward_to_wall != journald_forward_to_wall_default %}
+ForwardToWall={{ journald_forward_to_wall }}
 {% else %}
-#ForwardToWall={{ journald_forwardToWall_default }}
+#ForwardToWall={{ journald_forward_to_wall_default }}
 {% endif -%}
 
-{% if journald_lineMax != journald_lineMax_default %}
-LineMax={{ journald_lineMax }}
+{% if journald_line_max != journald_line_max_default %}
+LineMax={{ journald_line_max }}
 {% else %}
-#LineMax={{ journald_lineMax_default }}
+#LineMax={{ journald_line_max_default }}
 {% endif -%}
 
-{% if journald_maxFileSec != journald_maxFileSec_default %}
-MaxFileSec={{ journald_maxFileSec }}
+{% if journald_max_file_sec != journald_max_file_sec_default %}
+MaxFileSec={{ journald_max_file_sec }}
 {% else %}
-#MaxFileSec={{ journald_maxFileSec_default }}
+#MaxFileSec={{ journald_max_file_sec_default }}
 {% endif -%}
 
-{% if journald_maxFileSec != journald_maxFileSec_default %}
-MaxFileSec={{ journald_maxFileSec }}
+{% if journald_max_file_sec != journald_max_file_sec_default %}
+MaxFileSec={{ journald_max_file_sec }}
 {% else %}
-#maxFileSec={{ journald_maxFileSec_default }}
+#maxFileSec={{ journald_max_file_sec_default }}
 {% endif -%}
 
-{% if journald_maxLevelConsole != journald_maxLevelConsole_default %}
-MaxLevelConsole={{ journald_maxLevelConsole }}
+{% if journald_max_level_console != journald_max_level_console_default %}
+MaxLevelConsole={{ journald_max_level_console }}
 {% else %}
-#MaxLevelConsole={{ journald_maxLevelConsole_default }}
+#MaxLevelConsole={{ journald_max_level_console_default }}
 {% endif -%}
 
-{% if journald_maxLevelKMsg != journald_maxLevelKMsg_default %}
-MaxLevelKMsg={{ journald_maxLevelKMsg }}
+{% if journald_max_level_kmsg != journald_max_level_kmsg_default %}
+MaxLevelKMsg={{ journald_max_level_kmsg }}
 {% else %}
-#MaxLevelKMsg={{ journald_maxLevelKMsg_default }}
+#MaxLevelKMsg={{ journald_max_level_kmsg_default }}
 {% endif -%}
 
-{% if journald_maxLevelStore != journald_maxLevelStore_default %}
-MaxLevelStore={{ journald_maxLevelStore }}
+{% if journald_max_level_store != journald_max_level_store_default %}
+MaxLevelStore={{ journald_max_level_store }}
 {% else %}
-#MaxLevelStore={{ journald_maxLevelStore_default }}
+#MaxLevelStore={{ journald_max_level_store_default }}
 {% endif -%}
 
-{% if journald_maxLevelSyslog != journald_maxLevelSyslog_default %}
-MaxLevelSyslog={{ journald_maxLevelSyslog }}
+{% if journald_max_level_syslog != journald_max_level_syslog_default %}
+MaxLevelSyslog={{ journald_max_level_syslog }}
 {% else %}
-#MaxLevelSyslog={{ journald_maxLevelSyslog_default }}
+#MaxLevelSyslog={{ journald_max_level_syslog_default }}
 {% endif -%}
 
-{% if journald_maxLevelWall != journald_maxLevelWall_default %}
-MaxLevelWall={{ journald_maxLevelWall }}
+{% if journald_max_level_wall != journald_max_level_wall_default %}
+MaxLevelWall={{ journald_max_level_wall }}
 {% else %}
-#MaxLevelWall={{ journald_maxLevelWall_default }}
+#MaxLevelWall={{ journald_max_level_wall_default }}
 {% endif -%}
 
-{% if journald_maxRetentionSec != journald_maxRetentionSec_default %}
-MaxRetentionSec={{ journald_maxRetentionSec }}
+{% if journald_max_retention_sec != journald_max_retention_sec_default %}
+MaxRetentionSec={{ journald_max_retention_sec }}
 {% else %}
-#MaxRetentionSec={{ journald_maxRetentionSec_default }}
+#MaxRetentionSec={{ journald_max_retention_sec_default }}
 {% endif -%}
 
-{% if journald_rateLimitBurst != journald_rateLimitBurst_default %}
-RateLimitBurst={{ journald_rateLimitBurst }}
+{% if journald_rate_limit_burst != journald_rate_limit_burst_default %}
+RateLimitBurst={{ journald_rate_limit_burst }}
 {% else %}
-#RateLimitBurst={{ journald_rateLimitBurst_default }}
+#RateLimitBurst={{ journald_rate_limit_burst_default }}
 {% endif -%}
 
-{% if journald_rateLimitIntervalSec != journald_rateLimitIntervalSec_default %}
-RateLimitIntervalSec={{ journald_rateLimitIntervalSec }}
+{% if journald_rate_limit_interval_sec != journald_rate_limit_interval_sec_default %}
+RateLimitIntervalSec={{ journald_rate_limit_interval_sec }}
 {% else %}
-#RateLimitIntervalSec={{ journald_rateLimitIntervalSec_default }}
+#RateLimitIntervalSec={{ journald_rate_limit_interval_sec_default }}
 {% endif -%}
 
-{% if journald_readKMsg != journald_readKMsg_default %}
-ReadKMsg={{ journald_readKMsg }}
+{% if journald_read_kmsg != journald_read_kmsg_default %}
+ReadKMsg={{ journald_read_kmsg }}
 {% else %}
-#ReadKMsg={{ journald_readKMsg_default }}
+#ReadKMsg={{ journald_read_kmsg_default }}
 {% endif -%}
 
-{% if journald_runtimeKeepFree != journald_runtimeKeepFree_default %}
-RuntimeKeepFree={{ journald_runtimeKeepFree }}
+{% if journald_runtime_keep_free
+journald_runtime_keep_free != journald_runtime_keep_free_default %}
+RuntimeKeepFree={{ journald_runtime_keep_free
+journald_runtime_keep_free }}
 {% else %}
-#RuntimeKeepFree={{ journald_runtimeKeepFree_default }}
+#RuntimeKeepFree={{ journald_runtime_keep_free_default }}
 {% endif -%}
 
-{% if journald_runtimeMaxFiles != journald_runtimeMaxFiles_default %}
-RuntimeMaxFiles={{ journald_runtimeMaxFiles }}
+{% if journald_runtime_max_files != journald_runtime_max_files_default %}
+RuntimeMaxFiles={{ journald_runtime_max_files }}
 {% else %}
-#RuntimeMaxFiles={{ journald_runtimeMaxFiles_default }}
+#RuntimeMaxFiles={{ journald_runtime_max_files_default }}
 {% endif -%}
 
-{% if journald_runtimeMaxFileSize != journald_runtimeMaxFileSize_default %}
-RuntimeMaxFileSize={{ journald_runtimeMaxFileSize }}
+{% if journald_runtime_max_file_size != journald_runtime_max_file_size_default %}
+RuntimeMaxFileSize={{ journald_runtime_max_file_size }}
 {% else %}
-#RuntimeMaxFileSize={{ journald_runtimeMaxFileSize_default }}
+#RuntimeMaxFileSize={{ journald_runtime_max_file_size_default }}
 {% endif -%}
 
-{% if journald_runtimeMaxUse != journald_runtimeMaxUse_default %}
-RuntimeMaxUse={{ journald_runtimeMaxUse }}
+{% if journald_runtime_max_use != journald_runtime_max_use_default %}
+RuntimeMaxUse={{ journald_runtime_max_use }}
 {% else %}
-#RuntimeMaxUse={{ journald_runtimeMaxUse_default }}
+#RuntimeMaxUse={{ journald_runtime_max_use_default }}
 {% endif -%}
 
 {% if journald_seal != journald_seal_default %}
@@ -152,10 +154,10 @@ Seal={{ journald_seal }}
 #Seal={{ journald_seal_default }}
 {% endif -%}
 
-{% if journald_splitMode != journald_splitMode_default %}
-SplitMode={{ journald_splitMode }}
+{% if journald_split_mode != journald_split_mode_default %}
+SplitMode={{ journald_split_mode }}
 {% else %}
-#SplitMode={{ journald_splitMode_default }}
+#SplitMode={{ journald_split_mode_default }}
 {% endif -%}
 
 {% if journald_storage != journald_storage_default %}
@@ -164,38 +166,38 @@ Storage={{ journald_storage }}
 #Storage={{ journald_storage_default }}
 {% endif -%}
 
-{% if journald_syncIntervalSec != journald_syncIntervalSec_default %}
-SyncIntervalSec={{ journald_syncIntervalSec }}
+{% if journald_sync_interval_sec != journald_sync_interval_sec_default %}
+SyncIntervalSec={{ journald_sync_interval_sec }}
 {% else %}
-#SyncIntervalSec={{ journald_syncIntervalSec_default }}
+#SyncIntervalSec={{ journald_sync_interval_sec_default }}
 {% endif -%}
 
-{% if journald_systemKeepFree != journald_systemKeepFree_default %}
-SystemKeepFree={{ journald_systemKeepFree }}
+{% if journald_system_keep_free != journald_system_keep_free_default %}
+SystemKeepFree={{ journald_system_keep_free }}
 {% else %}
-#SystemKeepFree={{ journald_systemKeepFree_default }}
+#SystemKeepFree={{ journald_system_keep_free_default }}
 {% endif -%}
 
-{% if journald_systemMaxFiles != journald_systemMaxFiles_default %}
-SystemMaxFiles={{ journald_systemMaxFiles }}
+{% if journald_system_max_files != journald_system_max_files_default %}
+SystemMaxFiles={{ journald_system_max_files }}
 {% else %}
-#SystemMaxFiles={{ journald_systemMaxFiles_default }}
+#SystemMaxFiles={{ journald_system_max_files_default }}
 {% endif -%}
 
-{% if journald_systemMaxFileSize != journald_systemMaxFileSize_default %}
-SystemMaxFileSize={{ journald_systemMaxFileSize }}
+{% if journald_system_max_file_size != journald_system_max_file_size_default %}
+SystemMaxFileSize={{ journald_system_max_file_size }}
 {% else %}
-#SystemMaxFileSize={{ journald_systemMaxFileSize_default }}
+#SystemMaxFileSize={{ journald_system_max_file_size_default }}
 {% endif -%}
 
-{% if journald_systemMaxUse != journald_systemMaxUse_default %}
-SystemMaxUse={{ journald_systemMaxUse }}
+{% if journald_system_max_use != journald_system_max_use_default %}
+SystemMaxUse={{ journald_system_max_use }}
 {% else %}
-#SystemMaxUse={{ journald_systemMaxUse_default }}
+#SystemMaxUse={{ journald_system_max_use_default }}
 {% endif -%}
 
-{% if journald_tTYPath != journald_tTYPath_default %}
-TTYPath={{ journald_tTYPath }}
+{% if journald_tty_path != journald_tty_path_default %}
+TTYPath={{ journald_tty_path }}
 {% else %}
-#TTYPath={{ journald_tTYPath_default }}
+#TTYPath={{ journald_tty_path_default }}
 {% endif -%}

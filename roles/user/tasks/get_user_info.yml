@@ -1,12 +1,12 @@
 ---
 
-- name: Get {{ user_name }} informations
+- name: Get informations of {{ user_name }}
   ansible.builtin.getent:
     database: passwd
     key: "{{ user_name }}"
   register: user_getent
 
-- name: Set {{ user_name }} variables
+- name: Set variables for {{ user_name }}
   ansible.builtin.set_fact:
     __user_info:
       home: "{{ user_getent.ansible_facts.getent_passwd[user_name][4] }}"

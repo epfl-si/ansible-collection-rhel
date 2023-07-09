@@ -1,7 +1,7 @@
 ---
 # tasks file for user
 
-- name: Assert that {{ user_name }} user_path_add and user_path are not both set
+- name: Assert that user_path_add and user_path are not both set for {{ user_name }}
   ansible.builtin.assert:
     that: >
       not (
@@ -14,29 +14,29 @@
   ansible.builtin.group:
     name: "{{ user_name }}"
     gid:
-      "{{ omit if ( user_uid | default(0) | int == 0 ) \
-      else ( user_uid | int ) }}"
+      "{{ omit if (user_uid | default(0) | int == 0) \
+      else (user_uid | int) }}"
     state: present
     system:
-      "{{ true if ( \
+      "{{ true if (\
         (user_uid is defined) \
-        and (user_uid | int <= 999) \
+        and (user_uid | int <= 999)\
       ) else false }}"
 
-- name: "Add {{ user_name }} user"
+- name: Add user {{ user_name }}
   ansible.builtin.user:
     name: "{{ user_name }}"
     group: "{{ user_name }}"
     state: present
     shell: "{{ user_shell }}"
     home:
-      "{{ omit if ( user_home | default('') | length == 0 ) else user_home }}"
+      "{{ omit if (user_home | default('') | length == 0) else user_home }}"
     uid:
-      "{{ omit if ( user_uid | default(0) | int == 0 ) \
-      else ( user_uid | int ) }}"
+      "{{ omit if (user_uid | default(0) | int == 0) \
+      else (user_uid | int) }}"
   register: user_creation_status
 
-- name: Fix {{ user_name }} home group owner in case the uid changed
+- name: Fix home group owner in case the uid changed for {{ user_name }}
   ansible.builtin.file:
     path: "{{ user_creation_status.home }}"
     group: "{{ user_creation_status.group }}"
@@ -46,20 +46,20 @@
     - user_name != 'root'
     - user_creation_status.changed
 
-- name: Include task to get {{ user_name }} info
+- name: Include task to get info of {{ user_name }}
   ansible.builtin.include_tasks: get_user_info.yml
 
-- name: Include tasks to manage {{ user_name }}'s bash
-  include_tasks: bash.yml
+- name: Include tasks to manage bash of {{ user_name }}
+  ansible.builtin.include_tasks: bash.yml
   when: user_shell == '/bin/bash'
 
-- name: Include tasks to manage {{ user_name }}'s zsh
+- name: Include tasks to manage zsh of {{ user_name }}
   ansible.builtin.include_tasks: zsh.yml
   when: user_shell == '/bin/zsh'
 
-- name: Include tasks to manage {{ user_name }}'s common profile
+- name: Include tasks to manage common profile of {{ user_name }}
   ansible.builtin.include_tasks: common_profile.yml
 
-- name: Include tasks to manager {{ user_name }}'s authorized keys
+- name: Include tasks to manager authorized keys of {{ user_name }}
   ansible.builtin.import_tasks: authorized_keys.yml
   when: user_authorized_keys is defined

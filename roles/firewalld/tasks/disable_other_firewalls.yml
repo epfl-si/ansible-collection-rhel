@@ -1,7 +1,7 @@
 ---
 
 - name: Update services facts
-  service_facts:
+  ansible.builtin.service_facts:
 
 - name: Uninstall iptables on RHEL 8+
   when:
@@ -12,7 +12,7 @@
   block:
 
     - name: Backup iptables rules
-      copy:
+      ansible.builtin.copy:
         remote_src: true
         src: /etc/sysconfig/iptables
         dest: /root/backup-iptables-rules
@@ -21,12 +21,12 @@
         mode: '0600'
 
     - name: Disable iptables service
-      service:
+      ansible.builtin.service:
         name: iptables.service
         enabled: false
         state: stopped
 
     - name: Uninstall iptables-services package
-      package:
+      ansible.builtin.package:
         name: iptables-services
         state: absent

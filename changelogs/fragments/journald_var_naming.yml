@@ -1,0 +1,11 @@
+---
+
+major_changes:
+
+  - journald - Changed all variables name to respect ansible-lint convention
+
+summary:
+
+  - >
+    journald - all journald_ variables have changed. Every camel cased variables
+    should now be underscore separation and all lower cases.

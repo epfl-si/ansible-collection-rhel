@@ -8,7 +8,7 @@
       awscli_default_s3_multipart_chunksize: 64MB
       awscli_profiles:
         - name: profile1
-          default: yes
+          default: true
           access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
           secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
         - name: profile2

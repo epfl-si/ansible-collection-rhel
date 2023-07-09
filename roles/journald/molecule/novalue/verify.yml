@@ -56,7 +56,7 @@
   tasks:
 
     - name: Check if config file has been created
-      copy:
+      ansible.builtin.copy:  # noqa risky-file-permissions
         content: "{{ journald_conf_expected }}"
         dest: /etc/systemd/journald.conf
       register: journald_conf

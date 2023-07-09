@@ -43,11 +43,11 @@
           done
         dest: /root/faked_3000.sh
         owner: root
-        mode: 0755
+        mode: '0755'
 
     # https://stackoverflow.com/questions/16640054/minimal-web-server-using-netcat
     - name: Create a fake a service on port 3000
-      ansible.builtin.copy:
+      ansible.builtin.copy:  # noqa risky-file-permissions
         content: |
           [Unit]
           Description=Fake service for testing

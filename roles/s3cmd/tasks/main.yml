@@ -2,7 +2,9 @@
 # tasks file for s3cmd
 
 - name: Import tasks to install s3cmd
-  include_tasks: install.yml
+  ansible.builtin.include_tasks:
+    file: install.yml
 
 - name: Import tasks to configure s3cmd
-  include_tasks: configure.yml
+  ansible.builtin.include_tasks:
+    file: configure.yml

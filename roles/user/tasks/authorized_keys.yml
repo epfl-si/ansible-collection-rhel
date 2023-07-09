@@ -9,7 +9,7 @@
       | map('join', ' ')
       }}
 
-- name: Set {{ user_name }} authorized_keys
+- name: Set authorized_keys for {{ user_name }}
   ansible.posix.authorized_key:
     user: "{{ user_name }}"
     exclusive: "{{ user_authorized_keys_exclusive }}"

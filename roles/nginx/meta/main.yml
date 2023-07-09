@@ -6,12 +6,12 @@ galaxy_info:
   description: Install and configure nginx
   company: École Polytechnique Fédérale de Lausanne
   license: MIT
-  min_ansible_version: 2.9
+  min_ansible_version: '2.11'
 
   platforms:
-    - name: RHEL
+    - name: 'EL'
       versions:
-        - 8
+        - '8'
 
 dependencies: []
 

@@ -1,5 +1,5 @@
 ---
 
 journald_storage: "persistent"
-journald_systemMaxUse: "1G"
+journald_system_max_use: "1G"
 journald_seal: "yes"

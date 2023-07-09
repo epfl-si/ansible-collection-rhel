@@ -1,6 +1,6 @@
 ---
 
-- name: "Set the ports of the {{ firewalld_zone_ports.key }} zone"
+- name: Set the ports of the zone {{ firewalld_zone_ports.key }}
   become: true
   ansible.posix.firewalld:
     zone: "{{ firewalld_zone_ports.key }}"

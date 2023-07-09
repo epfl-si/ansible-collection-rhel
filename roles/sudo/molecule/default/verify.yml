@@ -6,20 +6,20 @@
   tasks:
 
     - name: Check if 20-user_01 drop-in file exists
-      stat:
+      ansible.builtin.stat:
         path: /etc/sudoers.d/20-user_01
       register: user_01_sudo_file
 
     - name: Assert that 20-user_01 drop-in file exists
-      assert:
+      ansible.builtin.assert:
         that: user_01_sudo_file.stat.exists
 
     - name: Issue a command as root from user_01
-      shell:
+      ansible.builtin.command:
         cmd: sudo ls /root
-        warn: false
+      changed_when: true
       register: command_from_user_01
 
     - name: Assert that command sudo ls /root worked without password
-      assert:
+      ansible.builtin.assert:
         that: command_from_user_01.rc == 0
