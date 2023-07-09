@@ -379,3 +379,12 @@ releases:
     fragments:
     - journald_var_naming.yml
     release_date: '2023-07-09'
+  2.1.1:
+    changes:
+      minor_changes:
+      - ohmyzsh - Always include the .common_profile file event if no user_path are
+        passed. This allow the option user_custom_vars from the user role to work
+        even if now user_path or user_path_add are used.
+    fragments:
+    - ohmyzsh_always_common_profile.yml
+    release_date: '2023-07-09'

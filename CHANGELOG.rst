@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.1.1
+======
+
+Minor Changes
+-------------
+
+- ohmyzsh - Always include the .common_profile file event if no user_path are passed. This allow the option user_custom_vars from the user role to work even if now user_path or user_path_add are used.
+
 v2.1.0
 ======
 
