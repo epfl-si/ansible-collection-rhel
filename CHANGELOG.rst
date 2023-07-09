@@ -5,6 +5,20 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.1.0
+======
+
+Release Summary
+---------------
+
+All journald variables have changed. Every camel cased variables should now be underscore separation and all lower cases.
+
+
+Major Changes
+-------------
+
+- The journald role has all its variables name renamed to respect ansible-lint conventions.
+
 v2.0.3
 ======
 
@@ -60,8 +74,23 @@ Minor Changes
 Breaking Changes / Porting Guide
 --------------------------------
 
-- To use the new syntax, please modifiy the roles parameters from # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys: #     exclusive: true #     keys_list: #       - comment: user1@example.com #         ssh_key: ssh-rsa AAAAB1234
-  To # --- # - name: Create a user #   role: epfl_si.rhel.user: #   user_authorized_keys_exclusive: true #   user_authorized_keys: #     - comment: user1@example.com #       ssh_key: ssh-rsa AAAAB1234
+- To use the new syntax, please modifiy the roles parameters from
+  ---
+  - name: Create a user
+    role: epfl_si.rhel.user:
+    user_authorized_keys:
+    exclusive: true
+    keys_list:
+      - comment: user1@example.com
+        ssh_key: ssh-rsa AAAAB1234
+  To
+  ---
+  - name: Create a user
+    role: epfl_si.rhel.user:
+    user_authorized_keys_exclusive: true
+    user_authorized_keys:
+      - comment: user1@example.com
+        ssh_key: ssh-rsa AAAAB1234
 - user - Modify user_authorized_keys from dict to list
 - user - Modify variable to set authorized_keys as exlusive to be outside of the user_authorized_keys variable
 - user - Removed the variable keys_list from user_authorized_keys
@@ -153,7 +182,7 @@ Release Summary
 ---------------
 
 This release drops support for RHEL7 in the firewalld role. This moves was decided because the molecule tests stop working on our RHEL8 VM that runs Podman. We prioritize moving to RHEL8 instead of spending time creating automated tests for an old version.
-Unless someone step in to help, There is strong chances that all roles will soon drop support for RHEL7. 
+Unless someone step in to help, There is strong chances that all roles will soon drop support for RHEL7.'
 
 Removed Features (previously deprecated)
 ----------------------------------------
@@ -375,7 +404,7 @@ Minor Changes
 -------------
 
 - Journald - New role to manage systemd journald
-- Raise maximum Ansible version supported to 2.10+ since it's the versionused by our molecule tests
+- Raise maximum Ansible version supported to 2.10+ since it's the version used by our molecule tests
 
 v1.1.3
 ======
