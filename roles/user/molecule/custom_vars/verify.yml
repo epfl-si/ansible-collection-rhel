@@ -1,0 +1,42 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Assert root common_profile contains custom_var1
+      ansible.builtin.lineinfile:
+        name: /root/.common_profile
+        line: 'MYVAR1="myvalue1"'
+        state: present
+      check_mode: true
+      register: root_custom_var
+      failed_when:
+        - >
+          (root_custom_var is changed)
+          or (root_custom_var is failed)
+
+    - name: Assert user common_profile contains custom_var2
+      ansible.builtin.lineinfile:
+        name: /home/user_custom_vars/.common_profile
+        line: 'MYVAR2="myvalue2"'
+        state: present
+      check_mode: true
+      register: user_custom_var2
+      failed_when:
+        - >
+          (user_custom_var2 is changed)
+          or (user_custom_var2 is failed)
+
+    - name: Assert user common_profile contains custom_var3
+      ansible.builtin.lineinfile:
+        name: /home/user_custom_vars/.common_profile
+        line: 'MYVAR3="myvalue3"'
+        state: present
+      check_mode: true
+      register: user_custom_var3
+      failed_when:
+        - >
+          (user_custom_var3 is changed)
+          or (user_custom_var3 is failed)

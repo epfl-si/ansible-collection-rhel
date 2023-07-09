@@ -14,3 +14,9 @@ export PATH={{ user_path }}
 # User's umask
 umask {{ user_umask }}
 {% endif %}
+
+{% if user_custom_vars | default('') | length > 0 %}
+{% for user_var in user_custom_vars %}
+{{ user_var.var_name | upper }}="{{ user_var.var_value }}"
+{% endfor %}
+{% endif %}

@@ -64,3 +64,16 @@ argument_specs:
           Allow to set a different umask for this user. Do use single quote
           around the number. Otherwise the value may be set to '22' instead of
           '022' or '0022'
+      user_custom_vars:
+        description: Allow you to set a custom variable in the custom profil.
+          For example, GOLANG=~/.go
+        type: list
+        elements: dict
+        options:
+          var_name:
+            type: str
+            description: The name of the variable. The template will apply
+              the upper filter to write the var name in uppercase.
+          var_value:
+            type: str
+            description: Any value you want.

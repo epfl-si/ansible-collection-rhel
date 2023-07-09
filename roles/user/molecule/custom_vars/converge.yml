@@ -1,0 +1,25 @@
+---
+
+- name: Converge
+  hosts: all
+  gather_facts: false
+  vars:
+    ansible_user: ansible
+  become: true
+  roles:
+
+    - name: Add a custom var for root
+      role: user
+      user_name: root
+      user_custom_vars:
+        - var_name: myvar1
+          var_value: myvalue1
+
+    - name: Add 2 custom vars for a user
+      role: user
+      user_name: user_custom_vars
+      user_custom_vars:
+        - var_name: myvar2
+          var_value: myvalue2
+        - var_name: myvar3
+          var_value: myvalue3
