@@ -369,3 +369,13 @@ releases:
     fragments:
     - tmux.yml
     release_date: '2023-04-04'
+  2.0.3:
+    changes:
+      bugfixes:
+      - nginx - Fix the service not beeing enabled if nginx was already installed
+      minor_changes:
+      - user - Add list to add custom variables to the .common_profile file.
+    fragments:
+    - fix_nginx_service_enabling.yaml
+    - user_custom_vars.yml
+    release_date: '2023-07-09'

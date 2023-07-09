@@ -1,5 +1,0 @@
----
-
-bugfixes:
-
-  - nginx - Fix the service not beeing enabled if nginx was already installed

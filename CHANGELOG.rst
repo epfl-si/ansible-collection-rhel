@@ -5,6 +5,19 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.0.3
+======
+
+Minor Changes
+-------------
+
+- user - Add list to add custom variables to the .common_profile file.
+
+Bugfixes
+--------
+
+- nginx - Fix the service not beeing enabled if nginx was already installed
+
 v2.0.2
 ======
 
