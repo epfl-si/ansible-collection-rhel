@@ -1,0 +1,5 @@
+---
+
+bugfixes:
+
+  - tmux - fix installation of tpm plugin

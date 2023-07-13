@@ -7,7 +7,24 @@
     group: "{{ tmux_user }}"
     mode: '0700'
 
+# This was useful only when the ansible.builtin.git task bellow was executed
+# as root. Now that I added become_user GIT stopped complaining about file
+# ownership. This commented tasks as never been used but I keep it there in
+# case the bug happen again.
+# # https://stackoverflow.com/questions/72490484
+# - name: Configure ansible_user git to prevent dubious ownership fatal error
+#   # This invocation (without --add, with the dir name twice) is idempotent
+#   ansible.builtin.command:
+#     cmd: >-
+#       git config --global safe.directory
+#       {{ _tmux_user_home }}/.tmux/plugins/tpm
+#   when:
+#     - ansible_user != tmux_user
+#   check_mode: false
+
 - name: Git clone plugin manager for {{ tmux_user }}
+  become: true
+  become_user: "{{ tmux_user }}"
   ansible.builtin.git:  # noqa latest[git]
     repo: https://github.com/tmux-plugins/tpm
     dest: "{{ _tmux_user_home }}/.tmux/plugins/tpm"
