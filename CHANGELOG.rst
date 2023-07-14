@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.1.2
+======
+
+Bugfixes
+--------
+
+- tmux - fix installation of tpm plugin
+
 v2.1.1
 ======
 

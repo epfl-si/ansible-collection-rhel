@@ -388,3 +388,10 @@ releases:
     fragments:
     - ohmyzsh_always_common_profile.yml
     release_date: '2023-07-09'
+  2.1.2:
+    changes:
+      bugfixes:
+      - tmux - fix installation of tpm plugin
+    fragments:
+    - tmux_git_dubious_ownership.yaml
+    release_date: '2023-07-14'
