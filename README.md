@@ -1,13 +1,13 @@
 # Ansible Collection - epfl_si.rhel
 
-Collection of Ansible roles to setup and manage components of RHEL like ntp, sshd, users, ...
+Collection of Ansible roles to setup and manage components of RHEL like sshd, users, sudo,...
 
 
 ## Goal and target audience
 
 The goal is to help system administrators install and configure their RHEL servers.
 
-You are welcome to suggest improvements either by opening a issue or via a push request.
+You are welcome to suggest improvements either by opening a issue or via a pull request.
 
 This collection was created before we came across https://github.com/linux-system-roles. We will periodically evaluate their progress and eventually use some of their roles.
 
@@ -20,7 +20,7 @@ In your playbook repository, add this to the *collections/requirements.yml* file
 ---
 collections:
   - name: epfl_si.rhel
-    version: 1.8.1
+    version: 2.1.2
 ```
 
 Be sure to add the path you want to download collections to is present in your *ansible.cfg* file:
