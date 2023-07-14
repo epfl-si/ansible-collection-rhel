@@ -122,10 +122,8 @@ ReadKMsg={{ journald_read_kmsg }}
 #ReadKMsg={{ journald_read_kmsg_default }}
 {% endif -%}
 
-{% if journald_runtime_keep_free
-journald_runtime_keep_free != journald_runtime_keep_free_default %}
-RuntimeKeepFree={{ journald_runtime_keep_free
-journald_runtime_keep_free }}
+{% if journald_runtime_keep_free != journald_runtime_keep_free_default %}
+RuntimeKeepFree={{ journald_runtime_keep_free }}
 {% else %}
 #RuntimeKeepFree={{ journald_runtime_keep_free_default }}
 {% endif -%}
