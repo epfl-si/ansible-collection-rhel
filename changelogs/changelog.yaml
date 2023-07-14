@@ -395,3 +395,11 @@ releases:
     fragments:
     - tmux_git_dubious_ownership.yaml
     release_date: '2023-07-14'
+  2.1.3:
+    changes:
+      bugfixes:
+      - journald - Fix a malformed variables in a template that prevent the role to
+        run
+    fragments:
+    - fix_journald_template.yaml
+    release_date: '2023-07-14'

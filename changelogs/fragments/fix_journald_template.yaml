@@ -1,6 +1,0 @@
----
-
-bugfixes:
-
-  - journald - Fix a malformed variables in a template that prevent the role to
-    run

@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.1.3
+======
+
+Bugfixes
+--------
+
+- journald - Fix a malformed variables in a template that prevent the role to run
+
 v2.1.2
 ======
 
