@@ -5,7 +5,7 @@ Collection of Ansible roles to setup and manage components of RHEL like ntp, ssh
 
 ## Goal and target audience
 
-The goal is to help system administrators install and configure their RHEL servers. Thinking first for EPFL, most roles will have default values adapted for our virtual infrastructure. But we hope it could be useful for anyone.
+The goal is to help system administrators install and configure their RHEL servers.
 
 You are welcome to suggest improvements either by opening a issue or via a push request.
 
