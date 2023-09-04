@@ -17,6 +17,6 @@ umask {{ user_umask }}
 
 {% if user_custom_vars | default('') | length > 0 %}
 {% for user_var in user_custom_vars %}
-{{ user_var.var_name | upper }}="{{ user_var.var_value }}"
+{% if user_var.export | default(false) %}export {% endif %}{{ user_var.var_name | upper }}="{{ user_var.var_value }}"
 {% endfor %}
 {% endif %}

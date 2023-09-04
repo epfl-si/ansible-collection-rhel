@@ -23,3 +23,4 @@
           var_value: myvalue2
         - var_name: myvar3
           var_value: myvalue3
+          export: true

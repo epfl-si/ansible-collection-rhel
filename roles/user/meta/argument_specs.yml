@@ -77,3 +77,9 @@ argument_specs:
           var_value:
             type: str
             description: Any value you want.
+          export:
+            type: bool
+            default: false
+            description: >
+              Add the "export" command in front of your variable when sets to
+              true.

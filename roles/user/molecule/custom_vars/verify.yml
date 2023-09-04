@@ -29,10 +29,10 @@
           (user_custom_var2 is changed)
           or (user_custom_var2 is failed)
 
-    - name: Assert user common_profile contains custom_var3
+    - name: Assert user common_profile contains custom_var3 and use export
       ansible.builtin.lineinfile:
         name: /home/user_custom_vars/.common_profile
-        line: 'MYVAR3="myvalue3"'
+        line: 'export MYVAR3="myvalue3"'
         state: present
       check_mode: true
       register: user_custom_var3
