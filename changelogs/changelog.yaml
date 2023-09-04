@@ -403,3 +403,10 @@ releases:
     fragments:
     - fix_journald_template.yaml
     release_date: '2023-07-14'
+  2.1.4:
+    changes:
+      minor_changes:
+      - user - add feature to export a custom_var
+    fragments:
+    - user_custom_vars_export.yml
+    release_date: '2023-09-04'

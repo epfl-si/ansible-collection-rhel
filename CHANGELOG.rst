@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.1.4
+======
+
+Minor Changes
+-------------
+
+- user - add feature to export a custom_var
+
 v2.1.3
 ======
 
