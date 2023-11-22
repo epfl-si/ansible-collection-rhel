@@ -1,0 +1,12 @@
+---
+
+argument_specs:
+  # roles/nfs_server/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the nfs_server role.
+    author: laurent.indermuehle@epfl.ch
+    options:
+      nfs_server_exports:
+        type: list
+        description: >
+          A list of exports.

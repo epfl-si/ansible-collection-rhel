@@ -1,0 +1,46 @@
+---
+
+scenario:
+  name: default
+
+driver:
+  name: podman
+
+# To access DBUS we must disable selinux labels
+platforms:
+
+  - name: nfs_server_el8
+    registry: &registry {url: registry.access.redhat.com}
+    image: ubi8/ubi-init
+    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
+    tmpfs: &tmpfs ['/run', '/tmp']
+    privileged: &privileged true
+    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
+    command: &command "/usr/sbin/init"
+    security_opts: &security_opts ['label=disable']
+
+  # We need a RHEL9 worker for this to work
+  # - name: nfs_server_el9
+  #   registry: *registry
+  #   image: ubi9/ubi-init
+  #   dockerfile: *docker
+  #   tmpfs: *tmpfs
+  #   privileged: *privileged
+  #   volumes: *volumes
+  #   command: *command
+  #   security_opts: *security_opts
+
+provisioner:
+  name: ansible
+  log: true
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+      callback_whitelist: profile_tasks, timer
+      stdout_callback: yaml
+    ssh_connection:
+      forks: 1
+      pipelining: false
+
+verifier:
+  name: ansible
