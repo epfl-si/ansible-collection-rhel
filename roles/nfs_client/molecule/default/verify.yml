@@ -1,0 +1,19 @@
+---
+
+- name: Verify
+  hosts:
+    - nfs_client_el8
+    # - nfs_client_el9
+  gather_facts: false
+  tasks:
+
+    - name: Check if the text file is readable
+      ansible.builtin.lineinfile:
+        path: /mnt/nfs_share_molecule/test.txt
+        regexp: 'This is a test'
+        line: "SEARCH STRING FOUND"
+        state: present
+      register: result
+      changed_when: false
+      check_mode: true  # dry-run
+      failed_when: result.msg != 'line replaced'

@@ -1,0 +1,48 @@
+---
+
+- name: NFS_client - Install nfs-utils packages
+  ansible.builtin.package:
+    name: nfs-utils
+    state: present
+
+- name: Test if mount point folder exists
+  ansible.builtin.stat:
+    path: "{{ nfs_client_mount_point }}"
+  register: nfs_client_mount_point_stat
+
+# Even Root is not allowed to chown or chmod a NFS mount
+# point when it's mounted. So even with preserve, we should skip
+# this tasks if the folder already exists
+- name: Ensure mount point folder {{ nfs_client_mount_point }}
+  ansible.builtin.file:
+    path: "{{ nfs_client_mount_point }}"
+    state: directory
+    owner: "{{ nfs_client_mount_point_owner }}"
+    group: "{{ nfs_client_mount_point_group }}"
+    mode: '0755'
+    modification_time: preserve
+    access_time: preserve
+  when:
+    - not nfs_client_mount_point_stat.stat.exists
+
+# Systemd mount files must match the path of the mount point. And you have
+# to escape special character like dashes. For instance:
+# systemd-escape -p --suffix=mount "/mnt/universal-share-netbackup/"
+# output:
+# mnt-universal\x2dshare\x2dnetbackup.mount
+- name: NFS_client - Generate a mount point string that please systemd
+  delegate_to: localhost
+  ansible.builtin.command:
+    cmd: systemd-escape -p --suffix=mount {{ nfs_client_mount_point }}
+  changed_when: false
+  register: nfs_client_mount_point_escaped
+
+# No need to create the folder in advance, systemd does it.
+- name: NFS_client - Template the systemd mount file for the NFS share
+  ansible.builtin.template:
+    src: nfs.mount.j2
+    dest: /etc/systemd/system/{{ nfs_client_mount_point_escaped.stdout }}
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Mount NFS share using systemd

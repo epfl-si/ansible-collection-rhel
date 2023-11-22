@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: laurent.indermuehle@epfl.ch
+  description: >
+    A role to mount nfs shares on the controlled node using systemd
+  company: École polytechnique fédérale de Lausanne (EPFL)
+
+  license: MIT
+
+  min_ansible_version: '2.14'
+
+  platforms:
+    - name: EL
+      versions:
+        - '8'
+        - '9'
+
+  galaxy_tags: []
+
+dependencies: []

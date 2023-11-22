@@ -1,0 +1,41 @@
+---
+- name: Fact cache
+  hosts: all
+  gather_facts: true
+
+- name: Prepare
+  hosts: nfs_client_test_server_el8
+  gather_facts: false
+  vars:
+    nfs_server_exports:
+      - "/var/nfs/nfs_client \
+        {{ hostvars['nfs_client_el8']['ansible_default_ipv4']['address'] }}\
+        (ro)"
+      # - "/var/nfs/nfs_client \
+      #   {{ hostvars['nfs_client_el9']['ansible_default_ipv4']['address'] }}\
+      #   (ro)"
+  pre_tasks:
+
+    - name: Prepare the shared folder
+      ansible.builtin.file:
+        path: /var/nfs/nfs_client
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Add a text file in the share
+      ansible.builtin.copy:
+        content: This is a test
+        dest: /var/nfs/nfs_client/test.txt
+        owner: root
+        group: root
+        mode: '0644'
+
+  roles:
+
+    # If the error exportfs: /var/nfs/nfs_client does not support NFS export
+    # araise, is certainly because another container is running a nfs_server
+    # on the same host.
+    - role: nfs_server
+...

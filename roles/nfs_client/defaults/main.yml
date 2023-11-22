@@ -1,0 +1,4 @@
+---
+nfs_client_mount_options: auto
+nfs_client_mount_point_owner: 1000
+nfs_client_mount_point_group: 1000

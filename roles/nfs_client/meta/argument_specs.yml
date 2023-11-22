@@ -1,0 +1,35 @@
+---
+
+argument_specs:
+  # roles/nfs_client/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the nfs_client role.
+    options:
+      nfs_client_mount_point:
+        type: "str"
+        description: >
+          The folder where the NFS share will be mounted on the controlled node
+          file system.
+        required: true
+      nfs_client_share:
+        type: "str"
+        description: >
+          The NFS export line used to mount the share. For example:
+          <url>:<path of the share on the nfs server>
+        required: true
+      nfs_client_mount_options:
+        type: "str"
+        description: A comma separated list of options for the nfs_client.
+        default: "auto"
+      nfs_client_mount_point_owner:
+        type: "str"
+        description: >
+          You can choose the owner of the folder that will be used as a mount
+          point. This is not super useful it will be overwritten by the UID
+          who mounted the NFS share anyway.
+        default: "1000"
+      nfs_client_mount_point_group:
+        type: "str"
+        description: >
+          Same thing as for nfs_client_mount_point_owner but for the group.
+        default: "1000"
