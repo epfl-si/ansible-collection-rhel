@@ -15,7 +15,9 @@ platforms:
     dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs: &tmpfs ['/run', '/tmp']
     privileged: &privileged true
-    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - ${MOLECULE_SCENARIO_DIRECTORY}/share_el8:/var/nfs/nfs_client
     command: &command "/usr/sbin/init"
     security_opts: &security_opts ['label=disable']
 
@@ -25,7 +27,7 @@ platforms:
     dockerfile: *docker
     tmpfs: *tmpfs
     privileged: *privileged
-    volumes: *volumes
+    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
     command: *command
     security_opts: *security_opts
 

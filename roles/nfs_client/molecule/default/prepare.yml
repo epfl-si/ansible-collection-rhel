@@ -24,14 +24,6 @@
         group: root
         mode: '0755'
 
-    - name: Add a text file in the share
-      ansible.builtin.copy:
-        content: This is a test
-        dest: /var/nfs/nfs_client/test.txt
-        owner: root
-        group: root
-        mode: '0644'
-
   roles:
 
     # If the error exportfs: /var/nfs/nfs_client does not support NFS export
