@@ -31,7 +31,6 @@
 # output:
 # mnt-universal\x2dshare\x2dnetbackup.mount
 - name: NFS_client - Generate a mount point string that please systemd
-  delegate_to: localhost
   ansible.builtin.command:
     cmd: systemd-escape -p --suffix=mount {{ nfs_client_mount_point }}
   changed_when: false
