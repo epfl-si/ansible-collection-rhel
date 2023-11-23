@@ -1,5 +1,0 @@
----
-minor_changes:
-  - nfs_server - New role to install and configure a NFS server
-  - nfs_client - New role to mount a NFS share using systemd
-...

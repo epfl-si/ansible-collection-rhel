@@ -1,5 +1,13 @@
 objects:
   role:
+    nfs_client:
+      description: The main entry point for the nfs_client role.
+      name: nfs_client
+      version_added: null
+    nfs_server:
+      description: The main entry point for the nfs_server role.
+      name: nfs_server
+      version_added: null
     nginx:
       description: The main entry point for the nginx role.
       name: nginx
@@ -28,4 +36,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 2.1.4
+version: 2.2.0
