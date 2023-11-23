@@ -5,6 +5,15 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.2.0
+======
+
+Minor Changes
+-------------
+
+- nfs_client - New role to mount a NFS share using systemd
+- nfs_server - New role to install and configure a NFS server
+
 v2.1.4
 ======
 

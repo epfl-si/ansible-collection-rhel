@@ -1,0 +1,16 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Mount NFS share into {{ nfs_client_mount_point }}
+After=network-online.target
+Wants=network-online.target
+
+[Mount]
+What={{ nfs_client_share }}
+Where={{ nfs_client_mount_point }}
+Options={{ nfs_client_mount_options }}
+Type=nfs
+TimeoutSec=20
+
+[Install]
+WantedBy=multi-user.target

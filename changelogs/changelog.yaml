@@ -410,3 +410,11 @@ releases:
     fragments:
     - user_custom_vars_export.yml
     release_date: '2023-09-04'
+  2.2.0:
+    changes:
+      minor_changes:
+      - nfs_client - New role to mount a NFS share using systemd
+      - nfs_server - New role to install and configure a NFS server
+    fragments:
+    - lie_nfs.yml
+    release_date: '2023-11-23'

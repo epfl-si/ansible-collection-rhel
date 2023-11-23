@@ -1,0 +1,11 @@
+---
+# tasks file for nfs_server
+
+- name: Setup NFS Server
+  ansible.builtin.import_tasks:
+    file: setup_nfs_server.yml
+
+- name: Exports share to each IP configured
+  ansible.builtin.import_tasks:
+    file: exports.yml
+...

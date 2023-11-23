@@ -1,0 +1,14 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+
+    - name: Prepare the shared folder
+      ansible.builtin.file:
+        path: /var/nfs/nfs_server
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+...

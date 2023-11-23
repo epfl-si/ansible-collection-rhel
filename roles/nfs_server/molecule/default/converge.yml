@@ -1,0 +1,16 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    nfs_server_exports:
+      - /var/nfs/nfs_server *(ro)
+  roles:
+
+    # If the error exportfs: /var/nfs/nfs_client does not support NFS export
+    # araise, is certainly because another container is running a nfs_server
+    # on the same host.
+    - name: Install and configure NFS server
+      become: true
+      role: nfs_server
+...

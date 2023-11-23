@@ -1,0 +1,11 @@
+---
+
+- name: Update Exports configuration file
+  ansible.builtin.template:
+    src: templates/exports.j2
+    dest: /etc/exports.d/ansible_managed.exports
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reload nfs exports
+...
