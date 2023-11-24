@@ -5,6 +5,14 @@ EPFL_SI.RHEL Release Notes
 .. contents:: Topics
 
 
+v2.2.1
+======
+
+Bugfixes
+--------
+
+- nfs_client - Fix localhost is unreachable from controlled node
+
 v2.2.0
 ======
 

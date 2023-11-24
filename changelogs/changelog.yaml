@@ -418,3 +418,10 @@ releases:
     fragments:
     - lie_nfs.yml
     release_date: '2023-11-23'
+  2.2.1:
+    changes:
+      bugfixes:
+      - nfs_client - Fix localhost is unreachable from controlled node
+    fragments:
+    - fix_nfs_client_unreachable_host.yml
+    release_date: '2023-11-24'
