@@ -1,0 +1,4 @@
+---
+bugfixes:
+
+  - ohmyzsh - Hardcode mh theme content in role to resolve download issue and speed up ohmyzsh installation.
