@@ -425,3 +425,11 @@ releases:
     fragments:
     - fix_nfs_client_unreachable_host.yml
     release_date: '2023-11-24'
+  2.2.2:
+    changes:
+      bugfixes:
+      - ohmyzsh - Hardcode mh theme content in role to resolve download issue and
+        speed up ohmyzsh installation.
+    fragments:
+    - fix_mh_theme_download.yml
+    release_date: '2024-05-28'

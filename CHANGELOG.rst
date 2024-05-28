@@ -1,9 +1,16 @@
-==========================
-EPFL_SI.RHEL Release Notes
-==========================
+===========================
+EPFL\_SI.RHEL Release Notes
+===========================
 
 .. contents:: Topics
 
+v2.2.2
+======
+
+Bugfixes
+--------
+
+- ohmyzsh - Hardcode mh theme content in role to resolve download issue and speed up ohmyzsh installation.
 
 v2.2.1
 ======
@@ -61,7 +68,6 @@ Release Summary
 ---------------
 
 All journald variables have changed. Every camel cased variables should now be underscore separation and all lower cases.
-
 
 Major Changes
 -------------
