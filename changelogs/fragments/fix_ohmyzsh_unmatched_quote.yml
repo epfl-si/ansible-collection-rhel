@@ -1,0 +1,4 @@
+---
+
+bugfixes:
+  - ohmyzsh - Fix unmatched double-quote error when theme is loaded introduced in 2.2.2
