@@ -4,6 +4,14 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v2.2.3
+======
+
+Bugfixes
+--------
+
+- ohmyzsh - Fix unmatched double-quote error when theme is loaded introduced in 2.2.2
+
 v2.2.2
 ======
 

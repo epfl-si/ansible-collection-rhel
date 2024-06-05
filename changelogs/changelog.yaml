@@ -433,3 +433,11 @@ releases:
     fragments:
     - fix_mh_theme_download.yml
     release_date: '2024-05-28'
+  2.2.3:
+    changes:
+      bugfixes:
+      - ohmyzsh - Fix unmatched double-quote error when theme is loaded introduced
+        in 2.2.2
+    fragments:
+    - fix_ohmyzsh_unmatched_quote.yml
+    release_date: '2024-06-05'
