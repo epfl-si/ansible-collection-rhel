@@ -18,7 +18,7 @@ scenario:
     - destroy
 
 driver:
-  name: default
+  name: podman
 
 platforms:
 

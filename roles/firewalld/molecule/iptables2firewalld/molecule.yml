@@ -4,7 +4,7 @@ scenario:
   name: iptables2firewalld
 
 driver:
-  name: default
+  name: podman
 
 # To access DBUS we must disable selinux labels
 # NET_ADMIN capability is required to attach an IP and admin of firewall
