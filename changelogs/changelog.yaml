@@ -441,3 +441,21 @@ releases:
     fragments:
     - fix_ohmyzsh_unmatched_quote.yml
     release_date: '2024-06-05'
+  3.0.0:
+    changes:
+      breaking_changes:
+      - 'nginx - role now requires explicit version configuration on RHEL8 with ``nginx_ver:
+        1.14``. This is due to DNF module stream dependencies - specifically, the
+        default PHP module stream requires nginx:1.14. Attempting to install nginx:1.24
+        will fail unless PHP module streams are properly configured. RHEL9 is not
+        affected by this limitation.'
+      minor_changes:
+      - nginx - Added support for RHEL9 distributions, with verified compatibility
+        for nginx:1.24 stream
+      release_summary: 'This is a major release that contains a breaking change in
+        the Nginx role.
+
+        '
+    fragments:
+    - nginx_rhel9.yml
+    release_date: '2024-11-25'

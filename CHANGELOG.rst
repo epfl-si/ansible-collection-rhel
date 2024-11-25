@@ -4,6 +4,24 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v3.0.0
+======
+
+Release Summary
+---------------
+
+This is a major release that contains a breaking change in the Nginx role.
+
+Minor Changes
+-------------
+
+- nginx - Added support for RHEL9 distributions, with verified compatibility for nginx:1.24 stream
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- nginx - role now requires explicit version configuration on RHEL8 with ``nginx_ver: 1.14``. This is due to DNF module stream dependencies - specifically, the default PHP module stream requires nginx:1.14. Attempting to install nginx:1.24 will fail unless PHP module streams are properly configured. RHEL9 is not affected by this limitation.
+
 v2.2.3
 ======
 
