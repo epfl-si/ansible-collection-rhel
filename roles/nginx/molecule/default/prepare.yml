@@ -1,7 +1,7 @@
 ---
 
 - name: Prepare
-  hosts: nginx
+  hosts: all
   gather_facts: false
   vars:
     ansible_user: root
@@ -16,6 +16,13 @@
         name: cmadm
         state: present
 
+    - name: Install required packages for testing
+      ansible.builtin.package:
+        name:
+          - sudo  # On RHEL8, will creates /etc/sudoers.d folder
+          - nmap-ncat  # To fake a service (backend of the reverse-proxy)
+        state: present
+
     - name: Allow ansible to sudo without password
       ansible.builtin.copy:
         content: "cmadm ALL=(ALL) NOPASSWD: ALL"
@@ -24,12 +31,6 @@
         owner: root
         group: root
         mode: '0644'
-
-    - name: Install netcat to fake a service
-      ansible.builtin.package:
-        name:
-          - nmap-ncat
-        state: present
 
     - name: Crate a bash script to run netcat
       ansible.builtin.copy:

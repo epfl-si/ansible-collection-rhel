@@ -1,0 +1,8 @@
+---
+__nginx_package_selinux_reqs:
+  - 'python3-libselinux'       # for seboolean: copy, file, template, ...
+  - 'python3-libsemanage'      # for seboolean
+  - 'python3-policycoreutils'  # for seport
+
+__nginx_package_group:
+  - '@nginx:{{ nginx_ver }}'

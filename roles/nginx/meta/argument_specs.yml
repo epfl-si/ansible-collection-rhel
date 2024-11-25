@@ -5,6 +5,15 @@ argument_specs:
   main:
     short_description: The main entry point for the nginx role.
     options:
+      nginx_ver:
+        type: "str"
+        default: "1.24"
+        description: >-
+          The version of the nginx group to install. To see what's
+          available on your distribution, run
+          ``dnf module list --available``. On RHEL8 it's impossible to
+          install something else than Nginx:1.14 because they put it as a
+          requirement for the PHP module.
       nginx_user:
         type: "str"
         default: nginx

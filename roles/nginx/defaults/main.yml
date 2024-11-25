@@ -1,6 +1,7 @@
 ---
 # Defaults variables for role nginx
 
+nginx_ver: '1.24'
 nginx_user: nginx
 nginx_pid: /var/run/nginx.pid
 nginx_events: |

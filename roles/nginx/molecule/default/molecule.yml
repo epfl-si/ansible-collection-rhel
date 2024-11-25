@@ -11,15 +11,27 @@ driver:
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  - name: nginx
-    registry: {url: registry.access.redhat.com}
+  # pre_build_image: true is important. Without it Molecule would create an
+  # image based on ubi8/9 using this Dockerfile: https://github.com/ansible-community/molecule-plugins/blob/main/src/molecule_plugins/podman/playbooks/Dockerfile.j2
+  # And dnf install /usr/bin/python3 would install Python3.11 which will make
+  # ansible unable to find modules like 'firewall' that is packaged for
+  # Python3.6 only. ubi8 is close to rhel8 and python3.6 is already installed.
+  - name: nginxel8
+    registry: &redhat {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
-    tmpfs: ['/run', '/tmp']
-    volumes: ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
-    capabilities: ['SYS_ADMIN', 'NET_ADMIN']
-    command: "/usr/sbin/init"
-    security_opts: ['label=disable']
+    pre_build_image: true
+    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
+    capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
+    command: &command "/usr/sbin/init"
+    security_opts: &security_opts ['label=disable']
+
+  - name: nginxel9
+    registry: *redhat
+    image: ubi9/ubi-init
+    volumes: *volumes
+    capabilities: *capabilities
+    command: *command
+    security_opts: *security_opts
 
 provisioner:
   name: ansible
@@ -32,6 +44,10 @@ provisioner:
     ssh_connection:
       forks: 1
       pipelining: false
+  inventory:
+    host_vars:
+      nginxel8:
+        nginx_ver: '1.14'
 
 verifier:
   name: ansible

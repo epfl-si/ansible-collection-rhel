@@ -1,14 +1,13 @@
 ---
 
-# python3-libselinux       # For copy, file, template, ...
-# python3-policycoreutils
+- name: Set OS distribution dependent variables
+  ansible.builtin.include_vars:
+    "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
+
 - name: Install package to manage SeLinux
   become: true
   ansible.builtin.package:
-    name:
-      - python3-libselinux        # for seboolean
-      - python3-libsemanage       # for seboolean
-      - python3-policycoreutils   # for seport
+    name: "{{ __nginx_package_selinux_reqs }}"
 
 - name: Set necessary SeLinux flags on and persistent
   become: true
@@ -36,7 +35,8 @@
 - name: Install Nginx module
   become: true
   ansible.builtin.dnf:
-    name: "@nginx"
+    name: "{{ __nginx_package_group }}"
+    install_weak_deps: false
     state: present
   notify: Enable nginx
 
