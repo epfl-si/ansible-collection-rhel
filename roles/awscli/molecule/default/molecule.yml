@@ -15,9 +15,9 @@ driver:
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  - name: awscli_el7
+  - name: awscli_el8
     registry: &registry {url: registry.access.redhat.com}
-    image: ubi7/ubi-init
+    image: ubi8/ubi-init
     dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs: &tmpfs ['/run', '/tmp']
     volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
@@ -26,9 +26,9 @@ platforms:
     security_opts: &security_opts ['label=disable']
     groups: ['awscli']
 
-  - name: awscli_el8
+  - name: awscli_el9
     registry: *registry
-    image: ubi8/ubi-init
+    image: ubi9/ubi-init
     dockerfile: *docker
     tmpfs: *tmpfs
     volumes: *volumes
