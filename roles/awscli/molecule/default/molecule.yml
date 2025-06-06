@@ -11,17 +11,13 @@ driver:
       ansible_connection: podman
 
 # To access DBUS we must disable selinux labels
-# NET_ADMIN capability is required to attach an IP and admin of firewall
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
   - name: awscli_el8
     registry: &registry {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
-    tmpfs: &tmpfs ['/run', '/tmp']
-    volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
-    capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
+    pre_build_image: false
     command: &command "/usr/sbin/init"
     security_opts: &security_opts ['label=disable']
     groups: ['awscli']
@@ -29,10 +25,7 @@ platforms:
   - name: awscli_el9
     registry: *registry
     image: ubi9/ubi-init
-    dockerfile: *docker
-    tmpfs: *tmpfs
-    volumes: *volumes
-    capabilities: *capabilities
+    pre_build_image: false
     command: *command
     security_opts: *security_opts
     groups: ['awscli']

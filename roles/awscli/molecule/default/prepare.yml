@@ -5,13 +5,11 @@
   tasks:
 
     - name: Install unzip
-      become: true
       ansible.builtin.package:
         name: unzip
         state: present
 
     - name: Create user john
-      become: true
       ansible.builtin.user:
         name: john
         state: present
