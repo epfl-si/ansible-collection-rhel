@@ -4,7 +4,16 @@ scenario:
   name: default
 
 driver:
-  name: podman
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/default/requirements.yml
 
 # To access DBUS we must disable selinux labels
 # NET_ADMIN capability is required to attach an IP and admin of firewall
@@ -14,7 +23,6 @@ platforms:
   - name: journald
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs: ['/run', '/tmp']
     volumes: ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
     capabilities: ['SYS_ADMIN', 'NET_ADMIN']
@@ -27,14 +35,13 @@ provisioner:
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
-    ssh_connection:
-      forks: 1
-      pipelining: false
   inventory:
     link:
       host_vars: ./host_vars
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
+    destroy: ../../../../molecule/resources/playbooks/destroy.yml
 
 verifier:
   name: ansible

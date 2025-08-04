@@ -4,7 +4,16 @@ scenario:
   name: install
 
 driver:
-  name: podman
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/install/requirements.yml
 
 # To access DBUS we must disable selinux labels
 # NET_ADMIN capability is required to attach an IP and admin of firewall
@@ -14,7 +23,6 @@ platforms:
   - name: install_el8
     registry: &registry {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs: &tmpfs ['/run', '/tmp']
     volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
     privileged: &privileged true
@@ -24,7 +32,6 @@ platforms:
 # - name: install_el9
 #   registry: *registry
 #   image: ubi9/ubi-init
-#   dockerfile: *docker
 #   tmpfs: *tmpfs
 #   volumes: *volumes
 #   privileged: *privileged
@@ -37,14 +44,13 @@ provisioner:
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
-    ssh_connection:
-      forks: 4
-      pipelining: false
   inventory:
     links:
       hosts: inv.yml
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
+    destroy: ../../../../molecule/resources/playbooks/destroy.yml
 
 
 verifier:

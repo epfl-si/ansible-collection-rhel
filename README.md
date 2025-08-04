@@ -58,7 +58,6 @@ pip install \
   ansible-lint \
   antsibull-changelog \
   molecule \
-  molecule-podman \
   yamllint \
   selinux \
   psutil \

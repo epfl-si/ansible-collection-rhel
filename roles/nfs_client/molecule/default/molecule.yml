@@ -4,7 +4,16 @@ scenario:
   name: default
 
 driver:
-  name: podman
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/default/requirements.yml
 
 # To access DBUS we must disable selinux labels
 platforms:
@@ -12,7 +21,6 @@ platforms:
   - name: nfs_client_test_server_el8
     registry: &registry {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
     tmpfs: &tmpfs ['/run', '/tmp']
     privileged: &privileged true
     volumes:
@@ -24,7 +32,6 @@ platforms:
   - name: nfs_client_el8
     registry: *registry
     image: ubi8/ubi-init
-    dockerfile: *docker
     tmpfs: *tmpfs
     privileged: *privileged
     volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
@@ -35,7 +42,6 @@ platforms:
   # - name: nfs_client_el9
   #   registry: *registry
   #   image: ubi9/ubi-init
-  #   dockerfile: *docker
   #   tmpfs: *tmpfs
   #   privileged: *privileged
   #   #capabilities: *capabilities
@@ -49,13 +55,12 @@ provisioner:
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
       fact_caching: jsonfile
       fact_caching_connection: ${MOLECULE_SCENARIO_DIRECTORY}/fact_cache
-    ssh_connection:
-      forks: 1
-      pipelining: false
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
+    destroy: ../../../../molecule/resources/playbooks/destroy.yml
 
 verifier:
   name: ansible

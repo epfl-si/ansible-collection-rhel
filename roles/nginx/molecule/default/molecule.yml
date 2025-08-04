@@ -4,22 +4,25 @@ scenario:
   name: default
 
 driver:
-  name: podman
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/default/requirements.yml
 
 # To access DBUS we must disable selinux labels
 # NET_ADMIN capability is required to attach an IP and admin of firewall
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  # pre_build_image: true is important. Without it Molecule would create an
-  # image based on ubi8/9 using this Dockerfile: https://github.com/ansible-community/molecule-plugins/blob/main/src/molecule_plugins/podman/playbooks/Dockerfile.j2
-  # And dnf install /usr/bin/python3 would install Python3.11 which will make
-  # ansible unable to find modules like 'firewall' that is packaged for
-  # Python3.6 only. ubi8 is close to rhel8 and python3.6 is already installed.
   - name: nginxel8
     registry: &redhat {url: registry.access.redhat.com}
     image: ubi8/ubi-init
-    pre_build_image: true
     volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
     capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
     command: &command "/usr/sbin/init"
@@ -39,15 +42,14 @@ provisioner:
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
-    ssh_connection:
-      forks: 1
-      pipelining: false
   inventory:
     host_vars:
       nginxel8:
         nginx_ver: '1.14'
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
+    destroy: ../../../../molecule/resources/playbooks/destroy.yml
 
 verifier:
   name: ansible

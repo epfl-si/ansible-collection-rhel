@@ -4,14 +4,22 @@ scenario:
   name: default
 
 driver:
-  name: podman
+  options:
+    managed: false
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/default/requirements.yml
 
 platforms:
 
   - name: sudo1
     registry: {url: registry.access.redhat.com}
     image: ubi8/ubi
-    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
 
 provisioner:
   name: ansible
@@ -19,11 +27,10 @@ provisioner:
   config_options:
     defaults:
       interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
-    ssh_connection:
-      forks: 1
-      pipelining: false
+  playbooks:
+    create: ../../../../molecule/resources/playbooks/create.yml
+    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
+    destroy: ../../../../molecule/resources/playbooks/destroy.yml
 
 verifier:
   name: ansible
