@@ -4,12 +4,14 @@
   hosts: awscli
   tasks:
 
-    - name: Install unzip
+    - name: Prepare - Install packages
       ansible.builtin.package:
-        name: unzip
+        name:
+          - unzip
+          - sudo  # for become
         state: present
 
-    - name: Create user john
+    - name: Prepare - Create user john
       ansible.builtin.user:
         name: john
         state: present
