@@ -111,7 +111,7 @@
             dest: /etc/xinetd.d/mysqld
 
         # Use sshd as a fake server since we installed it earlier
-        - name: Zone1 - Configure xinetd for port 33001
+        - name: Prepare - Zone1 - Configure xinetd for port 33001
           ansible.builtin.copy:  # noqa risky-file-permissions
             content: |
               service mysqld
@@ -127,7 +127,7 @@
               }
             dest: /etc/xinetd.d/mysqld1
 
-        - name: Zone1 - Configure xinetd for port 33002
+        - name: Prepare - Zone1 - Configure xinetd for port 33002
           ansible.builtin.copy:  # noqa risky-file-permissions
             content: |
               service mysqld
@@ -143,7 +143,7 @@
               }
             dest: /etc/xinetd.d/mysqld2
 
-        - name: Zone1 - Enable xinetd
+        - name: Prepare - Zone1 - Enable xinetd
           ansible.builtin.systemd:
             name: xinetd
             state: restarted

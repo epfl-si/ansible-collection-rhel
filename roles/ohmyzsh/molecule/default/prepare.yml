@@ -3,7 +3,6 @@
 - name: Prepare
   hosts: ohmyzsh
   gather_facts: false
-  become: true
   tasks:
 
     - name: Prepare - Install packages

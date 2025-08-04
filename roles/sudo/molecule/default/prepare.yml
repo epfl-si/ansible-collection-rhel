@@ -5,6 +5,12 @@
   gather_facts: false
   tasks:
 
+    - name: Prepare - Install packages
+      ansible.builtin.package:
+        name:
+          - sudo  # for become
+        state: present
+
     - name: Unmask systemd-logind.service
       ansible.builtin.systemd:
         name: systemd-logind.service
@@ -15,13 +21,11 @@
     # us see when a task need the become directive, we will connect
     # to this unprivileged user.
     - name: Create ansible user
-      become: true
       ansible.builtin.user:
         name: ansible
         state: present
 
     - name: Allow ansible to sudo without password
-      become: true
       ansible.builtin.copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/10-ansible
@@ -31,7 +35,6 @@
         mode: '0644'
 
     - name: Create user_01 user
-      become: true
       ansible.builtin.user:
         name: user_01
         state: present
