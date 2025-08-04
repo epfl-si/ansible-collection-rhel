@@ -10,24 +10,32 @@
 # Also we could specify which version to download. For simplicity we will
 # always download the latest available for now.
 - name: Download the AWS CLI v2 bundle
-  become: true
+  delegate_to: localhost
   ansible.builtin.get_url:
-    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-    dest: /root/awscliv2.zip
+    url: "{{ awscli_binary_url }}"
+    dest: /tmp/awscliv2.zip
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy zip in the controlled node
+  ansible.builtin.copy:
+    src: /tmp/awscliv2.zip
+    dest: /tmp/awscliv2.zip
     owner: root
     group: root
     mode: '0755'
 
 - name: Unzip the AWS CLI v2 bundle
   ansible.builtin.unarchive:
-    src: /root/awscliv2.zip
-    dest: /root
+    src: /tmp/awscliv2.zip
+    dest: /tmp
     remote_src: true
 
 - name: Launch AWS installer
   ansible.builtin.command:
     cmd: >
-      /root/aws/install
+      /tmp/aws/install
       --bin-dir {{ awscli_bin_dir }}
       --install-dir {{ awscli_install_dir }}
       {% if awscli_force_installation is truthy %}--update{% endif %}

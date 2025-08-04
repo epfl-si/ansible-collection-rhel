@@ -5,8 +5,8 @@
     path: "{{ awscli_intallers_files_item }}"
     state: absent
   loop:
-    - /root/awscliv2.zip
-    - /root/aws
+    - /tmp/awscliv2.zip
+    - /tmp/aws
     - "{{ awscli_bin_dir }}/aws"
     - "{{ awscli_bin_dir }}/aws_completer"
     - "{{ awscli_install_dir }}"

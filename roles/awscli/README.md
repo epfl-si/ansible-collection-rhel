@@ -49,6 +49,17 @@ Role Variables
 * Required: no
 * Comments: Location of the binary files
 
+### awscli_version
+
+* Defaults: 2.27.49
+* Required: no
+* Comments: Version number to download. Don't add the v prefix. The release can be found here: https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
+
+### awscli_zip_url
+
+* Defaults: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-{{ awscli_version }}.zip
+* Required: no
+* Comments: Allow to specify download url to the zip file. Useful if you have a mirror.
 
 ### awscli_user
 
