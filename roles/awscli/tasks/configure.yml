@@ -12,7 +12,6 @@
       "{{ _awscli_getent.ansible_facts.getent_passwd[awscli_user][4] }}"
 
 - name: Create .aws folder to store configuration for {{ awscli_user }}
-  become: true
   ansible.builtin.file:
     path: "{{ _awscli_user_home }}/.aws"
     state: directory
@@ -21,7 +20,6 @@
     mode: '0700'
 
 - name: Store configuration for user {{ awscli_user }}
-  become: true
   ansible.builtin.template:
     src: templates/config.j2
     dest: "{{ _awscli_user_home }}/.aws/config"
@@ -30,7 +28,6 @@
     mode: '0600'
 
 - name: Store credentials for user {{ awscli_user }}
-  become: true
   ansible.builtin.template:
     src: templates/credentials.j2
     dest: "{{ _awscli_user_home }}/.aws/credentials"

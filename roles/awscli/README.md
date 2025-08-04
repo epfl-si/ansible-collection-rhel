@@ -1,7 +1,7 @@
 Role AWS CLI
 =========
 
-Install and configure AWS CLI v2
+Install and configure AWS CLI v2. Use this role with `become: true` in case your ansible user doesn't have the right to write into `awscli_install_dir`.
 
 This role handle multiple profiles configured on the same computer at the same time. To switch between profiles, use `aws <command> --profile <name>`
 
