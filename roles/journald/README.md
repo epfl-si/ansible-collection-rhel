@@ -3,6 +3,8 @@ Role Journald
 
 A role to manage journald options and restart the service.
 
+This role must be run as root
+
 When activating the "persistent" storage, this role will ensure that */var/log/journal* directory is created.
 
 
@@ -63,8 +65,11 @@ Example Playbook
 ----------------
 
     - hosts: servers
-      roles:
-         - epfl_si.rhel.journald
+      tasks:
+         - name: Import role journald
+           become: true
+           ansible.builtin.import_role:
+            name: epfl_si.rhel.journald
            vars:
              journald_storage: "persistent"
              journald_system_max_use: "1G"

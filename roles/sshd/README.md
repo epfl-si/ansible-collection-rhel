@@ -25,8 +25,11 @@ Example Playbook
 
 
     - hosts: servers
-      roles:
-         - epfl_si.rhel.sshd
+      tasks:
+         - name: Import sshd role
+           become: true
+           ansible.builtin.import_role:
+             name: epfl_si.rhel.sshd
 
 License
 -------
