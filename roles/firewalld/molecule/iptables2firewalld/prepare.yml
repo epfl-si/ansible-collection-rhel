@@ -4,6 +4,13 @@
   hosts: iptables
   tasks:
 
+    - name: Prepare - Install packages
+      ansible.builtin.yum:
+        name:
+          - sudo  # For become
+          - iptables-services
+        state: present
+
     # This prevent the following warning:
     # pam_systemd(sudo:session): Failed to create session: Unit is masked.
     - name: Prepare - Unmask systemd-logind
@@ -11,14 +18,7 @@
         name: systemd-logind.service
         masked: false
 
-    - name: Install Iptable package
-      become: true
-      ansible.builtin.yum:
-        name: iptables-services
-        state: present
-
-    - name: Enable iptables
-      become: true
+    - name: Prepare - Enable iptables
       ansible.builtin.systemd:
         name: iptables.service
         daemon_reload: true

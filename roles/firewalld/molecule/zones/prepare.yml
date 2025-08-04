@@ -14,7 +14,20 @@
       mode: '0600'
   tasks:
 
-    - name: Unmask systemd-logind.service
+    # iproute provides commands: ip, route, ss, ...
+    # iputils provides commands: ping, arping, tracepath, ...
+    - name: Prepare - Install packages
+      ansible.builtin.package:
+        name:
+          - sudo     # For become and /etc/sudoers.d
+          - iproute  # For debugging
+          - iputils  # For debugging
+          - openssh  # For ssh-keygen command
+          - openssh-server
+          - xinetd
+        state: present
+
+    - name: Prepare - Unmask systemd-logind.service
       ansible.builtin.systemd:
         name: systemd-logind.service
         masked: false
@@ -37,20 +50,11 @@
         group: root
         mode: '0644'
 
-    # iproute provides commands: ip, route, ss, ...
-    # iputils provides commands: ping, arping, tracepath, ...
-    - name: Install ip packages for debugging
-      ansible.builtin.yum:
-        name:
-          - iproute
-          - iputils
-        state: present
-
-    - name: Prepare ssh keys on zone2
+    - name: Prepare - Prepare ssh keys on zone2
       when: inventory_hostname == "zone2"
       block:
 
-        - name: Zone2 - Ensure .ssh folder exists
+        - name: Prepare - Zone2 - Ensure .ssh folder exists
           ansible.builtin.file:
             path: /root/.ssh
             state: directory
@@ -81,22 +85,16 @@
           ansible.builtin.lineinfile:
             line: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6mY5oaJZbBMy6DJiAZsdVAbZaZqQvztntnIpN1dopw zone2
             path: /root/.ssh/authorized_keys
-
-        - name: Zone1 - Install servers packages
-          ansible.builtin.yum:
-            name:
-              - openssh-server
-              - xinetd
             state: present
 
-        - name: Zone1 - Ensure SSHD server service is running
+        - name: Prepare - Zone1 - Ensure SSHD server service is running
           ansible.builtin.service:
             daemon_reload: true
             enabled: true
             name: sshd.service
             state: started
 
-        - name: Zone1 - Configure xinetd for port 3306
+        - name: Prepare - Zone1 - Configure xinetd for port 3306
           ansible.builtin.copy:  # noqa risky-file-permissions
             content: |
               service mysqld

@@ -6,7 +6,15 @@
   become: true
   tasks:
 
-    - name: Unmask systemd-logind.service
+    - name: Prepare - Install packages
+      ansible.builtin.package:
+        name:
+          - sudo  # for become
+          - zsh
+          - util-linux-user  # for chsh
+        state: present
+
+    - name: Prepare - Unmask systemd-logind.service
       ansible.builtin.systemd:
         name: systemd-logind.service
         masked: false
@@ -15,12 +23,12 @@
     # scenario when ssh connections to root are forbidden. To help
     # us see when a task need the become directive, we will connect
     # to this unprivileged user.
-    - name: Create ansible user
+    - name: Prepare - Create ansible user
       ansible.builtin.user:
         name: ansible
         state: present
 
-    - name: Allow ansible to sudo without password
+    - name: Prepare - Allow ansible to sudo without password
       ansible.builtin.copy:
         content: "ansible ALL=(ALL) NOPASSWD: ALL"
         dest: /etc/sudoers.d/10-ansible
@@ -29,7 +37,7 @@
         group: root
         mode: '0644'
 
-    - name: Create test users
+    - name: Prepare - Create test users
       ansible.builtin.user:
         name: "{{ item }}"
         state: present
@@ -39,14 +47,7 @@
         - user_title
         - user_custom_function
 
-    - name: Install zsh and chsh
-      ansible.builtin.package:
-        name:
-          - zsh
-          - util-linux-user
-        state: present
-
-    - name: Change shell to zsh for test users
+    - name: Prepare - Change shell to zsh for test users
       ansible.builtin.user:
         name: "{{ item }}"
         shell: /bin/zsh
