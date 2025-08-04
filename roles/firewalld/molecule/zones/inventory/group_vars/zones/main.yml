@@ -1,6 +1,4 @@
 ---
-ansible_user: cmadm
-
 ip_zone1: "{{ hostvars['zone1']['ansible_default_ipv4']['address'] }}"
 ip_zone2: "{{ hostvars['zone2']['ansible_default_ipv4']['address'] }}"
 ip_zone3: "{{ hostvars['zone3']['ansible_default_ipv4']['address'] }}"

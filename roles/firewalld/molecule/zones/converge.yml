@@ -2,6 +2,8 @@
 
 - name: Converge
   hosts: zones
+  vars:
+    ansible_user: cmadm
   roles:
 
     - role: firewalld

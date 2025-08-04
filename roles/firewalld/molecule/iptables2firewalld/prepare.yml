@@ -6,8 +6,7 @@
 
     # This prevent the following warning:
     # pam_systemd(sudo:session): Failed to create session: Unit is masked.
-    - name: Unmask systemd-logind
-      become: true
+    - name: Prepare - Unmask systemd-logind
       ansible.builtin.systemd:
         name: systemd-logind.service
         masked: false
@@ -28,8 +27,7 @@
 
     # This simulates when our servers were downgraded from
     # firewalld to iptables.
-    - name: Mask firewalld service
-      become: true
+    - name: Prepare - Mask firewalld service
       ansible.builtin.systemd:
         name: firewalld.service
         daemon_reload: true

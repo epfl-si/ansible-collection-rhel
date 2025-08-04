@@ -11,6 +11,5 @@
     # araise, is certainly because another container is running a nfs_server
     # on the same host.
     - name: Install and configure NFS server
-      become: true
       role: nfs_server
 ...
