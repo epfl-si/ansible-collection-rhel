@@ -58,33 +58,29 @@
             group: root
             mode: '0700'
 
-        - name: Zone2 - Install Openssh to provide ssh-keygen command
-          ansible.builtin.yum:
-            name: openssh
-            state: present
-
-        - name: Zone2 - Create ssh keys pair
-          community.crypto.openssh_keypair:
-            type: ed25519
-            path: /root/.ssh/id_ed25519
+        - name: Prepare - Zone2 - Create ssh keys pair
+          ansible.builtin.copy:
+            content: |
+              -----BEGIN OPENSSH PRIVATE KEY-----
+              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+              QyNTUxOQAAACD+pmOaGiWWwTMugyYgGbHVQG2WmakL87Z7ZyKTdXaKcAAAAJiS891KkvPd
+              SgAAAAtzc2gtZWQyNTUxOQAAACD+pmOaGiWWwTMugyYgGbHVQG2WmakL87Z7ZyKTdXaKcA
+              AAAEAWJj+uZk1IgGsjSprqgU6dQeR9Xe6kSijbp2YxkbyDUf6mY5oaJZbBMy6DJiAZsdVA
+              bZaZqQvztntnIpN1dopwAAAAEGhvbmlpeEBwYW5nb2xpbjEBAgMEBQ==
+              -----END OPENSSH PRIVATE KEY-----
+            dest: /root/.ssh/id_ed25519
             owner: root
-            comment: root@zone2
-
-        - name: Zone2 - Get public key
-          ansible.builtin.slurp:
-            src: /root/.ssh/id_ed25519.pub
-          register: zone2_pub_key
+            group: root
+            mode: '0400'
 
     - name: Prepare zone1
       when: inventory_hostname == "zone1"
       block:
 
-        - name: Zone1 - Paste zone2's public key in authorized_key file
-          ansible.posix.authorized_key:
-            user: root
-            state: present
-            manage_dir: true
-            key: "{{ hostvars['zone2'].zone2_pub_key['content'] | b64decode }}"
+        - name: Prepare - Zone1 - Paste zone2's public key in authorized_key file
+          ansible.builtin.lineinfile:
+            line: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6mY5oaJZbBMy6DJiAZsdVAbZaZqQvztntnIpN1dopw zone2
+            path: /root/.ssh/authorized_keys
 
         - name: Zone1 - Install servers packages
           ansible.builtin.yum:
