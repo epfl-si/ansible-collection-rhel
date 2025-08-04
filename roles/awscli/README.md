@@ -55,7 +55,7 @@ Role Variables
 * Required: no
 * Comments: Version number to download. Don't add the v prefix. The release can be found here: https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
 
-### awscli_zip_url
+### awscli_binary_url
 
 * Defaults: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-{{ awscli_version }}.zip
 * Required: no
