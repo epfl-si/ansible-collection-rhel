@@ -4,6 +4,15 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v3.1.0
+======
+
+Major Changes
+-------------
+
+- awscli - Added new option 'awscli_binary_url' that allows specifying a custom URL for the zip file. This is useful when using a mirror or private repository.
+- awscli - Added new option 'awscli_version' with a default value of 2.27.49. This changes the previous behavior where the role always downloaded the latest version.
+
 v3.0.0
 ======
 

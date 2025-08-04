@@ -459,3 +459,14 @@ releases:
     fragments:
     - nginx_rhel9.yml
     release_date: '2024-11-25'
+  3.1.0:
+    changes:
+      major_changes:
+      - awscli - Added new option 'awscli_binary_url' that allows specifying a custom
+        URL for the zip file. This is useful when using a mirror or private repository.
+      - awscli - Added new option 'awscli_version' with a default value of 2.27.49.
+        This changes the previous behavior where the role always downloaded the latest
+        version.
+    fragments:
+    - awscli_zip_url.yml
+    release_date: '2025-08-04'
