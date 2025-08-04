@@ -11,10 +11,9 @@ driver:
 # pre_build_image: means that the container already has Ansible inside
 platforms:
 
-  - name: s3cmd_el7
+  - name: s3cmd_el8
     registry: &registry {url: registry.access.redhat.com}
-    image: ubi7/ubi-init
-    dockerfile: &docker ../../../../molecule/resources/playbooks/Dockerfile.j2
+    image: ubi8/ubi-init
     tmpfs: &tmpfs ['/run', '/tmp']
     volumes: &volumes ['/sys/fs/cgroup:/sys/fs/cgroup:ro']
     capabilities: &capabilities ['SYS_ADMIN', 'NET_ADMIN']
@@ -22,10 +21,9 @@ platforms:
     security_opts: &security_opts ['label=disable']
     groups: ['s3cmd']
 
-  - name: s3cmd_el8
+  - name: s3cmd_el9
     registry: *registry
-    image: ubi8/ubi-init
-    dockerfile: *docker
+    image: ubi9/ubi-init
     tmpfs: *tmpfs
     volumes: *volumes
     capabilities: *capabilities
