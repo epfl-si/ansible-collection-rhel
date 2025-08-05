@@ -6,6 +6,7 @@ awscli_bin_dir: /usr/local/bin
 awscli_install_dir: /usr/local/aws-cli
 awscli_force_installation: false
 
+# https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
 awscli_version: 2.27.49
 awscli_binary_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-{{ awscli_version }}.zip
 
