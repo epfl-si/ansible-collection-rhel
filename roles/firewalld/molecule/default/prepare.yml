@@ -1,0 +1,11 @@
+---
+
+- name: Prepare
+  hosts: molecule
+  tasks:
+
+    - name: Prepare - Install packages
+      ansible.builtin.package:
+        name:
+          - sudo  # For become
+        state: present

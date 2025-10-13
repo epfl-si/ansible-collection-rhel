@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: journald_novalue
+  hosts: molecule
   vars:
     journald_conf_expected: |
       #

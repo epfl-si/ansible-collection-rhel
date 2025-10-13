@@ -1,29 +1,29 @@
 ---
 
 - name: Converge
-  hosts: ohmyzsh
+  hosts: molecule
   gather_facts: false
   vars:
     ansible_user: ansible
   roles:
 
-    - role: ohmyzsh
+    - role: epfl_si.rhel.ohmyzsh
       ohmyzsh_user: user_01
       ohmyzsh_theme: mh-hostname
 
-    - role: ohmyzsh
+    - role: epfl_si.rhel.ohmyzsh
       ohmyzsh_user: root
       ohmyzsh_theme: mh-hostname
 
-    - role: ohmyzsh
+    - role: epfl_si.rhel.ohmyzsh
       ohmyzsh_user: user_auto_title
       ohmyzsh_disable_auto_title: true
 
-    - role: ohmyzsh
+    - role: epfl_si.rhel.ohmyzsh
       ohmyzsh_user: user_title
       ohmyzsh_title: a-test-title
 
-    - role: ohmyzsh
+    - role: epfl_si.rhel.ohmyzsh
       ohmyzsh_user: user_custom_function
       ohmyzsh_custom_functions:
         - |

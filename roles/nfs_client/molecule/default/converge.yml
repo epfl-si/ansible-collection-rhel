@@ -1,9 +1,7 @@
 ---
 
 - name: Converge
-  hosts:
-    - nfs_client_el8
-    # - nfs_client_el9
+  hosts: molecule
   vars:
     nfs_client_share:
       "{{ hostvars['nfs_client_test_server_el8']['ansible_default_ipv4']['address'] }}\
@@ -16,4 +14,4 @@
 
     - name: Install and configure NFS client
       become: true
-      role: nfs_client
+      role: epfl_si.rhel.nfs_client

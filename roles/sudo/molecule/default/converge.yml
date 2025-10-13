@@ -1,13 +1,13 @@
 ---
 
 - name: Converge
-  hosts: sudo1
+  hosts: molecule
   gather_facts: false
   vars:
     ansible_user: ansible
   roles:
 
-    - role: sudo
+    - role: epfl_si.rhel.sudo
       sudo_file: 20-user_01
       sudo_rules:
         - user: user_01

@@ -1,9 +1,9 @@
 ---
 - name: Converge
-  hosts: awscli
+  hosts: molecule
   roles:
 
-    - role: awscli
+    - role: epfl_si.rhel.awscli
       awscli_user: john
       awscli_default_s3_multipart_chunksize: 64MB
       awscli_profiles:
@@ -22,7 +22,7 @@
 
     - name: Include role awscli
       ansible.builtin.include_role:
-        name: awscli
+        name:  epfl_si.rhel.awscli
       vars:
         awscli_user: "{{ molecule_awscli_item.awscli_user }}"
         awscli_default_s3_max_concurrent_requests: '10'

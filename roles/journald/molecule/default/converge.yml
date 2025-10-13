@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: journald
+  hosts: molecule
   roles:
 
-    - role: journald
+    - role: epfl_si.rhel.journald

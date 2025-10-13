@@ -1,6 +1,6 @@
 ---
 - name: Fact cache
-  hosts: all
+  hosts: molecule
   gather_facts: true
 
 - name: Prepare

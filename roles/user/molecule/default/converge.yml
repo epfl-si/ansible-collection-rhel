@@ -1,18 +1,18 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: molecule
   gather_facts: false
   vars:
     ansible_user: ansible
   become: true
   roles:
 
-    - role: user
+    - role: epfl_si.rhel.user
       user_name: user_bash
       user_home: /var/lib/user_bash
 
-    - role: user
+    - role: epfl_si.rhel.user
       user_name: user_zsh
       user_shell: /bin/zsh
       user_home: /var/lib/user_zsh

@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: tmux
+  hosts: molecule
   gather_facts: false
   tasks:
 

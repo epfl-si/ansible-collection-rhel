@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: all
+  hosts: molecule
   tasks:
 
     - name: Collect facts about system services

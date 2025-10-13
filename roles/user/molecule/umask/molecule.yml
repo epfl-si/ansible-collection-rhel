@@ -1,44 +1,20 @@
 ---
 
-scenario:
-  name: umask
-  test_sequence:
-    - dependency
-    # - lint  # Disabled, lint done for the whole collection
-    # - cleanup  # No cleanup required
-    - destroy
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    # - side_effect  # No side_effect configured
-    - verify
-    # - cleanup  # No cleanup required
-    - destroy
-
-driver:
-  name: podman
-
-platforms:
-
-  - name: user_el8_umask
-    registry: {url: registry.access.redhat.com}
-    image: ubi8/ubi
-    dockerfile: ../../../../molecule/resources/playbooks/Dockerfile.j2
-
-provisioner:
-  name: ansible
-  log: true
-  config_options:
+ansible:
+  cfg:
     defaults:
-      interpreter_python: auto_silent
-      callback_whitelist: profile_tasks, timer
-      stdout_callback: yaml
-    ssh_connection:
-      pipelining: false
+      deprecation_warnings: false
+  executor:
+    args:
+      ansible_playbook:
+        - --inventory=inventory/
   playbooks:
-    prepare: ../default/prepare.yml
+    create: ../../../../molecule/playbooks/create.yml
+    create-fail: ../../../../molecule/playbooks/create-fail.yml
+    cleanup: ../../../../molecule/playbooks/cleanup.yml
+    destroy: ../../../../molecule/playbooks/destroy.yml
 
-verifier:
-  name: ansible
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml

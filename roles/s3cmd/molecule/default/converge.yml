@@ -1,10 +1,10 @@
 ---
 
 - name: Converge
-  hosts: s3cmd
+  hosts: molecule
   roles:
 
-    - role: s3cmd
+    - role: epfl_si.rhel.s3cmd
       s3cmd_user: root
       s3cmd_bucket: bucket1
       s3cmd_access_key: key1
@@ -14,7 +14,7 @@
       s3cmd_multipart_chunk_size_mb: '50'
       s3cmd_default: true
 
-    - role: s3cmd
+    - role: epfl_si.rhel.s3cmd
       s3cmd_user: root
       s3cmd_bucket: bucket2
       s3cmd_access_key: "{{ aws_credentials['bucket2'].access_key_rw }}"

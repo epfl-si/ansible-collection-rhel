@@ -1,10 +1,10 @@
 ---
 
 - name: Converge
-  hosts: zones
+  hosts: molecule
   vars:
     ansible_user: cmadm
   roles:
 
-    - role: firewalld
+    - role: epfl_si.rhel.firewalld
       when: inventory_hostname == "zone1"

@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: zones
+  hosts: molecule
   module_defaults:
     wait_for:
       timeout: 2

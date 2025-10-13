@@ -1,7 +1,7 @@
 ---
 
 - name: Prepare
-  hosts: tmux
+  hosts: molecule
   gather_facts: false
   vars:
     ansible_user: root

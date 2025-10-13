@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: molecule
   gather_facts: false
   vars:
     ansible_user: ansible
@@ -9,25 +9,25 @@
   roles:
 
     - name: Create a user without specified UID
-      role: user
+      role: epfl_si.rhel.user
       user_name: user_auto_uid
 
     - name: Create a user with UID > 1000
-      role: user
+      role: epfl_si.rhel.user
       user_name: user_1012
       user_uid: 1012
 
     - name: Create a user with UID > 1000 to test modifications
-      role: user
+      role: epfl_si.rhel.user
       user_name: user_1014
       user_uid: 1014
 
     - name: Create a user with UID < 1000
-      role: user
+      role: epfl_si.rhel.user
       user_name: user_344
       user_uid: 344
 
     - name: Create a user with UID < 1000 to test modifications
-      role: user
+      role: epfl_si.rhel.user
       user_name: user_346
       user_uid: 346

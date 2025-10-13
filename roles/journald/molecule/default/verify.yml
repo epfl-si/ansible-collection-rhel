@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: journald
+  hosts: molecule
   tasks:
 
     - name: Check that option get line uncommented and set
