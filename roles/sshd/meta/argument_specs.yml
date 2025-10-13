@@ -1,0 +1,20 @@
+---
+
+argument_specs:
+  # roles/sshd/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the sshd role.
+    options:
+      sshd_exclusive_config:
+        type: "bool"
+        default: "false"
+        description: >-
+          If set to True, the role will erase any files from the drop-in
+          folder /etc/ssh/ssdh_config.d/ not specified in the sshd_configs list.
+      sshd_configs:
+        type: "list"
+        elements: "dict"
+        description: >-
+          A list of dictionary to specify the filename and the content to write
+          in the drop-in folder. For instance: [{name: 01-level.conf, content: 'option logLevel VERBOSE'},{...}]
+        required: true
