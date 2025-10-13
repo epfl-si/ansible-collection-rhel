@@ -1,2 +1,2 @@
 ---
-sshd_permit_root_login: false
+sshd_exclusive_config: false

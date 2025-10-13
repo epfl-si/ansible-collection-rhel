@@ -40,3 +40,8 @@ Author Information
 ------------------
 
 laurent.indermuehle@epfl.ch
+
+
+## TODO
+LogLevel VERBOSE           # INFO by default, VERBOSE gives more details, like key line in ~/.ssh/authorized_keys used.
+PasswordAuthentication no  # disable password authentication for security reasons
