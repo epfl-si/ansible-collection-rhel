@@ -9,14 +9,11 @@
       loop: "{{ groups['molecule'] }}"
       register: podman_infos
 
-    - name: Kill container if running
+    - name: Kill and remove containers
       containers.podman.podman_container:
         name: "{{ item.item }}"
-        state: stopped
+        state: absent
         timeout: 2
       loop: "{{ podman_infos.results }}"
       loop_control:
         label: "{{ item.item }}"
-      when:
-        - item.containers | length > 0
-        - item.containers[0].State.Status == "running"
