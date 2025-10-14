@@ -2,8 +2,6 @@
 
 - name: Converge
   hosts: molecule
-  vars:
-    ansible_user: cmadm
   roles:
 
     - role: epfl_si.rhel.firewalld

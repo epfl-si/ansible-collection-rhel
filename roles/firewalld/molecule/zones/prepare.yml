@@ -1,5 +1,4 @@
 ---
-
 - name: Prepare
   hosts: molecule
   gather_facts: false
@@ -24,7 +23,6 @@
           - iputils  # For debugging
           - openssh  # For ssh-keygen command
           - openssh-server
-          - xinetd
         state: present
 
     - name: Prepare - Unmask systemd-logind.service
@@ -32,35 +30,17 @@
         name: systemd-logind.service
         masked: false
 
-    # In ubi8 we are always root. This doesn't reflect a real world
-    # scenario when ssh connections to root are forbidden. To help
-    # us see when a task need the become directive, we will connect
-    # to this unprivileged user.
-    - name: Prepare - Create ansible user
-      ansible.builtin.user:
-        name: cmadm
-        state: present
-
-    - name: Prepare - Allow ansible to sudo without password
-      ansible.builtin.copy:
-        content: "cmadm ALL=(ALL) NOPASSWD: ALL"
-        dest: /etc/sudoers.d/10-cmadm
-        validate: /usr/sbin/visudo -csf %s
+    - name: Prepare - Ensure .ssh folder exists
+      ansible.builtin.file:
+        path: /root/.ssh
+        state: directory
         owner: root
         group: root
-        mode: '0644'
+        mode: '0700'
 
     - name: Prepare - Prepare ssh keys on zone2
       when: inventory_hostname == "zone2"
       block:
-
-        - name: Prepare - Zone2 - Ensure .ssh folder exists
-          ansible.builtin.file:
-            path: /root/.ssh
-            state: directory
-            owner: root
-            group: root
-            mode: '0700'
 
         - name: Prepare - Zone2 - Create ssh keys pair
           ansible.builtin.copy:
@@ -82,69 +62,122 @@
       block:
 
         - name: Prepare - Zone1 - Paste zone2's public key in authorized_key file
-          ansible.builtin.lineinfile:
-            line: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6mY5oaJZbBMy6DJiAZsdVAbZaZqQvztntnIpN1dopw zone2
-            path: /root/.ssh/authorized_keys
-            state: present
-
-        - name: Prepare - Zone1 - Ensure SSHD server service is running
-          ansible.builtin.service:
-            daemon_reload: true
-            enabled: true
-            name: sshd.service
-            state: started
-
-        - name: Prepare - Zone1 - Configure xinetd for port 3306
-          ansible.builtin.copy:  # noqa risky-file-permissions
+          ansible.builtin.copy:
             content: |
-              service mysqld
-              {
-                id          = fake-mysqld
-                type        = UNLISTED
-                wait        = no
-                socket_type = stream
-                protocol    = tcp
-                port        = 3306
-                user        = root
-                server      = /usr/sbin/sshd
-              }
-            dest: /etc/xinetd.d/mysqld
+              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP6mY5oaJZbBMy6DJiAZsdVAbZaZqQvztntnIpN1dopw zone2
+            dest: /root/.ssh/authorized_keys
+            owner: root
+            group: root
+            mode: '0400'
+
+        - name: Prepare - Zone1 - Configure systemd socket for 3306
+          ansible.builtin.copy:
+            content: |
+              [Unit]
+              Description=Fake MySQLD Socket
+
+              [Socket]
+              ListenStream=3306
+              Accept=yes
+
+              [Install]
+              WantedBy=sockets.target
+            dest: /etc/systemd/system/mysqld0.socket
+            owner: root
+            group: root
+            mode: '0700'
+
+        - name: Prepare - Zone1 - Configure systemd socket for 33001
+          ansible.builtin.copy:
+            content: |
+              [Unit]
+              Description=Fake MySQLD Socket 33001
+
+              [Socket]
+              ListenStream=33001
+              Accept=yes
+
+              [Install]
+              WantedBy=sockets.target
+            dest: /etc/systemd/system/mysqld1.socket
+            owner: root
+            group: root
+            mode: '0700'
+
+        - name: Prepare - Zone1 - Configure systemd socket for 33002
+          ansible.builtin.copy:
+            content: |
+              [Unit]
+              Description=Fake MySQLD Socket 33002
+
+              [Socket]
+              ListenStream=33002
+              Accept=yes
+
+              [Install]
+              WantedBy=sockets.target
+            dest: /etc/systemd/system/mysqld2.socket
+            owner: root
+            group: root
+            mode: '0700'
 
         # Use sshd as a fake server since we installed it earlier
-        - name: Prepare - Zone1 - Configure xinetd for port 33001
-          ansible.builtin.copy:  # noqa risky-file-permissions
+        - name: Prepare - Zone1 - Configure systemd service fake MariaDB 3306
+          ansible.builtin.copy:
             content: |
-              service mysqld
-              {
-                id          = fake-mysqld1
-                type        = UNLISTED
-                wait        = no
-                socket_type = stream
-                protocol    = tcp
-                port        = 33001
-                user        = root
-                server      = /usr/sbin/sshd
-              }
-            dest: /etc/xinetd.d/mysqld1
+              [Unit]
+              Description=Fake MySQLD 3306
 
-        - name: Prepare - Zone1 - Configure xinetd for port 33002
-          ansible.builtin.copy:  # noqa risky-file-permissions
+              [Service]
+              ExecStart=-/usr/sbin/sshd    # the binary to start
+              User=root
+              Group=root
+              StandardInput=socket
+            owner: root
+            group: root
+            mode: '0700'
+            dest: /etc/systemd/system/mysqld0@.service
+
+        - name: Prepare - Zone1 - Configure systemd service fake MariaDB 33001
+          ansible.builtin.copy:
             content: |
-              service mysqld
-              {
-                id          = fake-mysqld2
-                type        = UNLISTED
-                wait        = no
-                socket_type = stream
-                protocol    = tcp
-                port        = 33002
-                user        = root
-                server      = /usr/sbin/sshd
-              }
-            dest: /etc/xinetd.d/mysqld2
+              [Unit]
+              Description=Fake MySQLD 33001
 
-        - name: Prepare - Zone1 - Enable xinetd
+              [Service]
+              ExecStart=-/usr/sbin/sshd    # the binary to start
+              User=root
+              Group=root
+              StandardInput=socket
+            owner: root
+            group: root
+            mode: '0700'
+            dest: /etc/systemd/system/mysqld1@.service
+
+        - name: Prepare - Zone1 - Configure systemd service fake MariaDB 33002
+          ansible.builtin.copy:
+            content: |
+              [Unit]
+              Description=Fake MySQLD 33002
+
+              [Service]
+              ExecStart=-/usr/sbin/sshd    # the binary to start
+              User=root
+              Group=root
+              StandardInput=socket
+            owner: root
+            group: root
+            mode: '0700'
+            dest: /etc/systemd/system/mysqld2@.service
+
+        - name: Prepare - Zone1 - Enable and start all fakes MySQLd
           ansible.builtin.systemd:
-            name: xinetd
-            state: restarted
+            daemon_reload: true
+            name: "{{ item }}"
+            state: started
             enabled: true
+          loop:
+            - sshd.service
+            - mysqld0.socket
+            - mysqld1.socket
+            - mysqld2.socket
