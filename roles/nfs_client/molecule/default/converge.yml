@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: molecule
+  hosts: nfs_clients
   vars:
     nfs_client_share:
       "{{ hostvars['nfs_client_test_server_el8']['ansible_default_ipv4']['address'] }}\

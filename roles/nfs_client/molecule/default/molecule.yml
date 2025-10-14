@@ -4,15 +4,17 @@ ansible:
   cfg:
     defaults:
       deprecation_warnings: false
+      fact_caching: jsonfile
+      fact_caching_connection: ${MOLECULE_SCENARIO_DIRECTORY}/fact_cache
   executor:
     args:
       ansible_playbook:
         - --inventory=inventory/
   playbooks:
-    create: ../../../../molecule/playbooks/create.yml
+    create: create.yml
     create-fail: ../../../../molecule/playbooks/create-fail.yml
     cleanup: ../../../../molecule/playbooks/cleanup.yml
-    destroy: ../../../../molecule/playbooks/destroy.yml
+    destroy: destroy.yml
 
 dependency:
   name: galaxy

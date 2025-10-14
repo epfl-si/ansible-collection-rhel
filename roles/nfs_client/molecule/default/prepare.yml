@@ -4,7 +4,7 @@
   gather_facts: true
 
 - name: Prepare
-  hosts: nfs_client_test_server_el8
+  hosts: nfs_servers
   gather_facts: false
   vars:
     nfs_server_exports:
@@ -29,5 +29,5 @@
     # If the error exportfs: /var/nfs/nfs_client does not support NFS export
     # araise, is certainly because another container is running a nfs_server
     # on the same host.
-    - role: nfs_server
+    - role: epfl_si.rhel.nfs_server
 ...

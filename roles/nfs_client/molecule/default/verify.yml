@@ -1,9 +1,7 @@
 ---
 
 - name: Verify
-  hosts:
-    - nfs_client_el8
-    # - nfs_client_el9
+  hosts: nfs_clients
   gather_facts: false
   tasks:
 

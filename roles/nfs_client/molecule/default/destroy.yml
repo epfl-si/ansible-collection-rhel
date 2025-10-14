@@ -1,0 +1,24 @@
+---
+- name: Destroy container instances
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get info for all containers
+      containers.podman.podman_container_info:
+        name: "{{ item }}"
+      loop: "{{ groups['molecule'] }}"
+      register: podman_infos
+
+    - name: Kill and remove containers
+      containers.podman.podman_container:
+        name: "{{ item.item }}"
+        state: absent
+        timeout: 2
+      loop: "{{ podman_infos.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Delete container network
+      containers.podman.podman_network:
+        name: molecule-firewall-zone-test
+        state: absent
