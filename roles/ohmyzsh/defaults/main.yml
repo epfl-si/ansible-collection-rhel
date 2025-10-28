@@ -1,6 +1,10 @@
 ---
 # defaults file for ohmyzsh
 
+ohmyzsh_repo_url: https://github.com/ohmyzsh/ohmyzsh.git
+ohmyzsh_plugin_autosuggestions_repo_url: https://github.com/zsh-users/zsh-autosuggestions.git
+ohmyzsh_plugin_completions_repo_url: https://github.com/zsh-users/zsh-completions.git
+ohmyzsh_plugin_syntax_highlighting_repo_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
 ohmyzsh_theme: robbyrussell
 ohmyzsh_plugins:
   - z

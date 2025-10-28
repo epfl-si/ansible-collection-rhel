@@ -33,7 +33,7 @@
       && git config receive.fsck.zeroPaddedFilemode ignore
       && git config oh-my-zsh.remote origin
       && git config oh-my-zsh.branch master
-      && git remote add origin https://github.com/ohmyzsh/ohmyzsh.git
+      && git remote add origin {{ ohmyzsh_repo_url }}
       && git fetch --depth=1 origin
       && git checkout -b master origin/master
     creates: ~/.oh-my-zsh/.git
@@ -48,11 +48,11 @@
     update: false
   loop:
     - dest: zsh-autosuggestions
-      repo: https://github.com/zsh-users/zsh-autosuggestions.git
+      repo: "{{ ohmyzsh_plugin_autosuggestions_repo_url }}"
     - dest: zsh-completions
-      repo: https://github.com/zsh-users/zsh-completions.git
+      repo: "{{ ohmyzsh_plugin_completions_repo_url }}"
     - dest: zsh-syntax-highlighting
-      repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      repo: "{{ ohmyzsh_plugin_syntax_highlighting_repo_url }}"
 
 - name: Install mh-hostname custom theme
   become: true
