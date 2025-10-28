@@ -123,7 +123,8 @@ ATM, no automation, everything is done from your computer. To find your token, g
 1. `antsibull-changelog release --version <ver>`
 1. `git add .`
 1. `git commit -m "Release version <ver>"`
-1. `git tag <ver>`
+1. `git tag -n`
+1. `git tag <ver> -m "Release version <ver>"`
 1. `ansible-galaxy collection build`
 1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --token=<token>`
 1. `rm ./epfl_si-rhel-<ver>.tar.gz`
