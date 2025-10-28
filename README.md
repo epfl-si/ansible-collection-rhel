@@ -117,7 +117,8 @@ molecule login -s <scenario> -h <node-name>
 ATM, no automation, everything is done from your computer. To find your token, go to [https://galaxy.ansible.com/me/preferences](https://galaxy.ansible.com/me/preferences)
 
 1. Bump the version in `galaxy.yml`
-1. `source ~/python-venv/ansible-8.1.0/bin/activate`
+1. Add a new file in `changelogs/fragments/release_<ver>.yaml` to list the changes.
+1. `python3 -m pip install --user --force-reinstall antsibull-changelog`
 1. `antsibull-changelog lint`
 1. `antsibull-changelog release --version <ver>`
 1. `git add .`

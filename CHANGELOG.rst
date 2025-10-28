@@ -4,6 +4,19 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v3.2.0
+======
+
+Release Summary
+---------------
+
+This is a minor release that contains a new feature in the OhMyZsh role.
+
+Minor Changes
+-------------
+
+- ohmyzsh - Added costomizable GIT repo URLs for OhMyZsh and the 3 plugins.
+
 v3.1.0
 ======
 

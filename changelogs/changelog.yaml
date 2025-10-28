@@ -470,3 +470,12 @@ releases:
     fragments:
     - awscli_zip_url.yml
     release_date: '2025-08-04'
+  3.2.0:
+    changes:
+      minor_changes:
+      - ohmyzsh - Added costomizable GIT repo URLs for OhMyZsh and the 3 plugins.
+      release_summary: This is a minor release that contains a new feature in the
+        OhMyZsh role.
+    fragments:
+    - release_3.2.0.yaml
+    release_date: '2025-10-28'
