@@ -9,11 +9,8 @@
   vars:
     nfs_server_exports:
       - "/var/nfs/nfs_client \
-        {{ hostvars['nfs_client_el8']['ansible_default_ipv4']['address'] }}\
+        {{ hostvars['nfs_client_el9']['ansible_default_ipv4']['address'] }}\
         (ro)"
-      # - "/var/nfs/nfs_client \
-      #   {{ hostvars['nfs_client_el9']['ansible_default_ipv4']['address'] }}\
-      #   (ro)"
   pre_tasks:
 
     - name: Prepare the shared folder

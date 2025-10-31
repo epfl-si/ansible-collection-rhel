@@ -20,5 +20,5 @@
 
     - name: Delete container network
       containers.podman.podman_network:
-        name: molecule-firewall-zone-test
+        name: molecule-nfs-client-test
         state: absent

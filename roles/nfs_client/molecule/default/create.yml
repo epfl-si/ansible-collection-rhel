@@ -6,7 +6,7 @@
 
     - name: Create container network
       containers.podman.podman_network:
-        name: molecule-firewall-zone-test
+        name: molecule-nfs-client-test
         state: present
 
     - name: Create containers from inventory
@@ -23,7 +23,7 @@
         security_opt: "{{ hostvars[item]['container_security_opts'] | default(omit) }}"
         state: started
         network:
-          - molecule-firewall-zone-test
+          -  molecule-nfs-client-test
       register: result
       loop: "{{ groups['molecule'] }}"
 
