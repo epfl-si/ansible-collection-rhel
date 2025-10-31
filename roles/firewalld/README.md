@@ -1,6 +1,9 @@
 Role Firewalld
 ==============
 
+Deprectation notice. This role is untested and unmaintained since October 2025. We recommand you to use https://github.com/linux-system-roles/firewall instead.
+It will remove from this collection in v4.
+
 A role to manage firewalld. It allow to create new zone and adding sources, ports, services and interfaces to zones.
 
 All resources can be deleted using a `state: disabled` argument. The only exception is the zones created by this role.

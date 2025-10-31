@@ -1,8 +1,0 @@
----
-
-firewalld_zones:
-  public:
-    interface:
-      - name:
-          "{{ hostvars[inventory_hostname]
-          ['ansible_default_ipv4']['interface'] }}"

@@ -1,7 +1,0 @@
----
-
-- name: Converge
-  hosts: iptables
-  roles:
-
-    - role: firewalld
