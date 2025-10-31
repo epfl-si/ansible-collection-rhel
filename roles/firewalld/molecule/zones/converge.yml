@@ -1,8 +1,0 @@
----
-
-- name: Converge
-  hosts: molecule
-  roles:
-
-    - role: epfl_si.rhel.firewalld
-      when: inventory_hostname == "zone1"
