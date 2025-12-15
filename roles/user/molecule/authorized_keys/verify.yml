@@ -70,7 +70,8 @@
 
     - name: Assert that user_deletion's key E2 is absent from authorized_keys
       ansible.builtin.copy:  # noqa risky-file-permissions
-        content: ssh-rsa E1 user_deletion1@example.com
+        content: |
+          ssh-rsa E1 user_deletion1@example.com
         dest: /home/user_deletion/.ssh/authorized_keys
       check_mode: true
       register: user_deletion_authorized_keys
