@@ -21,6 +21,14 @@
         - user_with_tpm
         - user_options
 
+    - name: Install requirements
+      ansible.builtin.package:
+        name:
+          - tmux
+          - git
+          - sudo # for become
+        state: present
+
     - name: Allow ansible to sudo without password
       ansible.builtin.copy:
         content: "cmadm ALL=(ALL) NOPASSWD: ALL"
@@ -29,10 +37,3 @@
         owner: root
         group: root
         mode: '0644'
-
-    - name: Install requirements
-      ansible.builtin.package:
-        name:
-          - tmux
-          - git
-        state: present
