@@ -20,7 +20,7 @@
         capabilities: "{{ hostvars[item]['container_capabilities'] | default(omit) }}"
         systemd: "{{ hostvars[item]['container_systemd'] | default(false) }}"
         log_driver: "{{ hostvars[item]['container_log_driver'] | default('json-file') }}"
-        security_opt: "{{ hostvars[item]['container_security_opts'] | default(omit) }}"
+        security_opt: "{{ hostvars[item]['container_security_opt'] | default(omit) }}"
         state: started
         network:
           -  molecule-nfs-client-test
