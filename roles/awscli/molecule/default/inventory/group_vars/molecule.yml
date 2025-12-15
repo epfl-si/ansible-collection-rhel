@@ -31,3 +31,17 @@ awscli_users_profiles:
       - name: profile2
         access_key: "{{ aws_credentials['profile2'].access_key_ro }}"
         secret_key: "{{ aws_credentials['profile2'].secret_key_ro }}"
+
+  - awscli_user: john
+    awscli_default_s3_multipart_chunksize: 64MB
+    awscli_profiles:
+      - name: profile1
+        default: true
+        access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
+      - name: profile2
+        access_key: "{{ aws_credentials['profile2'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile2'].secret_key_rw }}"
+      - name: profile3
+        access_key: a_fake_key
+        secret_key: a_fake_secret
