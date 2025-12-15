@@ -24,11 +24,11 @@
         that:
           - "'syslogfacility AUTHPRIV' in sshd_config.stdout"
           - "'loglevel VERBOSE' in sshd_config.stdout"
-          - "'Passwordauthentication no' in sshd_config.stdout"
+          - "'passwordauthentication no' in sshd_config.stdout"
 
     - name: Assert that 2nd set of custom settings are in final configuration
       ansible.builtin.assert:
         that:
           - "'maxstartups 400:30:1000' in sshd_config.stdout"
       when:
-        - ansible_hostname == sshd_el9
+        - inventory_hostname == "sshd_el9"
