@@ -2,7 +2,6 @@
 # handlers file for nfs_server
 
 - name: Reload nfs exports
-  become: true
   ansible.builtin.command:
     cmd: exportfs -a
   changed_when: true

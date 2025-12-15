@@ -10,8 +10,8 @@
     nfs_client_mount_point_owner: "0"
     nfs_client_mount_point_group: "0"
     nfs_client_mount_options: "ro"
-  roles:
+  tasks:
 
     - name: Install and configure NFS client
-      become: true
-      role: epfl_si.rhel.nfs_client
+      ansible.builtin.import_role:
+        name: epfl_si.rhel.nfs_client

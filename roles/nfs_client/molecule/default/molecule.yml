@@ -1,4 +1,6 @@
 ---
+# These tests must be run as root. Rootless counter wouldn't be able to mount
+# nfsd, even as privileged and with SeLinux disabled.
 
 ansible:
   cfg:
