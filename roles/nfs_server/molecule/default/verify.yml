@@ -18,6 +18,5 @@
         port: 2049
         timeout: 5
       loop:
-        - "{{ hostvars['nfs_server_el8']['ansible_default_ipv4']['address'] }}"
-        # - "{{ hostvars['nfs_server_el9']['ansible_default_ipv4']['address'] }}"
+        - "{{ hostvars['nfs_server_el9']['ansible_default_ipv4']['address'] }}"
 ...
