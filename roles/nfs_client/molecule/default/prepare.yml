@@ -8,12 +8,10 @@
   gather_facts: false
   vars:
     nfs_server_exports:
-      - "/var/nfs/nfs_client \
-        {{ hostvars['nfs_client_el9']['ansible_default_ipv4']['address'] }}\
-        (ro)"
+      - "/var/nfs/nfs_client *(ro)"
   tasks:
 
-    - name: Prepare the shared folder
+    - name: Prepare - Mount point directory
       ansible.builtin.file:
         path: /var/nfs/nfs_client
         state: directory
@@ -21,7 +19,21 @@
         group: root
         mode: '0755'
 
-  roles:
+    - name: Prepare - Mount tmpfs for NFS export
+      ansible.posix.mount:
+        path: /var/nfs/nfs_client
+        src: tmpfs
+        fstype: tmpfs
+        opts: size=100M
+        state: mounted
+
+    - name: Prepare - shared file
+      ansible.builtin.copy:
+        dest: /var/nfs/nfs_client/test.txt
+        content: This is a test
+        owner: root
+        group: root
+        mode: '0644'
 
     # If the error exportfs: /var/nfs/nfs_client does not support NFS export
     # araise, is certainly because another container is running a nfs_server

@@ -4,11 +4,18 @@
   gather_facts: false
   tasks:
 
-    - name: Prepare the shared folder
+    - name: Prepare - Mount point directory
       ansible.builtin.file:
         path: /var/nfs/nfs_server
         state: directory
         owner: root
         group: root
         mode: '0755'
-...
+
+    - name: Prepare - Mount tmpfs for NFS export
+      ansible.posix.mount:
+        path: /var/nfs/nfs_server
+        src: tmpfs
+        fstype: tmpfs
+        opts: size=100M
+        state: mounted
