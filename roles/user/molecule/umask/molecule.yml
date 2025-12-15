@@ -9,6 +9,7 @@ ansible:
       ansible_playbook:
         - --inventory=inventory/
   playbooks:
+    prepare: ../default/prepare.yml
     create: ../../../../molecule/playbooks/create.yml
     create-fail: ../../../../molecule/playbooks/create-fail.yml
     cleanup: ../../../../molecule/playbooks/cleanup.yml
