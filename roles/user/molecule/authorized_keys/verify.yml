@@ -60,7 +60,7 @@
 
     - name: Delete a keys from user_deletion authorized_keys
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_deletion
         user_authorized_keys_exclusive: true
@@ -82,7 +82,7 @@
 
     - name: Delete a keys from user_empty authorized_keys
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_empty
         user_authorized_keys_exclusive: true
@@ -106,7 +106,7 @@
 
     - name: Enforce role on ZSH user
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_zsh
         user_authorized_keys_exclusive: true
