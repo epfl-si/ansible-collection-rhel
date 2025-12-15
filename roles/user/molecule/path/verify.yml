@@ -70,7 +70,7 @@
 
     - name: Enforce role for user_add_path_zsh
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_add_path_zsh
         user_shell: /bin/zsh
@@ -87,7 +87,7 @@
 
     - name: Enforce role for user_add_path_bash
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_add_path_bash
         user_shell: /bin/bash
