@@ -11,7 +11,7 @@
       register: nfsd_service
       failed_when: nfsd_service is changed
 
-    - name: Test if port 2049 is respond
+    - name: Test if port 2049 is responding
       delegate_to: localhost
       ansible.builtin.wait_for:
         host: "{{ item }}"

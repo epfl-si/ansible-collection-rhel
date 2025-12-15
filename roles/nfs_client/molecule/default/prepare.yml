@@ -11,7 +11,7 @@
       - "/var/nfs/nfs_client \
         {{ hostvars['nfs_client_el9']['ansible_default_ipv4']['address'] }}\
         (ro)"
-  pre_tasks:
+  tasks:
 
     - name: Prepare the shared folder
       ansible.builtin.file:
@@ -26,5 +26,6 @@
     # If the error exportfs: /var/nfs/nfs_client does not support NFS export
     # araise, is certainly because another container is running a nfs_server
     # on the same host.
-    - role: epfl_si.rhel.nfs_server
-...
+    - name: Prepare - Import nfs_server role
+      ansible.builtin.import_role:
+        name: epfl_si.rhel.nfs_server
