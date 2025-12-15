@@ -5,12 +5,6 @@ argument_specs:
   main:
     short_description: The main entry point for the sshd role.
     options:
-      sshd_exclusive_config:
-        type: "bool"
-        default: "false"
-        description: >-
-          If set to True, the role will erase any files from the drop-in
-          folder /etc/ssh/ssdh_config.d/ not specified in the sshd_configs list.
       sshd_configs:
         type: "list"
         elements: "dict"

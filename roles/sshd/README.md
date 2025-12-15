@@ -1,9 +1,7 @@
 Role Name
 =========
 
-Secures SSHD by prohibiting login as root and login using passwords.
-Enables connection auditing since several users log
-in to the same account (sysadm, appadm, ...)
+This role install SSHD and allow to overwrite the default configuration using drop-in configuration files.
 
 Requirements
 ------------
@@ -13,7 +11,7 @@ None
 Role Variables
 --------------
 
-sshd_permit_root_login : Default false
+The role parameters are in meta/argument_specs.yml or use the command `ansible-doc --type role sshd` to read them.
 
 Dependencies
 ------------
@@ -23,13 +21,15 @@ None
 Example Playbook
 ----------------
 
-
-    - hosts: servers
-      tasks:
-         - name: Import sshd role
-           become: true
-           ansible.builtin.import_role:
-             name: epfl_si.rhel.sshd
+```yml
+- name: Playbook
+  hosts: servers
+  tasks:
+      - name: Import sshd role
+        become: true
+        ansible.builtin.import_role:
+          name: epfl_si.rhel.sshd
+```
 
 License
 -------
@@ -40,8 +40,3 @@ Author Information
 ------------------
 
 laurent.indermuehle@epfl.ch
-
-
-## TODO
-LogLevel VERBOSE           # INFO by default, VERBOSE gives more details, like key line in ~/.ssh/authorized_keys used.
-PasswordAuthentication no  # disable password authentication for security reasons
