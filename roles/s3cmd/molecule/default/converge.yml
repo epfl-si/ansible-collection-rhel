@@ -2,6 +2,18 @@
 
 - name: Converge
   hosts: molecule
+  vars:
+    aws_credentials:
+      bucket1:
+        access_key_rw: key1
+        secret_key_rw: secret1
+        access_key_ro: key2
+        secret_key_ro: secret2
+      bucket2:
+        access_key_rw: key3
+        secret_key_rw: secret3
+        access_key_ro: key4
+        secret_key_ro: secret4
   roles:
 
     - role: epfl_si.rhel.s3cmd
