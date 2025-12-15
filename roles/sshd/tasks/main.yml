@@ -20,6 +20,18 @@
     group: root
     mode: '0700'
 
+- name: Ensure drop-in folder is included in main configuration file
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: Include /etc/ssh/sshd_config.d/*.conf
+    insertbefore: BOF # This ensure drop-in file have precedence
+    state: present
+    owner: root
+    group: root
+    mode: '0644'
+    validate: /sbin/sshd -t -f %s
+  notify: Restart sshd
+
 - name: Write the sshd_config drop-in file
   ansible.builtin.copy:
     content: "{{ item.content }}"
