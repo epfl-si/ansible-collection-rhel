@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: s3cmd
+  hosts: molecule
   tasks:
 
     - name: Check bucket 1 config

@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: ohmyzsh
+  hosts: molecule
   gather_facts: false
   become: true
   tasks:

@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: sshd1
+  hosts: molecule
   tasks:
 
     - name: Update services facts

@@ -1,19 +1,20 @@
 ---
 
 - name: Prepare
-  hosts: all
+  hosts: molecule
   gather_facts: false
-  become: true
   tasks:
+
+    - name: Install zsh
+      ansible.builtin.package:
+        name:
+          - sudo # for become
+          - zsh
+        state: present
 
     - name: Prepare ansible user with permission to sudo without password
       ansible.builtin.import_tasks:
         file: ../default/tasks/prepare_ansible_user.yml
-
-    - name: Install zsh
-      ansible.builtin.package:
-        name: zsh
-        state: present
 
     - name: Create mock pre-existing user with SSH keys
       ansible.builtin.user:

@@ -1,51 +1,20 @@
 ---
 
-scenario:
-  name: default
-
-driver:
-  options:
-    managed: false
-    login_cmd_template: "podman exec -ti {instance} bash"
-    ansible_connection_options:
-      ansible_connection: podman
+ansible:
+  cfg:
+    defaults:
+      deprecation_warnings: false
+  executor:
+    args:
+      ansible_playbook:
+        - --inventory=inventory/
+  playbooks:
+    create: ../../../../molecule/playbooks/create.yml
+    create-fail: ../../../../molecule/playbooks/create-fail.yml
+    cleanup: ../../../../molecule/playbooks/cleanup.yml
+    destroy: ../../../../molecule/playbooks/destroy.yml
 
 dependency:
   name: galaxy
   options:
-    requirements-file: molecule/default/requirements.yml
-
-# To access DBUS we must disable selinux labels
-# pre_build_image: means that the container already has Ansible inside
-platforms:
-
-  - name: awscli_el8
-    registry: &registry {url: registry.access.redhat.com}
-    image: ubi8/ubi-init
-    command: &command "/usr/sbin/init"
-    security_opts: &security_opts ['label=disable']
-    groups: ['awscli']
-
-  - name: awscli_el9
-    registry: *registry
-    image: ubi9/ubi-init
-    command: *command
-    security_opts: *security_opts
-    groups: ['awscli']
-
-provisioner:
-  name: ansible
-  log: true
-  config_options:
-    defaults:
-      interpreter_python: auto_silent
-  inventory:
-    link:
-      group_vars: ./group_vars
-  playbooks:
-    create: ../../../../molecule/resources/playbooks/create.yml
-    create-fail: ../../../../molecule/resources/playbooks/create-fail.yml
-    destroy: ../../../../molecule/resources/playbooks/destroy.yml
-
-verifier:
-  name: ansible
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements.yml

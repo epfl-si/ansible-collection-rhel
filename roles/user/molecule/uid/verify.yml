@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: all
+  hosts: molecule
   gather_facts: false
   become: true
   tasks:
@@ -39,7 +39,7 @@
 
     - name: Change user_1014 uid from 1014 to 1015
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_1014
         user_uid: 1015
@@ -54,7 +54,7 @@
 
     - name: Change user_346 uid from 346 to 347
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_346
         user_uid: 347

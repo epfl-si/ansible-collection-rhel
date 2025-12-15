@@ -1,20 +1,16 @@
 ---
 
 - name: Prepare
-  hosts: all
+  hosts: molecule
   gather_facts: false
-  become: true
   tasks:
-
-    # - name: Unmask systemd-logind.service
-    #   ansible.builtin.systemd:
-    #     name: systemd-logind.service
-    #     masked: false
-
-    - name: Prepare ansible user with permission to sudo without password
-      ansible.builtin.import_tasks: tasks/prepare_ansible_user.yml
 
     - name: Install zsh
       ansible.builtin.package:
-        name: zsh
+        name:
+          - sudo # for become
+          - zsh
         state: present
+
+    - name: Prepare ansible user with permission to sudo without password
+      ansible.builtin.import_tasks: tasks/prepare_ansible_user.yml

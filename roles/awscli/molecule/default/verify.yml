@@ -2,7 +2,7 @@
 # This is an example playbook to execute Ansible tests.
 
 - name: Verify
-  hosts: awscli
+  hosts: molecule
   gather_facts: false
   tasks:
 

@@ -24,11 +24,14 @@ Example Playbook
 ```yaml
 ---
 - hosts: servers
-  become: true
-  roles:
-    - role: nfs_client
-      nfs_client_mount_point: /mnt/nfs_share
-      nfs_client_share: nfs-server.example.com:/mnt/shares/user1
+  tasks:
+    - name: Import nfs client role
+      become: true
+      ansible.builtin.import_role:
+        name: epfl_si.rhel.nfs_client
+      vars:
+        nfs_client_mount_point: /mnt/nfs_share
+        nfs_client_share: nfs-server.example.com:/mnt/shares/user1
 ```
 
 License

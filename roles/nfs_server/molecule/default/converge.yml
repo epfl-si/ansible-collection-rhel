@@ -1,7 +1,7 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: molecule
   vars:
     nfs_server_exports:
       - /var/nfs/nfs_server *(ro)
@@ -11,5 +11,5 @@
     # araise, is certainly because another container is running a nfs_server
     # on the same host.
     - name: Install and configure NFS server
-      role: nfs_server
+      role: epfl_si.rhel.nfs_server
 ...

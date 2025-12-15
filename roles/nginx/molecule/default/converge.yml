@@ -1,12 +1,12 @@
 ---
 
 - name: Converge
-  hosts: all
+  hosts: molecule
   vars:
     ansible_user: cmadm
   roles:
 
-    - role: nginx
+    - role: epfl_si.rhel.nginx
       nginx_http: |
         # Logging
         access_log             /var/log/nginx/access.log;

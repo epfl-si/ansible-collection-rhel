@@ -1,19 +1,17 @@
 ---
 
 - name: Converge
-  hosts:
-    - nfs_client_el8
-    # - nfs_client_el9
+  hosts: nfs_clients
   vars:
     nfs_client_share:
-      "{{ hostvars['nfs_client_test_server_el8']['ansible_default_ipv4']['address'] }}\
+      "{{ hostvars['nfs_client_test_server_el9']['ansible_default_ipv4']['address'] }}\
       :/var/nfs/nfs_client"
     nfs_client_mount_point: /mnt/nfs_share_molecule
     nfs_client_mount_point_owner: "0"
     nfs_client_mount_point_group: "0"
     nfs_client_mount_options: "ro"
-  roles:
+  tasks:
 
     - name: Install and configure NFS client
-      become: true
-      role: nfs_client
+      ansible.builtin.import_role:
+        name: epfl_si.rhel.nfs_client

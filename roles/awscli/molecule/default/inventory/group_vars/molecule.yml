@@ -1,0 +1,47 @@
+---
+awscli_default_global_max_attempts: 5
+
+aws_credentials:
+  profile1:
+    access_key_rw: key1
+    secret_key_rw: secret1
+    access_key_ro: key2
+    secret_key_ro: secret2
+  profile2:
+    access_key_rw: key3
+    secret_key_rw: secret3
+    access_key_ro: key4
+    secret_key_ro: secret4
+
+awscli_users_profiles:
+  - awscli_user: root
+    awscli_profiles:
+      - name: profile1
+        default: yes
+        access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
+        max_attempts: 3
+        s3_max_concurrent_requests: 20
+        s3_max_queue_size: 1200
+        s3_multipart_threshold: 128MB
+        s3_multipart_chunksize: 32MB
+        s3_max_bandwidth: 150MB/s
+        s3_use_accelerate_endpoint: true
+        s3_addressing_style: path
+      - name: profile2
+        access_key: "{{ aws_credentials['profile2'].access_key_ro }}"
+        secret_key: "{{ aws_credentials['profile2'].secret_key_ro }}"
+
+  - awscli_user: john
+    awscli_default_s3_multipart_chunksize: 64MB
+    awscli_profiles:
+      - name: profile1
+        default: true
+        access_key: "{{ aws_credentials['profile1'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile1'].secret_key_rw }}"
+      - name: profile2
+        access_key: "{{ aws_credentials['profile2'].access_key_rw }}"
+        secret_key: "{{ aws_credentials['profile2'].secret_key_rw }}"
+      - name: profile3
+        access_key: a_fake_key
+        secret_key: a_fake_secret

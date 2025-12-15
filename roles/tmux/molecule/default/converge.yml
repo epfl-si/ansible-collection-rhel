@@ -1,21 +1,21 @@
 ---
 
 - name: Converge
-  hosts: tmux
+  hosts: molecule
   vars:
     ansible_user: cmadm
   roles:
 
-    - role: tmux
+    - role: epfl_si.rhel.tmux
       become: true
       tmux_user: user_wo_tpm
 
-    - role: tmux
+    - role: epfl_si.rhel.tmux
       become: true
       tmux_user: user_with_tpm
       tmux_with_tpm: true
 
-    - role: tmux
+    - role: epfl_si.rhel.tmux
       become: true
       tmux_user: user_options
       tmux_options:

@@ -1,7 +1,7 @@
 ---
 
 - name: Verify
-  hosts: all
+  hosts: molecule
   gather_facts: false
   become: true
   tasks:
@@ -60,7 +60,7 @@
 
     - name: Delete a keys from user_deletion authorized_keys
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_deletion
         user_authorized_keys_exclusive: true
@@ -70,7 +70,8 @@
 
     - name: Assert that user_deletion's key E2 is absent from authorized_keys
       ansible.builtin.copy:  # noqa risky-file-permissions
-        content: ssh-rsa E1 user_deletion1@example.com
+        content: |
+          ssh-rsa E1 user_deletion1@example.com
         dest: /home/user_deletion/.ssh/authorized_keys
       check_mode: true
       register: user_deletion_authorized_keys
@@ -82,7 +83,7 @@
 
     - name: Delete a keys from user_empty authorized_keys
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_empty
         user_authorized_keys_exclusive: true
@@ -106,7 +107,7 @@
 
     - name: Enforce role on ZSH user
       ansible.builtin.include_role:
-        name: user
+        name: epfl_si.rhel.user
       vars:
         user_name: user_zsh
         user_authorized_keys_exclusive: true

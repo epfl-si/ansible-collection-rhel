@@ -1,7 +1,7 @@
 ---
 
 - name: Prepare
-  hosts: s3cmd
+  hosts: molecule
   tasks:
 
     - name: Prepare - Install packages
