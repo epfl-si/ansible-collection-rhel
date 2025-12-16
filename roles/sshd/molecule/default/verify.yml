@@ -19,20 +19,16 @@
       register: sshd_config
       changed_when: false
 
-    - name: Assert that ssh connection to root is autorized
+    - name: Assert that custom settings are in final configuration
       ansible.builtin.assert:
-        that: "'permitrootlogin yes' in sshd_config.stdout"
-      when:
-        - sshd_permit_root_login is defined
-        - sshd_permit_root_login is truthy
+        that:
+          - "'syslogfacility AUTHPRIV' in sshd_config.stdout"
+          - "'loglevel VERBOSE' in sshd_config.stdout"
+          - "'passwordauthentication no' in sshd_config.stdout"
 
-    - name: Assert that ssh connection to root is forbidden
+    - name: Assert that 2nd set of custom settings are in final configuration
       ansible.builtin.assert:
-        that: "'permitrootlogin no' in sshd_config.stdout"
+        that:
+          - "'maxstartups 400:30:1000' in sshd_config.stdout"
       when:
-        - sshd_permit_root_login is defined
-        - sshd_permit_root_login is falsy
-
-    - name: Assert that connection with password is forbidden
-      ansible.builtin.assert:
-        that: "'passwordauthentication no' in sshd_config.stdout"
+        - inventory_hostname == "sshd_el9"

@@ -2,19 +2,21 @@
 galaxy_info:
   role_name: sshd
   namespace: epfl_si
-  author: Laurent Indermühle
+  author: laurent.indermuehle@epfl.ch
   description: Secures SSHD by prohibiting root and connections
     using password. Enables connection auditing since several users log
     in to the same account (sysadm, appadm, ...)
   company: École Polytechnique Fédérale de Lausanne (EPFL)
   license: MIT
 
-  min_ansible_version: '2.11'
+  min_ansible_version: '2.16'
 
   platforms:
     - name: 'EL'
       versions:
         - '8'
+        - '9'
+        - '10'
 
   galaxy_tags: []
 
