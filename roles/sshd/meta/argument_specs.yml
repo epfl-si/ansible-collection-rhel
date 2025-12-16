@@ -12,3 +12,4 @@ argument_specs:
           A list of dictionary to specify the filename and the content to write
           in the drop-in folder. For instance: [{name: 01-level.conf, content: 'option logLevel VERBOSE'},{...}]
         required: true
+        version_added: '4.0.0'

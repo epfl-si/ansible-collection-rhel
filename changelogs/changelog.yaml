@@ -479,3 +479,17 @@ releases:
     fragments:
     - release_3.2.0.yaml
     release_date: '2025-10-28'
+  4.0.0:
+    changes:
+      breaking_changes:
+      - sshd - role Allow to set any option using drop-in files. Use the guide ``docs/guide-upgrade-3.2-to-4.0.md``
+        to learn how to use the new version.
+      deprecated_features:
+      - role firewall - Is deprecated and will be removed in v5. We recommand you to use https://github.com/linux-system-roles/firewall instead.
+      release_summary: This is a major release that introduced breaking changes in
+        the SSHD role. It also announces that in the next major release, the firewalld
+        role will be removed.
+    fragments:
+    - release_4.0.0.yaml
+    - role-firewall-deprecated.yml
+    release_date: '2025-12-16'

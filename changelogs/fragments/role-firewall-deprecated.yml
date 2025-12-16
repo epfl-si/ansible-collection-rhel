@@ -1,3 +1,0 @@
----
-trivial:
-  - role firewall - Is deprecated and will be removed in v4. We recommand you to use https://github.com/linux-system-roles/firewall instead.

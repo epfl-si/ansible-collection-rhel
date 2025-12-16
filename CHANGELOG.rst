@@ -4,6 +4,19 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.0.0
+======
+
+Release Summary
+---------------
+
+This is a major release that introduced breaking changes in the SSHD role. It also announces that in the next major release, the firewalld role will be removed.
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- sshd - role Allow to set any option using drop-in files. Use the guide ``docs/guide-upgrade-3.2-to-4.0.md`` to learn how to use the new version.
+
 v3.2.0
 ======
 
