@@ -43,5 +43,4 @@ issues: https://github.com/epfl-si/ansible-collection-rhel/issues
 # the relative path of the file or directory of the collection directory. This
 # uses 'fnmatch' to match the files or directories. Some directories and files
 # like 'galaxy.yml', '*.pyc', '*.retry' and '.git' are always filtered
-build_ignore:
-  - sftp-config.json
+build_ignore: []
