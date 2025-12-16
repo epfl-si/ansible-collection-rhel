@@ -29,7 +29,7 @@
   
     ```sh
     sudo -i
-    mv /etc/ssh/sshd_config /etc/ssh/sshd_config.backup-ansible-2025-12-16
-    mv /etc/ssh/sshd_config.rpmnew /etc/ssh/sshd_config
+    cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.backup-ansible-2025-12-16
+    cp -p /etc/ssh/sshd_config.rpmnew /etc/ssh/sshd_config
     systemctl restart sshd.service
     ```
