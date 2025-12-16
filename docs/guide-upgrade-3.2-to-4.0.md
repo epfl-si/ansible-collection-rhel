@@ -5,7 +5,7 @@
 1. Compare your settings with the defaults:
 
     ```sh
-    diff <(sshd -T -f /etc/ssh/sshd_config) <(sshd -T -f /etc/ssh/sshd_config.rpmnew)
+    diff <(sshd -T -f /etc/ssh/sshd_config.rpmnew) <(sshd -T -f /etc/ssh/sshd_config)
     ```
 
 1. Report the settings in green in a the variable: `sshd_configs`.
