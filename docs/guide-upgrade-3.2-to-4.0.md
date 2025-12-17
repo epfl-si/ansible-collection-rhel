@@ -22,7 +22,7 @@
 1. Check for conflict with existing drop-in files. The options precedence is: first declared wins. For instance for RHEL9 you'll find this file:
   
     ```sh
-    cat /etc/ssh/ssh_config.d/05-redhat.conf
+    cat /etc/ssh/sshd_config.d/05-redhat.conf
     ```
 
 1. Restore the default SSHD configuration:
