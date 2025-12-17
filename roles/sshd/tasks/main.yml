@@ -28,7 +28,7 @@
     state: present
     owner: root
     group: root
-    mode: '0644'
+    mode: '0600'
     validate: /sbin/sshd -t -f %s
   notify: Restart sshd
 
