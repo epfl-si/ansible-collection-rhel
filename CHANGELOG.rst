@@ -4,6 +4,20 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.1.0
+======
+
+Release Summary
+---------------
+
+This is a minor release that introduced new features.
+
+Minor Changes
+-------------
+
+- nginx - add configuration of upstreams
+- sshd - Revert ssh_config permissions from 0644 back to 0600.
+
 v4.0.0
 ======
 
@@ -16,6 +30,11 @@ Breaking Changes / Porting Guide
 --------------------------------
 
 - sshd - role Allow to set any option using drop-in files. Use the guide ``docs/guide-upgrade-3.2-to-4.0.md`` to learn how to use the new version.
+
+Deprecated Features
+-------------------
+
+- role firewall - Is deprecated and will be removed in v5. We recommand you to use https://github.com/linux-system-roles/firewall instead.
 
 v3.2.0
 ======
