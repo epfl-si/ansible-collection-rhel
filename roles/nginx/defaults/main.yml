@@ -11,6 +11,7 @@ nginx_http: |
   # Logging
   access_log /var/log/nginx/access.log;
   error_log  /var/log/nginx/error.log warn;
+nginx_upstreams: {}
 nginx_servers:
   - |
     listen 80;

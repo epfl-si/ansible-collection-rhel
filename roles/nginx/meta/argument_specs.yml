@@ -38,6 +38,14 @@ argument_specs:
         description:
           "The content of the `http` section of the configuation file, exept for
           the servers."
+      nginx_upstreams:
+        type: list
+        elements: "dict"
+        description:
+          "A list of `upstreams` that will be added inside the http section
+          of the configuration file. Each element must contains a `name` and
+          a `config` keys."
+        required: false
       nginx_servers:
         type: "list"
         elements: "str"

@@ -32,6 +32,11 @@ Example Playbook
             # Logging
             access_log  /var/log/nginx/access.log;
             error_log   /var/log/nginx/error.log warn;
+          nginx_upstreams:
+            - name: loki
+              config: |
+                server 127.0.0.1:3100;
+                keepalive 15;
           nginx_servers:
             - |
               listen 80;
