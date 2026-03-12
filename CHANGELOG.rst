@@ -4,6 +4,19 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.1.1
+======
+
+Release Summary
+---------------
+
+This is a bugfix release to fix a issue in the nginx role.
+
+Bugfixes
+--------
+
+- nginx - fix incorrect type for the default value of nginx_upstreams
+
 v4.1.0
 ======
 

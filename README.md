@@ -117,13 +117,13 @@ molecule login -s <scenario> -h <node-name>
 ATM, no automation, everything is done from your computer. To find your token, go to [https://galaxy.ansible.com/me/preferences](https://galaxy.ansible.com/me/preferences)
 
 1. Bump the version in `galaxy.yml`
-1. Add a new file in `changelogs/fragments/release_<ver>.yaml` to list the changes.
+1. Add a new file in `changelogs/fragments/release_<ver>.yaml` to add the `release_summary` or any other changes to announce.
 1. `python3 -m pip install --user --force-reinstall antsibull-changelog`
 1. `antsibull-changelog lint`
 1. `antsibull-changelog release --version <ver>`
 1. `git add .`
 1. `git commit -m "Release version <ver>"`
-1. `git tag -n`
+1. `git tag -n|tail`
 1. `git tag <ver> -m "Release version <ver>"`
 1. `ansible-galaxy collection build`
 1. `ansible-galaxy collection publish ./epfl_si-rhel-<ver>.tar.gz --token=<token>`

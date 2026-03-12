@@ -505,3 +505,12 @@ releases:
     - role-nginx-add-upstreams.yml
     - role-sshd-fix-config-perms.yml
     release_date: '2026-03-11'
+  4.1.1:
+    changes:
+      bugfixes:
+      - nginx - fix incorrect type for the default value of nginx_upstreams
+      release_summary: This is a bugfix release to fix a issue in the nginx role.
+    fragments:
+    - nginx-fix-default-upstreams.yml
+    - release_v4.1.1.yml
+    release_date: '2026-03-12'
