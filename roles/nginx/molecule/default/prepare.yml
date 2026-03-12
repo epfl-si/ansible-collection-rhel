@@ -3,34 +3,13 @@
 - name: Prepare
   hosts: molecule
   gather_facts: false
-  vars:
-    ansible_user: root
   tasks:
-
-    # In ubi8 we are always root. This doesn't reflect a real world
-    # scenario when ssh connections to root are forbidden. To help
-    # us see when a task needs the `become` directive, we will connect
-    # to this unprivileged user.
-    - name: Create ansible user
-      ansible.builtin.user:
-        name: cmadm
-        state: present
 
     - name: Install required packages for testing
       ansible.builtin.package:
         name:
-          - sudo  # On RHEL8, will creates /etc/sudoers.d folder
           - nmap-ncat  # To fake a service (backend of the reverse-proxy)
         state: present
-
-    - name: Allow ansible to sudo without password
-      ansible.builtin.copy:
-        content: "cmadm ALL=(ALL) NOPASSWD: ALL"
-        dest: /etc/sudoers.d/10-cmadm
-        validate: /usr/sbin/visudo -csf %s
-        owner: root
-        group: root
-        mode: '0644'
 
     - name: Crate a bash script to run netcat
       ansible.builtin.copy:
