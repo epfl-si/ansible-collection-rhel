@@ -1,0 +1,3 @@
+---
+bugfixes:
+   - nginx - fix incorrect type for the default value of nginx_upstreams
