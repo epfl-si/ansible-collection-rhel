@@ -2,30 +2,21 @@
 # tasks file for ohmyzsh
 
 - name: Ensure dependencies are installed
-  become: true
   ansible.builtin.package:
     name:
       - zsh
       - git
     state: present
 
-- name: Ensure oh-my-zsh folder is present
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
-  ansible.builtin.file:
-    path: ~/.oh-my-zsh
-    state: directory
-    owner: "{{ ohmyzsh_user }}"
-    group: "{{ ohmyzsh_user }}"
-    mode: '0700'
+- name: Include task to get info of {{ ohmyzsh_user }}
+  ansible.builtin.include_tasks: get_user_info.yml
+  # This sets the __ohmyzsh_user_info variable
 
 - name: Init and configure GIT
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
   ansible.builtin.shell:  # noqa command-instead-of-module
     cmd: >
-      git init ~/.oh-my-zsh
-      && cd ~/.oh-my-zsh
+      git init {{ __ohmyzsh_user_info.home }}/.oh-my-zsh
+      && cd {{ __ohmyzsh_user_info.home }}/.oh-my-zsh
       && git config core.eol lf
       && git config core.autocrlf false
       && git config fsck.zeroPaddedFilemode ignore
@@ -36,13 +27,11 @@
       && git remote add origin {{ ohmyzsh_repo_url }}
       && git fetch --depth=1 origin
       && git checkout -b master origin/master
-    creates: ~/.oh-my-zsh/.git
+    creates: "{{ __ohmyzsh_user_info.home }}/.oh-my-zsh/.git"
 
 - name: Install plugins
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
   ansible.builtin.git:  # noqa latest[git]
-    dest: ~/.oh-my-zsh/custom/plugins/{{ item.dest }}
+    dest: "{{ __ohmyzsh_user_info.home }}/.oh-my-zsh/custom/plugins/{{ item.dest }}"
     repo: "{{ item.repo }}"
     depth: 1
     update: false
@@ -55,18 +44,14 @@
       repo: "{{ ohmyzsh_plugin_syntax_highlighting_repo_url }}"
 
 - name: Install mh-hostname custom theme
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
   ansible.builtin.template:
     src: templates/mh-hostname.zsh-theme
-    dest: ~/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme
+    dest: "{{ __ohmyzsh_user_info.home }}/.oh-my-zsh/custom/themes/mh-hostname.zsh-theme"
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
     mode: '0644'
 
 - name: Ensure ~/.common_profile and ~/.z exists
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
   ansible.builtin.file:
     path: "{{ ohmyzsh_necessary_files_item }}"
     state: touch
@@ -76,18 +61,16 @@
     access_time: preserve
     modification_time: preserve
   loop:
-    - ~/.common_profile
-    - ~/.z
+    - "{{ __ohmyzsh_user_info.home }}/.common_profile"
+    - "{{ __ohmyzsh_user_info.home }}/.z"
   loop_control:
     loop_var: ohmyzsh_necessary_files_item
 
 # Must use force because role epfl_si.rhel.user creates an empty .zshrc file
 - name: Create the .zshrc file
-  become: true
-  become_user: "{{ ohmyzsh_user }}"
   ansible.builtin.template:
     src: templates/zshrc.j2
-    dest: ~/.zshrc
+    dest: "{{ __ohmyzsh_user_info.home }}/.zshrc"
     owner: "{{ ohmyzsh_user }}"
     group: "{{ ohmyzsh_user }}"
     mode: '0644'

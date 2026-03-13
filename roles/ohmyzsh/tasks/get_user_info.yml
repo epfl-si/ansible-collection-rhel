@@ -1,0 +1,12 @@
+---
+
+- name: Get informations of {{ ohmyzsh_user }}
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ ohmyzsh_user }}"
+  register: ohmyzsh_user_getent
+
+- name: Set variables for {{ ohmyzsh_user }}
+  ansible.builtin.set_fact:
+    __ohmyzsh_user_info:
+      home: "{{ ohmyzsh_user_getent.ansible_facts.getent_passwd[ohmyzsh_user][4] }}"
