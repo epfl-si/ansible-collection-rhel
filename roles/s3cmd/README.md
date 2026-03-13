@@ -1,6 +1,8 @@
 Role s3cmd
 =========
 
+Deprecated: Use awscli instead. This role will be removed in epfl_si.rhel v5.
+
 Install and configure s3cmd
 
 This role handle multiple buckets configured on the same computer at the same time. The defaults one can be use with `s3cmd` command. The other one must be specified `s3cmd --config=~/.s3cfg-my-secondary-bucket`.

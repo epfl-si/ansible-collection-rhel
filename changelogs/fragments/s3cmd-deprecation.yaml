@@ -1,0 +1,3 @@
+---
+deprecated_features:
+   - s3cmd - This role is deprecated and will be removed in epfl_si.rhel v5. Use awscli instead.

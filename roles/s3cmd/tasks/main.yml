@@ -1,6 +1,10 @@
 ---
 # tasks file for s3cmd
 
+- name: Display deprecation warning
+  ansible.builtin.debug:
+    msg: "epfl_si.rhel.s3cmd is deprecated: Use awscli instead. This role will be removed in epfl_si.rhel v5."
+
 - name: Import tasks to install s3cmd
   ansible.builtin.include_tasks:
     file: install.yml
