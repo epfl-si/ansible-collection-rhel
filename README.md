@@ -43,6 +43,13 @@ Each role has it's own README.md
 
 ## Testing
 
+This collection is tested against:
+- RHEL 8
+- RHEL 9
+- RHEL 10
+
+Currently our CI runs on RHEL9. This makes some tests that needs packages to fails for RHEL8 and RHEL10. We need to install more CI servers or tests agains Centos Stream to avoid licencing issue...
+
 ### Install Ansible Controller
 
 On the controller node, we prefer to use a virtualenv:
