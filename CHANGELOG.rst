@@ -4,6 +4,30 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.2.0
+======
+
+Release Summary
+---------------
+
+This is a minor release that adapted some roles for RHEL 10.
+
+Minor Changes
+-------------
+
+- nginx - Add variables for RHEL10. It is not possible to specify a version to install.
+- ohmyzsh - refactor to not use sudo.
+
+Deprecated Features
+-------------------
+
+- s3cmd - This role is deprecated and will be removed in epfl_si.rhel v5. Use awscli instead.
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- firewalld - The role is now removed from the collection.
+
 v4.1.1
 ======
 

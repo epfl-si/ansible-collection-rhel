@@ -514,3 +514,22 @@ releases:
     - nginx-fix-default-upstreams.yml
     - release_v4.1.1.yml
     release_date: '2026-03-12'
+  4.2.0:
+    changes:
+      deprecated_features:
+      - s3cmd - This role is deprecated and will be removed in epfl_si.rhel v5. Use
+        awscli instead.
+      minor_changes:
+      - nginx - Add variables for RHEL10. It is not possible to specify a version
+        to install.
+      - ohmyzsh - refactor to not use sudo.
+      release_summary: This is a minor release that adapted some roles for RHEL 10.
+      removed_features:
+      - firewalld - The role is now removed from the collection.
+    fragments:
+    - firewalld-deprecated.yml
+    - nginx-rhel10.yaml
+    - ohmyzsh-no-sudo.yml
+    - release_4.2.0.yaml
+    - s3cmd-deprecation.yaml
+    release_date: '2026-03-13'
