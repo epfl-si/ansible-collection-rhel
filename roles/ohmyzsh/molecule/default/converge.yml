@@ -3,8 +3,6 @@
 - name: Converge
   hosts: molecule
   gather_facts: false
-  vars:
-    ansible_user: ansible
   roles:
 
     - role: epfl_si.rhel.ohmyzsh

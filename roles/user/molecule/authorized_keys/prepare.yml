@@ -8,13 +8,8 @@
     - name: Install zsh
       ansible.builtin.package:
         name:
-          - sudo # for become
           - zsh
         state: present
-
-    - name: Prepare ansible user with permission to sudo without password
-      ansible.builtin.import_tasks:
-        file: ../default/tasks/prepare_ansible_user.yml
 
     - name: Create mock pre-existing user with SSH keys
       ansible.builtin.user:

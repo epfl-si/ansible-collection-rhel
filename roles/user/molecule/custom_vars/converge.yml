@@ -3,9 +3,6 @@
 - name: Converge
   hosts: molecule
   gather_facts: false
-  vars:
-    ansible_user: ansible
-  become: true
   roles:
 
     - name: Add a custom var for root

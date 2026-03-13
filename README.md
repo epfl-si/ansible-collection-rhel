@@ -20,7 +20,7 @@ In your playbook repository, add this to the *collections/requirements.yml* file
 ---
 collections:
   - name: epfl_si.rhel
-    version: 2.1.2
+    version: 4.2.0
 ```
 
 Be sure to add the path you want to download collections to is present in your *ansible.cfg* file:
@@ -48,21 +48,20 @@ Each role has it's own README.md
 On the controller node, we prefer to use a virtualenv:
 
 ```bash
-sudo yum install python3.8 python3-virtualenv
-mkdir -p ~/python-venv/ansible-8.1.0
-virtualenv --python=python3.8 ~/python-venv/ansible-8.1.0
-source ~/python-venv/ansible-8.1.0/bin/activate
+sudo yum install python3 python3-virtualenv
+mkdir -p ~/python-venv/ansible
+virtualenv --python=python3 ~/python-venv/ansible
+source ~/python-venv/ansible/bin/activate
 python -m  pip install --upgrade pip
 pip install \
-  ansible==8.1.0 \
+  ansible \
   ansible-lint \
   antsibull-changelog \
   molecule \
   yamllint \
   selinux \
   psutil \
-  argcomplete \
-  boto3
+  argcomplete
 ```
 
 
@@ -70,34 +69,11 @@ pip install \
 
 Tests are done using [Molecule](https://molecule.readthedocs.io) with the Podman driver. Because we wants to test communications between containers using IP address, we [must use rootfull containers](https://www.redhat.com/sysadmin/container-networking-podman).
 
-When writing this, Ansible collections are fairly new and the question about how to update and test roles inside a collection is still discussed by the community. Also, this repository is hosted on GitHub but we only have experience with Gitlab CI. So adaptations could be necessary in the future.
-
-In order to run Systemd services inside Podman, we must mount various volumes, disabling Selinux labeling and add capabilities:
-
-```yaml
----
-platforms:
-  - name: node1
-    registry: {url: registry.access.redhat.com}
-    image: ubi8/ubi-init
-    tmpfs:
-      - /run  # for SystemD
-      - /tmp  # for SystemD
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro  # for SystemD
-    capabilities:
-      - SYS_ADMIN  # for SystemD
-      - NET_ADMIN  # for FirewallD + VIP testing
-    command: "/usr/sbin/init"
-    security_opts:
-      - label=disable  # for SystemD
-```
-
 Each role contains its own tests. To use Molecule:
 
 ```bash
 sudo -i  # Remember, we need rootfull containers
-source ~/python-venv/ansible-8.1.0/bin/activate
+source ~/python-venv/ansible/bin/activate
 cd roles/<name>
 molecule test -s <scenario>
 ```
@@ -106,7 +82,7 @@ If you want a running environement to debug your changes:
 
 ```bash
 sudo -i
-source ~/python-venv/ansible-8.1.0/bin/activate
+source ~/python-venv/ansible/bin/activate
 cd roles/<name>
 molecule converge -s <scenario>
 molecule login -s <scenario> -h <node-name>

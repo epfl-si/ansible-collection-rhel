@@ -31,4 +31,4 @@
         that:
           - "'maxstartups 400:30:1000' in sshd_config.stdout"
       when:
-        - inventory_hostname == "sshd_el9"
+        - inventory_hostname == "sshd_el9" or inventory_hostname == "sshd_el10"

@@ -4,7 +4,6 @@
   tasks:
 
     - name: Include role awscli
-      become: true
       ansible.builtin.include_role:
         name:  epfl_si.rhel.awscli
       vars:
