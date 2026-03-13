@@ -14,6 +14,8 @@ argument_specs:
           ``dnf module list --available``. On RHEL8 it's impossible to
           install something else than Nginx:1.14 because they put it as a
           requirement for the PHP module.
+          On RHEL10, this variable as no effect (module are deprecated and
+          will be removed in a future version of DNF5).
       nginx_user:
         type: "str"
         default: nginx
