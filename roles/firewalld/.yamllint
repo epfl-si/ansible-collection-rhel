@@ -1,8 +1,0 @@
----
-extends: default
-
-rules:
-  truthy:
-    allowed-values: ["yes", "true", "no", "false"]
-  line-length:
-    max: 80
