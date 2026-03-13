@@ -3,9 +3,6 @@
 - name: Converge
   hosts: all
   gather_facts: false
-  vars:
-    ansible_user: ansible
-  become: true
   roles:
 
     - name: Change umask of the root user

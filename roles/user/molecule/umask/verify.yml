@@ -38,7 +38,7 @@
     - name: Assert that user_zsh_0066 umask is 0066
       become_user: user_zsh_0066
       become_method: ansible.builtin.su
-      become_flags: '-s /bin/zsh -l'
+      become_flags: '--shell /bin/zsh --login'
       ansible.builtin.command:
         cmd: umask
       register: user_zsh_0066
