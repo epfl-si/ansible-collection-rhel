@@ -41,7 +41,6 @@ argument_specs:
 
       awscli_user:
         type: str
-        default: ''
         required: true
         description: The linux username where to install the configuration file.
 
