@@ -41,6 +41,7 @@ argument_specs:
 
       awscli_user:
         type: str
+        default: ''
         required: true
         description: The linux username where to install the configuration file.
 
@@ -80,13 +81,11 @@ argument_specs:
 
           access_key:
             type: str
-            default: ''
             required: true
             description: The access_key used to authenticate.
 
           secret_key:
             type: str
-            default: ''
             required: true
             description: The secret_key used to authenticate.
 
