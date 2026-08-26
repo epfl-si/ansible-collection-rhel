@@ -548,3 +548,13 @@ releases:
     - fix_awscli_version.yaml
     - release_v4.3.0.yaml
     release_date: '2026-08-26'
+  4.3.1:
+    changes:
+      bugfixes:
+      - awscli - fix the argument specification that includes mutually exclusive options
+        (default and required)
+      release_summary: Bug fix for awscli role
+    fragments:
+    - fix_awscli_argument_specs.yaml
+    - release_4.3.1.yaml
+    release_date: '2026-08-26'

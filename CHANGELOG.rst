@@ -4,6 +4,19 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.3.1
+======
+
+Release Summary
+---------------
+
+Bug fix for awscli role
+
+Bugfixes
+--------
+
+- awscli - fix the argument specification that includes mutually exclusive options (default and required)
+
 v4.3.0
 ======
 
