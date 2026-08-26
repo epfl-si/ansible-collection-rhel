@@ -1,0 +1,10 @@
+---
+bugfixes:
+  - awscli - Fix wrong version installed if multiple inventories are used.
+    Note that the ZIP will be downloaded on each controlled node with
+    a mismatched version; use a mirror if possible to avoid download issues from
+    Amazon.
+
+minor_changes:
+  - awscli - Removed the option ``awscli_force_installation``. The role now
+    detects the installed version and acts accordingly, and is now idempotent.

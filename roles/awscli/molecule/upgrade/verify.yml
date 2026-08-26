@@ -1,0 +1,14 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: molecule
+  gather_facts: false
+  tasks:
+
+    - name: Assert that version match
+      ansible.builtin.command:
+        cmd: "/usr/local/bin/aws --version"
+      register: awscli_version
+      changed_when: false
+      failed_when: "'aws-cli/2.36.31' not in awscli_version.stdout_lines[0]"

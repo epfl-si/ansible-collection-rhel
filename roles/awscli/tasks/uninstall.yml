@@ -12,3 +12,4 @@
     - "{{ awscli_install_dir }}"
   loop_control:
     loop_var: awscli_intallers_files_item
+    label: "{{ awscli_intallers_files_item }}"

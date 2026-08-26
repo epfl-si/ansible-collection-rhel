@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: molecule
+  tasks:
+
+    - name: Import role awscli
+      ansible.builtin.import_role:
+        name:  epfl_si.rhel.awscli
+      vars:
+        awscli_user: root
+        awscli_version: 2.36.31
+        awscli_profiles:
+          - name: profile1
+            default: yes
+            access_key: key1
+            secret_key: secret1

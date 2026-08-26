@@ -1,0 +1,24 @@
+---
+
+- name: Prepare
+  hosts: molecule
+  tasks:
+
+    - name: Prepare - Install packages
+      ansible.builtin.package:
+        name:
+          - unzip
+          - sudo  # for become
+        state: present
+
+    - name: Prepare - Import role awscli
+      ansible.builtin.import_role:
+        name:  epfl_si.rhel.awscli
+      vars:
+        awscli_user: root
+        awscli_version: 2.36.30
+        awscli_profiles:
+          - name: profile1
+            default: yes
+            access_key: key1
+            secret_key: secret1

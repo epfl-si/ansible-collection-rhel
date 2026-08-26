@@ -1,0 +1,278 @@
+---
+argument_specs:
+  # roles/awscli/tasks/main.yml entry point
+  main:
+    short_description: The main entry point for the awscli role.
+    author: laurent.indermuehle@epfl.ch
+    options:
+      awscli_state:
+        type: str
+        default: present
+        choices:
+          - present
+          - absent
+        description: If state is set to absent, AWS cli will be uninstalled.
+
+      awscli_bin_dir:
+        type: str
+        default: /usr/local/bin
+        description: >-
+          Location of the aws command. Be aware that new user doesn't have this
+          location in their path on RHEL 8.
+
+      awscli_install_dir:
+        type: str
+        default: /usr/local/aws-cli
+        description: Location of the binary files.
+
+      awscli_version:
+        type: str
+        default: 2.36.31
+        description: >-
+          Version number to download. Don't add the v prefix. The release can be
+          found here: https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
+
+      awscli_binary_url:
+        type: str
+        default: https://awscli.amazonaws.com/awscli-exe-linux-x86_64-{{ awscli_version }}.zip
+        description: >-
+          Allow to specify download url to the zip file. Useful if you have a
+          mirror.
+
+      awscli_user:
+        type: str
+        required: true
+        description: The linux username where to install the configuration file.
+
+      awscli_profiles:
+        type: list
+        elements: dict
+        required: true
+        description: >-
+          Contains a list of profiles settings that holds the parameters below.
+          The variables that have the s3_ prefix are documented in the AWS user
+          guide: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+        options:
+          name:
+            type: str
+            required: true
+            description: A friendly name for the profile.
+
+          region:
+            type: str
+            default: eu-west-3
+            description: >-
+              If you have an s3 endpoint that doesn't use region it would be
+              tempting to let this value at an empty string. Doing so will result
+              in all sorts of errors (502 bad gateway notably). For this reason,
+              the role provides a default value of 'eu-west-3' (Europe Paris). For
+              a list of regions, look in the AWS service endpoints documentation:
+              https://docs.aws.amazon.com/general/latest/gr/rande.html
+
+          default:
+            type: bool
+            default: false
+            description: >-
+              One of the profiles should be marked as default. It will then be
+              added to the [default] section of the configuration file. If no
+              profiles are marked as default, the aws command will fail if used
+              without the --profile <name> parameter.
+
+          access_key:
+            type: str
+            default: ''
+            required: true
+            description: The access_key used to authenticate.
+
+          secret_key:
+            type: str
+            default: ''
+            required: true
+            description: The secret_key used to authenticate.
+
+          cli_auto_prompt:
+            type: str
+            default: ''
+            description: Whether to enable the AWS CLI auto-prompt feature.
+
+          cli_binary_format:
+            type: str
+            default: base64
+            description: The format for AWS CLI binary input and output.
+
+          cli_pager:
+            type: str
+            default: ''
+            description: >-
+              To disable the pager, use the value "disabled". AWS CLI expects an
+              empty string to disable the pager, but we already use that value in
+              our Jinja template.
+
+          cli_timestamp_format:
+            type: str
+            default: iso8601
+            description: The format for AWS CLI timestamp output.
+
+          max_attempts:
+            type: str
+            default: '2'
+            description: The maximum number of retries for AWS CLI commands.
+
+          output:
+            type: str
+            default: ''
+            description: The default output format for AWS CLI commands.
+
+          s3_max_concurrent_requests:
+            type: str
+            default: '10'
+            description: The maximum number of concurrent S3 requests.
+
+          s3_max_queue_size:
+            type: str
+            default: '1000'
+            description: The maximum number of tasks in the S3 task queue.
+
+          s3_multipart_threshold:
+            type: str
+            default: 8MB
+            description: The threshold for S3 multipart transfers.
+
+          s3_multipart_chunksize:
+            type: str
+            default: 8MB
+            description: The chunk size for S3 multipart transfers.
+
+          s3_max_bandwidth:
+            type: str
+            default: ''
+            description: The maximum bandwidth for S3 transfers.
+
+          s3_use_accelerate_endpoint:
+            type: bool
+            default: false
+            description: Whether to use the S3 Accelerate endpoint.
+
+          s3_addressing_style:
+            type: str
+            default: auto
+            description: The addressing style to use for S3.
+
+          s3_payload_signing_enabled:
+            type: bool
+            default: false
+            description: Whether to sign the payload of S3 requests.
+
+          s3_use_dualstack_endpoint:
+            type: bool
+            default: false
+            description: Whether to use the S3 dual-stack endpoint.
+
+      awscli_default_global_region:
+        type: str
+        default: eu-west-3
+        description: >-
+          Default value applied to the region of every profile that omits it.
+
+      awscli_default_global_cli_auto_prompt:
+        type: str
+        default: ''
+        description: >-
+          Default value applied to the cli_auto_prompt of every profile that
+          omits it.
+
+      awscli_default_global_cli_binary_format:
+        type: str
+        default: base64
+        description: >-
+          Default value applied to the cli_binary_format of every profile that
+          omits it.
+
+      awscli_default_global_cli_pager:
+        type: str
+        default: ''
+        description: >-
+          Default value applied to the cli_pager of every profile that omits it.
+
+      awscli_default_global_cli_timestamp_format:
+        type: str
+        default: iso8601
+        description: >-
+          Default value applied to the cli_timestamp_format of every profile that
+          omits it.
+
+      awscli_default_global_max_attempts:
+        type: str
+        default: '2'
+        description: >-
+          Default value applied to the max_attempts of every profile that omits
+          it.
+
+      awscli_default_global_output:
+        type: str
+        default: ''
+        description: >-
+          Default value applied to the output of every profile that omits it.
+
+      awscli_default_s3_max_concurrent_requests:
+        type: str
+        default: '10'
+        description: >-
+          Default value applied to the s3_max_concurrent_requests of every
+          profile that omits it.
+
+      awscli_default_s3_max_queue_size:
+        type: str
+        default: '1000'
+        description: >-
+          Default value applied to the s3_max_queue_size of every profile that
+          omits it.
+
+      awscli_default_s3_multipart_threshold:
+        type: str
+        default: 8MB
+        description: >-
+          Default value applied to the s3_multipart_threshold of every profile
+          that omits it.
+
+      awscli_default_s3_multipart_chunksize:
+        type: str
+        default: 8MB
+        description: >-
+          Default value applied to the s3_multipart_chunksize of every profile
+          that omits it.
+
+      awscli_default_s3_max_bandwidth:
+        type: str
+        default: ''
+        description: >-
+          Default value applied to the s3_max_bandwidth of every profile that
+          omits it.
+
+      awscli_default_s3_use_accelerate_endpoint:
+        type: bool
+        default: false
+        description: >-
+          Default value applied to the s3_use_accelerate_endpoint of every
+          profile that omits it.
+
+      awscli_default_s3_addressing_style:
+        type: str
+        default: auto
+        description: >-
+          Default value applied to the s3_addressing_style of every profile that
+          omits it.
+
+      awscli_default_s3_payload_signing_enabled:
+        type: bool
+        default: false
+        description: >-
+          Default value applied to the s3_payload_signing_enabled of every
+          profile that omits it.
+
+      awscli_default_s3_use_dualstack_endpoint:
+        type: bool
+        default: false
+        description: >-
+          Default value applied to the s3_use_dualstack_endpoint of every profile
+          that omits it.
