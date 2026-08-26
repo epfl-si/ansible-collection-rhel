@@ -4,6 +4,24 @@ EPFL\_SI.RHEL Release Notes
 
 .. contents:: Topics
 
+v4.3.0
+======
+
+Release Summary
+---------------
+
+This release fix an issue and enhance the idempotence of the awscli role.
+
+Minor Changes
+-------------
+
+- awscli - Removed the option ``awscli_force_installation``. The role now detects the installed version and acts accordingly, and is now idempotent.
+
+Bugfixes
+--------
+
+- awscli - Fix wrong version installed if multiple inventories are used. Note that the ZIP will be downloaded on each controlled node with a mismatched version; use a mirror if possible to avoid download issues from Amazon.
+
 v4.2.0
 ======
 

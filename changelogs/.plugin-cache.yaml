@@ -1,5 +1,9 @@
 objects:
   role:
+    awscli:
+      description: The main entry point for the awscli role.
+      name: awscli
+      version_added: null
     nfs_client:
       description: The main entry point for the nfs_client role.
       name: nfs_client
@@ -40,4 +44,4 @@ plugins:
   strategy: {}
   test: {}
   vars: {}
-version: 4.2.0
+version: 4.3.0
