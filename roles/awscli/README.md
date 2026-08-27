@@ -88,16 +88,29 @@ Configure the role using role parameters:
           secret_key: "{{ aws_credentials['profile2'].secret_key_rw }}"
 ```
 
-Or if you prefer to use a loop:
+Or if you prefer to use a loop, do use `tasks_from` to avoid installing the
+binary for each profile.
 
 ```yaml
 ---
 - hosts: all
   tasks:
 
-    - name: Include role awscli
+    - name: Import role awscli install
+      ansible.builtin.import_role:
+        name: epfl_si.rhel.awscli
+        tasks_from: install.yml
+      when:
+        - awscli_users_profiles is defined
+        - awscli_users_profiles | length > 0
+      tags: awscli
+
+    - name: Include role awscli configure
       ansible.builtin.include_role:
         name: epfl_si.rhel.awscli
+        tasks_from: configure.yml
+        apply:
+          tags: awscli
       vars:
         awscli_user: "{{ awscli_item.awscli_user }}"
         awscli_default_s3_max_concurrent_requests: '5'
@@ -105,7 +118,11 @@ Or if you prefer to use a loop:
       loop: "{{ awscli_users_profiles }}"
       loop_control:
         loop_var: awscli_item
+      when:
+        - awscli_users_profiles is defined
+        - awscli_users_profiles | length > 0
       tags: awscli
+
 ```
 
 
