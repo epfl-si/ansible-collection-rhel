@@ -1,0 +1,3 @@
+---
+bugfix:
+  - awscli - Fix updates not working when ``awscli_bin_dir`` is set to a none default value.

@@ -2,7 +2,7 @@
 
 - name: Get installed AWS CLI version
   ansible.builtin.command:
-    cmd: /usr/local/bin/aws --version
+    cmd: "{{ awscli_bin_dir }}/aws --version"
   register: _awscli_installed
   changed_when: false
   failed_when: false
